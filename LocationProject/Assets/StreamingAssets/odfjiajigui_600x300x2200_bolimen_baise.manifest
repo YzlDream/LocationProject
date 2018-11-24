@@ -1,0 +1,50 @@
+ManifestFileVersion: 0
+CRC: 374134375
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3e11b14d4bd599ba7107fdb58cbe789a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e70483b45abbef22f4c41835eaa6a9ec
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 817fb2a1a9f10854db8d86fa639f02e7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 04d1b7c9e9a19a24ab67123a43c6544b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 205
+  Script: {instanceID: 0}
+Assets:
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/odfjiajigui_600x300x2200_bolimen_baise.3ds"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/Materials/Grids.mat"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/Materials/Sur_Fr.mat"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/Sur_Fr.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/odfjiajigui_600x300x2200_bolimen_baise.prefab"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/JG600ODF.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/odfjiajigui_600x300x2200_bolimen_baise.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/Grids.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/odfjiajigui_600x300x2200_bolimen_baise/Materials/JG600ODF.mat"
+Dependencies: []
