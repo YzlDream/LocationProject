@@ -1,0 +1,46 @@
+ManifestFileVersion: 0
+CRC: 2406274429
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dcfb152fe1e8a6056464c05a06afb0df
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4ed801e63eea919271ccfbe0e7eac3f6
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 817fb2a1a9f10854db8d86fa639f02e7, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 205
+  Script: {instanceID: 0}
+Assets:
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/jigui_600x1200x2300_wumen_heise/Materials/Sur_Fr2.mat"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/jigui_600x1200x2300_wumen_heise/Sur_Fr.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/jigui_600x1200x2300_wumen_heise/jigui_600x1200x2300_wumen_heise.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/jigui_600x1200x2300_wumen_heise/GridsC.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/jigui_600x1200x2300_wumen_heise/Materials/GridsC.mat"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/jigui_600x1200x2300_wumen_heise/jigui_600x1200x2300_wumen_heise.3ds"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u5C71\u897F\u9879\u76EE/jigui_600x1200x2300_wumen_heise/jigui_600x1200x2300_wumen_heise.prefab"
+Dependencies: []

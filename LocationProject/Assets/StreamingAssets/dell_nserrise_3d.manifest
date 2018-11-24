@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 621345164
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9591aac8c166b9fe9e03f10dceb0d9c0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bc193d49e7d16f71ac778acf3c7bfc27
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- "Assets/AssetBundleResources/JFComponent/Devices/\u670D\u52A1\u5668/Dell_nSerrise_3D/DELLB.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u670D\u52A1\u5668/Dell_nSerrise_3D/Dell_nSerrise_3D.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u670D\u52A1\u5668/Dell_nSerrise_3D/Materials/DELLB.mat"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u670D\u52A1\u5668/Dell_nSerrise_3D/Dell_nSerrise_3D.3DS"
+Dependencies: []

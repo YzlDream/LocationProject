@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 1786637744
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6d75c68a382dc68038d096849a186779
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bc193d49e7d16f71ac778acf3c7bfc27
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- "Assets/AssetBundleResources/JFComponent/Devices/\u65B0\u7586\u52A0\u6CB9\u7AD9/\u7814\u534E_610L_3D/Materials/610L.mat"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u65B0\u7586\u52A0\u6CB9\u7AD9/\u7814\u534E_610L_3D/610L.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u65B0\u7586\u52A0\u6CB9\u7AD9/\u7814\u534E_610L_3D/\u7814\u534E_610L_3D.3DS"
+Dependencies: []
