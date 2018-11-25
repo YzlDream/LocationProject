@@ -39,7 +39,11 @@ Logs_*.txt
 LocationSystem.rar
 Documents
 LocationProject/LocationProject.Editor.csproj
+
 LocationProject/LocationProject.csproj
+
 LocationProject/LocationProject.Editor.Plugins.csproj
+
 LocationProject/LocationProject.Plugins.csproj
+
 LocationProject/LocationProject.sln
