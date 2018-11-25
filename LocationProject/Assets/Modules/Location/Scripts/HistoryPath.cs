@@ -290,7 +290,7 @@ public class HistoryPath : MonoBehaviour {
             Vector3 p2 = vList[1];
 
             float dis = Vector3.Distance(p1, p2);
-            float unit = 2f;
+            float unit = 0.3f;
             float nfloat = dis / unit;//无数据轨迹每隔0.2个单位画一个点
             int n = (int)Math.Round(nfloat, 0) + 1;
             if (n % 2 > 0)
