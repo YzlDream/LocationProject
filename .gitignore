@@ -38,8 +38,3 @@ Logs_*.txt
 # Uncomment if you have tasks that create the
 LocationSystem.rar
 Documents
-LocationProject/LocationProject.csproj
-LocationProject/LocationProject.Editor.csproj
-LocationProject/LocationProject.Editor.Plugins.csproj
-LocationProject/LocationProject.Plugins.csproj
-LocationProject/LocationProject.sln
