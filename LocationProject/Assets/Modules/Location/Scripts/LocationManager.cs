@@ -86,6 +86,8 @@ public class LocationManager : MonoBehaviour
     /// </summary>
     public string RootNodeName = "四会热电厂";
 
+    public List<Archor> archors;
+
     private void Awake()
     {
         Instance = this;
@@ -109,6 +111,17 @@ public class LocationManager : MonoBehaviour
         {
             transparentToggle.onValueChanged.AddListener(TransparentToggle_ValueChanged);
         }
+
+        Loom.StartSingleThread(() =>
+        {
+            archors = CommunicationObject.Instance.GetArchors();
+            //Loom.DispatchToMainThread(() =>
+            //{
+            //    //Debug.LogError("点数：" + positions.Count);
+
+            //});
+        });
+        
 
     }
 
@@ -1223,5 +1236,15 @@ public class LocationManager : MonoBehaviour
             return tagposT.AreaId;
         }
         return null;
+    }
+
+    /// <summary>
+    /// 获取基站根据基站编号
+    /// </summary>
+    public Archor GetArchorByCode(string code)
+    {
+        Archor a = archors.Find((i) => i.Code == code);
+
+        return a;
     }
 }

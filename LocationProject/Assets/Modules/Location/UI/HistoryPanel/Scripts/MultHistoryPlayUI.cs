@@ -190,6 +190,7 @@ public class MultHistoryPlayUI : MonoBehaviour
         if (window.activeInHierarchy)
         {
             FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
+            FunctionSwitchBarManage.Instance.SetlightToggle(true);
             Stop();
             SetWindowActive(false);
             PersonnelTreeManage.Instance.ShowWindow();
@@ -230,6 +231,7 @@ public class MultHistoryPlayUI : MonoBehaviour
             //{
             ShowHistoryData();
             //}
+            FunctionSwitchBarManage.Instance.SetlightToggle(false);
         }
     }
 
@@ -334,6 +336,8 @@ public class MultHistoryPlayUI : MonoBehaviour
                     
                     LocationHistoryPath_M histoyObj = LocationHistoryManager.Instance.ShowLocationHistoryPath_M(p, pointlist, pointlist.Count, colorT);
                     histoyObj.InitData(timeLength, timelist);
+                    HistoryManController historyManController = histoyObj.gameObject.AddComponent<HistoryManController>();
+                    historyManController.Init(colorT);
                     Debug.Log("StartSingleThread2");
                     k++;
                 }
