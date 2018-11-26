@@ -989,20 +989,22 @@ public class LocationObject : MonoBehaviour
 
         archorObjs.Clear();
 
-        foreach (string astr in tagPosInfo.Archors)
+        if (tagPosInfo.Archors != null)
         {
-            Archor a = LocationManager.Instance.GetArchorByCode(astr);
-            if (a == null) continue;
-            int idT = a.DevInfoId;
-            RoomFactory.Instance.GetDevByid(idT, (nodeT)
-                =>
+            foreach (string astr in tagPosInfo.Archors)
             {
-                if (nodeT == null) return;
-                archorObjs.Add(nodeT);
-                nodeT.FlashingOn();
-            });
+                Archor a = LocationManager.Instance.GetArchorByCode(astr);
+                if (a == null) continue;
+                int idT = a.DevInfoId;
+                RoomFactory.Instance.GetDevByid(idT, (nodeT)
+                    =>
+                {
+                    if (nodeT == null) return;
+                    archorObjs.Add(nodeT);
+                    nodeT.FlashingOn();
+                });
+            }
         }
-
     }
 
     /// <summary>

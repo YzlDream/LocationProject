@@ -18,29 +18,29 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://172.16.100.26:8733/LocationService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="http://localhost:8733/LocationService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="9db6d377-c061-4d80-a956-a507937d61d0" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="cddc8f9c-0fae-47a2-ba34-43349addf9f6" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="be384c9e-992a-40cb-9380-a0d55a668673" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Location.TModel.Location.Person.xsd" MetadataType="Schema" ID="7ff57aab-ecf4-4198-a90d-86b8217733a3" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Location.TModel.Location.Data.xsd" MetadataType="Schema" ID="2ff86748-4b55-4481-a793-7b4884924a42" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="ccf7f148-7adc-4315-8803-8ce8e74ef172" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Location.TModel.Location.AreaAndDev.xsd" MetadataType="Schema" ID="4a02394d-9f2c-4958-97ca-d68f6a1cdd65" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="DbModel.Tools.xsd" MetadataType="Schema" ID="5096ad08-0e27-42ae-8c9b-4610389f65dd" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Location.TModel.LocationHistory.Data.xsd" MetadataType="Schema" ID="74ef1ee6-cd65-42db-bfa7-1b1bfaed7768" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.AreaAndDev1.xsd" MetadataType="Schema" ID="53d1429a-99c9-4f23-ae41-0586e77dd0fa" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.LocationHistory.AreaAndDev1.xsd" MetadataType="Schema" ID="ba7babea-5091-4823-9611-9af5ce57f8c7" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.Nodes1.xsd" MetadataType="Schema" ID="23eab759-1823-4915-b43f-e1ac4433faab" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Location.TModel.Location.xsd" MetadataType="Schema" ID="f16ec11a-2b99-4030-bab6-a5b31b993640" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.Person1.xsd" MetadataType="Schema" ID="7518d023-ae13-4e98-8c01-de9c924b71d7" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Location.TModel.FuncArgs.xsd" MetadataType="Schema" ID="edb796cd-5048-4a7b-b295-f37856c8d239" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="Location.TModel.Location.Alarm.xsd" MetadataType="Schema" ID="47b9e19e-bd57-440c-90d1-c6f85108b388" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.BaseData1.xsd" MetadataType="Schema" ID="1dce4d0e-1316-4f22-8578-66252b656d2b" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.Work1.xsd" MetadataType="Schema" ID="2c895f80-3521-4e5c-91ec-ef3399b1ca40" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.LocationHistory.Work1.xsd" MetadataType="Schema" ID="c27047ad-7268-4356-8ca8-675b0af661fa" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.Manage.xsd" MetadataType="Schema" ID="913635cc-c185-45e4-b52a-df6e0163a766" SourceId="1" SourceUrl="http://172.16.100.26:8733/LocationService/mex" />
+    <MetadataFile FileName="service11.wsdl" MetadataType="Wsdl" ID="1c5403f7-150e-4fb5-88cf-1e9329d8c1fb" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="service22.xsd" MetadataType="Schema" ID="5f0c9df9-595e-4835-8b26-9b229c1b9cb7" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="service23.xsd" MetadataType="Schema" ID="3582bb9a-252b-49db-8257-6d1f0027677e" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.Person11.xsd" MetadataType="Schema" ID="79b02017-fbcf-49ee-8633-236331830a8e" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.Data11.xsd" MetadataType="Schema" ID="97572faf-e0fa-4d8a-8b8a-446854b4a264" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Arrays11.xsd" MetadataType="Schema" ID="76c869cc-98c4-4ef6-869c-3aa601f98e68" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.AreaAndDev11.xsd" MetadataType="Schema" ID="3985f043-634a-4a19-bd5a-eaf52b977205" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="DbModel.Tools11.xsd" MetadataType="Schema" ID="c7554860-e7f5-4ac6-bd28-62cae3507b01" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Location.TModel.LocationHistory.Data11.xsd" MetadataType="Schema" ID="5fdf5cc0-94e9-4a7f-aee3-8152e87c242e" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.AreaAndDev1.xsd" MetadataType="Schema" ID="cadc4a7e-3de9-4c55-a25d-3836014866d5" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.LocationHistory.AreaAndDev1.xsd" MetadataType="Schema" ID="9d0a97fb-14fd-4adb-8843-a415302ec74f" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.Nodes1.xsd" MetadataType="Schema" ID="add77795-25ce-4c9c-811c-0f52ded4206c" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Location.TModel.Location11.xsd" MetadataType="Schema" ID="7c81340a-a589-48b9-8713-01e37d94804e" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.Person1.xsd" MetadataType="Schema" ID="92691f93-7643-4714-ba4f-cef3082ac321" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Location.TModel.FuncArgs11.xsd" MetadataType="Schema" ID="298355bc-2766-4ca6-bb30-bbb29162cf9e" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.Alarm11.xsd" MetadataType="Schema" ID="b36535bf-9b34-4efa-8d1d-748c0997a112" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.BaseData1.xsd" MetadataType="Schema" ID="9b9a42d2-065d-4a6d-b858-8b6114443dae" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.Work1.xsd" MetadataType="Schema" ID="ec54454c-a9ea-4d3e-87a8-d3a7238a99af" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.LocationHistory.Work1.xsd" MetadataType="Schema" ID="6829d580-478d-4357-9dc6-a5f5a49a9b59" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.Manage11.xsd" MetadataType="Schema" ID="73c3eba0-0bde-47b0-b12a-0fe9d837e376" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

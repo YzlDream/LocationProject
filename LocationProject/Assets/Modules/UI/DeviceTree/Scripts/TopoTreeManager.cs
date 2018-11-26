@@ -53,7 +53,7 @@ public class TopoTreeManager : MonoBehaviour
     {
         IsTweenInit = true;
         RectTransform rect = transform.GetComponent<RectTransform>();
-        Vector2 endValue = rect.sizeDelta + new Vector2(0,280);
+        Vector2 endValue = rect.sizeDelta - new Vector2(0,280);
         ScaleWindowTween = transform.GetComponent<RectTransform>().DOSizeDelta(endValue,0.3f);
         ScaleWindowTween.SetAutoKill(false);
         ScaleWindowTween.Pause();
@@ -70,11 +70,11 @@ public class TopoTreeManager : MonoBehaviour
         }
         if(isExpand)
         {
-            ScaleWindowTween.OnComplete(ResizeTree).PlayForward();
+            ScaleWindowTween.OnRewind(ResizeTree).PlayBackwards();
         }
         else
         {
-            ScaleWindowTween.OnRewind(ResizeTree).PlayBackwards();
+            ScaleWindowTween.OnComplete(ResizeTree).PlayForward();
         }
     }
     /// <summary>

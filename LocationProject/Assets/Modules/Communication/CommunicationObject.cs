@@ -935,12 +935,33 @@ public class CommunicationObject : MonoBehaviour
             return client.GetNearbyPerson_Currency(Id,distance );
         }
     }
+    /// <summary>
+    /// 人员找附近摄像头
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="distance"></param>
+    /// <param name="nFlag"></param>
+    /// <returns></returns>
    public NearbyDev[] GetNearbyDev_Currency(int id,float distance,int nFlag)
     {
         client = GetClient();
         lock (client)
         {
             return client.GetNearbyDev_Currency(id ,distance , nFlag);
+        }
+    }
+    /// <summary>
+    /// 人员经过门禁
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public EntranceGuardActionInfo[] GetEntranceActionInfoByPerson24Hours(int id)
+    {
+        client = GetClient();
+        lock (client)
+        {
+
+            return client.GetEntranceActionInfoByPerson24Hours(id);
         }
     }
     /// <summary>
