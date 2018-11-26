@@ -168,6 +168,11 @@ public class DeviceEditUIManager : MonoBehaviour
         {
             RoomFactory.Instance.RemoveDevInfo(dev);
         }
+        if(dev is DoorAccessDevController)
+        {
+            DoorAccessDevController doorAccess = dev as DoorAccessDevController;
+            if(doorAccess.DoorItem)doorAccess.DoorItem.RemoveDoorAccess(doorAccess);
+        }
         if(CameraSceneManager.Instance)
         {
             if(CameraSceneManager.Instance.alignCamera.target == dev.gameObject.transform)

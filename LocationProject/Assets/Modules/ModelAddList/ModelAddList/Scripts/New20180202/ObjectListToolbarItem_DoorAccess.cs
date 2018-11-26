@@ -37,6 +37,7 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
     private string TitleObjName = "TitleObj";
     private string ModelPosListName = "ModelPos";
 
+    private string errorMsg = "门禁已经存在，请删除原设备后添加！";
     /// <summary>
     /// 环境是否改变（拖门禁时，高亮所有门）
     /// </summary>
@@ -213,6 +214,7 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
             if(Physics.Raycast(ray,out hit,float.MaxValue))
             {
                 DoorAccessItem item = hit.transform.GetComponent<DoorAccessItem>();
+                if (item == null&&hit.transform.childCount>0) item = hit.transform.GetChild(0).GetComponent<DoorAccessItem>();
                 if (item)
                 {
                     ClearLastDoor();
@@ -261,10 +263,11 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
             }
             else
             {
+                access.DoorItem.CloseAllDoor();
                 List<GameObject> DoorAccess = access.CreateDoorAccess();
                 AddSave(DoorAccess,access.DoorItem.DoorID,access.DoorItem.ParentID);
                 DestroyImmediate(model);
-                ShowParkData();
+              //  ShowParkData();
             }
         }
     }
@@ -290,10 +293,20 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
     {
         List<DevNode> doorList = new List<DevNode>();
         List<Dev_DoorAccess> doorInfos = new List<Dev_DoorAccess>();
+        if(IsDoorAccessAdd(DoorAccessList))
+        {
+            UGUIMessageBox.Show(errorMsg);
+            for(int i=DoorAccessList.Count-1;i>=0;i--)
+            {
+                DestroyImmediate(DoorAccessList[i]);
+            }
+            return;
+        }
         foreach(var door in DoorAccessList)
         {
             DoorAccessDevController controller;
             Dev_DoorAccess doorInfo;
+
             GetDoorAccessData(door,doorID,areaId,out controller,out doorInfo);
             doorList.Add(controller);
             doorInfos.Add(doorInfo);
@@ -310,6 +323,25 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
              
             }
         }
+    }
+    /// <summary>
+    /// 门禁是否已经添加
+    /// </summary>
+    /// <param name="devModel"></param>
+    /// <returns></returns>
+    private bool IsDoorAccessAdd(List<GameObject> DoorAccessList)
+    {
+        if(DoorAccessList!=null&&DoorAccessList.Count>0)
+        {
+            GameObject devModel = DoorAccessList[0];
+            ObjectModel_DoorAccess access = devModel.GetComponent<ObjectModel_DoorAccess>();
+            if (access == null) return true;
+            if (access.DoorItem != null)
+            {
+                if (access.DoorItem.DoorAccessList != null && access.DoorItem.DoorAccessList.Count > 0) return true;
+            }
+        }        
+        return false;
     }
     /// <summary>
     /// 获取门禁所有信息
@@ -510,12 +542,17 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
         devModel.transform.parent = GetDevContainer(node).transform;
         DoorAccessDevController controller = devModel.AddMissingComponent<DoorAccessDevController>();
         controller.Info = devInfo;
+        controller.DevId = devInfo.DevID;
         controller.ParentDepNode = node;
         if(RoomFactory.Instance)
         {
             RoomFactory.Instance.SaveDepDevInfo(node.NodeID,controller);
         }
-        if (access) controller.DoorItem = access.DoorItem;
+        if (access)
+        {
+            controller.DoorItem = access.DoorItem;
+            access.DoorItem.AddDoorAccess(controller);
+        }
         devModel.RemoveComponent<ObjectModel_DoorAccess>();
         return controller;    
     }

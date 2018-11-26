@@ -79,4 +79,21 @@ public class MapFloor : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 添加楼层下房间
+    /// </summary>
+    [ContextMenu("AddChild")]
+    public void AddChildRoom()
+    {
+        foreach(Transform child in transform)
+        {
+            MapRoom room = child.GetComponent<MapRoom>();
+            if(room!=null)
+            {
+                if (RoomList == null) RoomList = new List<MapRoom>();
+                if(!RoomList.Contains(room))RoomList.Add(room);
+            }
+        }
+    }
+
 }

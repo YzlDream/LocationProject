@@ -14,7 +14,7 @@ public class AlarmHub : Hub
     /// </summary>
     public event Action<List<DeviceAlarm>> OnDeviceAlarmRecieved;
     /// <summary>
-    /// 定位告警
+    /// 定位人员告警
     /// </summary>
     public event Action<List<LocationAlarm>> OnLocationAlarmRecieved;
     public AlarmHub()

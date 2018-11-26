@@ -119,6 +119,17 @@ public class DoorAccessItem : MonoBehaviour {
         if (dev == null) DoorAccessList.Add(doorAccess);
     }
     /// <summary>
+    /// 删除门禁
+    /// </summary>
+    /// <param name="doorAccess"></param>
+    public void RemoveDoorAccess(DoorAccessDevController doorAccess)
+    {
+        if(DoorAccessList.Contains(doorAccess))
+        {
+            DoorAccessList.Remove(doorAccess);
+        }
+    }
+    /// <summary>
     /// 初始化
     /// </summary>
     /// <param name="isSingleDoor">是否单门</param>
@@ -303,7 +314,7 @@ public class DoorAccessItem : MonoBehaviour {
     /// <summary>
     /// 关闭所有门
     /// </summary>
-    private void CloseAllDoor()
+    public void CloseAllDoor()
     {
         if (DoorLeft != null) DoorLeft.transform.localEulerAngles = Vector3.zero;
         if (DoorRight != null) DoorRight.transform.localEulerAngles = Vector3.zero;
@@ -615,9 +626,13 @@ public class DoorAccessItem : MonoBehaviour {
         }
     }
     /// <summary>
-    /// 设备到墙面的距离
+    /// 设备高度，以门中心点为基准
     /// </summary>
-    private float DisToWall = 0.06f;
+    private float DoorAccessHeight = 0.1f;
+    /// <summary>
+    /// 设备到墙的距离
+    /// </summary>
+    private float DisToWall = 0.07f;
     /// <summary>
     /// 卷闸门的宽度0.7,超过0.6判定为卷闸门
     /// </summary>
@@ -640,12 +655,12 @@ public class DoorAccessItem : MonoBehaviour {
             Debug.Log(string.Format("{0} MeshRender is null", doorTransform.name));
             return null;
         }
-        Vector3 boundSize = renderT.bounds.size;
-        if (boundSize.x > RollingDoor || boundSize.z > RollingDoor)
-        {
-            Debug.Log("Is rolling door " + doorTransform.name);
-            return null;
-        }
+        //Vector3 boundSize = renderT.bounds.size;
+        //if (boundSize.x > RollingDoor || boundSize.z > RollingDoor)
+        //{
+        //    Debug.Log("Is rolling door " + doorTransform.name);
+        //    return null;
+        //}
         List<GameObject> objList = new List<GameObject>();
         Vector3 sizeT = renderT.bounds.size;
         bool isXRotation;
@@ -663,12 +678,12 @@ public class DoorAccessItem : MonoBehaviour {
             obj.transform.parent = doorTransform;
             obj.transform.localScale = CubeScale;
             obj.transform.localEulerAngles = RightAngleX;
-            obj.transform.localPosition = new Vector3(offset, DisToWall, 0.1f);
+            obj.transform.localPosition = new Vector3(offset, DoorAccessHeight, DisToWall);
 
             obj2.transform.parent = doorTransform;
             obj2.transform.localScale = CubeScale;
             obj2.transform.localEulerAngles = LeftAngleX;
-            obj2.transform.localPosition = new Vector3(-offset, DisToWall, -0.1f);
+            obj2.transform.localPosition = new Vector3(-offset, DoorAccessHeight, -DisToWall);
         }
         else
         {
@@ -676,12 +691,12 @@ public class DoorAccessItem : MonoBehaviour {
             obj.transform.parent = doorTransform;
             obj.transform.localScale = CubeScale;
             obj.transform.localEulerAngles = RightAngleZ;
-            obj.transform.localPosition = new Vector3(-0.1f, DisToWall, offset);
+            obj.transform.localPosition = new Vector3(-DisToWall, DoorAccessHeight, offset);
 
             obj2.transform.parent = doorTransform;
             obj2.transform.localScale = CubeScale;
             obj2.transform.localEulerAngles = LeftAngleZ;
-            obj2.transform.localPosition = new Vector3(0.1f, DisToWall, -offset);
+            obj2.transform.localPosition = new Vector3(DisToWall, DoorAccessHeight, -offset);
         }
         objList.Add(obj);
         objList.Add(obj2);
@@ -738,16 +753,16 @@ public class DoorAccessItem : MonoBehaviour {
             if(IsRollingDoor)
             {
                 float offsetT = (sizeT.x / 2 + 0.1f);
-                Vector3 localPos1 = new Vector3(offsetT, DisToWall, 0.1f);
+                Vector3 localPos1 = new Vector3(offsetT, DoorAccessHeight, DisToWall);
                 SetDoorPos(obj,doorTransform,CubeScale,RightAngleX,localPos1);
-                Vector3 localPos2 = new Vector3(-offsetT,DisToWall,0.1f);
+                Vector3 localPos2 = new Vector3(-offsetT, DoorAccessHeight, DisToWall);
                 SetDoorPos(obj,doorTransform,CubeScale,LeftAngleX,localPos2);
             }
             else
             {
                 float offset = isLeftSide ? -(sizeT.x + 0.1f) : -0.1f;
-                SetDoorPos(obj,doorTransform,CubeScale,RightAngleX, new Vector3(offset, DisToWall, 0.1f));                
-                Vector3 localPos = isLeftSide ? new Vector3(-offset - sizeT.x, 0.16f, -0.1f) : new Vector3(-offset + sizeT.x, 0.16f, -0.1f);
+                SetDoorPos(obj,doorTransform,CubeScale,RightAngleX, new Vector3(offset, DoorAccessHeight, DisToWall));                
+                Vector3 localPos = isLeftSide ? new Vector3(-offset - sizeT.x, DoorAccessHeight, -DisToWall) : new Vector3(-offset + sizeT.x, DoorAccessHeight, -DisToWall);
                 SetDoorPos(obj2, doorTransform, CubeScale, LeftAngleX, localPos);
             }          
         }
@@ -756,17 +771,17 @@ public class DoorAccessItem : MonoBehaviour {
             if (IsRollingDoor)
             {
                 float offsetT = (sizeT.z / 2 + 0.1f);
-                Vector3 localPos1 = new Vector3(-0.1f, DisToWall, offsetT);
+                Vector3 localPos1 = new Vector3(-DisToWall, DoorAccessHeight, offsetT);
                 SetDoorPos(obj, doorTransform, CubeScale, RightAngleX, localPos1);
-                Vector3 localPos2 = new Vector3(0.1f, DisToWall, -offsetT);
+                Vector3 localPos2 = new Vector3(DisToWall, DoorAccessHeight, -offsetT);
                 SetDoorPos(obj, doorTransform, CubeScale, LeftAngleX, localPos2);
             }
             else
             {
                 float offset = isLeftSide ? -(sizeT.z + 0.1f) : -0.1f;
-                Vector3 localPosFirst = new Vector3(-0.1f, DisToWall, offset);
+                Vector3 localPosFirst = new Vector3(-DisToWall, DoorAccessHeight, offset);
                 SetDoorPos(obj, doorTransform, CubeScale, RightAngleZ, localPosFirst);
-                Vector3 localPos = isLeftSide ? new Vector3(0.1f, DisToWall, -offset - sizeT.z) : new Vector3(0.1f, DisToWall, -offset + sizeT.z);
+                Vector3 localPos = isLeftSide ? new Vector3(DisToWall, DoorAccessHeight, -offset - sizeT.z) : new Vector3(0.1f, DisToWall, -offset + sizeT.z);
                 SetDoorPos(obj2, doorTransform, CubeScale, LeftAngleZ, localPos);
             }                 
         }

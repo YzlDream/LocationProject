@@ -586,7 +586,13 @@ namespace Location.WCFServiceReferences.LocationServices {
         private System.Nullable<int> AreaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AreaStateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MoveStateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumberField;
@@ -671,6 +677,19 @@ namespace Location.WCFServiceReferences.LocationServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AreaState {
+            get {
+                return this.AreaStateField;
+            }
+            set {
+                if ((this.AreaStateField.Equals(value) != true)) {
+                    this.AreaStateField = value;
+                    this.RaisePropertyChanged("AreaState");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Flag {
             get {
                 return this.FlagField;
@@ -679,6 +698,19 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((object.ReferenceEquals(this.FlagField, value) != true)) {
                     this.FlagField = value;
                     this.RaisePropertyChanged("Flag");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MoveState {
+            get {
+                return this.MoveStateField;
+            }
+            set {
+                if ((this.MoveStateField.Equals(value) != true)) {
+                    this.MoveStateField = value;
+                    this.RaisePropertyChanged("MoveState");
                 }
             }
         }
@@ -2291,6 +2323,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         范围 = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CAD = 9,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2729,6 +2764,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         private string[] ArchorsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AreaStateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2739,6 +2777,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MoveStateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumberField;
@@ -2791,6 +2832,19 @@ namespace Location.WCFServiceReferences.LocationServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AreaState {
+            get {
+                return this.AreaStateField;
+            }
+            set {
+                if ((this.AreaStateField.Equals(value) != true)) {
+                    this.AreaStateField = value;
+                    this.RaisePropertyChanged("AreaState");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Code {
             get {
                 return this.CodeField;
@@ -2838,6 +2892,19 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MoveState {
+            get {
+                return this.MoveStateField;
+            }
+            set {
+                if ((this.MoveStateField.Equals(value) != true)) {
+                    this.MoveStateField = value;
+                    this.RaisePropertyChanged("MoveState");
                 }
             }
         }
@@ -3948,6 +4015,147 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.idField.Equals(value) != true)) {
                     this.idField = value;
                     this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EntranceGuardActionInfo", Namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class EntranceGuardActionInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AreadIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AreadNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OperateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int nInOutStateField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AreadId {
+            get {
+                return this.AreadIdField;
+            }
+            set {
+                if ((this.AreadIdField.Equals(value) != true)) {
+                    this.AreadIdField = value;
+                    this.RaisePropertyChanged("AreadId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AreadName {
+            get {
+                return this.AreadNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AreadNameField, value) != true)) {
+                    this.AreadNameField = value;
+                    this.RaisePropertyChanged("AreadName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OperateTime {
+            get {
+                return this.OperateTimeField;
+            }
+            set {
+                if ((this.OperateTimeField.Equals(value) != true)) {
+                    this.OperateTimeField = value;
+                    this.RaisePropertyChanged("OperateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int nInOutState {
+            get {
+                return this.nInOutStateField;
+            }
+            set {
+                if ((this.nInOutStateField.Equals(value) != true)) {
+                    this.nInOutStateField = value;
+                    this.RaisePropertyChanged("nInOutState");
                 }
             }
         }
@@ -8969,6 +9177,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm", ReplyAction="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse")]
         Location.WCFServiceReferences.LocationServices.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours", ReplyAction="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24HoursResponse")]
+        Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] GetEntranceActionInfoByPerson24Hours(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse")]
         Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByNodeId(int id);
         
@@ -9366,6 +9577,10 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         public Location.WCFServiceReferences.LocationServices.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis) {
             return base.Channel.GetNearbyCamera_Alarm(id, fDis);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] GetEntranceActionInfoByPerson24Hours(int id) {
+            return base.Channel.GetEntranceActionInfoByPerson24Hours(id);
         }
         
         public Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByNodeId(int id) {
