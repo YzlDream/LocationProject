@@ -970,11 +970,6 @@ public class RoomFactory : MonoBehaviour
         {
             DoorAccessDevController doorController = dev.AddComponent<DoorAccessDevController>();
             Dev_DoorAccess doorAccess = DoorAccessList.Find(i => i.DevID == info.DevID);
-            if(doorAccess==null)
-            {
-                Debug.LogError("DoorAccess not find:"+info.DevID);
-                return;
-            }
             doorController.Info = info;
             doorAccess.DevInfo = info;
             doorController.ParentDepNode = depNode;
@@ -1211,11 +1206,10 @@ public class RoomFactory : MonoBehaviour
         }
     }
     /// <summary>
-    /// 聚焦设备
+    /// 聚焦厂区设备
     /// </summary>
     /// <param name="devID"></param>
-    /// <param name="depId"></param>
-    public void FocusDev(int devID, int depId)
+    public void FocusDev(string devID, int depId)
     {
         if (!DepDevDic.ContainsKey(depId))
         {
@@ -1223,9 +1217,9 @@ public class RoomFactory : MonoBehaviour
             if (dep)
             {
                 FocusNode(dep, () =>
-                {
-                    FocusDev(devID);
-                });
+                 {
+                     FocusDev(devID);
+                 });
             }
             else
             {
@@ -1238,55 +1232,16 @@ public class RoomFactory : MonoBehaviour
         }
     }
     /// <summary>
-    /// 聚焦厂区设备
-    /// </summary>
-    /// <param name="devID"></param>
-    public void FocusDev(string Local_DevID, int depId)
-    {
-        if (!DepDevDic.ContainsKey(depId))
-        {
-            DepNode dep = GetDepNodeById(depId);
-            if (dep)
-            {
-                FocusNode(dep, () =>
-                 {
-                     FocusDev(Local_DevID);
-                 });
-            }
-            else
-            {
-                Debug.LogError("RoomFactory.FoucusDev,Dep is null:" + depId);
-            }
-        }
-        else
-        {
-            FocusDev(Local_DevID);
-        }
-    }
-    /// <summary>
-    /// 聚焦设备 int类型ID
+    /// 聚焦设备s
     /// </summary>
     /// <param name="devId"></param>
-    private void FocusDev(int devId)
+    private void FocusDev(string devId)
     {
-        GetDevByid(devId, dev =>
+        GetDevById(devId,dev=> 
         {
             if (dev) dev.FocusOn();
             else
                 Debug.LogError("RoomFactory.FoucusDev,Dev is null :" + devId);
-        });
-    }
-    /// <summary>
-    /// 聚焦设备s
-    /// </summary>
-    /// <param name="devId"></param>
-    private void FocusDev(string Local_DevID)
-    {
-        GetDevById(Local_DevID, dev=> 
-        {
-            if (dev) dev.FocusOn();
-            else
-                Debug.LogError("RoomFactory.FoucusDev,Dev is null :" + Local_DevID);
         });       
     }
     #endregion

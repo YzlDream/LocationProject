@@ -342,7 +342,6 @@ public class PersonInfoUI : MonoBehaviour
     public void EntranceGuardBtn_OnClick()
     {
         AfterEntranceGuardManage.Instance.ShowWindow();
-        AfterEntranceGuardManage.Instance.GetEntranceGuardData(personnel.Id);
     }
   
     /// <summary>

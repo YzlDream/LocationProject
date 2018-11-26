@@ -197,7 +197,6 @@
       <xs:enumeration value="设备" />
       <xs:enumeration value="部件" />
       <xs:enumeration value="范围" />
-      <xs:enumeration value="CAD" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="AreaTypes" nillable="true" type="tns:AreaTypes" />

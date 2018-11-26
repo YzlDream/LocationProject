@@ -1120,13 +1120,7 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         private System.Nullable<int> AreaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int AreaStateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MoveStateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumberField;
@@ -1211,19 +1205,6 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int AreaState {
-            get {
-                return this.AreaStateField;
-            }
-            set {
-                if ((this.AreaStateField.Equals(value) != true)) {
-                    this.AreaStateField = value;
-                    this.RaisePropertyChanged("AreaState");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Flag {
             get {
                 return this.FlagField;
@@ -1232,19 +1213,6 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
                 if ((object.ReferenceEquals(this.FlagField, value) != true)) {
                     this.FlagField = value;
                     this.RaisePropertyChanged("Flag");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MoveState {
-            get {
-                return this.MoveStateField;
-            }
-            set {
-                if ((this.MoveStateField.Equals(value) != true)) {
-                    this.MoveStateField = value;
-                    this.RaisePropertyChanged("MoveState");
                 }
             }
         }
@@ -2668,9 +2636,6 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         范围 = 8,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        CAD = 9,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

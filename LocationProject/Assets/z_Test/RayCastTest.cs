@@ -1,4 +1,4 @@
-﻿//using Assets.z_Test.BackUpDevInfo;
+﻿using Assets.z_Test.BackUpDevInfo;
 using Base.Common;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,12 +18,12 @@ public class RayCastTest : MonoBehaviour {
     }
     private void loadXML()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    string filePath = Application.dataPath + "/DevInfoBackup.xml";
-        //    DevInfoBackupList devInfo = SerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
-        //    Debug.Log(devInfo.DevList.Count);
-        //}           
+        if (Input.GetMouseButtonDown(0))
+        {
+            string filePath = Application.dataPath + "/DevInfoBackup.xml";
+            DevInfoBackupList devInfo = SerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
+            Debug.Log(devInfo.DevList.Count);
+        }           
     }
     private void RayTest()
     {

@@ -989,14 +989,10 @@ public class LocationManager : MonoBehaviour
     {
         RecoverFocus(()=> 
         {
-            if (PersonSubsystemManage .Instance .HistoricalToggle==false)
-            {
-                ParkInformationManage.Instance.ShowParkInfoUI(true);
-                DepNode dep = FactoryDepManager.Instance;
-                ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
-                ParkInformationManage.Instance.GetParkDataInfo(dep.NodeID);
-            }
-           
+            ParkInformationManage.Instance.ShowParkInfoUI(true );
+            DepNode dep = FactoryDepManager.Instance;
+            ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
+            ParkInformationManage.Instance.GetParkDataInfo(dep .NodeID );
             if (onComplete != null)
             {
                 onComplete();
@@ -1192,7 +1188,7 @@ public class LocationManager : MonoBehaviour
                 if (obj == currentLocationFocusObj)
                 {
                     follow.SetIsRayCheckCollision(false);
-                //    Debug.LogError("SetFollowuiIsCheckCollider:"+obj.name);
+                    Debug.LogError("SetFollowuiIsCheckCollider:"+obj.name);
                     continue;//开启检测时，当前聚焦人物不检测
                 }
             }

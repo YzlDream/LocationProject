@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Assets\Plugins\</OutputPath>
+    <OutputPath>..\..\..\..\LocationSimulatorT\LocationSimulator\Assets\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>1</WarningLevel>
@@ -173,9 +173,6 @@
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Dev_DoorAccess.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.KKSCode.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -271,9 +268,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Work.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LocationServices\TModel.LocationHistory.AreaAndDev.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.LocationHistory.Work.xsd">

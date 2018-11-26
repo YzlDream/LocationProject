@@ -180,7 +180,7 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
                 return;
             }
             AddSave();
-         //   ShowParkData();
+            ShowParkData();
         }
     }
     /// <summary>
