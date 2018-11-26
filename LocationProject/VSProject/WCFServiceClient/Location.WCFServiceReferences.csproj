@@ -119,31 +119,31 @@
     <None Include="Service References\LocationCallbackServices\service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Arrays1.xsd">
+    <None Include="Service References\LocationServices\Arrays.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\DbModel.Tools1.xsd">
+    <None Include="Service References\LocationServices\DbModel.Tools.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Location.TModel.FuncArgs1.xsd">
+    <None Include="Service References\LocationServices\Location.TModel.FuncArgs.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Location.TModel.Location.Alarm1.xsd">
+    <None Include="Service References\LocationServices\Location.TModel.Location.Alarm.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Location.TModel.Location.AreaAndDev1.xsd">
+    <None Include="Service References\LocationServices\Location.TModel.Location.AreaAndDev.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Location.TModel.Location.Data1.xsd">
+    <None Include="Service References\LocationServices\Location.TModel.Location.Data.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Location.TModel.Location.Person1.xsd">
+    <None Include="Service References\LocationServices\Location.TModel.Location.Person.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Location.TModel.Location1.xsd">
+    <None Include="Service References\LocationServices\Location.TModel.Location.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\Location.TModel.LocationHistory.Data1.xsd">
+    <None Include="Service References\LocationServices\Location.TModel.LocationHistory.Data.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Archor.datasource">
@@ -171,6 +171,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Dev_DoorAccess.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.KKSCode.datasource">
@@ -245,32 +248,35 @@
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.WorkTicketHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\LocationServices\service1.wsdl" />
-    <None Include="Service References\LocationServices\service2.xsd">
+    <None Include="Service References\LocationServices\service.wsdl" />
+    <None Include="Service References\LocationServices\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\service21.xsd">
+    <None Include="Service References\LocationServices\service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.BaseData1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.AreaAndDev.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.AreaAndDev1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Manage1.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Manage.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Nodes.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Nodes1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Person.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Person1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Work.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Work1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.LocationHistory.Work.xsd">
+    <None Include="Service References\LocationServices\TModel.LocationHistory.AreaAndDev1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.LocationHistory.Work1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

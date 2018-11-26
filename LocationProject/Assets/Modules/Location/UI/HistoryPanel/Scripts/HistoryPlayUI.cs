@@ -180,6 +180,7 @@ public class HistoryPlayUI : MonoBehaviour
         {
             FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
             PersonSubsystemManage.Instance.SetAllToggleActive(true);
+            FunctionSwitchBarManage.Instance.SetlightToggle(true);
             ExecuteEvents.Execute<ISubmitHandler>(StopBtn.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
             //ActionBarManage.Instance.Show();
             StartOutManage.Instance.Show();
@@ -219,6 +220,7 @@ public class HistoryPlayUI : MonoBehaviour
             //{
             ShowHistoryData();
             //}
+            FunctionSwitchBarManage.Instance.SetlightToggle(false);
         }
     }
 
@@ -298,6 +300,8 @@ public class HistoryPlayUI : MonoBehaviour
                 }
 
                 LocationHistoryPath histoyObj = LocationHistoryManager.Instance.ShowLocationHistoryPath(personnel, list, list.Count, Color.green, "HistoryPath0002");
+                HistoryManController historyManController= histoyObj.gameObject.AddComponent<HistoryManController>();
+                historyManController.Init(Color.green);
                 isLoadDataSuccessed = true;
                 timeStart = Time.time;
                 timeSum = 0;

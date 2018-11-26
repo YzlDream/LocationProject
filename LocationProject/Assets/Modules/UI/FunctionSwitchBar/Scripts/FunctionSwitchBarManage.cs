@@ -28,6 +28,10 @@ public class FunctionSwitchBarManage : MonoBehaviour
     /// 设备信息
     /// </summary>
     public ToggleButton3 DevInfoToggle;
+    /// <summary>
+    /// 灯光
+    /// </summary>
+    public ToggleButton3 lightToggle;
 
     /// <summary>
     /// 显示人员定位
@@ -102,6 +106,7 @@ public class FunctionSwitchBarManage : MonoBehaviour
         DevInfoToggle.OnValueChanged += DevInfoToggle_OnValueChanged;
         BuildingToggle.OnValueChanged += BuildingToggle_OnValueChanged;
         AlarmAreaToggle.OnValueChanged += AlarmAreaToggle_OnValueChanged;
+        lightToggle.OnValueChanged += LightToggle_OnValueChanged;
     }
 
     /// <summary>
@@ -369,6 +374,22 @@ public class FunctionSwitchBarManage : MonoBehaviour
     }
 
     /// <summary>
+    /// 是否开启灯光
+    /// </summary>
+    /// <param name="isOn"></param>
+    public void LightToggle_OnValueChanged(bool isOn)
+    {
+        if (isOn)
+        {
+            LightManage.Instance.SetMainlight(true);
+        }
+        else
+        {
+            LightManage.Instance.SetMainlight(false);
+        }
+    }
+
+    /// <summary>
     /// 设置TransparentToggle
     /// </summary>
     /// <param name="ison"></param>
@@ -411,6 +432,19 @@ public class FunctionSwitchBarManage : MonoBehaviour
         else
         {
             MonitorRangeManager.Instance.HideAlarmArea();
+        }
+    }
+
+    /// <summary>
+    /// 设置TransparentToggle
+    /// </summary>
+    /// <param name="ison"></param>
+    public void SetlightToggle(bool ison)
+    {
+        if (lightToggle.ison != ison)
+        {
+            lightToggle.ison = ison;
+            lightToggle.SetToggle(ison);
         }
     }
 }

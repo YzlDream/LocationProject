@@ -179,6 +179,7 @@ public class LocationObject : MonoBehaviour
         {
             Log.Error("LocationObject.OnDisable", ex.ToString());
         }
+        FlashingOffArchors();
     }
 
     public void On_DoubleClick()
@@ -351,6 +352,15 @@ public class LocationObject : MonoBehaviour
         //targetPos = targetPos + offset;
         //targetPos = targetPos;
         //print(string.Format("name:{0}||位置:x({1}),y({2}),z({3})", name, targetPos.x, targetPos.y, targetPos.z));
+
+        if (LocationManager.Instance.currentLocationFocusObj == this)
+        {
+            ShowArchors();
+        }
+        else
+        {
+            FlashingOffArchors();
+        }
     }
 
     public void SetPosition()
@@ -949,4 +959,83 @@ public class LocationObject : MonoBehaviour
     {
         personInfoUI.personnelNodeManage.SetLowBattery();
     }
+
+    #region 让参与计算的基站显示出来（测试）
+    List<DevNode> archorObjs = new List<DevNode>();
+
+    //public bool isShowArchor = false;//闪烁参与计算的基站
+
+    /// <summary>
+    /// 显示参与计算的基站
+    /// </summary>
+    public void ShowArchors()
+    {
+        if (SystemSettingHelper.systemSetting.IsDebug)
+        {
+            FlashingOnArchors();
+        }
+        //else
+        //{
+        //    FashingOffArchors();
+        //}
+    }
+
+    /// <summary>
+    /// 闪烁所有基站
+    /// </summary>
+    public void FlashingOnArchors()
+    {
+        FlashingOffArchors();
+
+        archorObjs.Clear();
+
+        foreach (string astr in tagPosInfo.Archors)
+        {
+            Archor a = LocationManager.Instance.GetArchorByCode(astr);
+            if (a == null) continue;
+            int idT = a.DevInfoId;
+            RoomFactory.Instance.GetDevByid(idT, (nodeT)
+                =>
+            {
+                if (nodeT == null) return;
+                archorObjs.Add(nodeT);
+                nodeT.FlashingOn();
+            });
+        }
+
+    }
+
+    /// <summary>
+    /// 停止闪烁所有基站
+    /// </summary>
+    public void FlashingOffArchors()
+    {
+        if (SystemSettingHelper.systemSetting.IsDebug)
+        {
+            foreach (DevNode o in archorObjs)
+            {
+                o.FlashingOff();
+            }
+        }
+    }
+
+    //public void SetisShowArchors(bool b)
+    //{
+    //    isShowArchor = b;
+    //}
+
+    //[ContextMenu("ShowArchorsT")]
+    //public void ShowArchorsT()
+    //{
+    //    SetisShowArchors(true);
+    //}
+
+
+    //[ContextMenu("HideArchorsT")]
+    //public void HideArchorsT()
+    //{
+    //    SetisShowArchors(false);
+    //}
+
+    #endregion
 }

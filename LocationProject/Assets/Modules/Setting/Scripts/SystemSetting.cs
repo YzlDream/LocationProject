@@ -10,6 +10,8 @@ using Base.Common;
 public class SystemSetting
 {
     [XmlElement]
+    public bool IsDebug;
+    [XmlElement]
     public CinemachineSetting cinemachineSetting;
     [XmlElement]
     public CommunicationSetting communicationSetting;

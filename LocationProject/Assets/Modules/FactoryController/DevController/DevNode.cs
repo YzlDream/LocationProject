@@ -79,6 +79,26 @@ public class DevNode : MonoBehaviour {
         //h.ConstantOff();
         h.ConstantOffImmediate();
     }
+
+    /// <summary>
+    /// 高亮闪烁设备
+    /// </summary>
+    public virtual void FlashingOn()
+    {
+        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+        //Color colorConstant = Color.green;
+        h.FlashingOn(new Color(Color.green.r, Color.green.g, Color.green.b, 0), Color.green);
+    }
+    /// <summary>
+    /// 取消高亮闪烁设备
+    /// </summary>
+    public virtual void FlashingOff()
+    {
+        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+        //h.ConstantOff();
+        h.FlashingOff();
+    }
+
     /// <summary>
     /// 聚焦设备
     /// </summary>
