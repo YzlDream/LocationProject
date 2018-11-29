@@ -100,6 +100,7 @@ public class PersonnelNodeManage : MonoBehaviour
             infoUi = GetComponentInParent<PersonInfoUI>();
         }
         PersonInfoUIState stateT = infoUi.state;
+
         SwitchStateSprite(stateT);
     }
 
@@ -150,28 +151,57 @@ public class PersonnelNodeManage : MonoBehaviour
         checkImage2.sprite = stateSprite.highlight_alarm;
     }
 
+    public void ChangeState(PersonInfoUIState stateT )
+    {
+        infoUi.state = stateT;
+    }
+
+    /// <summary>
+    /// 正常
+    /// </summary>
     [ContextMenu("SwitchNormal")]
     public void SwitchNormal()
     {
+        ChangeState(PersonInfoUIState.Normal);
         SwitchStateSprite(PersonInfoUIState.Normal);
         //infoUi.l
     }
 
-
+    /// <summary>
+    /// 待机状态
+    /// </summary>
     [ContextMenu("SwitchStandby")]
     public void SwitchStandby()
     {
+        ChangeState(PersonInfoUIState.Standby);
         SwitchStateSprite(PersonInfoUIState.Standby);
     }
 
+    /// <summary>
+    /// 待机长时间不动
+    /// </summary>
+    [ContextMenu("SwitchStandbyLong")]
+    public void SwitchStandbyLong()
+    {
+        ChangeState(PersonInfoUIState.Standby);
+        SwitchStateSprite(PersonInfoUIState.Standby);
+    }
+
+    /// <summary>
+    /// 离开
+    /// </summary>
     [ContextMenu("SwitchLeave")]
     public void SwitchLeave()
     {
+        ChangeState(PersonInfoUIState.Leave);
         SwitchStateSprite(PersonInfoUIState.Leave);
     }
 
     bool b=false;
     
+    /// <summary>
+    /// 设置为弱电状态
+    /// </summary>
     [ContextMenu("SetLOWBATTERY")]
     public void SetLowBattery()
     {

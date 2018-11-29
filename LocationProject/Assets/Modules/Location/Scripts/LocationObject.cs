@@ -102,6 +102,10 @@ public class LocationObject : MonoBehaviour
     /// TagCode
     /// </summary>
     public string tagcode;
+    /// <summary>
+    /// 人员动画控制器
+    /// </summary>
+    public PersonAnimationController personAnimationController;
 
 
     private void Awake()
@@ -154,6 +158,10 @@ public class LocationObject : MonoBehaviour
     {
         DoubleClickEventTrigger_u3d lis = DoubleClickEventTrigger_u3d.Get(gameObject);
         lis.onDoubleClick = On_DoubleClick;
+        if (personAnimationController == null)
+        {
+            personAnimationController = GetComponent<PersonAnimationController>();
+        }
         ////transform.localPosition = targetPos;
         //agent = gameObject.AddMissingComponent<NavMeshAgent>();
         ////agent.radius = 0.2f;
@@ -279,10 +287,13 @@ public class LocationObject : MonoBehaviour
 
         targetPos = LocationManager.GetRealVector(targetPos);
 
-        //if (tagPos.Tag == "0008" || tagPos.Tag == "0009")
-        //{
-        //    Debug.Log(tagPos.Tag + ":" + tagPos.TopoNodes);
-        //}
+
+        SetState(tagPosInfo);
+        if (tagPos.Tag == "0997")
+        {
+            //Debug.Log(tagPos.Tag + ":" + tagPos.TopoNodes);
+            int i = 0;
+        }
         //if (gameObject.name == "标签30004陈先生")
         //{
         //    int i = 0;
@@ -303,6 +314,7 @@ public class LocationObject : MonoBehaviour
         {
 
             DepNode depnode = RoomFactory.Instance.GetDepNodeById((int)tagPos.AreaId);
+            Transform floorCubeT = GetFloorCube(depnode);
             if (currentDepNode != depnode)
             {
                 isOnTriggerStayOnce = false;
@@ -313,11 +325,11 @@ public class LocationObject : MonoBehaviour
                 int i = 0;
             }
             //Debug.LogFormat("名称:{0},类型:{1}", depnode.name, depnode.NodeObject);
-            if (depnode != null && depnode.floorCube != null)//二层267
+            if (depnode != null && floorCubeT != null)//二层267
             {
-                if (depnode.floorCube != null)
+                if (floorCubeT != null)
                 {
-                    targetPos = new Vector3(targetPos.x, halfHeight + depnode.floorCube.position.y, targetPos.z);
+                    targetPos = new Vector3(targetPos.x, halfHeight + floorCubeT.position.y, targetPos.z);
                 }
                 else
                 {
@@ -362,6 +374,41 @@ public class LocationObject : MonoBehaviour
             FlashingOffArchors();
         }
     }
+
+    /// <summary>
+    /// 获取该区域节点计算位置的平面
+    /// </summary>
+    /// <param name="depnode"></param>
+    public Transform GetFloorCube(DepNode depnode)
+    {
+        //Transform floorcube = null;
+        if (depnode.TopoNode.Type == AreaTypes.范围 || depnode.TopoNode.Type == AreaTypes.机房)
+        {
+            return FilterFloorCube(depnode);
+        }
+        else
+        {
+            return depnode.floorCube;
+        }
+    }
+
+    /// <summary>
+    /// 过滤该区域节点计算位置的平面
+    /// </summary>
+    /// <param name="depnode"></param>
+    public Transform FilterFloorCube(DepNode depnode)
+    {
+        if (depnode == null) return null;
+        if (depnode.TopoNode.Type == AreaTypes.楼层)
+        {
+            return depnode.floorCube;
+        }
+        else
+        {
+            return FilterFloorCube(depnode.ParentNode);
+        }
+    }
+    
 
     public void SetPosition()
     {
@@ -569,7 +616,7 @@ public class LocationObject : MonoBehaviour
         {
             //Log.Error("Location.CreateFollowUI", "personnel == null：" + Tag.Name);
         }
-        personInfoUI.Init(personnel);
+        personInfoUI.Init(personnel, this);
         return personInfoUI;
 
     }
@@ -875,19 +922,176 @@ public class LocationObject : MonoBehaviour
     /// <summary>
     /// 开启高亮
     /// </summary>
-    public void HighlightOn()
+    public void HighlightOnByFocus()
+    {
+        //Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+        //h.ConstantOn(Color.green);
+        if (personInfoUI.state != PersonInfoUIState.StandbyLong)
+        {
+            HighlightOn(Color.green);
+        }
+
+    }
+    /// <summary>
+    /// 开启高亮
+    /// </summary>
+    public void HighlightOn(Color color)
     {
         Highlighter h = gameObject.AddMissingComponent<Highlighter>();
-        h.ConstantOn(Color.green);
+        h.ConstantOn(color);
     }
 
     /// <summary>
     /// 关闭高亮
     /// </summary>
+    [ContextMenu("HighlightOff")]
     public void HighlightOff()
     {
-        Highlighter h = gameObject.GetComponent<Highlighter>();
+        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
         h.ConstantOff();
+    }
+
+    /// <summary>
+    /// 黄色高亮:长时间不动
+    /// </summary>
+    [ContextMenu("HighlightOnStandbyLong")]
+    public void HighlightOnStandbyLong()
+    {
+        HighlightOn(Color.yellow);
+    }
+
+    /// <summary>
+    /// 关闭因长时间不动黄色高亮
+    /// </summary>
+    public void HighlightOffStandbyLong()
+    {
+        if (LocationManager.Instance.currentLocationFocusObj == this)
+        {
+            HighlightOnByFocus();
+        }
+        else
+        {
+            HighlightOff();
+        }
+    }
+
+    #region 设置人物相关状态
+
+    /// <summary>
+    /// 设置人员状态
+    /// </summary>
+    public void SetState(TagPosition tagpT)
+    {
+        if (personInfoUI == null) return;
+        if (personAnimationController == null)
+        {
+            personAnimationController = GetComponent<PersonAnimationController>();
+        }
+
+        if (tagpT.PowerState == 0)
+        {
+            SetLowBatteryActive(false);
+        }
+        else
+        {
+            SetLowBatteryActive(true);
+        }
+
+        if (tagpT.AreaState == 1)//不在定位区域属于离开状态
+        {
+            SwitchLeave();
+            personAnimationController.DoStop();
+        }
+        else//在定位区域
+        {
+            if (tagpT.MoveState == 0)//卡正常运动状态
+            {
+                SwitchNormal();
+                personAnimationController.DoMove();
+            }
+            else if (tagpT.MoveState == 1 || tagpT.MoveState == 2)//待机状态
+            {
+                SwitchStandby();
+                personAnimationController.DoStop();
+            }
+            else if(tagpT.MoveState == 3)//长时间不动状态
+            {
+                SwitchStandbyLong();
+                personAnimationController.DoStop();
+            }
+            else 
+            {
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// 转换为正常状态
+    /// </summary>
+    [ContextMenu("SwitchNormal")]
+    public void SwitchNormal()
+    {
+        personInfoUI.personnelNodeManage.SwitchNormal();
+        RecoverTransparentLeave();
+        HighlightOffStandbyLong();
+        //infoUi.l
+        personInfoUI.HideStandByTime();
+    }
+
+    /// <summary>
+    /// 待机状态，包含静止状态（待机之后小于300秒）
+    /// </summary>
+    [ContextMenu("SwitchStandby")]
+    public void SwitchStandby()
+    {
+        //SwitchStateSprite(PersonInfoUIState.Standby);
+        personInfoUI.personnelNodeManage.SwitchStandby();
+        RecoverTransparentLeave();
+        HighlightOffStandbyLong();
+        personInfoUI.ShowStandByTime();
+    }
+
+    /// <summary>
+    /// 待机长时间不动
+    /// </summary>
+    [ContextMenu("SwitchStandby")]
+    public void SwitchStandbyLong()
+    {
+        //SwitchStateSprite(PersonInfoUIState.Standby);
+        personInfoUI.personnelNodeManage.SwitchStandbyLong();
+        RecoverTransparentLeave();
+        HighlightOnStandbyLong();
+        personInfoUI.ShowStandByTime();
+    }
+
+    /// <summary>
+    /// 设置为离开状态
+    /// </summary>
+    [ContextMenu("SwitchLeave")]
+    public void SwitchLeave()
+    {
+        personInfoUI.personnelNodeManage.SwitchLeave();
+        TransparentLeave();
+        HighlightOffStandbyLong();
+        personInfoUI.HideStandByTime();
+    }
+
+    /// <summary>
+    /// 设置为弱电状态
+    /// </summary>
+    [ContextMenu("SetLowBattery")]
+    public void SetLowBattery()
+    {
+        personInfoUI.personnelNodeManage.SetLowBattery();
+    }
+
+    /// <summary>
+    /// 设置为弱电状态
+    /// </summary>
+    public void SetLowBatteryActive(bool isActive)
+    {
+        personInfoUI.personnelNodeManage.SetLowBatteryActive(isActive);
     }
 
     /// <summary>
@@ -930,35 +1134,7 @@ public class LocationObject : MonoBehaviour
         //}
     }
 
-    [ContextMenu("SwitchNormal")]
-    public void SwitchNormal()
-    {
-        personInfoUI.personnelNodeManage.SwitchNormal();
-        RecoverTransparentLeave();
-        //infoUi.l
-    }
-
-
-    [ContextMenu("SwitchStandby")]
-    public void SwitchStandby()
-    {
-        //SwitchStateSprite(PersonInfoUIState.Standby);
-        personInfoUI.personnelNodeManage.SwitchStandby();
-        RecoverTransparentLeave();
-    }
-
-    [ContextMenu("SwitchLeave")]
-    public void SwitchLeave()
-    {
-        personInfoUI.personnelNodeManage.SwitchLeave();
-        TransparentLeave();
-    }
-
-    [ContextMenu("SwitchLowBattery")]
-    public void SetLowBattery()
-    {
-        personInfoUI.personnelNodeManage.SetLowBattery();
-    }
+    #endregion
 
     #region 让参与计算的基站显示出来（测试）
     List<DevNode> archorObjs = new List<DevNode>();

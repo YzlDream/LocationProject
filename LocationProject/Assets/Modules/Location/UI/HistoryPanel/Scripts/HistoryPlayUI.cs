@@ -302,6 +302,8 @@ public class HistoryPlayUI : MonoBehaviour
                 LocationHistoryPath histoyObj = LocationHistoryManager.Instance.ShowLocationHistoryPath(personnel, list, list.Count, Color.green, "HistoryPath0002");
                 HistoryManController historyManController= histoyObj.gameObject.AddComponent<HistoryManController>();
                 historyManController.Init(Color.green);
+                PersonAnimationController personAnimationController = histoyObj.gameObject.GetComponent<PersonAnimationController>();
+                personAnimationController.DoMove();
                 isLoadDataSuccessed = true;
                 timeStart = Time.time;
                 timeSum = 0;

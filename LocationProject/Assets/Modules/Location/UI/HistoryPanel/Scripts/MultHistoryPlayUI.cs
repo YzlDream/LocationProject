@@ -338,6 +338,8 @@ public class MultHistoryPlayUI : MonoBehaviour
                     histoyObj.InitData(timeLength, timelist);
                     HistoryManController historyManController = histoyObj.gameObject.AddComponent<HistoryManController>();
                     historyManController.Init(colorT);
+                    PersonAnimationController personAnimationController = histoyObj.gameObject.GetComponent<PersonAnimationController>();
+                    personAnimationController.DoMove();
                     Debug.Log("StartSingleThread2");
                     k++;
                 }

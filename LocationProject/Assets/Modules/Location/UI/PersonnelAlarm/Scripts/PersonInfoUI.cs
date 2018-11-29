@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Location.WCFServiceReferences.LocationServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public enum PersonInfoUIState
 {
     Normal,//正常
     Standby,//待机
-    LOWBATTERY,//电量低
+    StandbyLong,//长时间不动
     Leave//离开
 }
 
@@ -66,6 +67,10 @@ public class PersonInfoUI : MonoBehaviour
     public GameObject TagName;//悬浮标志
 
     private UGUIFollowTarget uguifollow;//ui跟随组件
+    [HideInInspector]
+    public LocationObject locationObj;//人员
+    public Text infoStandbyTime;//待机时间
+    public Text nameStandbyTime;//待机时间
 
     void Start()
     {
@@ -97,10 +102,11 @@ public class PersonInfoUI : MonoBehaviour
     /// <summary>
     /// 初始化
     /// </summary>
-    public void Init(Personnel personnelT)
+    public void Init(Personnel personnelT,LocationObject objT)
     {
         //Log.Info("PersonInfoUI.Init", "name:" + personnelT.Name);
         personnel = personnelT;
+        locationObj = objT;
         if (uguifollow == null)
         {
             uguifollow = GetComponent<UGUIFollowTarget>();
@@ -451,5 +457,53 @@ public class PersonInfoUI : MonoBehaviour
             HideDisplayUI();
         }
         SetContentToggle(b);
+    }
+
+    /// <summary>
+    /// 显示待机时间
+    /// </summary>
+    public void ShowStandByTime()
+    {
+        TimeSpan time = DateTime.Now - LocationManager.GetTimestampToDateTime(locationObj.tagPosInfo.Time);
+        //infoStandbyTime.text = time.TotalSeconds.ToString();
+        //nameStandbyTime.text = "(" + time.TotalSeconds.ToString() + ")";
+
+        //infoStandbyTime.text = "已待机";
+        //nameStandbyTime.text = "(" + time.TotalSeconds.ToString() + ")";
+
+        if (time.TotalSeconds < 60)//如果小于1分钟显示秒
+        {
+            infoStandbyTime.text = "(" + Math.Round(time.TotalSeconds, 0).ToString() + "秒)";
+        }
+        else if (time.TotalSeconds < 3600)//如果小于1小时显示分钟和秒
+        {
+            infoStandbyTime.text = "(" + time.Minutes.ToString() + "分" + time.Seconds + "秒)";
+        }
+        else if (time.TotalSeconds < 3600 * 24)//如果小于天显示小时和分钟
+        {
+            infoStandbyTime.text = "(" + time.Hours.ToString() + "天" + time.Minutes.ToString() + "时)";
+        }
+        else if (time.TotalSeconds < 3600 * 24 * 365) //如果大于一天显示天和小时
+        {
+            infoStandbyTime.text = "(" + time.Days.ToString() + "天" + time.Hours.ToString() + "时)";
+        }
+        else
+        {
+            infoStandbyTime.text = "(" + Math.Round(time.TotalDays, 0).ToString() + "天)";
+        }
+        infoStandbyTime.text = "待机" + infoStandbyTime.text;
+        nameStandbyTime.text = infoStandbyTime.text;
+
+        infoStandbyTime.gameObject.SetActive(true);
+        nameStandbyTime.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// 关闭显示待机时间
+    /// </summary>
+    public void HideStandByTime()
+    {
+        infoStandbyTime.gameObject.SetActive(false);
+        nameStandbyTime.gameObject.SetActive(false);
     }
 }

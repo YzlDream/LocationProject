@@ -870,7 +870,7 @@ public class LocationManager : MonoBehaviour
         }
         if (locationObjectT != null)
         {
-            locationObjectT.HighlightOn();
+            locationObjectT.HighlightOnByFocus();
 
         }
         currentLocationFocusObj = locationObjectT;
