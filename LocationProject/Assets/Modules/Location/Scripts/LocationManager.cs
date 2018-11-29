@@ -367,6 +367,7 @@ public class LocationManager : MonoBehaviour
             if (code_character.ContainsKey(tag.Code))
             {
                 LocationObject locationObject = code_character[tag.Code];
+                locationObject.InitPersonnel();
                 SetTagPostion(locationObject, tag, tagsPosT);
                 //code_character[tag.Code].gameObject.SetActive(true);
                 keyslist.Remove(tag.Code);

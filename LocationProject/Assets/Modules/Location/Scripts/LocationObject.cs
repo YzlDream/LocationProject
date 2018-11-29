@@ -263,6 +263,15 @@ public class LocationObject : MonoBehaviour
     {
         //Log.Info("LocationObject.Init","name:"+ t.Name);
         Tag = t;
+        InitPersonnel();
+        tagcode = Tag.Code;
+    }
+
+    /// <summary>
+    /// 初始化人员信息
+    /// </summary>
+    public  void InitPersonnel()
+    {
         personnel = PersonnelTreeManage.Instance.departmentDivideTree.personnels.Find((item) => item.TagId == Tag.Id);
         if (personnel == null)
         {
@@ -273,7 +282,6 @@ public class LocationObject : MonoBehaviour
         {
             gameObject.name = Tag.Name + Tag.Code + personnel.Name;
         }
-        tagcode = Tag.Code;
     }
 
     /// <summary>
@@ -382,6 +390,7 @@ public class LocationObject : MonoBehaviour
     public Transform GetFloorCube(DepNode depnode)
     {
         //Transform floorcube = null;
+        if (depnode == null || depnode.TopoNode == null) return null;
         if (depnode.TopoNode.Type == AreaTypes.范围 || depnode.TopoNode.Type == AreaTypes.机房)
         {
             return FilterFloorCube(depnode);
