@@ -13,7 +13,7 @@ public class ParkInformationManage : MonoBehaviour {
     public GameObject ArrowUp;//上箭头
     public GameObject ArrowDown;//朝下箭头
     public Toggle  ArrowTog;
- 
+    public int  CurrentNode;
     /// <summary>
     /// 统计类型
     /// </summary>
@@ -34,7 +34,7 @@ public class ParkInformationManage : MonoBehaviour {
     /// 设备告警总数
     /// </summary>
     public Text DevAlarmText;
-   
+    bool isRefresh;
     Color ArrowDotColor = new Color(255 / 255f, 255 / 255f, 255 / 255f, 102 / 255f);
     public AreaStatistics AreaInfo;
     void Start () {
@@ -57,7 +57,7 @@ public class ParkInformationManage : MonoBehaviour {
             DepNode dep = FactoryDepManager.Instance;
             //ParkInfoUI.SetActive(true);
             TitleText.text = dep.NodeName.ToString();
-            GetParkDataInfo(dep.NodeID);
+            RefreshParkInfo(dep.NodeID);
         }
     }
   
@@ -75,13 +75,28 @@ public class ParkInformationManage : MonoBehaviour {
             if (PersonSubsystemManage.Instance.IsOnBenchmarking==false&&PersonSubsystemManage.Instance.IsOnEditArea==false && DevSubsystemManage.Instance.isDevEdit == false)
             {
                 TitleText.text = dep.NodeName.ToString();
-                GetParkDataInfo(dep.NodeID);
+                //GetParkDataInfo(dep.NodeID);
+                RefreshParkInfo(dep.NodeID);
             }
             
         }
        
     }
-   
+    public void RefreshParkInfo(int dep)
+    {
+        CurrentNode = dep;
+        //if (!IsInvoking("StartRefreshData"))
+        //{   
+        //    InvokeRepeating("StartRefreshData", 0, 1f);//todo:定时获取
+        //}
+        GetParkDataInfo(CurrentNode);
+    }
+    public void StartRefreshData()
+    {
+        GetParkDataInfo(CurrentNode);
+     
+    }
+
        public void GetParkDataInfo(int  dep)
     {
        
@@ -159,6 +174,11 @@ public class ParkInformationManage : MonoBehaviour {
             FullViewController mainPage = FullViewController.Instance;
             if (mainPage && mainPage.IsFullView)
             {
+                //if (IsInvoking("StartRefreshData"))
+                //{
+                //    CancelInvoke("StartRefreshData");
+
+                //}
                 ParkInfoUI.SetActive(false);
                 return;
             }
@@ -170,6 +190,10 @@ public class ParkInformationManage : MonoBehaviour {
         }
         else
         {
+            //if (IsInvoking("StartRefreshData"))
+            //{
+            //    CancelInvoke("StartRefreshData");   
+            //}
             ParkInfoUI.SetActive(false);
         }
     }

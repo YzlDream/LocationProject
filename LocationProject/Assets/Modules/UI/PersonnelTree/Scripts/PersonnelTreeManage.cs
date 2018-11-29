@@ -5,7 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PersonnelTreeManage : MonoBehaviour {
+public class PersonnelTreeManage : MonoBehaviour
+{
     public static PersonnelTreeManage Instance;
     public GameObject Window;
     public DepartmentDivideTree departmentDivideTree;
@@ -28,7 +29,8 @@ public class PersonnelTreeManage : MonoBehaviour {
         Instance = this;
     }
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         departmentDivideTree.ShowDepartmentDivideTree();
         areaDivideTree.ShowAreaDivideTree();
 
@@ -84,7 +86,8 @@ public class PersonnelTreeManage : MonoBehaviour {
                 departmentDivideTree.Tree.ResizeContent();
                 areaDivideTree.Tree.ResizeContent();
             }
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
             Debug.Log(e.ToString());
         }
@@ -95,16 +98,22 @@ public class PersonnelTreeManage : MonoBehaviour {
     /// </summary>
     public void CloseWindow()
     {
-        if(Window.activeInHierarchy)
+        if (Window.activeInHierarchy)
             Window.SetActive(false);
+        areaDivideTree.CloseeRefreshAreaPersonnel();
     }
     /// <summary>
     /// 打开设备拓朴树界面
     /// </summary>
     public void ShowWindow()
     {
-        if(!Window.activeInHierarchy)
+        if (!Window.activeInHierarchy)
             Window.SetActive(true);
+        if (areaDivideTree.AreaWindow==true)
+        {
+            areaDivideTree.StartRefreshAreaPersonnel();
+        }
+       
     }
 
 
@@ -113,7 +122,7 @@ public class PersonnelTreeManage : MonoBehaviour {
     /// </summary>
     public PersonNode PersonnelToPersonNode(Personnel personnelT)
     {
-        PersonNode nodeT= areaDivideTree.PersonList.Find((item) => item.Id == personnelT.Id);
+        PersonNode nodeT = areaDivideTree.PersonList.Find((item) => item.Id == personnelT.Id);
         return nodeT;
     }
 }

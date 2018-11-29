@@ -32,6 +32,11 @@ public class TopoTreeManager : MonoBehaviour
     /// 动画是否初始化
     /// </summary>
     private bool IsTweenInit;
+
+    /// <summary>
+    /// 区域列表
+    /// </summary>
+    private List<TreeNode<TreeViewItem>> AreaList = new List<TreeNode<TreeViewItem>>();
     void Awake()
     {
         Instance = this;
@@ -97,19 +102,37 @@ public class TopoTreeManager : MonoBehaviour
     /// </summary>
     public void GetTopoTree()
     {
-        Loom.StartSingleThread(() =>
-        {
-            PhysicalTopology topoRoot = CommunicationObject.Instance.GetTopoTree();
-            Loom.DispatchToMainThread(() =>
-            {
-                StructureTree(topoRoot);
-                Tree.Start();
-                Tree.Nodes = nodes;
-                SetListeners();
-                scrollRect.horizontal = true;
+        //Loom.StartSingleThread(() =>
+        //{
+        //    PhysicalTopology topoRoot = CommunicationObject.Instance.GetTopoTree();
+        //    Loom.DispatchToMainThread(() =>
+        //    {
+        //        StructureTree(topoRoot);
+        //        Tree.Start();
+        //        Tree.Nodes = nodes;
+        //        SetListeners();
+        //        scrollRect.horizontal = true;
 
-            });
-        });
+        //    });
+        //});
+        PhysicalTopology topoRoot=null;
+        ThreadManager.Run(()=> 
+        {
+            topoRoot = CommunicationObject.Instance.GetTopoTree();
+        },()=>
+        {
+            if(topoRoot==null)
+            {
+                Debug.LogError("TopoTree value is null...");
+                return;
+            }
+            StructureTree(topoRoot);
+            Tree.Start();
+            Tree.Nodes = nodes;
+            SetListeners();
+            scrollRect.horizontal = true;
+
+        },"");
     }
 
     public void SetListeners()
@@ -153,6 +176,7 @@ public class TopoTreeManager : MonoBehaviour
             Log.Error("StructureTree root == null");
             return;
         }
+        AreaList.Clear();
         nodes = new ObservableList<TreeNode<TreeViewItem>>();
 
         //TreeNode<TreeViewItem> rootNode = AddRootNode(root.Name, root);
@@ -207,7 +231,36 @@ public class TopoTreeManager : MonoBehaviour
         var roomNodeFirst = nodes[0];
         return roomNodeFirst;
     }
-
+    /// <summary>
+    /// 设置选择节点
+    /// </summary>
+    /// <param name="dep"></param>
+    public void SetSelectNode(DepNode lastDep,DepNode currentDep)
+    {
+        TreeNode<TreeViewItem> lastNode = null;
+        TreeNode<TreeViewItem> currentNode = null;
+        for (int i=0;i<AreaList.Count;i++)
+        {
+            PhysicalTopology topoTemp = AreaList[i].Item.Tag as PhysicalTopology;
+            if(topoTemp.Id== currentDep.NodeID) currentNode = AreaList[i];
+            if (topoTemp.Id==lastDep.NodeID) lastNode = AreaList[i];
+            if (currentNode != null && lastNode != null) break;
+        }
+        NarrowLastNode(lastNode);
+        if(currentNode!= null)Tree.FindSelectNode(currentNode,false);
+    }
+    /// <summary>
+    /// 收起上一个节点
+    /// </summary>
+    /// <param name="lastDep"></param>
+    public void NarrowLastNode(TreeNode<TreeViewItem> lastDep)
+    {
+        if (lastDep==null||lastDep.Parent == null) return;
+        int? indexT = Tree.NodeToIndex(lastDep.Parent);
+        if (indexT != null) Tree.DeselectNodeByIndex((int)indexT);
+        if (indexT != null&& lastDep.Parent.IsExpanded) Tree.ToggleNodeByIndex((int)indexT);
+        NarrowLastNode(lastDep.Parent);
+    }
     private TreeNode<TreeViewItem> CreateTopoNode(PhysicalTopology topoNode)
     {
         Sprite icon = GetTopoIcon(topoNode);
@@ -215,6 +268,7 @@ public class TopoTreeManager : MonoBehaviour
         //var item = new TreeViewItem(string.Format("{0}[{1}]",topoNode.Name,topoNode.Transfrom!=null), icon);
         item.Tag = topoNode;
         var node = new TreeNode<TreeViewItem>(item);
+        if (!AreaList.Contains(node)) AreaList.Add(node);
         return node;
     }
 

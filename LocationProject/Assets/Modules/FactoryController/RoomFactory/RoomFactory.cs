@@ -508,6 +508,7 @@ public class RoomFactory : MonoBehaviour
         IsFocusingDep = true;
         if (DevNode.CurrentFocusDev != null) DevNode.CurrentFocusDev.FocusOff(false);
         Log.Info(string.Format("FocusNode ID:{0},Name:{1},Type:{2}", node.NodeID, node.NodeName, node.GetType()));
+        DepNode lastNodep = FactoryDepManager.currentDep;
         if (FactoryDepManager.currentDep == node)
         {
             node.FocusOn(()=> 
@@ -531,7 +532,8 @@ public class RoomFactory : MonoBehaviour
                 SceneEvents.OnDepCreateCompleted(node);
             });
             if (isFocusBreak) IsFocusingDep = true;
-        }             
+        }
+        if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
     }
     /// <summary>
     /// 取消上一个区域的选中,无视角转换

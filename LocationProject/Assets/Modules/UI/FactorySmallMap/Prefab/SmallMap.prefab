@@ -2056,7 +2056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomNode: {fileID: 0}
-  RoomName: "\u5DE5\u4F5C\u5BA4\u914D\u7535\u95F4"
+  RoomName: "\u5DE5\u4F5C\u6BB5\u914D\u7535\u5BA4"
   roomImage: {fileID: 114836123759622592}
   IsSelect: 0
 --- !u!114 &114002447451612972
@@ -3272,7 +3272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomNode: {fileID: 0}
-  RoomName: "\u5171\u7528\u6BB5\u914D\u7535\u95F4"
+  RoomName: "\u516C\u7528\u6BB5\u914D\u7535\u95F4"
   roomImage: {fileID: 114453944393006380}
   IsSelect: 0
 --- !u!114 &114374223363512934

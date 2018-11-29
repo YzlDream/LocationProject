@@ -111,7 +111,16 @@ public class AreaDivideTree : MonoBehaviour
                 }
             }
 
-            if (node != null && node.Item.Tag is PersonNode) Tree.FindSelectNode(node);
+            if (node != null && node.Item.Tag is PersonNode)
+            {
+                PersonNode per = node.Item.Tag as PersonNode;
+                LocationObject currentLocationFocusObj = LocationManager.Instance.currentLocationFocusObj;
+                if (currentLocationFocusObj != null && currentLocationFocusObj.Tag.Id != per.Id)
+                {
+                    Tree.FindSelectNode(node);
+                }
+            }
+               
             isRefresh = false;
 
         }, "Refresh Personnel");
@@ -489,21 +498,30 @@ public class AreaDivideTree : MonoBehaviour
     {
         if (b)
         {
-            InvokeRepeating("RefreshPersonnel", 1, 1f);//todo:定时获取
             AreaWindow.SetActive(true);
+
+
+
             SelectedTextChange();
         }
         else
         {
             NoSelectedTextChange();
             AreaWindow.SetActive(false);
-            if (IsInvoking("RefreshPersonnel"))
-            {
-                CancelInvoke("RefreshPersonnel");
-            }
+            CloseeRefreshAreaPersonnel();
         }
     }
-
+    public void StartRefreshAreaPersonnel()
+    {
+        InvokeRepeating("RefreshPersonnel", 1,1f);//todo:定时获取
+    }
+    public void CloseeRefreshAreaPersonnel()
+    {
+        if (IsInvoking("RefreshPersonnel"))
+        {
+            CancelInvoke("RefreshPersonnel");
+        }
+    }
     /// <summary>
     /// 选中后字体颜色改变
     /// </summary>

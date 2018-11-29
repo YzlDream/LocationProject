@@ -65,7 +65,8 @@ public class ChangeTreeView : TreeView
     /// 找到选中节点
     /// </summary>
     /// <param name="nodeT"></param>
-    public void FindSelectNode(TreeNode<TreeViewItem> nodeT)
+    /// <param name="isExpandLastNode">是否展开当前节点</param>
+    public void FindSelectNode(TreeNode<TreeViewItem> nodeT,bool isExpandLastNode=true)
     {
         if (nodeT != null)
         {
@@ -78,7 +79,14 @@ public class ChangeTreeView : TreeView
                     List<int> indexs = Nodes2Indicies(new List<TreeNode<TreeViewItem>>() { nodesT[i] });
                     try
                     {
-                        ToggleNode(indexs[0]);
+                        if (!isExpandLastNode && i == 0)
+                        {
+                            Debug.Log(string.Format("Node {0} not expand.",i));
+                        }
+                        else
+                        {
+                            ToggleNode(indexs[0]);
+                        }                           
                         if (i == 0)
                         {
                             Select(indexs[0]);
@@ -216,8 +224,39 @@ public class ChangeTreeView : TreeView
             Debug.LogError("异常：该人员在拓扑树中找不到！");
         }
     }
-
-
+    /// <summary>
+    /// 获取节点的index
+    /// </summary>
+    /// <param name="nodeT"></param>
+    /// <returns></returns>
+    public int? NodeToIndex(TreeNode<TreeViewItem> nodeT)
+    {
+        List<int> indexs = Nodes2Indicies(new List<TreeNode<TreeViewItem>>() { nodeT });
+        if (indexs != null && indexs.Count == 1)
+        {
+            return indexs[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    /// <summary>
+    /// ToggleNode
+    /// </summary>
+    /// <param name="index"></param>
+    public void ToggleNodeByIndex(int index)
+    {
+        ToggleNode(index);
+    }
+    /// <summary>
+    /// 取消节点选中
+    /// </summary>
+    /// <param name="index"></param>
+    public void DeselectNodeByIndex(int index)
+    {
+        Deselect(index);
+    }
     /// <summary>
     /// 取消选中节点，根据数据
     /// </summary>

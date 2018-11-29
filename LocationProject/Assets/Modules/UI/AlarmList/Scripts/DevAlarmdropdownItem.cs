@@ -15,7 +15,7 @@ public class DevAlarmdropdownItem : MonoBehaviour {
         tempNames = new List<string>();
         AddName();
         SetDropdownData(tempNames);
-        devAlarmLeveldropdown.onValueChanged.AddListener(DevAlarmListManage.Instance.ScreeningDevAlarm);
+        devAlarmLeveldropdown.onValueChanged.AddListener(DevAlarmListManage.Instance.GetScreenDevAlarmItems);
     }
     Dropdown.OptionData tempData;
     /// <summary>

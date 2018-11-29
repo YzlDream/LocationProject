@@ -1006,7 +1006,7 @@ public class LocationManager : MonoBehaviour
             ParkInformationManage.Instance.ShowParkInfoUI(true );
             DepNode dep = FactoryDepManager.Instance;
             ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
-            ParkInformationManage.Instance.GetParkDataInfo(dep .NodeID );
+            ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
             if (onComplete != null)
             {
                 onComplete();

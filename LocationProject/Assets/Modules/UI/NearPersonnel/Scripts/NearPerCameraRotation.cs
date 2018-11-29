@@ -47,13 +47,13 @@ public class NearPerCameraRotation : MonoBehaviour {
     {
         camName = devList.Name.ToString();
 
-        this.transform.GetComponent<RectTransform >().anchoredPosition3D  = new Vector3(devList.X, devList.Z , devList.Y);
+        this.transform.GetComponent<RectTransform >().anchoredPosition3D  = new Vector3(devList.X, devList.Z , devList.Y );
         devId = devList.id;
         RoomFactory.Instance.GetDevByid(devId, (devNodeT) =>
         {
             GameObject Obj = devNodeT.gameObject;
-            EnterObj.transform.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0 , Obj.transform.eulerAngles.y );
-            selectCam.transform.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0, Obj.transform.eulerAngles.y);
+            EnterObj.transform.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0 , Obj.transform.eulerAngles.y +180);
+            selectCam.transform.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0, Obj.transform.eulerAngles.y+180f);
 
 
             if (devNodeT == null)
