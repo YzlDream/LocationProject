@@ -67,14 +67,16 @@ public class PersonnelAlarmList : MonoBehaviour
     public AlarmSearchArg perAlarmData;
     public LocationAlarm[] perAlarmInfo;
     public List<LocationAlarm> PerAlarmList;
-    List<LocationAlarm> ScreenAlarmTime;
+   
     List<LocationAlarm> ScreenAlarmItem;
     public StartTime showStartTime;
+    public PersonnelAlarmType perAlarmType;
+
     void Start()
     {
         Instance = this;
         perAlarmData = new AlarmSearchArg();
-        ScreenAlarmTime = new List<LocationAlarm>();
+      
         LoadData();
         //StartPerAlarmUI();
         AddPageBut.onClick.AddListener(AddPerAlarmPage);
@@ -84,7 +86,7 @@ public class PersonnelAlarmList : MonoBehaviour
         DealcalendarDay.onDayClick.AddListener(ScreeningSecondTimeAlarm);
         SearchBut.onClick.AddListener(PerAlarmSearchBut_Click);
         pegeNumText.onValueChanged.AddListener(InputPersonnelPage);
-        SearchBut.onClick.AddListener(SetPersonnelAlarm_Click);
+
     }
 
     private void LoadData()
@@ -113,108 +115,147 @@ public class PersonnelAlarmList : MonoBehaviour
         DealTimeText.text = currenttime;
         promptText.gameObject.SetActive(false);
         showStartTime.ShowStartTime();
-
-}
-/// <summary>
-/// 生成多少页
-/// </summary>
-public void TotaiLine(List<LocationAlarm> date)
+        perAlarmType.ShowDropdownFirstData();
+    }
+    /// <summary>
+    /// 生成多少页
+    /// </summary>
+    public void TotaiLine(List<LocationAlarm> date)
     {
-
-        if (date.Count % pageLine == 0)
+        if (date.Count != 0)
         {
-            pegeTotalText.text = (date.Count / pageLine).ToString();
+            if (date.Count % pageLine == 0)
+            {
+                pegeTotalText.text = (date.Count / pageLine).ToString();
+            }
+            else
+            {
+                pegeTotalText.text = Convert.ToString(Math.Ceiling((double)date.Count / (double)pageLine));
+            }
         }
         else
         {
-            pegeTotalText.text = Convert.ToString(Math.Ceiling((double)date.Count / (double)pageLine));
+            pegeTotalText.text = "1";
         }
+      
     }
+     bool IsScreen=false;
+    bool IsTime1=false ;
+    bool IsTIme2=false ;
     /// <summary>
     /// 上一页信息
     /// </summary>
     public void AddPerAlarmPage()
     {
         StartPageNum += 1;
-        double  a= Math.Ceiling((double)ScreenAlarmItem.Count / (double)pageLine);
-        int m = (int)a;
-        if (StartPageNum <= m)
+        if (IsScreen ||IsTIme2 || IsTime1)
         {
-            PageNum += 1;
-            pegeNumText.text = PageNum.ToString();
-            GetPersonnelAlarmPage(ScreenAlarmItem);
-        }
-    }
-    public void MinPerAlarmPage()
-    {
-        if (StartPageNum > 0)
-        {
-            StartPageNum--;
-            PageNum -= 1;
-            if (PageNum == 0)
+                    
+            double a = Math.Ceiling((double)SeachPerItems.Count / (double)pageLine);
+            int m = (int)a;
+            if (StartPageNum <= m)
             {
-                pegeNumText.text = "1";
-            }
-           else
-            {
+                PageNum += 1;
                 pegeNumText.text = PageNum.ToString();
+                GetPersonnelAlarmPage(SeachPerItems);
             }
-            GetPersonnelAlarmPage(ScreenAlarmItem);
-        }
-    }
-    public void SetPersonnelAlarm_Click()
-    {
-        StartPageNum = 0;
-        PageNum = 1;
-    
-        ScreenAlarmItem.Clear();
-        string key = InputPerAlarm.text.ToString();
-        SaveSelection();
-        for (int i=0;i < PerAlarmList.Count;i++)
-        {   
-                string AlarmName = PerAlarmList[i].Personnel.Name.ToString();
-                string AlarmNum = PerAlarmList[i].Personnel.WorkNumber.ToString();
-                if (AlarmName.Contains(key) || AlarmNum.Contains(key))
-                {
-                    ScreenAlarmItem.Add(PerAlarmList[i]);
-                }
-            }
-        if (ScreenAlarmItem.Count==0)
-        {
-            promptText.gameObject.SetActive(true);
-            pegeNumText.text = "1";
-            pegeTotalText.text = "1";
+
         }
         else
         {
-            promptText.gameObject.SetActive(false );
-            TotaiLine(ScreenAlarmItem);
-            GetPersonnelAlarmPage(ScreenAlarmItem);
+            double a = Math.Ceiling((double)ScreenAlarmItem.Count / (double)pageLine);
+            int m = (int)a;
+            if (StartPageNum <= m)
+            {
+                PageNum += 1;
+                pegeNumText.text = PageNum.ToString();
+                GetPersonnelAlarmPage(ScreenAlarmItem);
+            }
         }
        
        
     }
+    public void MinPerAlarmPage()
+    {
+        if (IsScreen || IsTIme2 || IsTime1)
+        {
+            if (StartPageNum > 0)
+            {
+                StartPageNum--;
+                PageNum -= 1;
+                if (PageNum == 0)
+                {
+                    pegeNumText.text = "1";
+                }
+                else
+                {
+                    pegeNumText.text = PageNum.ToString();
+                }
+                GetPersonnelAlarmPage(SeachPerItems);
+            }
+        }
+        else
+        {
+            if (StartPageNum > 0)
+            {
+                StartPageNum--;
+                PageNum -= 1;
+                if (PageNum == 0)
+                {
+                    pegeNumText.text = "1";
+                }
+                else
+                {
+                    pegeNumText.text = PageNum.ToString();
+                }
+                GetPersonnelAlarmPage(ScreenAlarmItem);
+            }
+        }
+      
+    }
+   
     /// <summary>
     /// 输入搜索页
     /// </summary>
     /// <param name="value"></param>
     public void InputPersonnelPage(string value)
     {
-        int currentPage = int.Parse(pegeNumText.text );
-        int MaxPage = (int)Math.Ceiling((double)ScreenAlarmItem.Count / (double)pageLine);
-        if (currentPage> MaxPage)
+        int currentPage = int.Parse(pegeNumText.text);
+        if (IsScreen || IsTIme2 || IsTime1)
         {
-            currentPage = MaxPage;
-            pegeNumText.text = currentPage.ToString();
+            int MaxPage = (int)Math.Ceiling((double)SeachPerItems.Count / (double)pageLine);
+            if (currentPage > MaxPage)
+            {
+                currentPage = MaxPage;
+                pegeNumText.text = currentPage.ToString();
+            }
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+                pegeNumText.text = currentPage.ToString();
+            }
+            StartPageNum = currentPage - 1;
+            PageNum = currentPage;
+            GetPersonnelAlarmPage(SeachPerItems);
         }
-        if (currentPage <= 0)
+      else
         {
-            currentPage = 1;
-            pegeNumText.text = currentPage.ToString ();
+            int MaxPage = (int)Math.Ceiling((double)ScreenAlarmItem.Count / (double)pageLine);
+            if (currentPage > MaxPage)
+            {
+                currentPage = MaxPage;
+                pegeNumText.text = currentPage.ToString();
+            }
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+                pegeNumText.text = currentPage.ToString();
+            }
+            StartPageNum = currentPage - 1;
+            PageNum = currentPage;
+            GetPersonnelAlarmPage(ScreenAlarmItem);
         }
-        StartPageNum = currentPage - 1;
-        PageNum = currentPage;
-        GetPersonnelAlarmPage(ScreenAlarmItem);
+       
     }
     /// <summary>
     /// 得到人员告警数据
@@ -235,11 +276,6 @@ public void TotaiLine(List<LocationAlarm> date)
                 nameT = newPerAlarmList[i].Personnel.Name.ToString();
                 job = newPerAlarmList[i].Personnel.Pst.ToString();
             }
-           
-            
-            
-           
-            
             content = newPerAlarmList[i].Content;
             string startTime1 = newPerAlarmList[i].CreateTime.ToString();
             if (startTime1 == "1/1/0001 12:00:00 AM")
@@ -280,6 +316,7 @@ public void TotaiLine(List<LocationAlarm> date)
             {
                 newPerAlarmList.Add(devAlarm);
             }
+            TotaiLine(data);
             GetPersonnelAlarmData();
         }
     }
@@ -313,7 +350,7 @@ public void TotaiLine(List<LocationAlarm> date)
     /// <param name="tagNum"></param>
     public void PerAlarmBut_Click(string tagNum)
     {
-        ParkInformationManage.Instance.ShowParkInfoUI(false );
+        ParkInformationManage.Instance.ShowParkInfoUI(false);
         int tagID = int.Parse(tagNum);
         LocationManager.Instance.FocusPersonAndShowInfo(tagID);
         PersonSubsystemManage.Instance.ChangeImage(false, PersonSubsystemManage.Instance.PersonnelAlamToggle);
@@ -377,30 +414,67 @@ public void TotaiLine(List<LocationAlarm> date)
     public void ScreeningSecondTimeAlarm(DateTime dateTime)
     {
         SaveSelection();
+        SeachPerItems.Clear();
         string StartTime = StartTimeText.GetComponent<Text>().text;
+      
         DateTime NewStartTime = Convert.ToDateTime(StartTime);
         DateTime NewDealTime = Convert.ToDateTime(dateTime);
+
+        string key = InputPerAlarm.text.ToString();
         for (int i = 0; i < PerAlarmList.Count; i++)
         {
             DateTime AlarmTime = PerAlarmList[i].CreateTime;
-            if (DateTime.Compare(NewStartTime, NewDealTime) >= 0)
+            bool IsTime = DateTime.Compare(NewStartTime, NewDealTime) < 0;
+            bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewDealTime, AlarmTime) >= 0;
+            if (IsTime)
             {
-                if (DateTime.Compare(NewStartTime, AlarmTime) >= 0 && DateTime.Compare(NewDealTime, AlarmTime) <= 0)
+                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
                 {
-                    ScreenAlarmTime.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(PerAlarmList[i]);
+                }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                {
+                    if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                   
                 }
             }
             else
             {
-                if (DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewDealTime, AlarmTime) >= 0)
+                DateTime time1 = NewStartTime.AddHours(24);
+                
+                bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewDealTime, AlarmTime) >= 0;
+                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
                 {
-                    ScreenAlarmItem.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(PerAlarmList[i]);
                 }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                {
+                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                    
+                }
+                Invoke("ChangeEndTime", 0.1f);
             }
-
+    }
+        if (SeachPerItems.Count == 0)
+        {
+            promptText.gameObject.SetActive(true);
+            pegeNumText.text = "1";
+            pegeTotalText.text = "1";
         }
-        GetPersonnelAlarmPage(ScreenAlarmItem);
-        ScreenAlarmTime.Clear();
+        else
+        {
+            promptText.gameObject.SetActive(false);
+            TotaiLine(SeachPerItems);
+            GetPersonnelAlarmPage(SeachPerItems);
+        }
+
+
     }
     /// <summary>
     ///告警时间筛选
@@ -408,31 +482,65 @@ public void TotaiLine(List<LocationAlarm> date)
     public void ScreeningStartTimeAlaim(DateTime dateTime)
     {
         SaveSelection();
+        SeachPerItems.Clear();
+        string key = InputPerAlarm.text.ToString();
         string DealTime = DealTimeText.GetComponent<Text>().text;
         DateTime NewStartTime = Convert.ToDateTime(dateTime);
         DateTime NewEndTime = Convert.ToDateTime(DealTime);
         for (int i = 0; i < PerAlarmList.Count; i++)
         {
             DateTime AlarmTime = PerAlarmList[i].CreateTime;
-            if (DateTime.Compare(NewStartTime, NewEndTime) >= 0)
+            bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+            bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
+            if (IsTime)
             {
-
-                if (DateTime.Compare(NewStartTime, AlarmTime) >= 0 && DateTime.Compare(NewEndTime, AlarmTime) <= 0)
+                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
                 {
-                    ScreenAlarmItem.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(PerAlarmList[i]);
+                }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                {
+                    if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                   
                 }
             }
             else
             {
+                DateTime time1 = NewStartTime.AddHours(24);
 
-                if (DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0)
+                bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
+                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
                 {
-                    ScreenAlarmItem.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(PerAlarmList[i]);
                 }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                {
+                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                    
+                }
+                Invoke("ChangeEndTime", 0.1f);
             }
         }
-        GetPersonnelAlarmPage(ScreenAlarmTime);
-        ScreenAlarmTime.Clear();
+        if (SeachPerItems.Count == 0)
+        {
+            promptText.gameObject.SetActive(true);
+            pegeNumText.text = "1";
+            pegeTotalText.text = "1";
+        }
+        else
+        {
+            promptText.gameObject.SetActive(false);
+            TotaiLine(SeachPerItems);
+            GetPersonnelAlarmPage(SeachPerItems);
+        }
+
+
     }
     /// <summary>
     /// 保留选中项
@@ -445,26 +553,176 @@ public void TotaiLine(List<LocationAlarm> date)
         }
     }
 
-    //List<LocationAlarm> SeachPerName = new List<LocationAlarm>();
-
+   
+    List<LocationAlarm> SeachPerItems = new List<LocationAlarm>();
     /// <summary>
     /// 搜索人员
     /// </summary>
     public void PerAlarmSearchBut_Click()
     {
-        List<LocationAlarm> SeachPerName = new List<LocationAlarm>();
-        SeachPerName.Clear();
+        SaveSelection();
+        SeachPerItems.Clear();
         string key = InputPerAlarm.text.ToString();
+        string StartTime = StartTimeText.GetComponent<Text>().text;
+        string DealTime = DealTimeText.GetComponent<Text>().text;
         for (int i = 0; i < PerAlarmList.Count; i++)
         {
-            if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName)
+            DateTime AlarmTime = PerAlarmList[i].CreateTime;
+            DateTime NewStartTime = Convert.ToDateTime(StartTime);
+            DateTime NewEndTime = Convert.ToDateTime(DealTime);
+           
+            bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+            bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
+            if (IsTime)
             {
-                SaveSelection();
-
-                SeachPerName.Add(PerAlarmList[i]);
-
+                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
+                {
+                    SeachPerItems.Add(PerAlarmList[i]);
+                }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                {if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                   
+                }
+            }
+            else
+            {
+                DateTime time1 = NewStartTime.AddHours(24);
+                NewEndTime = time1;
+                bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
+                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
+                {
+                    SeachPerItems.Add(PerAlarmList[i]);
+                }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                {
+                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                   
+                }
+                Invoke("ChangeEndTime", 0.1f);
             }
         }
-        GetPersonnelAlarmPage(SeachPerName);
+        if (SeachPerItems.Count == 0)
+        {
+            promptText.gameObject.SetActive(true);
+            pegeNumText.text = "1";
+            pegeTotalText.text = "1";
+        }
+        else
+        {
+            promptText.gameObject.SetActive(false);
+            TotaiLine(SeachPerItems);
+            GetPersonnelAlarmPage(SeachPerItems);
+        }
+      
+    }
+    public LocationAlarmType GetPersonnelAlarmType()
+    {
+        int level = PersonnelAlarmType.instance.PerTypedropdownItem.value;
+        if (level == 1) return LocationAlarmType.区域告警;
+        else if (level == 2) return LocationAlarmType.消失告警;
+        else if (level == 3) return LocationAlarmType.低电告警;
+        else if (level == 4) return LocationAlarmType.传感器告警;
+        else if (level == 5) return LocationAlarmType.重启告警;
+        else
+        {
+            return LocationAlarmType.非法拆卸;
+        }
+    }
+    public bool PersonnelType(LocationAlarm type)
+    {
+        int level = PersonnelAlarmType.instance.PerTypedropdownItem.value;
+        if (level == 0) return true;
+        else
+        {
+            if (type.AlarmType == GetPersonnelAlarmType())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    /// <summary>
+    /// 筛选告警类型
+    /// </summary>
+    /// <param name="level"></param>
+    public void GetScreenPersonnelAlarmItems(int level)
+    {
+        SaveSelection();
+        SeachPerItems.Clear();
+        string StartTime = StartTimeText.GetComponent<Text>().text;
+        string DealTime = DealTimeText.GetComponent<Text>().text;
+        for (int i = 0; i < PerAlarmList.Count; i++)
+        {
+            DateTime AlarmTime = PerAlarmList[i].CreateTime;
+            DateTime NewStartTime = Convert.ToDateTime(StartTime);
+            DateTime NewEndTime = Convert.ToDateTime(DealTime);
+            string key = InputPerAlarm.text.ToString();
+            bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+            bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
+            if (IsTime)
+            {
+                
+                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
+                {
+                    SeachPerItems.Add(PerAlarmList[i]);
+                }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName)
+                {
+                    if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                   
+                }
+            }
+            else
+            {
+                DateTime time1 = NewStartTime.AddHours(24);
+                NewEndTime = time1;
+                bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
+                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
+                {
+                    SeachPerItems.Add(PerAlarmList[i]);
+                }
+                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                {
+                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    {
+                        SeachPerItems.Add(PerAlarmList[i]);
+                    }
+                   
+                }
+                Invoke("ChangeEndTime", 0.1f);
+            }
+        }
+        if (SeachPerItems.Count == 0)
+        {
+            promptText.gameObject.SetActive(true);
+            pegeNumText.text = "1";
+            pegeTotalText.text = "1";
+        }
+        else
+        {
+            promptText.gameObject.SetActive(false);
+            TotaiLine(SeachPerItems);
+            GetPersonnelAlarmPage(SeachPerItems);
+        }
+
+    }
+    public void ChangeEndTime()
+    {
+        string StartTime = StartTimeText.GetComponent<Text>().text;
+        DateTime NewStartTime = Convert.ToDateTime(StartTime);
+        string currenttime = NewStartTime.ToString("yyyy年MM月dd日");
+        DealTimeText.GetComponent<Text>().text = currenttime.ToString();
     }
 }

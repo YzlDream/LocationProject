@@ -286,7 +286,7 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
             dep = FactoryDepManager.currentDep;
         }
         ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
-        ParkInformationManage.Instance.GetParkDataInfo(dep.NodeID);
+        ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
     }
     #region 数据保存部分
     public void AddSave(List<GameObject>DoorAccessList,string doorID,int? areaId)

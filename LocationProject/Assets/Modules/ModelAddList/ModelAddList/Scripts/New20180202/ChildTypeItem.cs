@@ -213,7 +213,7 @@ public class ChildTypeItem : MonoBehaviour
     {
         AssetbundleGet.Instance.GetObj(modelname, ".png", (arg) =>
         {
-            if (arg == null)
+            if (arg == null&&!modelname.Contains("监控区域"))
             {
                 //缺少图片，一般都由缺少模型导致。目前先隐藏缺少图片的物体
                 Transform item = image.transform.parent.parent;
@@ -227,9 +227,12 @@ public class ChildTypeItem : MonoBehaviour
 
             Sprite sprite = (arg as Sprite);
             image.sprite = sprite;
-            Rect rect = sprite.rect;
-            AspectRatioFitter fitter = image.GetComponent<AspectRatioFitter>();
-            fitter.aspectRatio = rect.width / rect.height;
+            if(sprite!=null)
+            {
+                Rect rect = sprite.rect;
+                AspectRatioFitter fitter = image.GetComponent<AspectRatioFitter>();
+                fitter.aspectRatio = rect.width / rect.height;
+            }         
         });
     }
 

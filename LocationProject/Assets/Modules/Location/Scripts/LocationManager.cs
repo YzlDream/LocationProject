@@ -1003,10 +1003,14 @@ public class LocationManager : MonoBehaviour
     {
         RecoverFocus(()=> 
         {
-            ParkInformationManage.Instance.ShowParkInfoUI(true );
-            DepNode dep = FactoryDepManager.Instance;
-            ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
-            ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
+            if (PersonSubsystemManage.Instance .IsHistorical ==false)
+            {
+                DepNode dep = FactoryDepManager.Instance;
+                ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
+                ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
+            }
+           
+           
             if (onComplete != null)
             {
                 onComplete();

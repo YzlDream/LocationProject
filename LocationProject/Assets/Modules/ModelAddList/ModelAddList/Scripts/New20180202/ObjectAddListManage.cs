@@ -4,6 +4,7 @@ using System.Collections;
 using Location.WCFServiceReferences.LocationServices;
 using System.Collections.Generic;
 using RTEditor;
+using Assets.M_Plugins.Helpers.Utils;
 /// <summary>
 /// 物体添加列表管理
 /// </summary>
@@ -27,6 +28,7 @@ public class ObjectAddListManage : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Instance = this;
+        SceneEvents.DepNodeChanged += OnDepNodeChange;
         //InitObjectAddList();
     }
 	
@@ -34,7 +36,33 @@ public class ObjectAddListManage : MonoBehaviour {
 	void Update () {
 	
 	}
-
+    private void OnDepNodeChange(DepNode old,DepNode newDep)
+    {
+        if(IsEditMode)
+        {
+            SetDepBorderDevEnable(old,false);
+            SetDepBorderDevEnable(newDep, true);
+        }
+    }
+    /// <summary>
+    /// 设置区域下，边界告警设备的显示和隐藏
+    /// </summary>
+    /// <param name="dep"></param>
+    /// <param name="isEnable"></param>
+    private void SetDepBorderDevEnable(DepNode dep,bool isEnable)
+    {
+        if (dep == null) return;
+        List<DevNode> dev = RoomFactory.Instance.GetDepDevs(dep);
+        if (dev == null || dev.Count == 0) return;
+        List<DevNode> borderDevList = dev.FindAll(item => TypeCodeHelper.IsBorderAlarmDev(item.Info.TypeCode.ToString()));
+        if (borderDevList == null || borderDevList.Count == 0) return;
+        foreach (var item in borderDevList)
+        {
+            if (item.isAlarm) continue;
+            BorderDevController borderDev = item as BorderDevController;
+            borderDev.SetRendererEnable(isEnable);
+        }
+    }
     private void OnEnable()
     {
         //InitObjectAddList();
@@ -108,7 +136,7 @@ public class ObjectAddListManage : MonoBehaviour {
         if (isOn)
         {
             IsEditMode = true;
-            
+            SetDepBorderDevEnable(FactoryDepManager.currentDep, true);
         }
         else
         {
@@ -119,6 +147,7 @@ public class ObjectAddListManage : MonoBehaviour {
                 if(DeviceEditUIManager.Instacne)DeviceEditUIManager.Instacne.HideMultiDev();
                 objectEditor.ClearSelection(false);
             }
+            SetDepBorderDevEnable(FactoryDepManager.currentDep, false);
         }
     }
     /// <summary>

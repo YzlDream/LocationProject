@@ -198,7 +198,7 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
             dep = FactoryDepManager.currentDep;
         }
         ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
-        ParkInformationManage.Instance.GetParkDataInfo(dep.NodeID);
+        ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
     }
     #region 数据保存部分
     /// <summary>
@@ -400,22 +400,23 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
             if (Info.ParentId==depManager.NodeID)
             {
                 model.transform.parent = depManager.FactoryDevContainer.transform;
-                DepDevController controller = model.AddComponent<DepDevController>();
-                controller.Info = Info;
-                controller.ParentDepNode = depManager;
-                SaveDevInfo(depManager.NodeID,controller);
-                return controller;
+                if(TypeCodeHelper.IsBorderAlarmDev(Info.TypeCode.ToString()))
+                {
+                    BorderDevController borderDev = model.AddMissingComponent<BorderDevController>();
+                    return InitDevInfo(borderDev, Info, depManager);
+                }
+                else
+                {
+                    DepDevController controller = model.AddComponent<DepDevController>();
+                    return InitDevInfo(controller, Info, depManager);
+                }
             }
             else
             {
                 FloorController floor = FactoryDepManager.currentDep as FloorController;
                 if (floor && Info.ParentId == floor.NodeID)
                 {
-                    if (floor.RoomDevContainer != null)
-                    {
-                        model.transform.parent = floor.RoomDevContainer.transform;
-                        return InitRoomDevInfo(model, Info, floor);
-                    }
+                    if (floor.RoomDevContainer != null) return InitRoomDevParent(floor, null, Info);
                 }
                 else
                 {
@@ -425,26 +426,17 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
                         if (room != null && room as RoomController)
                         {
                             RoomController controller = room as RoomController;
-                            model.transform.parent = controller.RoomDevContainer.transform;
-                            return InitRoomDevInfo(model, Info, controller);
+                            return InitRoomDevParent(null, controller, Info);
                         }
                         else
                         {
-                            if (floor.RoomDevContainer != null)
-                            {
-                                model.transform.parent = floor.RoomDevContainer.transform;
-                                return InitRoomDevInfo(model, Info, floor);
-                            }
+                            if (floor.RoomDevContainer != null) return InitRoomDevParent(floor, null, Info);
                         }
                     }
                     else
                     {
                         RoomController roomController = FactoryDepManager.currentDep as RoomController;
-                        if (roomController)
-                        {
-                            model.transform.parent = roomController.RoomDevContainer.transform;
-                            return InitRoomDevInfo(model,Info,roomController);
-                        }
+                        if (roomController) return InitRoomDevParent(null,roomController,Info);                       
                     }
                     //Todo:保存到机柜
                     //Debug.Log("Check Dev PID:"+Info.ParentId);
@@ -454,14 +446,31 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
         return null;
     }
     /// <summary>
-    /// 初始化房间设备信息
+    /// 初始化房间内设备
+    /// </summary>
+    /// <param name="room"></param>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    private DevNode InitRoomDevParent(FloorController floor,RoomController room,DevInfo info)
+    {
+        if(floor!=null)
+        {
+            model.transform.parent = floor.RoomDevContainer.transform;
+        }else
+        {
+            model.transform.parent = room.RoomDevContainer.transform;
+        }
+        RoomDevController roomDev = model.AddMissingComponent<RoomDevController>();
+        return InitDevInfo(roomDev, info, room);
+    }
+    /// <summary>
+    /// 初始化设备信息
     /// </summary>
     /// <param name="roomDev"></param>
     /// <param name="info"></param>
     /// <param name="parentNode"></param>
-    private DevNode InitRoomDevInfo(GameObject roomDev,DevInfo info,DepNode parentNode)
+    private DevNode InitDevInfo(DevNode devController, DevInfo info,DepNode parentNode)
     {
-        RoomDevController devController = roomDev.AddComponent<RoomDevController>();
         devController.Info = info;
         devController.ParentDepNode = parentNode;
         SaveDevInfo(parentNode.NodeID, devController);
@@ -488,7 +497,7 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
     public Vector3 UnityPosToCad(Transform dev, DevNode devNode)
     {
         Vector3 pos;
-        if (devNode as DepDevController)
+        if (devNode.ParentDepNode==FactoryDepManager.Instance||devNode is DepDevController)
         {
             pos = LocationManager.GetCadVector(dev.position);
         }

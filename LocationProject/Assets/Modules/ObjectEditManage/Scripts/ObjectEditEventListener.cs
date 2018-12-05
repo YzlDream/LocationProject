@@ -164,9 +164,9 @@ public class ObjectEditEventListener : MonoBehaviour {
     /// <returns></returns>
     private Vector3 GetCadPos(GameObject obj,DevNode dev)
     {
-        DeviceEdit editPart = DeviceEditUIManager.Instacne.EditPart;
+        //DeviceEdit editPart = DeviceEditUIManager.Instacne.EditPart;
         Vector3 cadPos;
-        bool isLocalPos = !(dev as DepDevController);
+        bool isLocalPos = !(dev.ParentDepNode==FactoryDepManager.Instance||dev is DepDevController);
         if (!isLocalPos)
         {
             cadPos = LocationManager.UnityToCadPos(obj.transform.position, false);

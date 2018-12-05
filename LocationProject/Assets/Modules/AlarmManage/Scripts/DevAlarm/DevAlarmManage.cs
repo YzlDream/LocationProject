@@ -80,7 +80,7 @@ public class DevAlarmManage : MonoBehaviour {
             foreach (var dev in AlarmDevList)
             {
                 if (dev == null || dev.gameObject == null) continue;
-                dev.AlarmOff();
+                dev.AlarmOff(false);
             }
         }
     }
@@ -132,7 +132,7 @@ public class DevAlarmManage : MonoBehaviour {
             {
                 DevAlarmInfo dev = AlarmDevList.Find(i => i.AlarmInfo.DevId == alarmInfo.DevId);
                 if (dev == null) return;
-                dev.AlarmOff();
+                dev.AlarmOff(true);
             }
             catch (Exception e)
             {
@@ -194,7 +194,7 @@ public class DevAlarmManage : MonoBehaviour {
             foreach (var dev in AlarmDevList)
             {
                 if (dev == null || dev.gameObject == null) continue;
-                dev.AlarmOff();
+                dev.AlarmOff(false);
             }
             AlarmDevList.Clear();
         }
@@ -210,7 +210,7 @@ public class DevAlarmManage : MonoBehaviour {
         if (dev == null || dev.gameObject == null) return;
         DevAlarmInfo info = dev.gameObject.AddMissingComponent<DevAlarmInfo>();
         AlarmDevList.Add(info);
-        info.InitAlarmInfo(alarmInfo);
+        info.InitAlarmInfo(alarmInfo,dev);
         info.AlarmOn();
     }
     /// <summary>

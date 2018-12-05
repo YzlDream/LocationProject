@@ -46,11 +46,7 @@ namespace Assets.M_Plugins.Helpers.Utils
         /// <summary>
         /// 静态设备Typecode
         /// </summary>
-        private static string StaticDev="20181008|";
-        /// <summary>
-        /// 静态设备Typecode
-        /// </summary>
-        public static string StaticDevTypeCode = "20181008";
+        public static string StaticDevTypeCode = "20181008|";
         /// <summary>
         /// 是否静态设备
         /// </summary>
@@ -61,6 +57,34 @@ namespace Assets.M_Plugins.Helpers.Utils
             if (string.IsNullOrEmpty(typeCode)) return false;
             return IsTypeCodeContains(typeCode,StaticDevTypeCode);
         }
+
+        /// <summary>
+        /// 警报设备
+        /// </summary>
+        private static string AlarmDevTypeCodes= "2018113001|2018113002|2018113003|2018113004|2018113005|2018113006|2018113007|2018113008|2018113009|";
+        /// <summary>
+        /// 是否警报设备（消防设备等）
+        /// </summary>
+        /// <param name="typeCode"></param>
+        /// <returns></returns>
+        public static bool IsAlarmDev(string typeCode)
+        {
+            if (string.IsNullOrEmpty(typeCode)) return false;
+            return IsTypeCodeContains(typeCode, AlarmDevTypeCodes);
+        }
+
+        private static string BorderAlarmDev = "20181203|";
+        /// <summary>
+        /// 是否边界告警设备
+        /// </summary>
+        /// <param name="typeCode"></param>
+        /// <returns></returns>
+        public static bool IsBorderAlarmDev(string typeCode)
+        {
+            if (string.IsNullOrEmpty(typeCode)) return false;
+            return IsTypeCodeContains(typeCode, BorderAlarmDev);
+        }
+
 
         /// <summary>
         /// 是否包含TypeCode

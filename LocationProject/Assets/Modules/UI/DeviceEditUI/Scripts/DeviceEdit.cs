@@ -9,6 +9,7 @@ using Assets.M_Plugins.Helpers.Utils;
 
 public class DeviceEdit : MonoBehaviour
 {
+    public GameObject window;
     /// <summary>
     /// 名称输入框
     /// </summary>
@@ -116,6 +117,7 @@ public class DeviceEdit : MonoBehaviour
     /// <param name="dev"></param>
     public void SetDeviceInfo(DevNode dev)
     {
+        window.SetActive(true);
         CurrentDev = dev;
         NameField.text = dev.Info.Name;
         IDField.text = dev.Info.KKSCode;
@@ -139,6 +141,13 @@ public class DeviceEdit : MonoBehaviour
             Debug.LogError("DevPos is null:"+dev.Info.Name);
             //ClearValue();
         }
+    }
+    /// <summary>
+    /// 关闭窗体
+    /// </summary>
+    public void Close()
+    {
+        window.SetActive(false);
     }
     /// <summary>
     /// 保存信息

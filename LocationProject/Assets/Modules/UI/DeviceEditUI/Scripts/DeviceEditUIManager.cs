@@ -13,6 +13,10 @@ public class DeviceEditUIManager : MonoBehaviour
     /// </summary>
     public DeviceEdit EditPart;
     /// <summary>
+    /// 边界告警设备编辑
+    /// </summary>
+    public MonitorDeviceEdit MonitorRangePart;
+    /// <summary>
     /// 设备名称（漂浮UI）
     /// </summary>
     private DevInfoFollowUI DevInfo;
@@ -56,17 +60,36 @@ public class DeviceEditUIManager : MonoBehaviour
     /// </summary>
     public void Show(DevNode dev)
     {
-        if (_followObject != null)
+        if(dev==null||dev.Info==null)
         {
-            _followObject.SetActive(true);
+            Debug.LogError("DeviceEditUIManager.Show --> dev.Info is null...");
+            return;
         }
+        if (_followObject != null) _followObject.SetActive(true);
         Window.SetActive(true);
         CurrentDevList.Clear();
         CurrentDevList.Add(dev);
         SetFollowTarget(dev.gameObject);
-        EditPart.SetDeviceInfo(dev);
+        ShowEditPart(dev);
         DevInfo.Show(dev);
-        ShowArchorPart(dev);
+        //ShowArchorPart(dev);
+    }
+    /// <summary>
+    /// 显示设备编辑部分
+    /// </summary>
+    /// <param name="dev"></param>
+    private void ShowEditPart(DevNode dev)
+    {
+        if(TypeCodeHelper.IsBorderAlarmDev(dev.Info.TypeCode.ToString()))
+        {
+            EditPart.Close();
+            MonitorRangePart.SetDeviceInfo(dev);
+        }
+        else
+        {
+            MonitorRangePart.Close();
+            EditPart.SetDeviceInfo(dev);
+        }
     }
     /// <summary>
     /// 多选设备
@@ -119,6 +142,8 @@ public class DeviceEditUIManager : MonoBehaviour
         {
             CloseArchorTool();
             Window.SetActive(false);
+            EditPart.Close();
+            MonitorRangePart.Close();
             if (_followObject)
                 _followObject.SetActive(false);
         }             
@@ -337,8 +362,10 @@ public class DeviceEditUIManager : MonoBehaviour
         if (titleObj == null)
         {
             GameObject titleObjTemp = new GameObject();
+            titleObjTemp.name = TitleObjName;
             titleObjTemp.transform.parent = device.transform;
-            float objHeight = device.transform.gameObject.GetSize().y / 2 + 0.2f;
+            float offsetY = 0.2f / device.transform.lossyScale.y;
+            float objHeight = device.transform.gameObject.GetSize().y / 2 + offsetY;
             titleObjTemp.transform.localPosition = new Vector3(0, objHeight, 0);
             return titleObjTemp;
         }

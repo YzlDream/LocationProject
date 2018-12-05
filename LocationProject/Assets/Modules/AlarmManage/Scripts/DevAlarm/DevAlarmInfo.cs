@@ -1,4 +1,5 @@
-﻿using HighlightingSystem;
+﻿using Assets.M_Plugins.Helpers.Utils;
+using HighlightingSystem;
 using Location.WCFServiceReferences.LocationServices;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ public class DevAlarmInfo : MonoBehaviour {
     /// 告警信息
     /// </summary>
     public DeviceAlarm AlarmInfo;
+    /// <summary>
+    /// 告警设备
+    /// </summary>
+    public DevNode currentDev;
     /// <summary>
     /// 闪烁频率
     /// </summary>
@@ -23,8 +28,10 @@ public class DevAlarmInfo : MonoBehaviour {
     /// </summary>
     /// <param name="dev"></param>
     /// <param name="alarmContent"></param>
-    public void InitAlarmInfo(DeviceAlarm alarmContent)
+    public void InitAlarmInfo(DeviceAlarm alarmContent,DevNode dev)
     {
+        currentDev = dev;
+        currentDev.isAlarm = true;
         AlarmInfo = alarmContent;
     }
     /// <summary>
@@ -33,17 +40,78 @@ public class DevAlarmInfo : MonoBehaviour {
 	public void AlarmOn()
     {
         if (!DevAlarmManage.IsShowAlarm) return;
-        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
-        Color colorStart = Color.red;
-        Color colorEnd = new Color(colorStart.r, colorStart.g, colorStart.b, 0);
-        h.FlashingOn(colorStart, colorEnd, frequency);
+        if(currentDev is BorderDevController)
+        {
+            BorderDevController dev = currentDev as BorderDevController;
+            dev.AlarmOn();
+        }
+        else
+        {
+            Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+            Color colorStart = Color.red;
+            Color colorEnd = new Color(colorStart.r, colorStart.g, colorStart.b, 0);
+            h.FlashingOn(colorStart, colorEnd, frequency);
+            AlarmMonitorRange(true);
+        }        
     }
     /// <summary>
     /// 结束告警
     /// </summary>
-    public void AlarmOff()
+    public void AlarmOff(bool isRemoveAlarm)
     {
-        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
-        h.FlashingOff();
+        if(isRemoveAlarm&&currentDev!=null)
+        {
+            currentDev.isAlarm = false;
+        }
+        if (currentDev is BorderDevController)
+        {
+            BorderDevController dev = currentDev as BorderDevController;
+            dev.AlarmOff();
+        }
+        else
+        {
+            AlarmMonitorRange(false);
+            Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+            h.FlashingOff();
+        }        
+    }
+
+    /// <summary>
+    /// 区域告警/消警
+    /// </summary>
+    private void AlarmMonitorRange(bool isAlarm)
+    {
+        if (currentDev == null || currentDev.ParentDepNode == null) return;
+        if (!TypeCodeHelper.IsAlarmDev(currentDev.Info.TypeCode.ToString())) return;
+        DepNode dep = currentDev.ParentDepNode;
+        if (isAlarm)
+        {
+            if (dep is RoomController && dep.monitorRangeObject != null)
+            {
+                dep.monitorRangeObject.AlarmOn();
+            }
+        }
+        else
+        {
+            if(dep is RoomController)
+            {
+                List<DevNode>roomDevs = RoomFactory.Instance.GetDepDevs(dep);
+                if (roomDevs == null||roomDevs.Count==0) return;
+                bool isOtherDevAlarm = false;
+                for(int i=0;i<roomDevs.Count;i++)
+                {
+                    if(roomDevs[i].isAlarm&&roomDevs[i]!=currentDev)
+                    {
+                        isOtherDevAlarm = true;
+                        break;
+                    }
+                }
+                //区域下没有告警设备，取消告警
+                if(!isOtherDevAlarm&&dep.monitorRangeObject!=null)
+                {
+                    dep.monitorRangeObject.AlarmOff();
+                }
+            }            
+        }
     }
 }

@@ -28,6 +28,10 @@ public class DevNode : MonoBehaviour {
     /// 当前聚焦设备
     /// </summary>
     public static DevNode CurrentFocusDev;
+    /// <summary>
+    /// 设备是否告警
+    /// </summary>
+    public bool isAlarm;
 
     public virtual void Start()
     {
@@ -204,7 +208,7 @@ public class DevNode : MonoBehaviour {
                 StartOutManage.Instance.SetUpperStoryButtonActive(true);
             }
             StartOutManage.Instance.HideBackButton();
-            if (PersonSubsystemManage.Instance .HistoricalToggle==false)
+            if (PersonSubsystemManage.Instance .IsHistorical==false)
             {
                 ParkInformationManage.Instance.ShowParkInfoUI(true);
             }

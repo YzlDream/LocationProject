@@ -176,24 +176,26 @@ public class PersonSubsystemManage : MonoBehaviour {
             PersonnelAlarmList.Instance.ClosePersonAlarmUI();
         }
     }
-   
+    public bool IsHistorical = false;
     /// <summary>
     /// 历史路径
     /// </summary>
     /// <param name="isOn"></param>
     private void OnHistoricalToggleChange(bool isOn)
     {
-        ParkInformationManage.Instance.ShowParkInfoUI(!isOn);
+        ParkInformationManage.Instance.ShowParkInfoUI(false );
         ChangeImage(isOn, HistoricalToggle);
         Debug.Log("OnHistoricalToggleChange:" + isOn);
         if (isOn)
         {
             ToggleChangedBefore();
             MultHistoryPlayUI.Instance.ShowT();
+            IsHistorical = true;
         }
         else
         {
             MultHistoryPlayUI.Instance.Hide();
+            IsHistorical = false;
         }
     }
     public bool IsOnEditArea;

@@ -18,7 +18,7 @@ public class PersonAlarmSearchItem : MonoBehaviour {
         {
             if (ui== currentUI)
             {
-                PersonnelAlarmList.Instance.SetPersonnelAlarm_Click();
+                PersonnelAlarmList.Instance.PerAlarmSearchBut_Click();
             }
            
         }

@@ -938,7 +938,7 @@ public class RoomFactory : MonoBehaviour
             return;
         }
         DevNode devNode = obj.GetComponent<DevNode>();
-        bool isLocalPos = !(devNode as DepDevController);
+        bool isLocalPos = !(devNode.ParentDepNode==FactoryDepManager.Instance);
         Vector3 cadPos = new Vector3(pos.PosX, pos.PosY, pos.PosZ);
         Vector3 unityPos = LocationManager.CadToUnityPos(cadPos, isLocalPos);
         if (isLocalPos)
@@ -992,6 +992,12 @@ public class RoomFactory : MonoBehaviour
             {
                 Debug.Log(string.Format("{0} ，Doors is null", depNode.NodeName));
             }
+        }else if(TypeCodeHelper.IsBorderAlarmDev(info.TypeCode.ToString()))
+        {
+            BorderDevController depDev = dev.AddComponent<BorderDevController>();
+            depDev.Info = info;
+            depDev.ParentDepNode = depNode;
+            SaveDepDevInfo(depNode.NodeID, depDev);
         }
         else
         {
