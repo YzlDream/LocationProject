@@ -311,6 +311,7 @@ public class PersonInfoUI : MonoBehaviour
     /// </summary>
     public void ContentGrid_PlayForward()
     {
+        CreateContentGridTweener();
         contentGridTweener.PlayForward();
 
         contentGridCanvasGroup.interactable = true;
@@ -322,6 +323,7 @@ public class PersonInfoUI : MonoBehaviour
     /// </summary>
     public void ContentGrid_PlayBackwards()
     {
+        CreateContentGridTweener();
         contentGridTweener.PlayBackwards();
 
         contentGridCanvasGroup.interactable = false;

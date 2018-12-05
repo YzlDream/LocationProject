@@ -932,6 +932,8 @@ public class LocationManager : MonoBehaviour
         {
             UGUIMessageBox.Show("该人员不在监控范围内！");
             locationObjectT.personInfoUI.SetOpenOrClose(false);
+            PersonnelTreeManage.Instance.areaDivideTree.Tree.AreaDeselectNodeByData(locationObjectT.personInfoUI.personnel.TagId);
+            PersonnelTreeManage.Instance.departmentDivideTree.Tree.DeselectNodeByData(tagId);
             return;
         }
         if (currentLocationFocusObj != null && currentLocationFocusObj != locationObjectT)

@@ -512,13 +512,13 @@ public class RoomFactory : MonoBehaviour
         DepNode lastNodep = FactoryDepManager.currentDep;
         if (FactoryDepManager.currentDep == node)
         {
-            //node.FocusOn(() =>
-            //{
-            //    IsFocusingDep = false;
-            //    if (onDevCreateFinish != null) onDevCreateFinish();
-            //});
-            IsFocusingDep = false;
-            if (onDevCreateFinish != null) onDevCreateFinish();
+            node.FocusOn(() =>
+            {
+                IsFocusingDep = false;
+                if (onDevCreateFinish != null) onDevCreateFinish();
+            });
+            //IsFocusingDep = false;
+            //if (onDevCreateFinish != null) onDevCreateFinish();
             if (isFocusBreak) IsFocusingDep = true;
         }
         else

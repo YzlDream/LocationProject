@@ -316,7 +316,7 @@ public class LocationObject : MonoBehaviour
     {
         tagPosInfo = tagPos;
         SetState(tagPosInfo);
-        if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
+        //if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
         //tagPosInfo = tagPos;
         SetisInRange(true);
         Vector3 offset = LocationManager.Instance.GetPosOffset();
@@ -470,6 +470,7 @@ public class LocationObject : MonoBehaviour
         {
             ShowPositionSphereTest(targetPos);
         }
+        if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
         if (isInLocationRange == false) return;//如果位置点不在当前所在区域范围内部，就不设置点
         float dis = Vector3.Distance(transform.position, targetPos);
         //if (dis > 1)
