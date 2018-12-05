@@ -94,7 +94,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// <summary>
     /// 渲染器
     /// </summary>
-    private Renderer render;
+    public Renderer render;
 
     /// <summary>
     /// 是否是普通区域
@@ -118,6 +118,11 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// 跟随UI的Image初始颜色
     /// </summary>
     private Color oriFollowUIColor;
+
+    /// <summary>
+    /// 区域范围XZ平面的点集合(逆时针)
+    /// </summary>
+    List<Vector2> XZpointList;
 
     // Use this for initialization
     void Start()
@@ -373,6 +378,12 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
             IsOnAlarmArea = infoT.Transfrom.IsOnAlarmArea;
             IsOnLocationArea = infoT.Transfrom.IsOnLocationArea;
         }
+
+        if (gameObject.name.Contains("电子设备间"))
+        {
+            int i = 0;
+        }
+        InitXZpointList();
     }
 
     /// <summary>
@@ -914,6 +925,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
 
         //CommunicationObject.Instance.EditArea(info);
         Log.Info("EditMonitorRange", TransformMToString(info.Transfrom));
+        InitXZpointList();
         CommunicationObject.Instance.EditMonitorRange(info);
     }
 
@@ -1169,5 +1181,65 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
         }
     }
 
+
+    /// <summary>
+    /// 是否在区域范围内
+    /// </summary>
+    public bool IsInRange(double x,double y)
+    {
+        //InitXZpointList();
+        if (XZpointList == null) return true;
+        List<double> vertx = new List<double>();
+        List<double> verty = new List<double>();
+        foreach (Vector2 v in XZpointList)
+        {
+            vertx.Add(v.x);
+            verty.Add(v.y);
+        }
+        return PositionPnpoly(XZpointList.Count, vertx, verty, x, y);
+    }
+
+    /// <summary>
+    /// 初始化区域范围XZ平面的点集合
+    /// </summary>
+    private void InitXZpointList()
+    {
+        Vector3 pos = transform.position;
+        Vector3 realsize = gameObject.GetSize();
+        XZpointList = new List<Vector2>();//点逆时针
+        XZpointList.Add(new Vector2(pos.x - realsize.x / 2, pos.z - realsize.z / 2));
+        XZpointList.Add(new Vector2(pos.x + realsize.x / 2, pos.z - realsize.z / 2));
+        XZpointList.Add(new Vector2(pos.x + realsize.x / 2, pos.z + realsize.z / 2));
+        XZpointList.Add(new Vector2(pos.x - realsize.x / 2, pos.z + realsize.z / 2));
+    }
+
+    /// <summary>
+    /// 计算某个点是否在多边形内部
+    /// </summary>
+    /// <param name="nvert">不规则形状的顶点数</param>
+    /// <param name="vertx">不规则形状x坐标集合</param>（点逆时针，顺时针没测过）
+    /// <param name="verty">不规则形状y坐标集合</param>（点逆时针，顺时针没测过）
+    /// <param name="testx">当前x坐标</param>
+    /// <param name="testy">当前y坐标</param>
+    /// <returns></returns>
+    private bool PositionPnpoly(int nvert, List<double> vertx, List<double> verty, double testx, double testy)
+    {
+        int i, j, c = 0;
+        for (i = 0, j = nvert - 1; i < nvert; j = i++)
+        {
+            if (((verty[i] > testy) != (verty[j] > testy)) && (testx < (vertx[j] - vertx[i]) * (testy - verty[i]) / (verty[j] - verty[i]) + vertx[i]))
+            {
+                c = 1 + c; ;
+            }
+        }
+        if (c % 2 == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
 }

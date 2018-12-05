@@ -27,6 +27,10 @@ public class DepartmentDivideTree : MonoBehaviour
     /// 人员信息列表
     /// </summary>
     public List<Personnel> personnels;
+    /// <summary>
+    /// 部门人员树数据
+    /// </summary>
+    Department topoRoot;
 
     //public Toggle DepartmentDivideToggle;
 
@@ -40,23 +44,85 @@ public class DepartmentDivideTree : MonoBehaviour
     }
     public void ShowDepartmentDivideTree()
     {
-        GetTopoTree();
-        Tree.Start();
-        Tree.Nodes = nodes;
-        SetListeners();
+        Loom.StartSingleThread(() =>
+        {
+            RefleshData();
+            Loom.DispatchToMainThread(() =>
+            {
+                StructureTree(topoRoot);
+                Tree.Start();
+                Tree.Nodes = nodes;
+                SetListeners();
+                InvokeRepeating("RefleshDataThread", 1, 1);
+            });
+        });
+
+        //GetTopoTree();
+        //Tree.Start();
+        //Tree.Nodes = nodes;
+        //SetListeners();
     }
     /// <summary>
     /// 获取区域数据
     /// </summary>
     public void GetTopoTree()
     {
-        Department topoRoot = CommunicationObject.Instance.GetDepTree();
-        StructureTree(topoRoot);
+        //topoRoot = CommunicationObject.Instance.GetDepTree();
+        //StructureTree(topoRoot);
+        //if (personnels == null)
+        //{
+        //    personnels = new List<Personnel>();
+        //}
+        //personnels = CommunicationObject.GetPersonnels(topoRoot);
+
+        //Loom.StartSingleThread(() =>
+        //{
+        RefleshData();
+        //    Loom.DispatchToMainThread(() =>
+        //    {
+        //        StructureTree(topoRoot);
+        //    });
+        //});
+
+        //InvokeRepeating("RefleshDataThread", 1, 1);
+    }
+
+    /// <summary>
+    /// 刷新树数据
+    /// </summary>
+    private void RefleshData()
+    {
+        topoRoot = CommunicationObject.Instance.GetDepTree();
+        //StructureTree(topoRoot);
         if (personnels == null)
         {
             personnels = new List<Personnel>();
         }
         personnels = CommunicationObject.GetPersonnels(topoRoot);
+        //return topoRoot;
+    }
+
+    /// <summary>
+    /// 刷新树数据
+    /// </summary>
+    private void RefleshDataThread()
+    {
+        Loom.StartSingleThread(() =>
+        {
+            topoRoot = CommunicationObject.Instance.GetDepTree();
+            //StructureTree(topoRoot);
+            if (personnels == null)
+            {
+                personnels = new List<Personnel>();
+            }
+            personnels = CommunicationObject.GetPersonnels(topoRoot);
+            //return topoRoot;
+            Loom.DispatchToMainThread(() =>
+            {
+                //Debug.Log("RefleshDataThread:personnels");
+            });
+        });
+
     }
 
     /// <summary>
@@ -99,7 +165,7 @@ public class DepartmentDivideTree : MonoBehaviour
     private TreeNode<TreeViewItem> CreateTopoNode(Department topoNode)
     {
         string title = topoNode.Name;
-        if (topoNode.LeafNodes !=null)
+        if (topoNode.LeafNodes != null)
         {
             title = string.Format("{0} ({1})", title, topoNode.LeafNodes.Length);
         }
@@ -125,7 +191,7 @@ public class DepartmentDivideTree : MonoBehaviour
     /// <param name="node"></param>
     public void NodeSelected(TreeNode<TreeViewItem> node)
     {
-       
+
         Debug.Log(node.Item.Name + " selected");
         if (node.Item == null || node.Item.Tag == null)
         {
@@ -136,17 +202,17 @@ public class DepartmentDivideTree : MonoBehaviour
         {
             LocationManager.Instance.RecoverBeforeFocusAlign();
             return;
-        }     
+        }
         if (!(node.Item.Tag is int) && !(node.Item.Tag is string))
         {
             //LocationManager.Instance.RecoverBeforeFocusAlign();
             return;
-        } 
+        }
         //Personnel tagT = node.Item.Tag as Personnel;
         int tagT = (int)node.Item.Tag;
         if (tagT != null)
         {
-            ParkInformationManage.Instance.ShowParkInfoUI(false );
+            ParkInformationManage.Instance.ShowParkInfoUI(false);
             //LocationManager.Instance.FocusPerson(tagT.Id);
             LocationManager.Instance.FocusPersonAndShowInfo(tagT);
         }

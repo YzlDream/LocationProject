@@ -80,7 +80,7 @@ public static class TransparentHelper
         {
             Color color = render.materials[i].color;
             Color transparentColor = new Color(color.r, color.g, color.b, transparent);
-            SetTransparentMaterial(render, i, shader, transparentColor, false);
+            SetTransparentMaterial(render, i, shader, transparentColor, true);
             //StardardShaderSet.SetMaterialRenderingMode(mm, RenderingMode.Transparent);
         }
         return true;

@@ -61,6 +61,66 @@ public class RangeController : DepNode
         monitorRangeObject = oT;
         //InitDevContainer();
     }
+
+    /// <summary>
+    /// 打开区域
+    /// </summary>
+    /// <param name="onComplete"></param>
+    public override void OpenDep(Action onComplete = null)
+    {
+        HideFacotry();
+        BuildingController building = ParentNode.ParentNode as BuildingController;
+        if (building != null) building.LoadRoom(ParentNode, true, floor =>
+        {
+            //OnDevCreateComplete = onComplete;
+            DepNode lastDep = FactoryDepManager.currentDep;
+            FactoryDepManager.currentDep = this;
+            SceneEvents.OnDepNodeChanged(lastDep, this);
+            //Todo:摄像头聚焦    
+            FocusOn(() =>
+            {
+                AfterRangeFocus(true);
+            });
+        });
+        else
+        {
+            DepNode lastDep = FactoryDepManager.currentDep;
+            FactoryDepManager.currentDep = this;
+            SceneEvents.OnDepNodeChanged(lastDep, this);
+            FocusOn(() =>
+            {
+                AfterRangeFocus(true);
+            });
+        }
+    }
+
+    public override void HideDep(Action onComplete = null)
+    {
+        FlashingOff();
+        if (ParentNode != null)
+        {
+            ParentNode.HideDep();
+        }
+    }
+
+    /// <summary>
+    /// 房间聚焦之后
+    /// </summary>
+    private void AfterRangeFocus(bool isFlashing)
+    {
+        FlashingRoom();
+        //CreateRoomDev(OnDevCreateComplete);
+    }
+
+    /// <summary>
+    /// 隐藏厂区建筑物
+    /// </summary>
+    private void HideFacotry()
+    {
+        FactoryDepManager manager = FactoryDepManager.Instance;
+        if (manager) manager.HideFacotry();
+    }
+
     //private void InitDevContainer()
     //{
     //    if (_roomDevContainer != null) return;

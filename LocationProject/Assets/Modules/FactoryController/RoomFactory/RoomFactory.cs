@@ -122,7 +122,7 @@ public class RoomFactory : MonoBehaviour
     /// <returns></returns>
     public DepNode GetDepNode(string key)
     {
-        DepNode node= NodeDic.FirstOrDefault(dep => dep.NodeName == key);        
+        DepNode node = NodeDic.FirstOrDefault(dep => dep.NodeName == key);
         return node;
     }
     /// <summary>
@@ -160,11 +160,11 @@ public class RoomFactory : MonoBehaviour
     private void SaveStaticDevInfo()
     {
         FactoryDepManager manager = FactoryDepManager.Instance;
-        if(manager)
+        if (manager)
         {
             FacilityDevController[] staticDevs = manager.transform.GetComponentsInChildren<FacilityDevController>(true);
             StaticDevList.AddRange(staticDevs);
-        }       
+        }
     }
     #region 建筑ID初始化
     /// <summary>
@@ -297,28 +297,28 @@ public class RoomFactory : MonoBehaviour
                     //}
                     //else
                     //{
-                        //PhysicalTopology topology = topologies.Find(topo => topo.Name == item.NodeName);
-                        //if (topology != null)
-                        //{
+                    //PhysicalTopology topology = topologies.Find(topo => topo.Name == item.NodeName);
+                    //if (topology != null)
+                    //{
 
-                            if (item.name.Contains("测试范围"))
-                            {
-                                int i = 0;
-                            }
-                            if (topology.Children == null || topology.Children.Length == 0) continue;
+                    if (item.name.Contains("测试范围"))
+                    {
+                        int i = 0;
+                    }
+                    if (topology.Children == null || topology.Children.Length == 0) continue;
 
-                            if (item as FloorController)
-                            {
-                                FloorController floor = item as FloorController;
-                                AddRoomInFloor(floor, topology.Children.ToList());
-                            }
+                    if (item as FloorController)
+                    {
+                        FloorController floor = item as FloorController;
+                        AddRoomInFloor(floor, topology.Children.ToList());
+                    }
 
-                            BindingChild(item, topology.Children.ToList());
-                        //}
-                        //else
-                        //{
-                        //    Log.Alarm("BindingChild", "未找到Topo节点:" + item.NodeName);
-                        //}
+                    BindingChild(item, topology.Children.ToList());
+                    //}
+                    //else
+                    //{
+                    //    Log.Alarm("BindingChild", "未找到Topo节点:" + item.NodeName);
+                    //}
                     //}
                 }
                 else
@@ -354,7 +354,7 @@ public class RoomFactory : MonoBehaviour
         ranges.transform.localScale = Vector3.one;
         foreach (var topo in roomTopo)
         {
-            if (GetDepNodeById(topo.Id)!=null) continue;
+            if (GetDepNodeById(topo.Id) != null) continue;
             if (topo.Type != Types.范围) continue;
             GameObject rangeT = new GameObject(topo.Name);
             rangeT.transform.parent = ranges.transform;
@@ -497,10 +497,11 @@ public class RoomFactory : MonoBehaviour
     }
     public void FocusNode(DepNode node, Action onDevCreateFinish = null)
     {
-        if (FactoryDepManager.currentDep == node&&IsFocusingDep)
+        //if (node.TopoNode != null && node.TopoNode.Type == AreaTypes.范围) return;
+        if (FactoryDepManager.currentDep == node && IsFocusingDep)
         {
             //处理拓扑树,快速单击两次的问题
-            Debug.Log(string.Format("{0} is Focusing...",node.NodeName));
+            Debug.Log(string.Format("{0} is Focusing...", node.NodeName));
             return;
         }
         bool isFocusBreak = false;
@@ -511,11 +512,13 @@ public class RoomFactory : MonoBehaviour
         DepNode lastNodep = FactoryDepManager.currentDep;
         if (FactoryDepManager.currentDep == node)
         {
-            node.FocusOn(()=> 
-            {
-                IsFocusingDep = false;
-                if (onDevCreateFinish != null) onDevCreateFinish();
-            });
+            //node.FocusOn(() =>
+            //{
+            //    IsFocusingDep = false;
+            //    if (onDevCreateFinish != null) onDevCreateFinish();
+            //});
+            IsFocusingDep = false;
+            if (onDevCreateFinish != null) onDevCreateFinish();
             if (isFocusBreak) IsFocusingDep = true;
         }
         else
@@ -533,8 +536,58 @@ public class RoomFactory : MonoBehaviour
             });
             if (isFocusBreak) IsFocusingDep = true;
         }
+
         if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
     }
+
+    ///// <summary>
+    ///// 聚焦区域节点，这里是用聚焦人员时，切换到人员所在的区域节点时用的
+    ///// </summary>
+    ///// <param name="node"></param>
+    ///// <param name="onDevCreateFinish"></param>
+    //public void FocusNodeForFocusPerson(DepNode node, Action onDevCreateFinish = null)
+    //{
+    //    if (FactoryDepManager.currentDep == node && IsFocusingDep)
+    //    {
+    //        //处理拓扑树,快速单击两次的问题
+    //        Debug.Log(string.Format("{0} is Focusing...", node.NodeName));
+    //        return;
+    //    }
+    //    bool isFocusBreak = false;
+    //    if (IsFocusingDep) isFocusBreak = true;
+    //    IsFocusingDep = true;
+    //    if (DevNode.CurrentFocusDev != null) DevNode.CurrentFocusDev.FocusOff(false);
+    //    Log.Info(string.Format("FocusNode ID:{0},Name:{1},Type:{2}", node.NodeID, node.NodeName, node.GetType()));
+    //    DepNode lastNodep = FactoryDepManager.currentDep;
+    //    if (FactoryDepManager.currentDep == node)
+    //    {
+    //        //node.FocusOn(() =>
+    //        //{
+    //        //    IsFocusingDep = false;
+    //        //    if (onDevCreateFinish != null) onDevCreateFinish();
+    //        //});
+    //        IsFocusingDep = false;
+    //        if (onDevCreateFinish != null) onDevCreateFinish();
+    //        if (isFocusBreak) IsFocusingDep = true;
+    //    }
+    //    else
+    //    {
+    //        FactoryDepManager manager = FactoryDepManager.Instance;
+    //        if (FactoryDepManager.currentDep != null)
+    //        {
+    //            DeselctLast(FactoryDepManager.currentDep, node);
+    //        }
+    //        node.OpenDep(() =>
+    //        {
+    //            IsFocusingDep = false;
+    //            if (onDevCreateFinish != null) onDevCreateFinish();
+    //            SceneEvents.OnDepCreateCompleted(node);
+    //        });
+    //        if (isFocusBreak) IsFocusingDep = true;
+    //    }
+    //    if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
+    //}
+
     /// <summary>
     /// 取消上一个区域的选中,无视角转换
     /// </summary>
@@ -548,10 +601,10 @@ public class RoomFactory : MonoBehaviour
             highlight.CancelHighLight();//取消当前区域,设备的高亮
         }
         lastNode.IsFocus = false;
-        if(lastNode.NodeID!=currentNode.NodeID)
+        if (lastNode.NodeID != currentNode.NodeID)
         {
             lastNode.HideDep();
-        }       
+        }
     }
 
     /// <summary>
@@ -592,7 +645,7 @@ public class RoomFactory : MonoBehaviour
     private DateTime recordTime;
     public void CreateDepDev(DepNode dep, Action onComplete = null)
     {
-        CreateDepDev(dep,false,onComplete);
+        CreateDepDev(dep, false, onComplete);
     }
     /// <summary>
     /// 创建设备
@@ -600,7 +653,7 @@ public class RoomFactory : MonoBehaviour
     /// <param name="dep">区域</param>
     /// <param name="isRoam">是否漫游模式</param>
     /// <param name="onComplete">设备创建完回调</param>
-    public void CreateDepDev(DepNode dep,bool isRoam, Action onComplete = null)
+    public void CreateDepDev(DepNode dep, bool isRoam, Action onComplete = null)
     {
         if (currentFocusDep == dep) return;
         currentFocusDep = dep;
@@ -625,7 +678,7 @@ public class RoomFactory : MonoBehaviour
         {
             DepNode factoryDep = FactoryDepManager.currentDep;
             bool isRoomState = factoryDep is RoomController && factoryDep.ParentNode == currentFocusDep;
-            if (isRoam|| isRoomState || currentFocusDep == factoryDep)
+            if (isRoam || isRoomState || currentFocusDep == factoryDep)
             {
                 recordTime = DateTime.Now;
                 CreateDepDev();
@@ -640,20 +693,20 @@ public class RoomFactory : MonoBehaviour
     /// </summary>
     /// <param name="building"></param>
     /// <returns></returns>
-    private List<DepNode>GetChildNodes(DepNode building)
+    private List<DepNode> GetChildNodes(DepNode building)
     {
-        if(building==null|| building.ChildNodes == null)
+        if (building == null || building.ChildNodes == null)
         {
             return null;
         }
         List<DepNode> depTempList = new List<DepNode>();
-        foreach(DepNode child in building.ChildNodes)
+        foreach (DepNode child in building.ChildNodes)
         {
             if (child.IsDevCreate) continue;
             child.IsDevCreate = true;
             depTempList.Add(child);
             List<DepNode> childList = GetChildNodes(child);
-            if(childList!=null&&childList.Count!=0)depTempList.AddRange(childList);
+            if (childList != null && childList.Count != 0) depTempList.AddRange(childList);
         }
         return depTempList;
     }
@@ -684,19 +737,19 @@ public class RoomFactory : MonoBehaviour
         {
             List<Dev_DoorAccess> doorAccesses = service.GetDoorAccessInfoByParent(pidList);
             SaveDoorAccessInfo(doorAccesses);
-        }           
+        }
     }
     /// <summary>
     /// 获取Pid(设备所属区域)列表
     /// </summary>
     /// <param name="deps"></param>
     /// <returns></returns>
-    private List<int>GetPidList(List<DepNode>deps)
+    private List<int> GetPidList(List<DepNode> deps)
     {
         List<int> pidList = new List<int>();
-        foreach(var dep in deps)
+        foreach (var dep in deps)
         {
-            if(!pidList.Contains(dep.NodeID))pidList.Add(dep.NodeID);
+            if (!pidList.Contains(dep.NodeID)) pidList.Add(dep.NodeID);
         }
         return pidList;
     }
@@ -722,16 +775,16 @@ public class RoomFactory : MonoBehaviour
         DepDevCreateDic.Clear();
         if (devInfos != null && devInfos.Count != 0)
         {
-            foreach(var dep in depList)
+            foreach (var dep in depList)
             {
-                List<DevInfo> devs = devInfos.FindAll(i=>i.ParentId==dep.NodeID);
+                List<DevInfo> devs = devInfos.FindAll(i => i.ParentId == dep.NodeID);
                 if (devs != null && devs.Count != 0)
                 {
                     DepDevCreateDic.Add(dep, devs);
                     DevCount += devs.Count;
                 }
             }
-            
+
         }
     }
     /// <summary>
@@ -818,19 +871,19 @@ public class RoomFactory : MonoBehaviour
             }
         }
     }
-    IEnumerator LoadSingleDevCorutine(DevInfo dev,GameObject container,DevType type,DepNode dep,Action<GameObject>onComplete)
+    IEnumerator LoadSingleDevCorutine(DevInfo dev, GameObject container, DevType type, DepNode dep, Action<GameObject> onComplete)
     {
         DevNode devCreate = GetCreateDevById(dev.DevID, dep.NodeID);
-        if (string.IsNullOrEmpty(dev.ModelName)||devCreate!=null)
+        if (string.IsNullOrEmpty(dev.ModelName) || devCreate != null)
         {
             Debug.Log(string.Format("设备：{0} 模型名称不存在", dev.Name));
             if (onComplete != null) onComplete(null);
         }
         else
         {
-            if(TypeCodeHelper.IsStaticDev(dev.TypeCode.ToString()))
+            if (TypeCodeHelper.IsStaticDev(dev.TypeCode.ToString()))
             {
-                CreateStaticDev(dev,dep,onComplete);
+                CreateStaticDev(dev, dep, onComplete);
             }
             else
             {
@@ -871,8 +924,8 @@ public class RoomFactory : MonoBehaviour
                         if (onComplete != null) onComplete(objInit);
                     });
                 }
-            }           
-        }      
+            }
+        }
     }
     /// <summary>
     /// 创建静态设备
@@ -880,14 +933,14 @@ public class RoomFactory : MonoBehaviour
     /// <param name="dev"></param>
     /// <param name="parnetDep"></param>
     /// <param name="onComplete"></param>
-    private void CreateStaticDev(DevInfo dev,DepNode parnetDep,Action<GameObject> onComplete)
+    private void CreateStaticDev(DevInfo dev, DepNode parnetDep, Action<GameObject> onComplete)
     {
-        FacilityDevController staticDevT = StaticDevList.Find(i=>i.gameObject.name==dev.ModelName);
-        if(staticDevT!=null)
+        FacilityDevController staticDevT = StaticDevList.Find(i => i.gameObject.name == dev.ModelName);
+        if (staticDevT != null)
         {
             staticDevT.ParentDepNode = parnetDep;
             staticDevT.Info = dev;
-            SaveDepDevInfo(parnetDep.NodeID,staticDevT);
+            SaveDepDevInfo(parnetDep.NodeID, staticDevT);
             staticDevT.CreateFollowUI();
             if (onComplete != null) onComplete(staticDevT.gameObject);
         }
@@ -901,7 +954,7 @@ public class RoomFactory : MonoBehaviour
     /// </summary>
     /// <param name="devInfo"></param>
     /// <param name="OnSingleDevCreate"></param>
-    private void CreateDevByDevId(DevInfo devInfo,Action<DevNode>OnSingleDevCreate)
+    private void CreateDevByDevId(DevInfo devInfo, Action<DevNode> OnSingleDevCreate)
     {
         if (devInfo == null)
         {
@@ -910,20 +963,20 @@ public class RoomFactory : MonoBehaviour
             return;
         }
         DepNode dep = GetDepNodeById((int)devInfo.ParentId);
-        if(dep==null)
+        if (dep == null)
         {
-            Debug.LogError("DevParentId not find:"+devInfo.ParentId);
+            Debug.LogError("DevParentId not find:" + devInfo.ParentId);
             if (OnDevCreateAction != null) OnSingleDevCreate(null);
         }
-        List<int> pidList = new List<int>() { dep.NodeID};
-        GetDoorAccessInfo(pidList);     
+        List<int> pidList = new List<int>() { dep.NodeID };
+        GetDoorAccessInfo(pidList);
         DevType devType = DevType.DepDev;
         GameObject devContainer = GetDepDevContainer(dep, ref devType);
-        StartCoroutine(LoadSingleDevCorutine(devInfo,devContainer,devType,dep,obj=> 
-        {
-            DevNode dev = obj.GetComponent<DevNode>();
-            if (OnSingleDevCreate != null) OnSingleDevCreate(dev);
-        }));
+        StartCoroutine(LoadSingleDevCorutine(devInfo, devContainer, devType, dep, obj =>
+            {
+                DevNode dev = obj.GetComponent<DevNode>();
+                if (OnSingleDevCreate != null) OnSingleDevCreate(dev);
+            }));
     }
     /// <summary>
     /// 设置设备位置
@@ -972,9 +1025,9 @@ public class RoomFactory : MonoBehaviour
         {
             DoorAccessDevController doorController = dev.AddComponent<DoorAccessDevController>();
             Dev_DoorAccess doorAccess = DoorAccessList.Find(i => i.DevID == info.DevID);
-            if(doorAccess==null)
+            if (doorAccess == null)
             {
-                Debug.LogError("DoorAccess not find:"+info.DevID);
+                Debug.LogError("DoorAccess not find:" + info.DevID);
                 return;
             }
             doorController.Info = info;
@@ -1066,7 +1119,7 @@ public class RoomFactory : MonoBehaviour
         List<DevNode> devListTemp;
         DepDevDic.TryGetValue(dep.NodeID, out devListTemp);
         if (devListTemp == null) devListTemp = new List<DevNode>();
-        if(devListTemp.Count!=0) depDevs.AddRange(devListTemp);
+        if (devListTemp.Count != 0) depDevs.AddRange(devListTemp);
         //楼层下，包括楼层设备+房间设备
         if (dep as FloorController && containRoomDev)
         {
@@ -1085,13 +1138,13 @@ public class RoomFactory : MonoBehaviour
     /// <param name="devId"></param>
     /// <param name="parentId"></param>
     /// <returns>返回已经创建的设备</returns>
-    public DevNode GetCreateDevById(string devId,int parentId)
+    public DevNode GetCreateDevById(string devId, int parentId)
     {
         List<DevNode> devListTemp;
-        DepDevDic.TryGetValue(parentId,out devListTemp);
-        if(devListTemp!=null&&devListTemp.Count!=0)
+        DepDevDic.TryGetValue(parentId, out devListTemp);
+        if (devListTemp != null && devListTemp.Count != 0)
         {
-            DevNode dev = devListTemp.Find(i=>i.Info.DevID==devId);
+            DevNode dev = devListTemp.Find(i => i.Info.DevID == devId);
             return dev;
         }
         else
@@ -1104,9 +1157,9 @@ public class RoomFactory : MonoBehaviour
     /// </summary>
     /// <param name="devId"></param>
     /// <returns></returns>
-    public void GetDevById(string devId,Action<DevNode>onDevFind)
+    public void GetDevById(string devId, Action<DevNode> onDevFind)
     {
-        DevNode dev=null;
+        DevNode dev = null;
         foreach (List<DevNode> devListTemp in DepDevDic.Values)
         {
             dev = devListTemp.Find(i => i.Info.DevID == devId);
@@ -1116,7 +1169,7 @@ public class RoomFactory : MonoBehaviour
                 return;
             }
         }
-        if(dev==null)
+        if (dev == null)
         {
             DevInfo info = GetDevInfoByDevId(devId);
             if (info == null)
@@ -1125,7 +1178,7 @@ public class RoomFactory : MonoBehaviour
                 onDevFind(null);
                 return;
             }
-            CreateDevByDevId(info,obj=> { if (onDevFind != null) onDevFind(obj); });
+            CreateDevByDevId(info, obj => { if (onDevFind != null) onDevFind(obj); });
         }
     }
 
@@ -1167,7 +1220,7 @@ public class RoomFactory : MonoBehaviour
     private DevInfo GetDevInfoByDevId(string devId)
     {
         CommunicationObject service = CommunicationObject.Instance;
-        if(service)
+        if (service)
         {
             return service.GetDevByDevId(devId);
         }
@@ -1290,12 +1343,12 @@ public class RoomFactory : MonoBehaviour
     /// <param name="devId"></param>
     private void FocusDev(string Local_DevID)
     {
-        GetDevById(Local_DevID, dev=> 
+        GetDevById(Local_DevID, dev =>
         {
             if (dev) dev.FocusOn();
             else
                 Debug.LogError("RoomFactory.FoucusDev,Dev is null :" + Local_DevID);
-        });       
+        });
     }
     #endregion
 }

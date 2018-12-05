@@ -694,6 +694,11 @@ namespace MonitorRange
             GameObject o = Instantiate(areaPrefab);
             //o.transform.SetParent(parent);
             o.transform.SetParent(rootparent);
+            //BoxCollider boxCollider = o.GetComponent<BoxCollider>();
+            //if (boxCollider)
+            //{
+            //    boxCollider.isTrigger = true;
+            //}
             return o;
         }
 

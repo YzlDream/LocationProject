@@ -246,8 +246,12 @@ public class TopoTreeManager : MonoBehaviour
             if (topoTemp.Id==lastDep.NodeID) lastNode = AreaList[i];
             if (currentNode != null && lastNode != null) break;
         }
-        NarrowLastNode(lastNode);
-        if(currentNode!= null)Tree.FindSelectNode(currentNode,false);
+
+        if (lastDep != currentDep)
+        {
+            NarrowLastNode(lastNode);
+            if (currentNode != null) Tree.FindSelectNode(currentNode, false);
+        }
     }
     /// <summary>
     /// 收起上一个节点

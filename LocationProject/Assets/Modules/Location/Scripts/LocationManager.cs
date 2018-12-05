@@ -384,6 +384,7 @@ public class LocationManager : MonoBehaviour
 
         foreach (string key in keyslist)
         {
+            if (key == "55555") continue;
             DestroyImmediate(code_character[key].gameObject);
             code_character.Remove(key);
         }
@@ -391,6 +392,30 @@ public class LocationManager : MonoBehaviour
 
     bool isBusy;
 
+    /// <summary>
+    /// AddTagTest
+    /// </summary>
+    [ContextMenu("AddTagTest")]
+    public void AddTagTest()
+    {
+        Tag t = new Tag();
+        t.Code = "55555";
+        Transform tran = CreateCharacter(t);
+        LocationObject locationObject = tran.gameObject.AddComponent<LocationObject>();//这里就会脚本中的
+        locationObject.Init(t);
+        code_character.Add(t.Code, locationObject);
+        List<TagPosition> tagsPosT = new List<TagPosition>();
+        TagPosition TAGP = new TagPosition();
+        TAGP.AreaId = 2;
+        TAGP.Tag = "55555";
+        //locationObject.transform.position = new Vector3(0, 2, 0);
+        Vector3 p = GetDisRealVector(new Vector3(0, 2, 0));
+        TAGP.X = p.x;
+        TAGP.Y = 2;
+        TAGP.Z = p.z;
+        tagsPosT.Add(TAGP);
+        SetTagPostion(locationObject, t, tagsPosT);
+    }
 
     //public IEnumerator ShowTagsPosition_Coroutine()
     //{
@@ -892,6 +917,8 @@ public class LocationManager : MonoBehaviour
     /// </summary>
     public void FocusPersonAndShowInfo(int tagId)
     {
+
+        
         List<LocationObject> listT = code_character.Values.ToList();
         LocationObject locationObjectT = listT.Find((item) => item.Tag.Id == tagId);
         //if (locationObjectT.IsRenderEnable == false && FactoryDepManager.currentDep == FactoryDepManager.Instance)
@@ -900,6 +927,13 @@ public class LocationManager : MonoBehaviour
         //    return;
         //}
         if (locationObjectT == null) return;
+
+        if (!locationObjectT.isInLocationRange)
+        {
+            UGUIMessageBox.Show("该人员不在监控范围内！");
+            locationObjectT.personInfoUI.SetOpenOrClose(false);
+            return;
+        }
         if (currentLocationFocusObj != null && currentLocationFocusObj != locationObjectT)
         {
             IsSwitchFocus = true;
@@ -908,20 +942,47 @@ public class LocationManager : MonoBehaviour
         else
         {
             IsSwitchFocus = false;
+            if (currentLocationFocusObj == locationObjectT) return;
         }
+        Debug.LogError("FocusPersonAndShowInfo:" + tagId);
         SetCurrentLocationFocusObj(locationObjectT);
-        //CameraSceneManager.Instance.FocusTarget(locationObjectT.alignTarget);
-
-
-        FocusPerson(locationObjectT.alignTarget);
-        IsBelongtoCurrentDep(locationObjectT);
-
-        if (locationObjectT.personInfoUI != null)
+        if (!IsFocus)
         {
-            //locationObjectT.personInfoUI.SetContentGridActive(true);
-            //locationObjectT.personInfoUI.SetContentToggle(true);
-            locationObjectT.personInfoUI.SetOpenOrClose(true);
+            beforeFocusAlign = CameraSceneManager.Instance.GetCurrentAlignTarget();
         }
+        RoomFactory.Instance.FocusNode(locationObjectT.currentDepNode,()=> {
+
+            FocusPerson(locationObjectT.alignTarget);
+
+            if (locationObjectT.personInfoUI != null)
+            {
+                locationObjectT.personInfoUI.SetOpenOrClose(true);
+            }
+        });
+
+
+        //if (currentLocationFocusObj != null && currentLocationFocusObj != locationObjectT)
+        //{
+        //    IsSwitchFocus = true;
+        //    HideCurrentPersonInfoUI();
+        //}
+        //else
+        //{
+        //    IsSwitchFocus = false;
+        //}
+        //SetCurrentLocationFocusObj(locationObjectT);
+        ////CameraSceneManager.Instance.FocusTarget(locationObjectT.alignTarget);
+
+
+        //FocusPerson(locationObjectT.alignTarget);
+        ////IsBelongtoCurrentDep(locationObjectT);
+
+        //if (locationObjectT.personInfoUI != null)
+        //{
+        //    //locationObjectT.personInfoUI.SetContentGridActive(true);
+        //    //locationObjectT.personInfoUI.SetContentToggle(true);
+        //    locationObjectT.personInfoUI.SetOpenOrClose(true);
+        //}
 
 
     }
@@ -965,6 +1026,10 @@ public class LocationManager : MonoBehaviour
         }
         SetCurrentLocationFocusObj(locationObjectT);
         //CameraSceneManager.Instance.FocusTarget(locationObjectT.alignTarget);
+        if (!IsFocus)
+        {
+            beforeFocusAlign = CameraSceneManager.Instance.GetCurrentAlignTarget();
+        }
         FocusPerson(locationObjectT.alignTarget);
 
     }
@@ -977,7 +1042,7 @@ public class LocationManager : MonoBehaviour
     {
         if (IsFocus == false)
         {
-            beforeFocusAlign = CameraSceneManager.Instance.GetCurrentAlignTarget();
+            //beforeFocusAlign = CameraSceneManager.Instance.GetCurrentAlignTarget();
             //IsFocus = true;
             SetIsIsFocus(true);
             SetExitFocusbtn(true);
@@ -1029,14 +1094,20 @@ public class LocationManager : MonoBehaviour
             }
             else
             {
-                CameraSceneManager.Instance.FocusTarget(beforeFocusAlign, () =>
+                //CameraSceneManager.Instance.FocusTarget(beforeFocusAlign, () =>
+                //{
+                //    IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+                //    if (onComplete != null)
+                //    {
+                //        onComplete();
+                //    }
+                //});
+                DepNode depnodeT = currentLocationFocusObj.currentDepNode;
+                if (depnodeT.TopoNode.Type == AreaTypes.机房 || depnodeT.TopoNode.Type == AreaTypes.范围)
                 {
-                    IsClickUGUIorNGUI.Instance.SetIsCheck(true);
-                    if (onComplete != null)
-                    {
-                        onComplete();
-                    }
-                });
+                    depnodeT = depnodeT.ParentNode;
+                }
+                RoomFactory.Instance.FocusNode(depnodeT);
             }
             PersonnelTreeManage.Instance.departmentDivideTree.Tree.DeselectNodeByData(currentLocationFocusObj.personInfoUI.personnel.TagId);
             //PersonNode nodeT = PersonnelTreeManage.Instance.PersonnelToPersonNode(currentLocationFocusObj.personInfoUI.personnel.Id);
@@ -1096,7 +1167,8 @@ public class LocationManager : MonoBehaviour
         {
             if (currentLocationFocusObj.personInfoUI != null)
             {
-                currentLocationFocusObj.personInfoUI.SetContentToggle(false);
+                //currentLocationFocusObj.personInfoUI.SetContentToggle(false);
+                currentLocationFocusObj.personInfoUI.SetOpenOrClose(false);
             }
         }
     }

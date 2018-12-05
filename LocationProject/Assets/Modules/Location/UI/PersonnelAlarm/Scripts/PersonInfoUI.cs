@@ -121,6 +121,13 @@ public class PersonInfoUI : MonoBehaviour
         TagName.GetComponentInChildren<Text>(true).text = personnel.Name;
         txtJob.text = "(" + personnel.Pst + ")";
         //SetPhoto(personnelT.Sex);
+
+        gameObject.name = personnel.Name;
+        if (personnel.Tag != null)
+        {
+            gameObject.name += personnel.Tag.Code;
+        }
+
         LocationUIManage.Instance.SetPhoto(photo, personnelT.Sex);
     }
 
@@ -481,7 +488,7 @@ public class PersonInfoUI : MonoBehaviour
         }
         else if (time.TotalSeconds < 3600 * 24)//如果小于天显示小时和分钟
         {
-            infoStandbyTime.text = "(" + time.Hours.ToString() + "天" + time.Minutes.ToString() + "时)";
+            infoStandbyTime.text = "(" + time.Hours.ToString() + "时" + time.Minutes.ToString() + "分)";
         }
         else if (time.TotalSeconds < 3600 * 24 * 365) //如果大于一天显示天和小时
         {

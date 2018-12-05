@@ -107,6 +107,10 @@ public class LocationObject : MonoBehaviour
     /// </summary>
     public PersonAnimationController personAnimationController;
 
+    /// <summary>
+    /// 位置点是否在所在区域范围内部,并且所在区域为定位监控范围
+    /// </summary>
+    public bool isInLocationRange = true;
 
     private void Awake()
     {
@@ -140,6 +144,11 @@ public class LocationObject : MonoBehaviour
         //{
         //    coroutine = StartCoroutine(SaveU3DHistoryPosition_Coroutine());
         //}
+        //if (Tag.Code.Contains("0997"))
+        //{
+        //    int i = 0;
+        //}
+
         if (personInfoUI == null)
         {
             FollowUINormalOn();
@@ -163,7 +172,7 @@ public class LocationObject : MonoBehaviour
             personAnimationController = GetComponent<PersonAnimationController>();
         }
         ////transform.localPosition = targetPos;
-        //agent = gameObject.AddMissingComponent<NavMeshAgent>();
+        agent = gameObject.GetComponent<NavMeshAgent>();
         ////agent.radius = 0.2f;
         //agent.height = 1.7f;
         //agent.speed = 3.5f;
@@ -270,11 +279,27 @@ public class LocationObject : MonoBehaviour
     /// <summary>
     /// 初始化人员信息
     /// </summary>
-    public  void InitPersonnel()
+    public void InitPersonnel()
     {
         personnel = PersonnelTreeManage.Instance.departmentDivideTree.personnels.Find((item) => item.TagId == Tag.Id);
+        //if (personnel == null)
+        //{
+        //    if (Tag.Code == "55555")
+        //    {
+        //        personnel = new Personnel();
+        //        FollowUINormalOn();
+        //    }
+        //}
+
+        if (personInfoUI == null)//如果跟随UI没创建，需要创建
+        {
+            FollowUINormalOn();
+            SetFollowPersonInfoUIActive(isRenderEnable);
+        }
+
         if (personnel == null)
         {
+
             Log.Alarm("LocationObject.Init", personnel == null);
             gameObject.name = Tag.Name + Tag.Code;
         }
@@ -290,18 +315,22 @@ public class LocationObject : MonoBehaviour
     public void SetPositionInfo(TagPosition tagPos)
     {
         tagPosInfo = tagPos;
+        SetState(tagPosInfo);
+        if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
+        //tagPosInfo = tagPos;
+        SetisInRange(true);
         Vector3 offset = LocationManager.Instance.GetPosOffset();
         targetPos = new Vector3((float)tagPosInfo.X, (float)tagPosInfo.Y, (float)tagPosInfo.Z);
 
         targetPos = LocationManager.GetRealVector(targetPos);
 
-
-        SetState(tagPosInfo);
-        if (tagPos.Tag == "0997")
+        if (tagPos.Tag == "097F"|| tagPos.Tag == "0986")
         {
             //Debug.Log(tagPos.Tag + ":" + tagPos.TopoNodes);
             int i = 0;
         }
+        //SetState(tagPosInfo);
+
         //if (gameObject.name == "标签30004陈先生")
         //{
         //    int i = 0;
@@ -337,7 +366,23 @@ public class LocationObject : MonoBehaviour
             {
                 if (floorCubeT != null)
                 {
-                    targetPos = new Vector3(targetPos.x, halfHeight + floorCubeT.position.y, targetPos.z);
+                    Vector3 targetPosT = new Vector3(targetPos.x, halfHeight + floorCubeT.position.y, targetPos.z);
+                    if (currentDepNode.monitorRangeObject)
+                    {
+                        if (Tag.Code == "0995" || Tag.Code == "097F")
+                        {
+                            int I = 0;
+                        }
+                        bool isInRangeT = currentDepNode.monitorRangeObject.IsInRange(targetPosT.x, targetPosT.z);
+                        if (isInRangeT)
+                        {
+                            isInRangeT = currentDepNode.monitorRangeObject.IsOnLocationArea;
+                        }
+
+                        SetisInRange(isInRangeT);
+
+                    }
+                    targetPos = targetPosT;
                 }
                 else
                 {
@@ -417,10 +462,15 @@ public class LocationObject : MonoBehaviour
             return FilterFloorCube(depnode.ParentNode);
         }
     }
-    
+
 
     public void SetPosition()
     {
+        if (SystemSettingHelper.systemSetting.IsDebug)
+        {
+            ShowPositionSphereTest(targetPos);
+        }
+        if (isInLocationRange == false) return;//如果位置点不在当前所在区域范围内部，就不设置点
         float dis = Vector3.Distance(transform.position, targetPos);
         //if (dis > 1)
         //{
@@ -448,7 +498,25 @@ public class LocationObject : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, targetPos, LocationManager.Instance.damper * Time.deltaTime);
+            if (ThroughWallsManage.Instance && ThroughWallsManage.Instance.isColliderThroughWallsTest)
+            {
+                PersonMove move = gameObject.GetComponent<PersonMove>();
+                if (move != null)
+                {
+                    move.SetPosition(targetPos);
+                }
+            }
+            else if (ThroughWallsManage.Instance && ThroughWallsManage.Instance.isNavMeshThroughWallsTest)
+            {
+                if (agent)
+                {
+                    agent.SetDestination(targetPos);
+                }
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPos, LocationManager.Instance.damper * Time.deltaTime);
+            }
         }
 
         //agent.enabled = true;
@@ -725,6 +793,10 @@ public class LocationObject : MonoBehaviour
     /// </summary>
     public void SetRendererEnable(bool isEnable)
     {
+        if (SystemSettingHelper.systemSetting.IsDebug)
+        {
+            SetPosSphereActive(isEnable);
+        }
         GetRenderer();
         if (gameObject.name == "标签60007赵一男")
         {
@@ -991,6 +1063,7 @@ public class LocationObject : MonoBehaviour
     /// </summary>
     public void SetState(TagPosition tagpT)
     {
+        //if()
         if (personInfoUI == null) return;
         if (personAnimationController == null)
         {
@@ -1023,12 +1096,12 @@ public class LocationObject : MonoBehaviour
                 SwitchStandby();
                 personAnimationController.DoStop();
             }
-            else if(tagpT.MoveState == 3)//长时间不动状态
+            else if (tagpT.MoveState == 3)//长时间不动状态
             {
                 SwitchStandbyLong();
                 personAnimationController.DoStop();
             }
-            else 
+            else
             {
 
             }
@@ -1110,7 +1183,7 @@ public class LocationObject : MonoBehaviour
     public void TransparentLeave()
     {
 
-        GameObjectMaterial.SetAllTransparent(gameObject, 0.3f);
+        GameObjectMaterial.SetAllTransparent(gameObject, 0.5f);
 
         //SkinnedMeshRenderer[] skinnedMeshRenderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         //foreach (SkinnedMeshRenderer render in skinnedMeshRenderers)
@@ -1121,6 +1194,22 @@ public class LocationObject : MonoBehaviour
         //        m.color = new Color(m.color.r, m.color.g, m.color.b, 0.3f); 
         //    }
         //}
+    }
+
+    public void SetisInRange(bool b)
+    {
+        isInLocationRange = b;
+        if (Tag.Code == "0995" || Tag.Code == "097F")
+        {
+            //if (isInRange)
+            //{
+            //    Debug.LogError(Tag.Code + ":在范围内");
+            //}
+            //else
+            //{
+            //    Debug.LogError(Tag.Code + ":不在范围内");
+            //}
+        }
     }
 
     /// <summary>
@@ -1145,7 +1234,8 @@ public class LocationObject : MonoBehaviour
 
     #endregion
 
-    #region 让参与计算的基站显示出来（测试）
+    #region 让参与计算的基站显示出来（测试）,及显示人员真实位置的测试小球
+    //让参与计算的基站显示出来（测试）
     List<DevNode> archorObjs = new List<DevNode>();
 
     //public bool isShowArchor = false;//闪烁参与计算的基站
@@ -1206,23 +1296,43 @@ public class LocationObject : MonoBehaviour
         }
     }
 
-    //public void SetisShowArchors(bool b)
-    //{
-    //    isShowArchor = b;
-    //}
+    public GameObject posSphere;
+    public static Transform PositionSphereParent;
+    /// <summary>
+    /// 创建高亮测试小球显示人员的真实位置
+    /// </summary>
+    public void ShowPositionSphereTest(Vector3 p)
+    {
 
-    //[ContextMenu("ShowArchorsT")]
-    //public void ShowArchorsT()
-    //{
-    //    SetisShowArchors(true);
-    //}
+        if (PositionSphereParent == null)
+        {
+            GameObject o = new GameObject();
+            o.name = "PositionSphereParent";
+            PositionSphereParent = o.transform;
+        }
+        if (posSphere == null)
+        {
+            posSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            posSphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            posSphere.name = Tag.Code;
+            posSphere.transform.SetParent(PositionSphereParent);
+        }
 
+        Highlighter h = posSphere.AddMissingComponent<Highlighter>();
+        h.ConstantOn(Color.blue);
+        posSphere.transform.position = p;
+    }
 
-    //[ContextMenu("HideArchorsT")]
-    //public void HideArchorsT()
-    //{
-    //    SetisShowArchors(false);
-    //}
+    /// <summary>
+    /// 设置位置球的显示和
+    /// </summary>
+    public void SetPosSphereActive(bool b)
+    {
+        if (posSphere == null) return;
+        posSphere.SetActive(b);
+    }
 
     #endregion
+
+
 }
