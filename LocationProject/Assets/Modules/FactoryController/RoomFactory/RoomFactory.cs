@@ -540,6 +540,56 @@ public class RoomFactory : MonoBehaviour
         if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
     }
 
+    /// <summary>
+    /// 聚焦区域节点，这里是用在聚焦人员时，切换到人员所在的区域节点时用的
+    /// </summary>
+    /// <param name="node"></param>
+    /// <param name="onDevCreateFinish"></param>
+    public void FocusNodeForFocusPerson(DepNode node, Action onDevCreateFinish = null)
+    {
+        //if (node.TopoNode != null && node.TopoNode.Type == AreaTypes.范围) return;
+        if (FactoryDepManager.currentDep == node && IsFocusingDep)
+        {
+            //处理拓扑树,快速单击两次的问题
+            Debug.Log(string.Format("{0} is Focusing...", node.NodeName));
+            return;
+        }
+        bool isFocusBreak = false;
+        if (IsFocusingDep) isFocusBreak = true;
+        IsFocusingDep = true;
+        if (DevNode.CurrentFocusDev != null) DevNode.CurrentFocusDev.FocusOff(false);
+        Log.Info(string.Format("FocusNode ID:{0},Name:{1},Type:{2}", node.NodeID, node.NodeName, node.GetType()));
+        DepNode lastNodep = FactoryDepManager.currentDep;
+        if (FactoryDepManager.currentDep == node)
+        {
+            //node.FocusOn(() =>
+            //{
+            //    IsFocusingDep = false;
+            //    if (onDevCreateFinish != null) onDevCreateFinish();
+            //});
+            IsFocusingDep = false;
+            if (onDevCreateFinish != null) onDevCreateFinish();
+            if (isFocusBreak) IsFocusingDep = true;
+        }
+        else
+        {
+            FactoryDepManager manager = FactoryDepManager.Instance;
+            if (FactoryDepManager.currentDep != null)
+            {
+                DeselctLast(FactoryDepManager.currentDep, node);
+            }
+            node.OpenDep(() =>
+            {
+                IsFocusingDep = false;
+                if (onDevCreateFinish != null) onDevCreateFinish();
+                SceneEvents.OnDepCreateCompleted(node);
+            });
+            if (isFocusBreak) IsFocusingDep = true;
+        }
+
+        if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
+    }
+
     ///// <summary>
     ///// 聚焦区域节点，这里是用聚焦人员时，切换到人员所在的区域节点时用的
     ///// </summary>

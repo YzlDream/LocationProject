@@ -946,13 +946,13 @@ public class LocationManager : MonoBehaviour
             IsSwitchFocus = false;
             if (currentLocationFocusObj == locationObjectT) return;
         }
-        Debug.LogError("FocusPersonAndShowInfo:" + tagId);
+        //Debug.LogError("FocusPersonAndShowInfo:" + tagId);
         SetCurrentLocationFocusObj(locationObjectT);
         if (!IsFocus)
         {
             beforeFocusAlign = CameraSceneManager.Instance.GetCurrentAlignTarget();
         }
-        RoomFactory.Instance.FocusNode(locationObjectT.currentDepNode,()=> {
+        RoomFactory.Instance.FocusNodeForFocusPerson(locationObjectT.currentDepNode,()=> {
 
             FocusPerson(locationObjectT.alignTarget);
 
@@ -1280,7 +1280,7 @@ public class LocationManager : MonoBehaviour
                 if (obj == currentLocationFocusObj)
                 {
                     follow.SetIsRayCheckCollision(false);
-                    Debug.LogError("SetFollowuiIsCheckCollider:"+obj.name);
+                    //Debug.LogError("SetFollowuiIsCheckCollider:"+obj.name);
                     continue;//开启检测时，当前聚焦人物不检测
                 }
             }
