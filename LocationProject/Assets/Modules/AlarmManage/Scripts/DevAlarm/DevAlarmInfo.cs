@@ -19,8 +19,8 @@ public class DevAlarmInfo : MonoBehaviour {
     /// 闪烁频率
     /// </summary>
     private float frequency = 2f;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
     /// <summary>
@@ -62,6 +62,7 @@ public class DevAlarmInfo : MonoBehaviour {
         if(isRemoveAlarm&&currentDev!=null)
         {
             currentDev.isAlarm = false;
+            if (FollowTargetManage.Instance) FollowTargetManage.Instance.RemoveAlarmDevFollowUI(currentDev);
         }
         if (currentDev is BorderDevController)
         {
@@ -75,7 +76,6 @@ public class DevAlarmInfo : MonoBehaviour {
             h.FlashingOff();
         }        
     }
-
     /// <summary>
     /// 区域告警/消警
     /// </summary>

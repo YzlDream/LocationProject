@@ -38,8 +38,12 @@ public class BorderDevController : DevNode, IRTEditorEventListener
     public void SetRendererEnable(bool isEnable,bool isAlarmOff=false)
     {
         bool isSameArea = false;
-        if (CurrentFocusDev != null) isSameArea = CurrentFocusDev == FactoryDepManager.currentDep;
-        if (ObjectAddListManage.IsEditMode && isAlarmOff&&isSameArea) return;//编辑模式下，不关闭材质
+        if (ParentDepNode != null) isSameArea = ParentDepNode == FactoryDepManager.currentDep;
+        if (ObjectAddListManage.IsEditMode && isAlarmOff && isSameArea)
+        {
+            SetFollowNameUIEnable(true);
+            return;//编辑模式下，不关闭材质
+        }
         GetRenderer();
         render.enabled = isEnable;
         Collider collider = gameObject.GetComponent<Collider>();
@@ -94,6 +98,7 @@ public class BorderDevController : DevNode, IRTEditorEventListener
     private void FlashingBorderOn(Color flashColor, float frequency)
     {
         SetRendererEnable(true);
+        SetFollowNameUIEnable(false);
         Highlighter h = gameObject.AddMissingComponent<Highlighter>();
         Color colorStart = flashColor;
         Color colorEnd = new Color(colorStart.r, colorStart.g, colorStart.b, 0);
@@ -106,11 +111,11 @@ public class BorderDevController : DevNode, IRTEditorEventListener
     {
         Highlighter h = gameObject.AddMissingComponent<Highlighter>();
         h.FlashingOff();
-        if (ObjectAddListManage.IsEditMode &&(FactoryDepManager.currentDep != null && FactoryDepManager.currentDep.NodeID == Info.ParentId))
-        {
-            //处于设备编辑模式，
-            return;
-        }
+        //if (ObjectAddListManage.IsEditMode &&(FactoryDepManager.currentDep != null && FactoryDepManager.currentDep.NodeID == Info.ParentId))
+        //{
+        //    //处于设备编辑模式，
+        //    return;
+        //}
         SetRendererEnable(false,true);
     }
     /// <summary>

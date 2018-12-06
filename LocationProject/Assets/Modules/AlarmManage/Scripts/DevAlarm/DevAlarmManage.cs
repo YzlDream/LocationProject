@@ -1,4 +1,5 @@
-﻿using Location.WCFServiceReferences.LocationServices;
+﻿using Assets.M_Plugins.Helpers.Utils;
+using Location.WCFServiceReferences.LocationServices;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,8 +31,14 @@ public class DevAlarmManage : MonoBehaviour {
         //Instance = this;
         CommunicationCallbackClient.Instance.alarmHub.OnDeviceAlarmRecieved += OnDeviceAlarmRecieved;
         SceneEvents.OnDepCreateComplete += OnRoomCreateComplete;
+        SceneEvents.DepNodeChanged += OnDepChanged;
     }
     #region 设备告警
+    private void OnDepChanged(DepNode oldDep, DepNode currentDep)
+    {
+        if ((oldDep is RoomController && oldDep.ParentNode == currentDep) || (currentDep is RoomController && currentDep.ParentNode == oldDep)) return;
+        HighOffLastDep();
+    }
     /// <summary>
     /// 区域创建完成（设备加载完成后）
     /// </summary>
@@ -133,6 +140,8 @@ public class DevAlarmManage : MonoBehaviour {
                 DevAlarmInfo dev = AlarmDevList.Find(i => i.AlarmInfo.DevId == alarmInfo.DevId);
                 if (dev == null) return;
                 dev.AlarmOff(true);
+                AlarmDevList.Remove(dev);
+                DestroyImmediate(dev);
             }
             catch (Exception e)
             {
@@ -148,7 +157,7 @@ public class DevAlarmManage : MonoBehaviour {
     /// <param name="parentId"></param>
     private void ShowDevAlarmInfo(DepNode dep)
     {
-        HighOffLastDep();
+        //HighOffLastDep();
         string pId = dep.NodeID.ToString();
         if (AlarmInfoList == null || AlarmInfoList.Count == 0) return;
         List<DeviceAlarm> alarmInfos = GetDepAlarmInfo(dep);
@@ -208,9 +217,24 @@ public class DevAlarmManage : MonoBehaviour {
     private void AlarmDev(DevNode dev, DeviceAlarm alarmInfo)
     {
         if (dev == null || dev.gameObject == null) return;
-        DevAlarmInfo info = dev.gameObject.AddMissingComponent<DevAlarmInfo>();
-        AlarmDevList.Add(info);
-        info.InitAlarmInfo(alarmInfo,dev);
+        DevAlarmInfo info = dev.gameObject.GetComponent<DevAlarmInfo>();
+        if(info == null)
+        {
+            info = dev.gameObject.AddMissingComponent<DevAlarmInfo>();
+            info.InitAlarmInfo(alarmInfo, dev);
+            if (FollowTargetManage.Instance)
+            {
+                string typeCode = dev.Info.TypeCode.ToString();
+                if (TypeCodeHelper.IsBorderAlarmDev(typeCode))
+                {
+                    FollowTargetManage.Instance.CreateBorderDevFollowUI(dev.gameObject, dev.ParentDepNode, alarmInfo);
+                }else if(TypeCodeHelper.IsAlarmDev(typeCode))
+                {
+                    FollowTargetManage.Instance.CreateFireDevFollowUI(dev.gameObject, dev.ParentDepNode, alarmInfo);
+                }
+            }
+        }
+        if(!AlarmDevList.Contains(info))AlarmDevList.Add(info);
         info.AlarmOn();
     }
     /// <summary>

@@ -170,6 +170,12 @@ public class RoomController : DepNode {
     private void FlashingRoom()
     {
         if (monitorRangeObject == null) return;
+        if (RoomFactory.Instance)
+        {
+            List<DevNode> devs = RoomFactory.Instance.GetDepDevs(this);
+            DevNode dev = devs.Find(i=>i.isAlarm==true);
+            if (dev != null) return;
+        }
         monitorRangeObject.FlashingOn(Color.green, 2f);
         if (IsInvoking("FlashingOff"))
         {

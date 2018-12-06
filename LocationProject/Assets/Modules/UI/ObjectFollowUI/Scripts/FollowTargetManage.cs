@@ -25,10 +25,7 @@ public class FollowTargetManage : MonoBehaviour
     /// </summary>
     [HideInInspector]
     private string CameraListName = "CameraNameUI";
-    /// <summary>
-    /// 摄像头，所在区域名称
-    /// </summary>
-    private List<string> CameraDepNameList = new List<string>();
+
 
 
     /// <summary>
@@ -39,10 +36,10 @@ public class FollowTargetManage : MonoBehaviour
     /// 设备信息，漂浮UI所属组名
     /// </summary>
     private string DevListName = "DevNameUI";
-    /// <summary>
-    /// 设备所属区域
-    /// </summary>
-    private List<string> DevDepNameList = new List<string>();
+
+    public GameObject BorderDevUIPrefab; //边界告警预设
+    public GameObject FireDevUIPrefab;//消防告警预设
+    private string AlarmDevUIName="AlarmDevUI";  //告警设备(边界、消防等)
 
     /// <summary>
     /// UI跟随管理脚本
@@ -75,6 +72,7 @@ public class FollowTargetManage : MonoBehaviour
                 return;
             }
         }
+        SetAlarmDevUIState(isFullView);
         if (isFullView)
         {
             HideBuildingUI();
@@ -112,6 +110,10 @@ public class FollowTargetManage : MonoBehaviour
         
         HideDevInfoUI(oldDep);
         ShowDevInfoUI(currentDep);
+
+        if ((oldDep is RoomController&&oldDep.ParentNode==currentDep)||(currentDep is RoomController&&currentDep.ParentNode==oldDep)) return;
+        SetAlarmDevUIState(false,oldDep);
+        SetAlarmDevUIState(true,currentDep);
     }
 
     /// <summary>
@@ -162,7 +164,7 @@ public class FollowTargetManage : MonoBehaviour
         Camera mainCamera = GetMainCamera();
         if (mainCamera == null) return;
         string cameraDepName = GetDepNodeId(devDep) + CameraListName;
-        if (!CameraDepNameList.Contains(cameraDepName)) CameraDepNameList.Add(cameraDepName);
+        //if (!CameraDepNameList.Contains(cameraDepName)) CameraDepNameList.Add(cameraDepName);
         GameObject name = UGUIFollowManage.Instance.CreateItem(CameraUIPrefab, targetTagObj, cameraDepName, mainCamera);
         CameraMonitorFollowUI cameraInfo = name.GetComponent<CameraMonitorFollowUI>();
         if (cameraInfo != null)
@@ -215,7 +217,7 @@ public class FollowTargetManage : MonoBehaviour
         Camera mainCamera = GetMainCamera();
         if (mainCamera == null) return;
         string devDepName = GetDepNodeId(devDep) + DevListName;
-        if (!DevDepNameList.Contains(devDepName)) DevDepNameList.Add(devDepName);
+        //if (!DevDepNameList.Contains(devDepName)) DevDepNameList.Add(devDepName);
         GameObject name = UGUIFollowManage.Instance.CreateItem(DevUIPrefab, targetTagObj, devDepName, mainCamera);
         UGUIFollowTarget followTarget = name.GetComponent<UGUIFollowTarget>();
         followTarget.SetEnableDistace(true,60);
@@ -250,7 +252,92 @@ public class FollowTargetManage : MonoBehaviour
         UGUIFollowManage.Instance.SetGroupUIbyName(devDepName, true);
     }
     #endregion
-
+    #region 创建设备告警漂浮UI
+    /// <summary>
+    /// 创建设备漂浮UI
+    /// </summary>
+    /// <param name="sisDev"></param>
+    /// <param name="info"></param>
+    /// <param name="isShow">是否显示</param>
+    public GameObject CreateBorderDevFollowUI(GameObject borderDev,DepNode dep ,DeviceAlarm alarmInfo)
+    {
+        string depNodeId = dep is RoomController ? dep.ParentNode.NodeID.ToString() : dep.NodeID.ToString();
+        string groupName = string.Format("{0}{1}", AlarmDevUIName, depNodeId);
+        GameObject followObj = CreateFollowTarget(BorderDevUIPrefab,borderDev, groupName);
+        if (followObj == null) return null;
+        BorderDevFollowUI followUI = followObj.GetComponent<BorderDevFollowUI>();
+        if (followUI != null)
+        {
+            followUI.InitInfo(alarmInfo);
+        }
+        return followObj;     
+    }
+    public GameObject CreateFireDevFollowUI(GameObject fireDev,DepNode dep,DeviceAlarm alarmInfo)
+    {
+        string depNodeId = dep is RoomController ? dep.ParentNode.NodeID.ToString():dep.NodeID.ToString();
+        string groupName = string.Format("{0}{1}", AlarmDevUIName, depNodeId);
+        GameObject followObj = CreateFollowTarget(FireDevUIPrefab, fireDev, groupName);
+        if (followObj == null) return null;
+        FireDevFollowUI followUI = followObj.GetComponent<FireDevFollowUI>();
+        if (followUI != null)
+        {
+            followUI.InitInfo(alarmInfo);
+        }
+        return followObj;
+    }
+    /// <summary>
+    /// 移除设备漂浮UI
+    /// </summary>
+    /// <param name="dev"></param>
+    public void RemoveAlarmDevFollowUI(DevNode dev)
+    {
+        if (dev.ParentDepNode == null) return;
+        string groupName = string.Format("{0}{1}", AlarmDevUIName, dev.ParentDepNode.NodeID);
+        Transform titleTag = dev.gameObject.transform.Find("TitleTag");
+        if(titleTag!=null)
+        {
+            UGUIFollowManage.Instance.RemoveUIbyTarget(groupName, titleTag.gameObject);
+        }       
+    }
+    /// <summary>
+    /// 设置告警漂浮UI的状态（显示/关闭）
+    /// </summary>
+    /// <param name="isShow"></param>
+    public void SetAlarmDevUIState(bool isShow,DepNode dep=null)
+    {
+        if (FactoryDepManager.currentDep == null) return;
+        DepNode depToShow = dep == null ? FactoryDepManager.currentDep : dep;
+        string groupName = string.Format("{0}{1}", AlarmDevUIName, depToShow.NodeID);
+        if (isShow)
+        {           
+            UGUIFollowManage.Instance.SetGroupUIbyName(groupName, true);
+        }
+        else
+        {
+            UGUIFollowManage.Instance.SetGroupUIbyName(groupName, false);
+        }
+    }
+    #endregion
+    /// <summary>
+    /// 创建漂浮物体
+    /// </summary>
+    /// <param name="followPrefab"></param>
+    /// <param name="dev"></param>
+    /// <param name="UIGroupName"></param>
+    /// <returns></returns>
+    private GameObject CreateFollowTarget(GameObject followPrefab,GameObject dev,string UIGroupName)
+    {
+        GameObject targetTagObj = UGUIFollowTarget.CreateTitleTag(dev, Vector3.zero);
+        if (UGUIFollowManage.Instance == null)
+        {
+            Debug.LogError("UGUIFollowManage.Instance==null");
+            return null;
+        }
+        Camera mainCamera = GetMainCamera();
+        if (mainCamera == null) return null;
+        GameObject obj = UGUIFollowManage.Instance.CreateItem(followPrefab, targetTagObj, UIGroupName, mainCamera);
+        return obj;
+    }
     /// <summary>
     /// 获取区域Id
     /// </summary>

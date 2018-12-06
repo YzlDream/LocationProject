@@ -244,7 +244,34 @@ public class UGUIFollowManage : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// 通过UI标志，移除目标物体
+    /// </summary>
+    /// <param name="groupName"></param>
+    /// <param name="target"></param>
+    public void RemoveUIbyTarget(string groupName,GameObject target)
+    {
+        if (name_uilist.ContainsKey(groupName))
+        {
+            List<GameObject> uis = name_uilist[groupName];
+            GameObject targetFollow = null;
+            foreach (GameObject ui in uis)
+            {
+                if (ui == null) continue;
+                UGUIFollowTarget follow = ui.GetComponent<UGUIFollowTarget>();
+                if (follow.Target == target)
+                {
+                    targetFollow = ui;
+                    break;
+                }
+            }
+            if (targetFollow != null)
+            {
+                uis.Remove(targetFollow);
+                DestroyImmediate(targetFollow);
+            }
+        }
+    }
     /// <summary>
     /// 获取UI标志通过目标物体
     /// </summary>

@@ -217,7 +217,7 @@ public class CommunicationObject : MonoBehaviour
         client = GetClient();
         lock (client)
         {
-            Debug.Log("->GetPersonTree");
+            //Debug.Log("->GetPersonTree");
             int view = 2;//0:基本数据;1:基本设备信息;2:基本人员信息;3:基本设备信息+基本人员信息;4:只显示设备的节点;5:只显示人员的节点;6:只显示人员或设备的节点
             AreaNode root = client.GetPhysicalTopologyTreeNode(view);
             return root;
