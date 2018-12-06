@@ -122,7 +122,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// <summary>
     /// 区域范围XZ平面的点集合(逆时针)
     /// </summary>
-    List<Vector2> XZpointList;
+     List<Vector2> XZpointList;
 
     // Use this for initialization
     void Start()
@@ -1242,4 +1242,14 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
         }
     }
 
+    /// <summary>
+    /// 计算区域在XZ平面到点最短距离的点的位置坐标
+    /// </summary>
+    /// <param name="point">位置点</param>
+    /// <param name="verts">区域底面顶点集合（顺，逆时针都可以）</param>
+    /// <returns></returns>
+    public Vector2 PointForPointToPolygon(Vector2 point)
+    {
+        return MonitorRangeManager.PointForPointToPolygon(point, XZpointList);
+    }
 }

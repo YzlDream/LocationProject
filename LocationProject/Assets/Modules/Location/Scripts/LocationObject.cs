@@ -108,9 +108,9 @@ public class LocationObject : MonoBehaviour
     public PersonAnimationController personAnimationController;
 
     /// <summary>
-    /// 位置点是否在所在区域范围内部,并且所在区域为定位监控范围
+    /// 位置点是否在所在区域范围内部
     /// </summary>
-    public bool isInLocationRange = true;
+    public bool isInCurrentRange = true;
 
     private void Awake()
     {
@@ -374,10 +374,10 @@ public class LocationObject : MonoBehaviour
                             int I = 0;
                         }
                         bool isInRangeT = currentDepNode.monitorRangeObject.IsInRange(targetPosT.x, targetPosT.z);
-                        if (isInRangeT)
-                        {
-                            isInRangeT = currentDepNode.monitorRangeObject.IsOnLocationArea;
-                        }
+                        //if (isInRangeT)
+                        //{
+                        //    isInRangeT = currentDepNode.monitorRangeObject.IsOnLocationArea;
+                        //}
 
                         SetisInRange(isInRangeT);
 
@@ -463,7 +463,6 @@ public class LocationObject : MonoBehaviour
         }
     }
 
-
     public void SetPosition()
     {
         if (SystemSettingHelper.systemSetting.IsDebug)
@@ -471,7 +470,25 @@ public class LocationObject : MonoBehaviour
             ShowPositionSphereTest(targetPos);
         }
         if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
-        if (isInLocationRange == false) return;//如果位置点不在当前所在区域范围内部，就不设置点
+        //if (isInLocationRange == false) return;//如果位置点不在当前所在区域范围内部，就不设置点
+        if (isInCurrentRange == false)//如果位置点不在当前所在区域范围内部
+        {
+            if (currentDepNode.monitorRangeObject && currentDepNode.monitorRangeObject.IsOnLocationArea)
+            {
+                Vector2 v = currentDepNode.monitorRangeObject.PointForPointToPolygon(new Vector2(targetPos.x, targetPos.z));
+                targetPos = new Vector3(v.x, targetPos.y, v.y);
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            //如果位置点在当前所在区域范围内部,但是当前区域不是定位区域返回
+            if (currentDepNode.monitorRangeObject == null || currentDepNode.monitorRangeObject.IsOnLocationArea == false) return;
+        }
+
         float dis = Vector3.Distance(transform.position, targetPos);
         //if (dis > 1)
         //{
@@ -1199,7 +1216,7 @@ public class LocationObject : MonoBehaviour
 
     public void SetisInRange(bool b)
     {
-        isInLocationRange = b;
+        isInCurrentRange = b;
         if (Tag.Code == "0995" || Tag.Code == "097F")
         {
             //if (isInRange)

@@ -992,6 +992,145 @@ namespace MonitorRange
         }
 
         #endregion
+
+
+        #region 计算多边形到点最近距离的点的位置坐标
+
+        /// <summary>
+        /// 计算多边形到点最短距离的点的位置坐标（只适用于二维）
+        /// </summary>
+        /// <param name="point">位置点</param>
+        /// <param name="verts">多边形顶点集合（顺，逆时针都可以）</param>
+        /// <returns></returns>
+        public static Vector2 PointForPointToPolygon(Vector2 point, List<Vector2> verts)
+        {
+            if (verts == null || verts.Count == 0)
+            {
+                return point;
+            }
+
+            if (verts.Count == 1)
+            {
+                return verts[0];
+            }
+
+            if (verts.Count == 2)
+            {
+                Vector2 vt = PointForPointToABLine(point.x, point.y, verts[0].x, verts[0].y, verts[1].x, verts[1].y);
+                return verts[0];
+            }
+
+            //Dictionary< int, Vector2> distanceDic = new Dictionary<int, Vector2>();//该边到位置点最短距离的点和边的编号
+            List<Vector2> distanceList = new List<Vector2>();
+
+            for (int i = 0; i < verts.Count; i++)
+            {
+                if (i < verts.Count - 1)
+                {
+                    Vector2 vt = PointForPointToABLine(point.x, point.y, verts[i].x, verts[i].y, verts[i + 1].x, verts[i + 1].y);
+                    distanceList.Add(vt);
+                }
+                else
+                {
+                    Vector2 vt = PointForPointToABLine(point.x, point.y, verts[i].x, verts[i].y, verts[0].x, verts[0].y);
+                    distanceList.Add(vt);
+                }
+            }
+
+            float dis = 100000f;
+            Vector2 v = point;
+            foreach (Vector2 p in distanceList)
+            {
+                float disT = Vector2.Distance(p, point);
+                if (disT < dis)
+                {
+                    dis = disT;
+                    v = p;
+                }
+            }
+
+            return v;
+        }
+
+        /// <summary>
+        ///  点到线段最短距离的那条直线与线段的交点，{x=...,y=...}（只适用于二维）
+        /// </summary>
+        /// <param name="x">线段外的点的x坐标</param>
+        /// <param name="y">线段外的点的y坐标</param>
+        /// <param name="x1">线段顶点1的x坐标</param>
+        /// <param name="y1">线段顶点1的y坐标</param>
+        /// <param name="x2">线段顶点2的x坐标</param>
+        /// <param name="y2">线段顶点2的y坐标</param>
+        /// <returns></returns>
+        public static Vector2 PointForPointToABLine(float x, float y, float x1, float y1, float x2, float y2)
+        {
+            Vector2 reVal = new Vector2();
+            // 直线方程的两点式转换成一般式
+            // A = Y2 - Y1
+            // B = X1 - X2
+            // C = X2*Y1 - X1*Y2
+            float a1 = y2 - y1;
+            float b1 = x1 - x2;
+            float c1 = x2 * y1 - x1 * y2;
+            float x3, y3;
+            if (a1 == 0)
+            {
+                // 线段与x轴平行
+                reVal = new Vector2(x, y1);
+                x3 = x;
+                y3 = y1;
+            }
+            else if (b1 == 0)
+            {
+                // 线段与y轴平行
+                reVal = new Vector2(x1, y);
+                x3 = x1;
+                y3 = y;
+            }
+            else
+            {
+                // 普通线段
+                float k1 = -a1 / b1;
+                float k2 = -1 / k1;
+                float a2 = k2;
+                float b2 = -1;
+                float c2 = y - k2 * x;
+                // 直线一般式和二元一次方程的一般式转换
+                // 直线的一般式为 Ax+By+C=0
+                // 二元一次方程的一般式为 Ax+By=C
+                c1 = -c1;
+                c2 = -c2;
+
+                // 二元一次方程求解(Ax+By=C)
+                // a=a1,b=b1,c=c1,d=a2,e=b2,f=c2;
+                // X=(ce-bf)/(ae-bd)
+                // Y=(af-cd)/(ae-bd)
+                x3 = (c1 * b2 - b1 * c2) / (a1 * b2 - b1 * a2);
+                y3 = (a1 * c2 - c1 * a2) / (a1 * b2 - b1 * a2);
+            }
+            // 点(x3,y3)作为点(x,y)到(x1,y1)和(x2,y2)组成的直线距离最近的点,那(x3,y3)是否在(x1,y1)和(x2,y2)的线段之内(包含(x1,y1)和(x2,y2))
+            if (((x3 > x1) != (x3 > x2) || x3 == x1 || x3 == x2) && ((y3 > y1) != (y3 > y2) || y3 == y1 || y3 == y2))
+            {
+                // (x3,y3)在线段上
+                reVal = new Vector2(x3, y3);
+            }
+            else
+            {
+                // (x3,y3)在线段外
+                float d1_quadratic = (x - x1) * (x - x1) + (y - y1) * (y - y1);
+                float d2_quadratic = (x - x2) * (x - x2) + (y - y2) * (y - y2);
+                if (d1_quadratic <= d2_quadratic)
+                {
+                    reVal = new Vector2(x1, y1);
+                }
+                else
+                {
+                    reVal = new Vector2(x2, y2);
+                }
+            }
+            return reVal;
+        }
+        #endregion
     }
 
     #region 范围节点类
@@ -1023,4 +1162,5 @@ namespace MonitorRange
 
     }
     #endregion
+
 }

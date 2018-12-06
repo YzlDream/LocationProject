@@ -928,14 +928,14 @@ public class LocationManager : MonoBehaviour
         //}
         if (locationObjectT == null) return;
 
-        if (!locationObjectT.isInLocationRange)
-        {
-            UGUIMessageBox.Show("该人员不在监控范围内！");
-            locationObjectT.personInfoUI.SetOpenOrClose(false);
-            PersonnelTreeManage.Instance.areaDivideTree.Tree.AreaDeselectNodeByData(locationObjectT.personInfoUI.personnel.TagId);
-            PersonnelTreeManage.Instance.departmentDivideTree.Tree.DeselectNodeByData(tagId);
-            return;
-        }
+        //if (!locationObjectT.isInLocationRange && locationObjectT.IsRenderEnable == false)
+        //{
+        //    UGUIMessageBox.Show("该人员不在监控范围内！");
+        //    locationObjectT.personInfoUI.SetOpenOrClose(false);
+        //    PersonnelTreeManage.Instance.areaDivideTree.Tree.AreaDeselectNodeByData(locationObjectT.personInfoUI.personnel.TagId);
+        //    PersonnelTreeManage.Instance.departmentDivideTree.Tree.DeselectNodeByData(tagId);
+        //    return;
+        //}
         if (currentLocationFocusObj != null && currentLocationFocusObj != locationObjectT)
         {
             IsSwitchFocus = true;
@@ -1326,4 +1326,6 @@ public class LocationManager : MonoBehaviour
 
         return a;
     }
+
+
 }
