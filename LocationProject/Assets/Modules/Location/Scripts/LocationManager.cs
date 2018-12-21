@@ -15,6 +15,10 @@ public class LocationManager : MonoBehaviour
 {
 
     public static LocationManager Instance;
+    /// <summary>
+    /// 显示离开状态人员实时位置
+    /// </summary>
+    public bool isShowLeavePerson;
     public Vector3 LocationOffsetScale = new Vector3(1.3125f, 0.9622f, 1.3607f);//new Vector3(1.27f, 0.9622f, 1.27f)
     /// <summary>
     /// 位置偏移量,就是计算出来的三维坐标原点位置

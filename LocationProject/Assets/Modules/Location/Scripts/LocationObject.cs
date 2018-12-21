@@ -270,7 +270,10 @@ public class LocationObject : MonoBehaviour
         {
             if (locationAreas.Count == 0)
             {
-                SetRendererEnable(false);
+                if (!LocationManager.Instance.isShowLeavePerson)
+                {
+                    SetRendererEnable(false);
+                }
             }
         }
     }
@@ -484,14 +487,21 @@ public class LocationObject : MonoBehaviour
         {
             ShowPositionSphereTest(targetPos);
         }
-        if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
+
+        if (!LocationManager.Instance.isShowLeavePerson)
+        {
+            if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
+        }
         //if (isInLocationRange == false) return;//如果位置点不在当前所在区域范围内部，就不设置点
         if (isInCurrentRange == false)//如果位置点不在当前所在区域范围内部
         {
             if (currentDepNode.monitorRangeObject && currentDepNode.monitorRangeObject.IsOnLocationArea)
             {
-                Vector2 v = currentDepNode.monitorRangeObject.PointForPointToPolygon(new Vector2(targetPos.x, targetPos.z));
-                targetPos = new Vector3(v.x, targetPos.y, v.y);
+                if (!LocationManager.Instance.isShowLeavePerson)
+                {
+                    Vector2 v = currentDepNode.monitorRangeObject.PointForPointToPolygon(new Vector2(targetPos.x, targetPos.z));
+                    targetPos = new Vector3(v.x, targetPos.y, v.y);
+                }
             }
             else
             {
@@ -673,7 +683,10 @@ public class LocationObject : MonoBehaviour
                 locationAreas.Remove(areaObject);
                 if (locationAreas.Count == 0)
                 {
-                    SetRendererEnable(false);
+                    if (!LocationManager.Instance.isShowLeavePerson)
+                    {
+                        SetRendererEnable(false);
+                    }
                 }
             }
 
