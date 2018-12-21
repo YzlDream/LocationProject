@@ -30,11 +30,11 @@ public class AlarmHub : Hub
     /// <param name="hub"></param>
     /// <param name="methodCall"></param>
     private void GetDeviceAlarms(Hub hub, MethodCallMessage methodCall)
-    {
+    {       
         string arg0 = JsonMapper.ToJson(methodCall.Arguments[0]);
         List<DeviceAlarm> alarm = JsonMapper.ToObject<List<DeviceAlarm>>(arg0);
         //Debug.Log("OnAlarmRecieved:"+methodCall.Arguments.Length);
-        if (OnDeviceAlarmRecieved != null) OnDeviceAlarmRecieved(alarm);
+        if (OnDeviceAlarmRecieved != null) OnDeviceAlarmRecieved(alarm);      
     }
     /// <summary>
     /// 定位告警回调

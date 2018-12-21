@@ -308,7 +308,7 @@ public class ArchorLocation : MonoBehaviour {
         }
         string archorName = DevName.text;
         if (!string.IsNullOrEmpty(archorName)) currentDev.Info.Name = archorName;
-        DeviceEditUIManager.Instacne.EditPart.ChangePos(currentDev,pos);
+        DeviceEditUIManager.Instacne.EditPart.SingleEditPart.ChangePos(currentDev,pos);
     }
     /// <summary>
     /// 刷新设备编辑Gizmo位置

@@ -8,6 +8,8 @@ using Unity.Common.Utils;
 
 public class ObjectEditEventListener : MonoBehaviour {
 
+    private List<GameObject> selectedObjs = new List<GameObject>();//当前选中设备
+
     // Use this for initialization
     void Start()
     {
@@ -49,65 +51,101 @@ public class ObjectEditEventListener : MonoBehaviour {
     /// </summary>
     /// <param name="selectionChangedEventArgs"></param>
     public void OnEditObjectSelectionChange(ObjectSelectionChangedEventArgs selectionChangedEventArgs)
+    {                     
+        HideDevInfo();
+        EditorObjectSelection selection = EditorObjectSelection.Instance;
+        if (selection.SelectedGameObjects == null || selection.SelectedGameObjects.Count == 0)
+        {
+            DeviceEditUIManager.Instacne.SetEmptValue();
+            SurroundEditMenu_BatchCopy.Instacne.CloseUI();
+        }
+        else
+        {           
+            selectedObjs = selection.SelectedGameObjects.ToList();
+            List<DevNode> devs = GetDevNode(selectedObjs);
+            ShowDevInfo(devs);
+            SetBatchCopyState(devs);
+        }        
+    }
+    /// <summary>
+    /// 设置批量复制按钮
+    /// </summary>
+    /// <param name="devList"></param>
+    private void SetBatchCopyState(List<DevNode>devList)
     {
-        List<GameObject> deSelectObjList = selectionChangedEventArgs.DeselectedObjects;
-        List<GameObject> selectObjList = selectionChangedEventArgs.SelectedObjects;
-        HideDevInfo(deSelectObjList,selectObjList);
-        ShowDevInfo(selectObjList);
+        SurroundEditMenu_BatchCopy copyPart = SurroundEditMenu_BatchCopy.Instacne;
+        if (copyPart)
+        {
+            if (devList.Count > 1) copyPart.CloseUI();
+            else if (devList.Count == 1)
+            {
+                DevNode dev = devList[0];
+                if (dev is RoomDevController || dev is DepDevController)
+                {
+                    if (ObjectAddListManage.IsEditMode) copyPart.Open(dev);
+                }
+                else
+                {
+                    copyPart.CloseUI();
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 获取设备
+    /// </summary>
+    /// <param name="devs"></param>
+    /// <returns></returns>
+    private List<DevNode>GetDevNode(List<GameObject>devs)
+    {
+        List<DevNode> devList = new List<DevNode>();
+        foreach (var item in devs)
+        {
+            DevNode dev = item.GetComponent<DevNode>();
+            if (dev == null) continue;
+            devList.Add(dev);
+        }
+        return devList;
     }
     /// <summary>
     /// 关闭设备编辑界面
     /// </summary>
-    /// <param name="deSelectObjList"></param>
-    /// <param name="selectObjList"></param>
-    private void HideDevInfo(List<GameObject> deSelectObjList, List<GameObject> selectObjList)
+    private void HideDevInfo()
     {
-        if (deSelectObjList.Count == 1)
-        {
-            if (deSelectObjList[0] != null)
-            {
-                DevNode dev = deSelectObjList[0].GetComponent<DevNode>();
-                if (dev == null) return;
-                DeviceEditUIManager.Instacne.Close();
-                if (selectObjList.Count > 0) DeviceEditUIManager.Instacne.HideMultiDev();
-            }
-        }
-        else if (deSelectObjList.Count > 1)
-        {
-            DeviceEditUIManager.Instacne.HideMultiDev();
-        }
+        DeviceEditUIManager.Instacne.Close();
+        DeviceEditUIManager.Instacne.HideMultiDev();
     }
     /// <summary>
     /// 显示设备编辑界面
     /// </summary>
     /// <param name="selectObjList"></param>
-    private void ShowDevInfo(List<GameObject> selectObjList)
+    private void ShowDevInfo(List<DevNode> selectObjList)
     {
         if (selectObjList.Count == 1)
         {
-            DevNode dev = selectObjList[0].GetComponent<DevNode>();
-            if (dev == null) return;
-            DeviceEditUIManager.Instacne.Show(dev);
+            DeviceEditUIManager.Instacne.Show(selectObjList[0]);
         }
         else if (selectObjList.Count > 1)
+        {           
+            ShowDevFollowUI(selectObjList);
+        }       
+    }
+    /// <summary>
+    /// 显示设备漂浮UI
+    /// </summary>
+    /// <param name="devList"></param>
+    private void ShowDevFollowUI(List<DevNode>devList)
+    {
+        if (devList.Count == 1)
         {
-            List<DevNode> devList = new List<DevNode>();
-            foreach (var item in selectObjList)
-            {
-                DevNode dev = item.GetComponent<DevNode>();
-                if (dev == null) continue;
-                devList.Add(dev);
-            }
-            if (devList.Count == 1)
-            {
-                DeviceEditUIManager.Instacne.Show(devList[0]);
-            }
-            else if (devList.Count > 1)
-            {
-                DeviceEditUIManager.Instacne.ShowMultiDev(devList);
-            }
+            DeviceEditUIManager.Instacne.Show(devList[0]);
+        }
+        else if (devList.Count > 1)
+        {
+            DeviceEditUIManager.Instacne.ShowMultiDev(devList);
         }
     }
+
     private CommunicationObject Service;
     /// <summary>
     /// 修改设备位置信息

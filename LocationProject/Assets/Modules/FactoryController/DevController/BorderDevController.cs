@@ -156,7 +156,9 @@ public class BorderDevController : DevNode, IRTEditorEventListener
     /// </summary>
     public void OnDeselected(ObjectDeselectEventArgs deselectEventArgs)
     {
-        if (ObjectAddListManage.IsEditMode)
+        bool isSameArea = false;
+        if (ParentDepNode != null) isSameArea = ParentDepNode == FactoryDepManager.currentDep;
+        if (ObjectAddListManage.IsEditMode&&isSameArea)
         {
             SetFollowNameUIEnable(true);
             SetSelectedUI(true);

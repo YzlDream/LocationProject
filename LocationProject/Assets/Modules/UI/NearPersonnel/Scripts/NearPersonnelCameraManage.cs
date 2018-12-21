@@ -19,8 +19,8 @@ public class NearPersonnelCameraManage : MonoBehaviour
     public GameObject CameraGrid;
     public GameObject CameraPrefab;
     public Button closeWindow;
-    
-  
+
+    public Image PersonnelRotation;
 
     public Text Personnel;//监控人员
     public Text CurrentArea;//当前所在区域

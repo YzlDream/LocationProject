@@ -125,6 +125,9 @@
     <None Include="Service References\LocationServices\Arrays11.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\LocationServices\DbModel.Location.AreaAndDev.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\LocationServices\DbModel.Tools1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -194,7 +197,13 @@
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.DevInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.DevModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.DevPos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Dev_CameraInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Dev_DoorAccess.datasource">

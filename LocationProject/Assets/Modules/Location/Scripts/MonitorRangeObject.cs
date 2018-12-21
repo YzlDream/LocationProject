@@ -9,7 +9,7 @@ using System.IO.IsolatedStorage;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
+public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
 {
     /// <summary>
     /// 所属地图的id
@@ -18,7 +18,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// <summary>
     /// 区域信息
     /// </summary>
-    private DepNode depNode;
+    public DepNode depNode;
     /// <summary>
     /// 区域信息
     /// </summary>
@@ -122,7 +122,12 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// <summary>
     /// 区域范围XZ平面的点集合(逆时针)
     /// </summary>
-     List<Vector2> XZpointList;
+    List<Vector2> XZpointList;
+
+    /// <summary>
+    /// 是否处于告警中
+    /// </summary>
+    public bool isAlarming;
 
     // Use this for initialization
     void Start()
@@ -146,7 +151,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
             SetFollowNameUIEnable(false);
         }
     }
-    
+
     /// <summary>
     /// 设置是否绑定区域编辑事件
     /// </summary>
@@ -209,7 +214,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// </summary>
     private void SetDepMonitorRange()
     {
-        if(depNode!=null) depNode.SetMonitorRangeObject(this);
+        if (depNode != null) depNode.SetMonitorRangeObject(this);
     }
     private void OnEnable()
     {
@@ -482,7 +487,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
             targetScale = new Vector3(Mathf.Abs(realsize.x / oriSize.x), Mathf.Abs(realsize.y / oriSize.y), Mathf.Abs(realsize.z / oriSize.z));
             if (!info.Transfrom.IsRelative)
             {
-                targetPos += LocationManager.Instance.axisZero ;
+                targetPos += LocationManager.Instance.axisZero;
             }
             else
             {
@@ -517,8 +522,8 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
         {
             Vector3 pos = Vector3.zero;
             Vector3 angles = Vector3.zero;
-                pos = followTarget.transform.position;//获取相对父区域范围的坐标
-                angles = followTarget.transform.eulerAngles;//获取相对父区域范围的角度
+            pos = followTarget.transform.position;//获取相对父区域范围的坐标
+            angles = followTarget.transform.eulerAngles;//获取相对父区域范围的角度
 
             targetPos = pos;
             Vector3 size = followTarget.GetGlobalSize();
@@ -531,7 +536,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
             targetAngles = angles;
         }
 
-        if (transform.parent != null )
+        if (transform.parent != null)
         {//因为这里的计算出来的比例为真实大小比例，而不是相对比例
 
 
@@ -665,14 +670,16 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
             //}
             bool isSameFloor = CheckFloorDepNode(locationObject.currentDepNode);
             isSameFloor = true;//以后这个判断就不要了，在做完编辑区域之后
-            if (info.Transfrom.IsOnAlarmArea)
-            {
-                if (!alarmPersons.Contains(locationObject) && isSameFloor)
-                {
-                    alarmPersons.Add(locationObject);
-                    AlarmOn();
-                }
-            }
+
+            //三维里通过碰撞检测，来触发人员区域告警，这里注释是改成服务端发送过来触发告警（下面的ShowAlarm方法）
+            //if (info.Transfrom.IsOnAlarmArea)
+            //{
+            //    if (!alarmPersons.Contains(locationObject) && isSameFloor)
+            //    {
+            //        alarmPersons.Add(locationObject);
+            //        AlarmOn();
+            //    }
+            //}
 
             if (info.Transfrom.IsOnLocationArea)
             {
@@ -700,11 +707,12 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
 
         if (locationObject)
         {
-            alarmPersons.Remove(locationObject);
-            if (alarmPersons.Count == 0)
-            {
-                AlarmOff();
-            }
+            //三维里通过碰撞检测来检测人员是否在告警区域内部，来关闭人员和区域告警，这里注释是改成服务端发送过来关闭告警（下面的HideAlarm方法）
+            //alarmPersons.Remove(locationObject);
+            //if (alarmPersons.Count == 0)
+            //{
+            //    AlarmOff();
+            //}
 
             locationPersons.Remove(locationObject);
             if (gameObject.name.Contains("四会热电厂"))
@@ -763,7 +771,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
 
         Vector3 pos = new Vector3((float)realPos.x, (float)realPos.y, (float)realPos.z);
 
-        Vector3 targetposT = LocationManager.GetRealSizeVector(pos);     
+        Vector3 targetposT = LocationManager.GetRealSizeVector(pos);
         if (!info.Transfrom.IsRelative)
         {
             targetposT += LocationManager.Instance.axisZero;
@@ -865,7 +873,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// <summary>
     /// 更新数据
     /// </summary>
-    public void UpdateData(string nameT,Vector3 realposT,Vector3 realangleT,Vector3 realsizeT)
+    public void UpdateData(string nameT, Vector3 realposT, Vector3 realangleT, Vector3 realsizeT)
     {
         SetAreaName(nameT);
         SetPos(realposT);
@@ -1019,7 +1027,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     public void SetRendererEnable(bool isEnable)
     {
         //if (MonitorRangeManager.Instance.IsShowAlarmArea && IsOnAlarmArea && !isEnable) return;
-        
+
         GetRenderer();
         render.enabled = isEnable;
         SetFollowNameUIEnable(isEnable);
@@ -1118,6 +1126,37 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     }
 
     /// <summary>
+    /// 展示告警
+    /// </summary>
+    public void ShowAlarm(LocationObject locationObject)
+    {
+        if (!alarmPersons.Contains(locationObject))
+        {
+            Debug.LogErrorFormat("区域：{0},告警了！", depNode.TopoNode.Name);
+            if (isAlarming) return;
+            isAlarming = true;
+            alarmPersons.Add(locationObject);
+            AlarmOn();          
+        }
+    }
+
+    /// <summary>
+    /// 关闭告警
+    /// </summary>
+    /// <param name="locationObject"></param>
+    public void HideAlarm(LocationObject locationObject)
+    {
+        alarmPersons.Remove(locationObject);
+        if (alarmPersons.Count == 0)
+        {
+            Debug.LogErrorFormat("区域：{0},消警了！", depNode.TopoNode.Name);
+            if (isAlarming==false) return;
+            AlarmOff();
+            isAlarming = false;
+        }
+    }
+
+    /// <summary>
     /// 设置层
     /// </summary>
     private void SetLayer(string layernameT)
@@ -1185,7 +1224,7 @@ public class MonitorRangeObject : MonoBehaviour,IRTEditorEventListener
     /// <summary>
     /// 是否在区域范围内
     /// </summary>
-    public bool IsInRange(double x,double y)
+    public bool IsInRange(double x, double y)
     {
         //InitXZpointList();
         if (XZpointList == null) return true;

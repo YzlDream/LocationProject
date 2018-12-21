@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3461394012
+CRC: 1521166865
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 29924cac415facfa131bb93b4b6faae3
+    Hash: b98037b577e6ead432a84b6fa4e8b66c
   TypeTreeHash:
     serializedVersion: 2
     Hash: bc193d49e7d16f71ac778acf3c7bfc27
@@ -26,7 +26,7 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 Assets:
-- "Assets/AssetBundleResources/JFComponent/Devices/\u5236\u51B7\u8BBE\u5907/\u5927\u91D1_\u7A7A\u8C03FVY125_3D/Materials/DJFVY125.mat"
-- "Assets/AssetBundleResources/JFComponent/Devices/\u5236\u51B7\u8BBE\u5907/\u5927\u91D1_\u7A7A\u8C03FVY125_3D/DJFVY125.png"
-- "Assets/AssetBundleResources/JFComponent/Devices/\u5236\u51B7\u8BBE\u5907/\u5927\u91D1_\u7A7A\u8C03FVY125_3D/\u5927\u91D1_\u7A7A\u8C03FVY125_3D.3DS"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u54C8\u5BC6\u8BBE\u5907/\u7A7A\u8C03/\u5927\u91D1_\u7A7A\u8C03FVY125_3D/DJFVY125.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u54C8\u5BC6\u8BBE\u5907/\u7A7A\u8C03/\u5927\u91D1_\u7A7A\u8C03FVY125_3D/Materials/DJFVY125.mat"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u54C8\u5BC6\u8BBE\u5907/\u7A7A\u8C03/\u5927\u91D1_\u7A7A\u8C03FVY125_3D/\u5927\u91D1_\u7A7A\u8C03FVY125_3D.3DS"
 Dependencies: []

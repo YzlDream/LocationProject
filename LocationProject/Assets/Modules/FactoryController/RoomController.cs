@@ -34,10 +34,6 @@ public class RoomController : DepNode {
 	    depType = DepType.Room;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     /// <summary>
     /// 设置监控区域
     /// </summary>

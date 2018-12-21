@@ -35,7 +35,7 @@ public class AreaDivideTree : MonoBehaviour
     /// <summary>
     /// 人员节点
     /// </summary>
-    Dictionary<int, TreeNode<TreeViewItem>> personDic = new Dictionary<int, TreeNode<UIWidgets.TreeViewItem>>();
+    Dictionary<int, TreeNode<TreeViewItem>> personDic = new Dictionary<int, TreeNode<TreeViewItem>>();
     /// <summary>
     /// 区域节点
     /// </summary>
@@ -90,9 +90,8 @@ public class AreaDivideTree : MonoBehaviour
             {
                 if (personDic.ContainsKey(person.Id))//若该人员存在树里面
                 {
+                  
                     TreeNode<TreeViewItem> personP = personDic[person.Id];//取出该人员在人员树里面的节点
-
-
                     PersonNode personNode = (PersonNode)personP.Item.Tag;
                     if (person.ParentId != personNode.ParentId)//如果该人员现在所在的区域和在之前的区域不相等
                     {
@@ -101,16 +100,24 @@ public class AreaDivideTree : MonoBehaviour
                         {
                             SetMinusParentNodepersonnelNum(personP.Parent);
                             personP.Parent = AreaDic[(int)person.ParentId];//把该人员移到现在所在的区域中
-
                             personNode.ParentId = person.ParentId;
-
-                            //TreeNode<TreeViewItem> current = AreaDic[(int)personNode.ParentId];
                             SetAddParentNodepersonnelNum(personP.Parent);
                         }
                     }
                 }
+                else
+                {
+                    TreeNode<TreeViewItem> newperson = CreatePersonnalNode(person); //添加人物节点 
+                    if (AreaDic[(int)person.ParentId]!=null)
+                    {
+                        newperson.Parent = AreaDic[(int)person.ParentId];
+                        SetAddParentNodepersonnelNum(newperson.Parent);
+                    }
+                    
+                }
             }
 
+            RomvePersonnelNode(personDic, PersonList);
             if (node != null && node.Item.Tag is PersonNode)
             {
                 PersonNode per = node.Item.Tag as PersonNode;
@@ -120,13 +127,36 @@ public class AreaDivideTree : MonoBehaviour
                     Tree.FindSelectNode(node);
                 }
             }
-               
+
             isRefresh = false;
 
         }, "Refresh Personnel");
 
     }
-
+    List<PersonNode> romveNode = new List<PersonNode>();
+    /// <summary>
+    /// 删除电场中消失的人
+    /// </summary>
+    /// <param name="perDic"></param>
+    /// <param name="perList"></param>
+    public void RomvePersonnelNode(Dictionary<int, TreeNode<TreeViewItem>> perDic, List<PersonNode> perList)
+    {
+        romveNode.Clear();
+        foreach (var item in perDic.Keys)
+        {
+            PersonNode perNode = perList.Find(i => i.Id == item);
+            if (perNode == null)
+            {
+                romveNode.Add(perNode);
+            }
+        }
+        foreach (var per in romveNode)
+        {
+            TreeNode<TreeViewItem> personnelP = personDic[per.Id];
+            personDic.Remove(per.Id);
+            personnelP.Dispose();
+        }
+    }
 
 
     private List<PersonNode> RandomPersonParent(List<PersonNode> lastPList)
@@ -357,7 +387,11 @@ public class AreaDivideTree : MonoBehaviour
         // item.Tag = personnal.Id;
         item.Tag = personnal;
         var node = new TreeNode<TreeViewItem>(item);
-        personDic.Add(personnal.Id, node);
+       if (!personDic.ContainsKey(personnal.Id))
+        {
+            personDic.Add(personnal.Id, node);
+        }
+       
         return node;
     }
     /// <summary>
@@ -476,6 +510,10 @@ public class AreaDivideTree : MonoBehaviour
         if (root.Children == null) return;
         foreach (AreaNode child in root.Children)
         {
+            if (child.Name == "厂区内")
+            {
+                int i = 0;
+            }
             var rootNode = CreateTopoNode(child);
             nodes.Add(rootNode);
             AddNodes(child, rootNode);
@@ -513,7 +551,7 @@ public class AreaDivideTree : MonoBehaviour
     }
     public void StartRefreshAreaPersonnel()
     {
-        InvokeRepeating("RefreshPersonnel", 1,1f);//todo:定时获取
+        InvokeRepeating("RefreshPersonnel", 1, 1);//todo:定时获取
     }
     public void CloseeRefreshAreaPersonnel()
     {

@@ -31,8 +31,16 @@ public class MobileInspectionManage : MonoBehaviour
     {
         Instance = this;
         Instance = this;
-        personnels = PersonnelTreeManage.Instance.departmentDivideTree.personnels;
+        GetPersonnels();
         //workTicketHistoryPaths = new List<WorkTicketHistoryPath>();
+    }
+
+    private void GetPersonnels()
+    {
+        if (personnels == null && PersonnelTreeManage.Instance)
+        {
+            personnels = PersonnelTreeManage.Instance.departmentDivideTree.personnels;
+        }
     }
 
     // Update is called once per frame

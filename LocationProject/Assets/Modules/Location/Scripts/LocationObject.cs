@@ -1,6 +1,7 @@
 ﻿using HighlightingSystem;
 using Location.WCFServiceReferences.LocationServices;
 using Mogoson.CameraExtension;
+using MonitorRange;
 using StardardShader;
 using System;
 using System.Collections;
@@ -74,6 +75,10 @@ public class LocationObject : MonoBehaviour
     /// </summary>
     public List<MonitorRangeObject> alarmAreas;
     /// <summary>
+    /// 告警信息列表
+    /// </summary>
+    public List<LocationAlarm> alarmList;
+    /// <summary>
     /// 当前人员所在的建筑节点,是根据基站计算位置来的
     /// </summary>
     public DepNode currentDepNode;
@@ -111,12 +116,17 @@ public class LocationObject : MonoBehaviour
     /// 位置点是否在所在区域范围内部
     /// </summary>
     public bool isInCurrentRange = true;
+    /// <summary>
+    /// 是否处于告警中
+    /// </summary>
+    public bool isAlarming;
 
     private void Awake()
     {
         normalAreas = new List<MonitorRangeObject>();
         locationAreas = new List<MonitorRangeObject>();
         alarmAreas = new List<MonitorRangeObject>();
+        alarmList = new List<LocationAlarm>();
         //transform.position = targetPos;
         //alignTarget = new AlignTarget(transform, new Vector2(30, 0), 5, new Range(-90, 90), new Range(1, 10));
 
@@ -359,7 +369,7 @@ public class LocationObject : MonoBehaviour
             currentDepNode = depnode;
             if (currentDepNode == null)
             {
-                int i = 0;
+                currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
             }
             //Debug.LogFormat("名称:{0},类型:{1}", depnode.name, depnode.NodeObject);
             if (depnode != null && floorCubeT != null)//二层267
@@ -409,6 +419,11 @@ public class LocationObject : MonoBehaviour
                 currentDepNode = null;
                 //isOnTriggerStayOnce = false;//大数据测试修改
             }
+            else
+            {
+                currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
+            }
+
             targetPos = new Vector3(targetPos.x, LocationManager.Instance.axisZero.y + halfHeight, targetPos.z);
         }
         isStartOnTrigger = true;
@@ -485,6 +500,7 @@ public class LocationObject : MonoBehaviour
         }
         else
         {
+            if (currentDepNode == null) return;
             //如果位置点在当前所在区域范围内部,但是当前区域不是定位区域返回
             if (currentDepNode.monitorRangeObject == null || currentDepNode.monitorRangeObject.IsOnLocationArea == false) return;
         }
@@ -595,17 +611,18 @@ public class LocationObject : MonoBehaviour
                     }
                 }
 
-                if (tranM.IsOnAlarmArea)
-                {
-                    if (!alarmAreas.Contains(mapAreaObject) && isSameFloor)
-                    {
-                        if (alarmAreas.Count == 0)//如果人员未处于告警状态
-                        {
-                            FollowUIAlarmOn(mapAreaObject.info.Name);
-                        }
-                        alarmAreas.Add(mapAreaObject);
-                    }
-                }
+                //三维里通过碰撞检测，来触发人员告警，这里注释是改成服务端发送过来触发告警（下面的ShowAlarm方法）
+                //if (tranM.IsOnAlarmArea)
+                //{
+                //    if (!alarmAreas.Contains(mapAreaObject) && isSameFloor)
+                //    {
+                //        if (alarmAreas.Count == 0)//如果人员未处于告警状态
+                //        {
+                //            FollowUIAlarmOn(mapAreaObject.info.Name);
+                //        }
+                //        alarmAreas.Add(mapAreaObject);
+                //    }
+                //}
 
                 if (!normalAreas.Contains(mapAreaObject))
                 {
@@ -660,14 +677,15 @@ public class LocationObject : MonoBehaviour
                 }
             }
 
-            if (alarmAreas.Contains(areaObject))
-            {
-                alarmAreas.Remove(areaObject);
-                if (alarmAreas.Count == 0)
-                {
-                    FollowUINormalOn();
-                }
-            }
+            //三维里通过碰撞检测来检测人员是否在告警区域内部，来关闭人员告警，这里注释是改成服务端发送过来关闭告警（下面的HideAlarm方法）
+            //if (alarmAreas.Contains(areaObject))
+            //{
+            //    alarmAreas.Remove(areaObject);
+            //    if (alarmAreas.Count == 0)
+            //    {
+            //        FollowUINormalOn();
+            //    }
+            //}
 
             if (normalAreas.Contains(areaObject))
             {
@@ -1036,6 +1054,7 @@ public class LocationObject : MonoBehaviour
     /// </summary>
     public void HighlightOn(Color color)
     {
+        if (isAlarming) return;
         Highlighter h = gameObject.AddMissingComponent<Highlighter>();
         h.ConstantOn(color);
     }
@@ -1045,6 +1064,25 @@ public class LocationObject : MonoBehaviour
     /// </summary>
     [ContextMenu("HighlightOff")]
     public void HighlightOff()
+    {
+        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+        h.ConstantOff();
+    }
+
+    /// <summary>
+    /// 开启高亮闪烁
+    /// </summary>
+    public void FlashingOn(Color color)
+    {
+        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+        h.FlashingOn(new Color(color.r, color.g, color.b, 0), new Color(color.r, color.g, color.b, 1));
+    }
+
+    /// <summary>
+    /// 关闭高亮闪烁
+    /// </summary>
+    [ContextMenu("FlashingOff")]
+    public void FlashingOff()
     {
         Highlighter h = gameObject.AddMissingComponent<Highlighter>();
         h.ConstantOff();
@@ -1071,6 +1109,74 @@ public class LocationObject : MonoBehaviour
         else
         {
             HighlightOff();
+        }
+    }
+
+    /// <summary>
+    /// 展示告警
+    /// </summary>
+    public void ShowAlarm(LocationAlarm locationAlarm)
+    {
+        //if (!alarmAreas.Contains(mapAreaObject))
+        //{
+        //    if (alarmAreas.Count == 0)//如果人员未处于告警状态
+        //    {
+        //        if (isAlarming) return;
+        //        FollowUIAlarmOn(mapAreaObject.info.Name);
+        //        isAlarming = true;
+        //        Debug.LogErrorFormat("区域：{0},告警了！", Tag.Code);
+        //    }
+        //    alarmAreas.Add(mapAreaObject);
+        //}
+        if (!alarmList.Contains(locationAlarm))
+        {
+            if (alarmList.Count == 0)//如果人员未处于告警状态
+            {
+                if (isAlarming) return;
+                isAlarming = true;
+                MonitorRangeObject monitorRangeObject = MonitorRangeManager.Instance.GetMonitorRangeObjectByAreaId(locationAlarm.AreaId);
+                string nameT = "";
+                if (monitorRangeObject != null)
+                {
+                    nameT = monitorRangeObject.info.Name;
+                }
+                FollowUIAlarmOn(nameT);
+                FlashingOn(Color.red);
+                Debug.LogErrorFormat("区域：{0},告警了！", Tag.Code);
+            }
+            alarmList.Add(locationAlarm);
+        }
+        
+    }
+
+    /// <summary>
+    /// 关闭告警
+    /// </summary>
+    public void HideAlarm(LocationAlarm locationAlarm)
+    {
+        //if (alarmAreas.Contains(areaObject))
+        //{
+        //    alarmAreas.Remove(areaObject);
+        //    if (alarmAreas.Count == 0)
+        //    {
+        //        if (isAlarming == false) return;
+        //        FollowUINormalOn();
+        //        isAlarming = false;
+        //        Debug.LogErrorFormat("区域：{0},消警了！", Tag.Code);
+        //    }
+        //}
+
+        if (alarmList.Contains(locationAlarm))
+        {
+            alarmList.Remove(locationAlarm);
+            if (alarmList.Count == 0)
+            {
+                if (isAlarming == false) return;
+                FollowUINormalOn();
+                isAlarming = false;
+                FlashingOff();
+                Debug.LogErrorFormat("区域：{0},消警了！", Tag.Code);
+            }
         }
     }
 

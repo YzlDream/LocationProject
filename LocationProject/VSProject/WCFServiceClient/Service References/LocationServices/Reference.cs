@@ -589,6 +589,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         private int AreaStateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -685,6 +688,19 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.AreaStateField.Equals(value) != true)) {
                     this.AreaStateField = value;
                     this.RaisePropertyChanged("AreaState");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateTime {
+            get {
+                return this.DateTimeField;
+            }
+            set {
+                if ((this.DateTimeField.Equals(value) != true)) {
+                    this.DateTimeField = value;
+                    this.RaisePropertyChanged("DateTime");
                 }
             }
         }
@@ -1112,9 +1128,6 @@ namespace Location.WCFServiceReferences.LocationServices {
         private System.Nullable<int> NumberField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Location.WCFServiceReferences.LocationServices.PhysicalTopology ParentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> ParentIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1338,19 +1351,6 @@ namespace Location.WCFServiceReferences.LocationServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Location.WCFServiceReferences.LocationServices.PhysicalTopology Parent {
-            get {
-                return this.ParentField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ParentField, value) != true)) {
-                    this.ParentField = value;
-                    this.RaisePropertyChanged("Parent");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<int> ParentId {
             get {
                 return this.ParentIdField;
@@ -1451,9 +1451,6 @@ namespace Location.WCFServiceReferences.LocationServices {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsRectangleField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsRelativeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1477,6 +1474,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Location.WCFServiceReferences.LocationServices.Point[] PointsField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ShapeField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -1496,19 +1496,6 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsRectangle {
-            get {
-                return this.IsRectangleField;
-            }
-            set {
-                if ((this.IsRectangleField.Equals(value) != true)) {
-                    this.IsRectangleField = value;
-                    this.RaisePropertyChanged("IsRectangle");
                 }
             }
         }
@@ -1613,6 +1600,19 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((object.ReferenceEquals(this.PointsField, value) != true)) {
                     this.PointsField = value;
                     this.RaisePropertyChanged("Points");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Shape {
+            get {
+                return this.ShapeField;
+            }
+            set {
+                if ((this.ShapeField.Equals(value) != true)) {
+                    this.ShapeField = value;
+                    this.RaisePropertyChanged("Shape");
                 }
             }
         }
@@ -3535,6 +3535,195 @@ namespace Location.WCFServiceReferences.LocationServices {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Dev_CameraInfo", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class Dev_CameraInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CameraIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.DevInfo DevInfoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DevInfoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Local_DevIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ParentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PassWordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PortField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CameraIndex {
+            get {
+                return this.CameraIndexField;
+            }
+            set {
+                if ((this.CameraIndexField.Equals(value) != true)) {
+                    this.CameraIndexField = value;
+                    this.RaisePropertyChanged("CameraIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.DevInfo DevInfo {
+            get {
+                return this.DevInfoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DevInfoField, value) != true)) {
+                    this.DevInfoField = value;
+                    this.RaisePropertyChanged("DevInfo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DevInfoId {
+            get {
+                return this.DevInfoIdField;
+            }
+            set {
+                if ((this.DevInfoIdField.Equals(value) != true)) {
+                    this.DevInfoIdField = value;
+                    this.RaisePropertyChanged("DevInfoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ip {
+            get {
+                return this.IpField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpField, value) != true)) {
+                    this.IpField = value;
+                    this.RaisePropertyChanged("Ip");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Local_DevID {
+            get {
+                return this.Local_DevIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Local_DevIDField, value) != true)) {
+                    this.Local_DevIDField = value;
+                    this.RaisePropertyChanged("Local_DevID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ParentId {
+            get {
+                return this.ParentIdField;
+            }
+            set {
+                if ((this.ParentIdField.Equals(value) != true)) {
+                    this.ParentIdField = value;
+                    this.RaisePropertyChanged("ParentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PassWord {
+            get {
+                return this.PassWordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PassWordField, value) != true)) {
+                    this.PassWordField = value;
+                    this.RaisePropertyChanged("PassWord");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Port {
+            get {
+                return this.PortField;
+            }
+            set {
+                if ((this.PortField.Equals(value) != true)) {
+                    this.PortField = value;
+                    this.RaisePropertyChanged("Port");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Archor", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev")]
     [System.SerializableAttribute()]
     public partial class Archor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -4156,6 +4345,115 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.nInOutStateField.Equals(value) != true)) {
                     this.nInOutStateField = value;
                     this.RaisePropertyChanged("nInOutState");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DevModel", Namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class DevModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ClassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ItemsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModelIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Class {
+            get {
+                return this.ClassField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ClassField, value) != true)) {
+                    this.ClassField = value;
+                    this.RaisePropertyChanged("Class");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Items {
+            get {
+                return this.ItemsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ItemsField, value) != true)) {
+                    this.ItemsField = value;
+                    this.RaisePropertyChanged("Items");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ModelId {
+            get {
+                return this.ModelIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelIdField, value) != true)) {
+                    this.ModelIdField = value;
+                    this.RaisePropertyChanged("ModelId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
                 }
             }
         }
@@ -5356,6 +5654,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AlarmIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Location.WCFServiceReferences.LocationServices.LocationAlarmLevel AlarmLevelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5366,6 +5667,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int AreaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CardRoleIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ContentField;
@@ -5410,6 +5714,19 @@ namespace Location.WCFServiceReferences.LocationServices {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AlarmId {
+            get {
+                return this.AlarmIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlarmIdField, value) != true)) {
+                    this.AlarmIdField = value;
+                    this.RaisePropertyChanged("AlarmId");
+                }
             }
         }
         
@@ -5461,6 +5778,19 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.AreaIdField.Equals(value) != true)) {
                     this.AreaIdField = value;
                     this.RaisePropertyChanged("AreaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CardRoleId {
+            get {
+                return this.CardRoleIdField;
+            }
+            set {
+                if ((this.CardRoleIdField.Equals(value) != true)) {
+                    this.CardRoleIdField = value;
+                    this.RaisePropertyChanged("CardRoleId");
                 }
             }
         }
@@ -9032,328 +9362,942 @@ namespace Location.WCFServiceReferences.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITestService/Hello", ReplyAction="http://tempuri.org/ITestService/HelloResponse")]
         string Hello(string msg);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITestService/Hello", ReplyAction="http://tempuri.org/ITestService/HelloResponse")]
+        System.IAsyncResult BeginHello(string msg, System.AsyncCallback callback, object asyncState);
+        
+        string EndHello(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/GetDepartmentList", ReplyAction="http://tempuri.org/IDepartmentService/GetDepartmentListResponse")]
         Location.WCFServiceReferences.LocationServices.Department[] GetDepartmentList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDepartmentService/GetDepartmentList", ReplyAction="http://tempuri.org/IDepartmentService/GetDepartmentListResponse")]
+        System.IAsyncResult BeginGetDepartmentList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Department[] EndGetDepartmentList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/GetDepartmentTree", ReplyAction="http://tempuri.org/IDepartmentService/GetDepartmentTreeResponse")]
         Location.WCFServiceReferences.LocationServices.Department GetDepartmentTree();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDepartmentService/GetDepartmentTree", ReplyAction="http://tempuri.org/IDepartmentService/GetDepartmentTreeResponse")]
+        System.IAsyncResult BeginGetDepartmentTree(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Department EndGetDepartmentTree(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/GetTags", ReplyAction="http://tempuri.org/ITagService/GetTagsResponse")]
         Location.WCFServiceReferences.LocationServices.Tag[] GetTags();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITagService/GetTags", ReplyAction="http://tempuri.org/ITagService/GetTagsResponse")]
+        System.IAsyncResult BeginGetTags(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Tag[] EndGetTags(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/AddTags", ReplyAction="http://tempuri.org/ITagService/AddTagsResponse")]
         bool AddTags(Location.WCFServiceReferences.LocationServices.Tag[] tags);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITagService/AddTags", ReplyAction="http://tempuri.org/ITagService/AddTagsResponse")]
+        System.IAsyncResult BeginAddTags(Location.WCFServiceReferences.LocationServices.Tag[] tags, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddTags(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/DeleteTag", ReplyAction="http://tempuri.org/ITagService/DeleteTagResponse")]
         bool DeleteTag(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITagService/DeleteTag", ReplyAction="http://tempuri.org/ITagService/DeleteTagResponse")]
+        System.IAsyncResult BeginDeleteTag(int id, System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeleteTag(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/DeleteAllTags", ReplyAction="http://tempuri.org/ITagService/DeleteAllTagsResponse")]
         bool DeleteAllTags();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITagService/DeleteAllTags", ReplyAction="http://tempuri.org/ITagService/DeleteAllTagsResponse")]
+        System.IAsyncResult BeginDeleteAllTags(System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeleteAllTags(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/EditTag", ReplyAction="http://tempuri.org/ITagService/EditTagResponse")]
         bool EditTag(Location.WCFServiceReferences.LocationServices.Tag Tag, System.Nullable<int> id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITagService/EditTag", ReplyAction="http://tempuri.org/ITagService/EditTagResponse")]
+        System.IAsyncResult BeginEditTag(Location.WCFServiceReferences.LocationServices.Tag Tag, System.Nullable<int> id, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditTag(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetRealPositons", ReplyAction="http://tempuri.org/IPositionService/GetRealPositonsResponse")]
         Location.WCFServiceReferences.LocationServices.TagPosition[] GetRealPositons();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetRealPositons", ReplyAction="http://tempuri.org/IPositionService/GetRealPositonsResponse")]
+        System.IAsyncResult BeginGetRealPositons(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.TagPosition[] EndGetRealPositons(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetRealPositonsByTags", ReplyAction="http://tempuri.org/IPositionService/GetRealPositonsByTagsResponse")]
         Location.WCFServiceReferences.LocationServices.TagPosition[] GetRealPositonsByTags(string[] tagCodes);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetRealPositonsByTags", ReplyAction="http://tempuri.org/IPositionService/GetRealPositonsByTagsResponse")]
+        System.IAsyncResult BeginGetRealPositonsByTags(string[] tagCodes, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.TagPosition[] EndGetRealPositonsByTags(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetHistoryPositons", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsResponse")]
         Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositons();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetHistoryPositons", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsResponse")]
+        System.IAsyncResult BeginGetHistoryPositons(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositons(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetHistoryPositonsByPersonnelID", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsByPersonnelIDResponse")]
         Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositonsByPersonnelID(int personnelID, System.DateTime start, System.DateTime end);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetHistoryPositonsByPersonnelID", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsByPersonnelIDResponse")]
+        System.IAsyncResult BeginGetHistoryPositonsByPersonnelID(int personnelID, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositonsByPersonnelID(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetHistoryPositonsByPidAndTopoNodeIds", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsByPidAndTopoNodeIdsResponse" +
             "")]
         Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositonsByPidAndTopoNodeIds(int personnelID, int[] topoNodeIds, System.DateTime start, System.DateTime end);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetHistoryPositonsByPidAndTopoNodeIds", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsByPidAndTopoNodeIdsResponse" +
+            "")]
+        System.IAsyncResult BeginGetHistoryPositonsByPidAndTopoNodeIds(int personnelID, int[] topoNodeIds, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositonsByPidAndTopoNodeIds(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetHistoryPositonsByTime", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsByTimeResponse")]
         Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositonsByTime(string tagcode, System.DateTime start, System.DateTime end);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetHistoryPositonsByTime", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonsByTimeResponse")]
+        System.IAsyncResult BeginGetHistoryPositonsByTime(string tagcode, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositonsByTime(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetStrs", ReplyAction="http://tempuri.org/IPositionService/GetStrsResponse")]
         string GetStrs(int n);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetStrs", ReplyAction="http://tempuri.org/IPositionService/GetStrsResponse")]
+        System.IAsyncResult BeginGetStrs(int n, System.AsyncCallback callback, object asyncState);
+        
+        string EndGetStrs(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/AddU3DPosition", ReplyAction="http://tempuri.org/IPositionService/AddU3DPositionResponse")]
         void AddU3DPosition(Location.WCFServiceReferences.LocationServices.U3DPosition[] pList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/AddU3DPosition", ReplyAction="http://tempuri.org/IPositionService/AddU3DPositionResponse")]
+        System.IAsyncResult BeginAddU3DPosition(Location.WCFServiceReferences.LocationServices.U3DPosition[] pList, System.AsyncCallback callback, object asyncState);
+        
+        void EndAddU3DPosition(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/AddU3DPositions", ReplyAction="http://tempuri.org/IPositionService/AddU3DPositionsResponse")]
         void AddU3DPositions(Location.WCFServiceReferences.LocationServices.U3DPosition[] list);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/AddU3DPositions", ReplyAction="http://tempuri.org/IPositionService/AddU3DPositionsResponse")]
+        System.IAsyncResult BeginAddU3DPositions(Location.WCFServiceReferences.LocationServices.U3DPosition[] list, System.AsyncCallback callback, object asyncState);
+        
+        void EndAddU3DPositions(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetHistoryU3DPositonsByTime", ReplyAction="http://tempuri.org/IPositionService/GetHistoryU3DPositonsByTimeResponse")]
         Location.WCFServiceReferences.LocationServices.U3DPosition[] GetHistoryU3DPositonsByTime(string tagcode, System.DateTime start, System.DateTime end);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPositionService/GetHistoryU3DPositonsByTime", ReplyAction="http://tempuri.org/IPositionService/GetHistoryU3DPositonsByTimeResponse")]
+        System.IAsyncResult BeginGetHistoryU3DPositonsByTime(string tagcode, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.U3DPosition[] EndGetHistoryU3DPositonsByTime(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetObjectAddList", ReplyAction="http://tempuri.org/IDevService/GetObjectAddListResponse")]
         Location.WCFServiceReferences.LocationServices.ObjectAddList_Type[] GetObjectAddList();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetObjectAddList", ReplyAction="http://tempuri.org/IDevService/GetObjectAddListResponse")]
+        System.IAsyncResult BeginGetObjectAddList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.ObjectAddList_Type[] EndGetObjectAddList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevPositions", ReplyAction="http://tempuri.org/IDevService/GetDevPositionsResponse")]
         Location.WCFServiceReferences.LocationServices.DevPos[] GetDevPositions();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDevPositions", ReplyAction="http://tempuri.org/IDevService/GetDevPositionsResponse")]
+        System.IAsyncResult BeginGetDevPositions(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevPos[] EndGetDevPositions(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDevPosInfo", ReplyAction="http://tempuri.org/IDevService/AddDevPosInfoResponse")]
         bool AddDevPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddDevPosInfo", ReplyAction="http://tempuri.org/IDevService/AddDevPosInfoResponse")]
+        System.IAsyncResult BeginAddDevPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddDevPosInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDevPosByList", ReplyAction="http://tempuri.org/IDevService/AddDevPosByListResponse")]
         bool AddDevPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddDevPosByList", ReplyAction="http://tempuri.org/IDevService/AddDevPosByListResponse")]
+        System.IAsyncResult BeginAddDevPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddDevPosByList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/ModifyPosInfo", ReplyAction="http://tempuri.org/IDevService/ModifyPosInfoResponse")]
         bool ModifyPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/ModifyPosInfo", ReplyAction="http://tempuri.org/IDevService/ModifyPosInfoResponse")]
+        System.IAsyncResult BeginModifyPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos, System.AsyncCallback callback, object asyncState);
+        
+        bool EndModifyPosInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/ModifyPosByList", ReplyAction="http://tempuri.org/IDevService/ModifyPosByListResponse")]
         bool ModifyPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/ModifyPosByList", ReplyAction="http://tempuri.org/IDevService/ModifyPosByListResponse")]
+        System.IAsyncResult BeginModifyPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndModifyPosByList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeletePosInfo", ReplyAction="http://tempuri.org/IDevService/DeletePosInfoResponse")]
         bool DeletePosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/DeletePosInfo", ReplyAction="http://tempuri.org/IDevService/DeletePosInfoResponse")]
+        System.IAsyncResult BeginDeletePosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos, System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeletePosInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetAllDevInfos", ReplyAction="http://tempuri.org/IDevService/GetAllDevInfosResponse")]
         Location.WCFServiceReferences.LocationServices.DevInfo[] GetAllDevInfos();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetAllDevInfos", ReplyAction="http://tempuri.org/IDevService/GetAllDevInfosResponse")]
+        System.IAsyncResult BeginGetAllDevInfos(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo[] EndGetAllDevInfos(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevInfos", ReplyAction="http://tempuri.org/IDevService/GetDevInfosResponse")]
         Location.WCFServiceReferences.LocationServices.DevInfo[] GetDevInfos(int[] typeList);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDevInfos", ReplyAction="http://tempuri.org/IDevService/GetDevInfosResponse")]
+        System.IAsyncResult BeginGetDevInfos(int[] typeList, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo[] EndGetDevInfos(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/FindDevInfos", ReplyAction="http://tempuri.org/IDevService/FindDevInfosResponse")]
         Location.WCFServiceReferences.LocationServices.DevInfo[] FindDevInfos(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/FindDevInfos", ReplyAction="http://tempuri.org/IDevService/FindDevInfosResponse")]
+        System.IAsyncResult BeginFindDevInfos(string key, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo[] EndFindDevInfos(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDevInfo", ReplyAction="http://tempuri.org/IDevService/AddDevInfoResponse")]
         Location.WCFServiceReferences.LocationServices.DevInfo AddDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddDevInfo", ReplyAction="http://tempuri.org/IDevService/AddDevInfoResponse")]
+        System.IAsyncResult BeginAddDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo EndAddDevInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDevInfoByList", ReplyAction="http://tempuri.org/IDevService/AddDevInfoByListResponse")]
-        bool AddDevInfoByList(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList);
+        Location.WCFServiceReferences.LocationServices.DevInfo[] AddDevInfoByList(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddDevInfoByList", ReplyAction="http://tempuri.org/IDevService/AddDevInfoByListResponse")]
+        System.IAsyncResult BeginAddDevInfoByList(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo[] EndAddDevInfoByList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/ModifyDevInfo", ReplyAction="http://tempuri.org/IDevService/ModifyDevInfoResponse")]
         bool ModifyDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/ModifyDevInfo", ReplyAction="http://tempuri.org/IDevService/ModifyDevInfoResponse")]
+        System.IAsyncResult BeginModifyDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, System.AsyncCallback callback, object asyncState);
+        
+        bool EndModifyDevInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteDevInfo", ReplyAction="http://tempuri.org/IDevService/DeleteDevInfoResponse")]
         bool DeleteDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/DeleteDevInfo", ReplyAction="http://tempuri.org/IDevService/DeleteDevInfoResponse")]
+        System.IAsyncResult BeginDeleteDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeleteDevInfo(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetDevInfoByParentResponse")]
         Location.WCFServiceReferences.LocationServices.DevInfo[] GetDevInfoByParent(int[] pids);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDevInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetDevInfoByParentResponse")]
+        System.IAsyncResult BeginGetDevInfoByParent(int[] pids, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo[] EndGetDevInfoByParent(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByID", ReplyAction="http://tempuri.org/IDevService/GetDevByIDResponse")]
         Location.WCFServiceReferences.LocationServices.DevInfo GetDevByID(string devId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDevByID", ReplyAction="http://tempuri.org/IDevService/GetDevByIDResponse")]
+        System.IAsyncResult BeginGetDevByID(string devId, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo EndGetDevByID(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByiId", ReplyAction="http://tempuri.org/IDevService/GetDevByiIdResponse")]
         Location.WCFServiceReferences.LocationServices.DevInfo GetDevByiId(int id);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDevByiId", ReplyAction="http://tempuri.org/IDevService/GetDevByiIdResponse")]
+        System.IAsyncResult BeginGetDevByiId(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevInfo EndGetDevByiId(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDoorAccessByList", ReplyAction="http://tempuri.org/IDevService/AddDoorAccessByListResponse")]
         bool AddDoorAccessByList(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddDoorAccessByList", ReplyAction="http://tempuri.org/IDevService/AddDoorAccessByListResponse")]
+        System.IAsyncResult BeginAddDoorAccessByList(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddDoorAccessByList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDoorAccess", ReplyAction="http://tempuri.org/IDevService/AddDoorAccessResponse")]
         bool AddDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess doorAccess);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddDoorAccess", ReplyAction="http://tempuri.org/IDevService/AddDoorAccessResponse")]
+        System.IAsyncResult BeginAddDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess doorAccess, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddDoorAccess(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteDoorAccess", ReplyAction="http://tempuri.org/IDevService/DeleteDoorAccessResponse")]
         bool DeleteDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/DeleteDoorAccess", ReplyAction="http://tempuri.org/IDevService/DeleteDoorAccessResponse")]
+        System.IAsyncResult BeginDeleteDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeleteDoorAccess(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/ModifyDoorAccess", ReplyAction="http://tempuri.org/IDevService/ModifyDoorAccessResponse")]
         bool ModifyDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/ModifyDoorAccess", ReplyAction="http://tempuri.org/IDevService/ModifyDoorAccessResponse")]
+        System.IAsyncResult BeginModifyDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndModifyDoorAccess(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDoorAccessInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetDoorAccessInfoByParentResponse")]
         Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] GetDoorAccessInfoByParent(int[] pids);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDoorAccessInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetDoorAccessInfoByParentResponse")]
+        System.IAsyncResult BeginGetDoorAccessInfoByParent(int[] pids, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] EndGetDoorAccessInfoByParent(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetAllDoorAccessInfo", ReplyAction="http://tempuri.org/IDevService/GetAllDoorAccessInfoResponse")]
         Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] GetAllDoorAccessInfo();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetAllDoorAccessInfo", ReplyAction="http://tempuri.org/IDevService/GetAllDoorAccessInfoResponse")]
+        System.IAsyncResult BeginGetAllDoorAccessInfo(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] EndGetAllDoorAccessInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddCameraInfoByList", ReplyAction="http://tempuri.org/IDevService/AddCameraInfoByListResponse")]
+        bool AddCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddCameraInfoByList", ReplyAction="http://tempuri.org/IDevService/AddCameraInfoByListResponse")]
+        System.IAsyncResult BeginAddCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddCameraInfoByList(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddCameraInfo", ReplyAction="http://tempuri.org/IDevService/AddCameraInfoResponse")]
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo AddCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo cameraInfo);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddCameraInfo", ReplyAction="http://tempuri.org/IDevService/AddCameraInfoResponse")]
+        System.IAsyncResult BeginAddCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo cameraInfo, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo EndAddCameraInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteCameraInfo", ReplyAction="http://tempuri.org/IDevService/DeleteCameraInfoResponse")]
+        bool DeleteCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/DeleteCameraInfo", ReplyAction="http://tempuri.org/IDevService/DeleteCameraInfoResponse")]
+        System.IAsyncResult BeginDeleteCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeleteCameraInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/ModifyCameraInfoByList", ReplyAction="http://tempuri.org/IDevService/ModifyCameraInfoByListResponse")]
+        bool ModifyCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/ModifyCameraInfoByList", ReplyAction="http://tempuri.org/IDevService/ModifyCameraInfoByListResponse")]
+        System.IAsyncResult BeginModifyCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, System.AsyncCallback callback, object asyncState);
+        
+        bool EndModifyCameraInfoByList(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/ModifyCameraInfo", ReplyAction="http://tempuri.org/IDevService/ModifyCameraInfoResponse")]
+        bool ModifyCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo camInfo);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/ModifyCameraInfo", ReplyAction="http://tempuri.org/IDevService/ModifyCameraInfoResponse")]
+        System.IAsyncResult BeginModifyCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo camInfo, System.AsyncCallback callback, object asyncState);
+        
+        bool EndModifyCameraInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetCameraInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetCameraInfoByParentResponse")]
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] GetCameraInfoByParent(int[] pids);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetCameraInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetCameraInfoByParentResponse")]
+        System.IAsyncResult BeginGetCameraInfoByParent(int[] pids, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] EndGetCameraInfoByParent(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetAllCameraInfo", ReplyAction="http://tempuri.org/IDevService/GetAllCameraInfoResponse")]
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] GetAllCameraInfo();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetAllCameraInfo", ReplyAction="http://tempuri.org/IDevService/GetAllCameraInfoResponse")]
+        System.IAsyncResult BeginGetAllCameraInfo(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] EndGetAllCameraInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetCameraInfoByDevInfo", ReplyAction="http://tempuri.org/IDevService/GetCameraInfoByDevInfoResponse")]
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo GetCameraInfoByDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo dev);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetCameraInfoByDevInfo", ReplyAction="http://tempuri.org/IDevService/GetCameraInfoByDevInfoResponse")]
+        System.IAsyncResult BeginGetCameraInfoByDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo dev, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Dev_CameraInfo EndGetCameraInfoByDevInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetArchors", ReplyAction="http://tempuri.org/IDevService/GetArchorsResponse")]
         Location.WCFServiceReferences.LocationServices.Archor[] GetArchors();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetArchors", ReplyAction="http://tempuri.org/IDevService/GetArchorsResponse")]
+        System.IAsyncResult BeginGetArchors(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Archor[] EndGetArchors(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetArchor", ReplyAction="http://tempuri.org/IDevService/GetArchorResponse")]
         Location.WCFServiceReferences.LocationServices.Archor GetArchor(string id);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetArchor", ReplyAction="http://tempuri.org/IDevService/GetArchorResponse")]
+        System.IAsyncResult BeginGetArchor(string id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Archor EndGetArchor(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetArchorByDevId", ReplyAction="http://tempuri.org/IDevService/GetArchorByDevIdResponse")]
         Location.WCFServiceReferences.LocationServices.Archor GetArchorByDevId(int devId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetArchorByDevId", ReplyAction="http://tempuri.org/IDevService/GetArchorByDevIdResponse")]
+        System.IAsyncResult BeginGetArchorByDevId(int devId, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Archor EndGetArchorByDevId(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/EditArchor", ReplyAction="http://tempuri.org/IDevService/EditArchorResponse")]
         bool EditArchor(Location.WCFServiceReferences.LocationServices.Archor Archor, int ParentId);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/EditArchor", ReplyAction="http://tempuri.org/IDevService/EditArchorResponse")]
+        System.IAsyncResult BeginEditArchor(Location.WCFServiceReferences.LocationServices.Archor Archor, int ParentId, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditArchor(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddArchor", ReplyAction="http://tempuri.org/IDevService/AddArchorResponse")]
         bool AddArchor(Location.WCFServiceReferences.LocationServices.Archor archor);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/AddArchor", ReplyAction="http://tempuri.org/IDevService/AddArchorResponse")]
+        System.IAsyncResult BeginAddArchor(Location.WCFServiceReferences.LocationServices.Archor archor, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddArchor(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteArchor", ReplyAction="http://tempuri.org/IDevService/DeleteArchorResponse")]
         void DeleteArchor(int archorId);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/DeleteArchor", ReplyAction="http://tempuri.org/IDevService/DeleteArchorResponse")]
+        System.IAsyncResult BeginDeleteArchor(int archorId, System.AsyncCallback callback, object asyncState);
+        
+        void EndDeleteArchor(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyDev_Currency", ReplyAction="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse")]
         Location.WCFServiceReferences.LocationServices.NearbyDev[] GetNearbyDev_Currency(int id, float fDis, int nFlag);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetNearbyDev_Currency", ReplyAction="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse")]
+        System.IAsyncResult BeginGetNearbyDev_Currency(int id, float fDis, int nFlag, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.NearbyDev[] EndGetNearbyDev_Currency(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm", ReplyAction="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse")]
         Location.WCFServiceReferences.LocationServices.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm", ReplyAction="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse")]
+        System.IAsyncResult BeginGetNearbyCamera_Alarm(int id, float fDis, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.NearbyDev[] EndGetNearbyCamera_Alarm(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours", ReplyAction="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24HoursResponse")]
         Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] GetEntranceActionInfoByPerson24Hours(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours", ReplyAction="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24HoursResponse")]
+        System.IAsyncResult BeginGetEntranceActionInfoByPerson24Hours(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] EndGetEntranceActionInfoByPerson24Hours(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevClassByDevModel", ReplyAction="http://tempuri.org/IDevService/GetDevClassByDevModelResponse")]
+        Location.WCFServiceReferences.LocationServices.DevModel GetDevClassByDevModel(string devModelName);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDevClassByDevModel", ReplyAction="http://tempuri.org/IDevService/GetDevClassByDevModelResponse")]
+        System.IAsyncResult BeginGetDevClassByDevModel(string devModelName, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DevModel EndGetDevClassByDevModel(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse")]
         Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByNodeId(int id);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse")]
+        System.IAsyncResult BeginGetKKSInfoByNodeId(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.KKSCode EndGetKKSInfoByNodeId(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSInfoByCode", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByCodeResponse")]
         Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByCode(string code);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IKKSService/GetKKSInfoByCode", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByCodeResponse")]
+        System.IAsyncResult BeginGetKKSInfoByCode(string code, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.KKSCode EndGetKKSInfoByCode(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/FindKKSInfoByName", ReplyAction="http://tempuri.org/IKKSService/FindKKSInfoByNameResponse")]
         Location.WCFServiceReferences.LocationServices.KKSCode FindKKSInfoByName(string name);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IKKSService/FindKKSInfoByName", ReplyAction="http://tempuri.org/IKKSService/FindKKSInfoByNameResponse")]
+        System.IAsyncResult BeginFindKKSInfoByName(string name, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.KKSCode EndFindKKSInfoByName(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSCodeByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSCodeByNodeIdResponse")]
         string GetKKSCodeByNodeId(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IKKSService/GetKKSCodeByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSCodeByNodeIdResponse")]
+        System.IAsyncResult BeginGetKKSCodeByNodeId(int id, System.AsyncCallback callback, object asyncState);
+        
+        string EndGetKKSCodeByNodeId(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/FindKKSCodeByName", ReplyAction="http://tempuri.org/IKKSService/FindKKSCodeByNameResponse")]
         string FindKKSCodeByName(string name);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IKKSService/FindKKSCodeByName", ReplyAction="http://tempuri.org/IKKSService/FindKKSCodeByNameResponse")]
+        System.IAsyncResult BeginFindKKSCodeByName(string name, System.AsyncCallback callback, object asyncState);
+        
+        string EndFindKKSCodeByName(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyList", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetPhysicalTopologyList();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyList", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListResponse")]
+        System.IAsyncResult BeginGetPhysicalTopologyList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetPhysicalTopologyList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology GetPhysicalTopology(string id, bool getChildren);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyResponse")]
+        System.IAsyncResult BeginGetPhysicalTopology(string id, bool getChildren, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology EndGetPhysicalTopology(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByName", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByNameResponse" +
             "")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetPhysicalTopologyListByName(string name);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByName", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByNameResponse" +
+            "")]
+        System.IAsyncResult BeginGetPhysicalTopologyListByName(string name, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetPhysicalTopologyListByName(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByPid", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByPidResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetPhysicalTopologyListByPid(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByPid", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByPidResponse")]
+        System.IAsyncResult BeginGetPhysicalTopologyListByPid(string id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetPhysicalTopologyListByPid(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTree", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology GetPhysicalTopologyTree(int view);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTree", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeResponse")]
+        System.IAsyncResult BeginGetPhysicalTopologyTree(int view, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology EndGetPhysicalTopologyTree(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNode", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNodeResponse")]
         Location.WCFServiceReferences.LocationServices.AreaNode GetPhysicalTopologyTreeNode(int view);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNode", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNodeResponse")]
+        System.IAsyncResult BeginGetPhysicalTopologyTreeNode(int view, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.AreaNode EndGetPhysicalTopologyTreeNode(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeById", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeByIdResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology GetPhysicalTopologyTreeById(string id);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeById", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeByIdResponse")]
+        System.IAsyncResult BeginGetPhysicalTopologyTreeById(string id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology EndGetPhysicalTopologyTreeById(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/AddPhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/AddPhysicalTopologyResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology AddPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/AddPhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/AddPhysicalTopologyResponse")]
+        System.IAsyncResult BeginAddPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology EndAddPhysicalTopology(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/EditPhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/EditPhysicalTopologyResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology EditPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/EditPhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/EditPhysicalTopologyResponse")]
+        System.IAsyncResult BeginEditPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology EndEditPhysicalTopology(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/RemovePhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/RemovePhysicalTopologyResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology RemovePhysicalTopology(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/RemovePhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/RemovePhysicalTopologyResponse")]
+        System.IAsyncResult BeginRemovePhysicalTopology(string id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology EndRemovePhysicalTopology(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetParkMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetParkMonitorRangeResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetParkMonitorRange();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetParkMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetParkMonitorRangeResponse")]
+        System.IAsyncResult BeginGetParkMonitorRange(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetParkMonitorRange(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRangeResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetFloorMonitorRange();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRangeResponse")]
+        System.IAsyncResult BeginGetFloorMonitorRange(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetFloorMonitorRange(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRangeById", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRangeByIdResponse")]
         Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetFloorMonitorRangeById(int id);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRangeById", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetFloorMonitorRangeByIdResponse")]
+        System.IAsyncResult BeginGetFloorMonitorRangeById(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetFloorMonitorRangeById(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/EditMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/EditMonitorRangeResponse")]
         bool EditMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/EditMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/EditMonitorRangeResponse")]
+        System.IAsyncResult BeginEditMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditMonitorRange(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/AddMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/AddMonitorRangeResponse")]
         bool AddMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPhysicalTopologyService/AddMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/AddMonitorRangeResponse")]
+        System.IAsyncResult BeginAddMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddMonitorRange(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/AddConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/AddConfigArgResponse")]
         bool AddConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/AddConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/AddConfigArgResponse")]
+        System.IAsyncResult BeginAddConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config, System.AsyncCallback callback, object asyncState);
+        
+        bool EndAddConfigArg(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/EditConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/EditConfigArgResponse")]
         bool EditConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/EditConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/EditConfigArgResponse")]
+        System.IAsyncResult BeginEditConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditConfigArg(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/DeleteConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/DeleteConfigArgResponse")]
         bool DeleteConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/DeleteConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/DeleteConfigArgResponse")]
+        System.IAsyncResult BeginDeleteConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config, System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeleteConfigArg(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/GetConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/GetConfigArgResponse")]
         Location.WCFServiceReferences.LocationServices.ConfigArg GetConfigArg(int id);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/GetConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/GetConfigArgResponse")]
+        System.IAsyncResult BeginGetConfigArg(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.ConfigArg EndGetConfigArg(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/GetConfigArgList", ReplyAction="http://tempuri.org/IConfigArgService/GetConfigArgListResponse")]
         Location.WCFServiceReferences.LocationServices.ConfigArg[] GetConfigArgList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/GetConfigArgList", ReplyAction="http://tempuri.org/IConfigArgService/GetConfigArgListResponse")]
+        System.IAsyncResult BeginGetConfigArgList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.ConfigArg[] EndGetConfigArgList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/GetConfigArgByKey", ReplyAction="http://tempuri.org/IConfigArgService/GetConfigArgByKeyResponse")]
         Location.WCFServiceReferences.LocationServices.ConfigArg GetConfigArgByKey(string key);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/GetConfigArgByKey", ReplyAction="http://tempuri.org/IConfigArgService/GetConfigArgByKeyResponse")]
+        System.IAsyncResult BeginGetConfigArgByKey(string key, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.ConfigArg EndGetConfigArgByKey(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/FindConfigArgListByKey", ReplyAction="http://tempuri.org/IConfigArgService/FindConfigArgListByKeyResponse")]
         Location.WCFServiceReferences.LocationServices.ConfigArg[] FindConfigArgListByKey(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/FindConfigArgListByKey", ReplyAction="http://tempuri.org/IConfigArgService/FindConfigArgListByKeyResponse")]
+        System.IAsyncResult BeginFindConfigArgListByKey(string key, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.ConfigArg[] EndFindConfigArgListByKey(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/FindConfigArgListByClassify", ReplyAction="http://tempuri.org/IConfigArgService/FindConfigArgListByClassifyResponse")]
         Location.WCFServiceReferences.LocationServices.ConfigArg[] FindConfigArgListByClassify(string key);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/FindConfigArgListByClassify", ReplyAction="http://tempuri.org/IConfigArgService/FindConfigArgListByClassifyResponse")]
+        System.IAsyncResult BeginFindConfigArgListByClassify(string key, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.ConfigArg[] EndFindConfigArgListByClassify(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/GetTransferOfAxesConfig", ReplyAction="http://tempuri.org/IConfigArgService/GetTransferOfAxesConfigResponse")]
         Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig GetTransferOfAxesConfig();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/GetTransferOfAxesConfig", ReplyAction="http://tempuri.org/IConfigArgService/GetTransferOfAxesConfigResponse")]
+        System.IAsyncResult BeginGetTransferOfAxesConfig(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig EndGetTransferOfAxesConfig(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/SetTransferOfAxesConfig", ReplyAction="http://tempuri.org/IConfigArgService/SetTransferOfAxesConfigResponse")]
         bool SetTransferOfAxesConfig(Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig config);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IConfigArgService/SetTransferOfAxesConfig", ReplyAction="http://tempuri.org/IConfigArgService/SetTransferOfAxesConfigResponse")]
+        System.IAsyncResult BeginSetTransferOfAxesConfig(Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig config, System.AsyncCallback callback, object asyncState);
+        
+        bool EndSetTransferOfAxesConfig(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetPersonList", ReplyAction="http://tempuri.org/IPersonalService/GetPersonListResponse")]
         Location.WCFServiceReferences.LocationServices.Personnel[] GetPersonList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/GetPersonList", ReplyAction="http://tempuri.org/IPersonalService/GetPersonListResponse")]
+        System.IAsyncResult BeginGetPersonList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Personnel[] EndGetPersonList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/FindPersonList", ReplyAction="http://tempuri.org/IPersonalService/FindPersonListResponse")]
         Location.WCFServiceReferences.LocationServices.Personnel[] FindPersonList(string key);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/FindPersonList", ReplyAction="http://tempuri.org/IPersonalService/FindPersonListResponse")]
+        System.IAsyncResult BeginFindPersonList(string key, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Personnel[] EndFindPersonList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetPerson", ReplyAction="http://tempuri.org/IPersonalService/GetPersonResponse")]
         Location.WCFServiceReferences.LocationServices.Personnel GetPerson(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/GetPerson", ReplyAction="http://tempuri.org/IPersonalService/GetPersonResponse")]
+        System.IAsyncResult BeginGetPerson(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Personnel EndGetPerson(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/AddPerson", ReplyAction="http://tempuri.org/IPersonalService/AddPersonResponse")]
         int AddPerson(Location.WCFServiceReferences.LocationServices.Personnel p);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/AddPerson", ReplyAction="http://tempuri.org/IPersonalService/AddPersonResponse")]
+        System.IAsyncResult BeginAddPerson(Location.WCFServiceReferences.LocationServices.Personnel p, System.AsyncCallback callback, object asyncState);
+        
+        int EndAddPerson(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/EditPerson", ReplyAction="http://tempuri.org/IPersonalService/EditPersonResponse")]
         bool EditPerson(Location.WCFServiceReferences.LocationServices.Personnel p);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/EditPerson", ReplyAction="http://tempuri.org/IPersonalService/EditPersonResponse")]
+        System.IAsyncResult BeginEditPerson(Location.WCFServiceReferences.LocationServices.Personnel p, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditPerson(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/DeletePerson", ReplyAction="http://tempuri.org/IPersonalService/DeletePersonResponse")]
         bool DeletePerson(int id);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/DeletePerson", ReplyAction="http://tempuri.org/IPersonalService/DeletePersonResponse")]
+        System.IAsyncResult BeginDeletePerson(int id, System.AsyncCallback callback, object asyncState);
+        
+        bool EndDeletePerson(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Currency", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_CurrencyResponse")]
         Location.WCFServiceReferences.LocationServices.NearbyPerson[] GetNearbyPerson_Currency(int id, float fDis);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Currency", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_CurrencyResponse")]
+        System.IAsyncResult BeginGetNearbyPerson_Currency(int id, float fDis, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.NearbyPerson[] EndGetNearbyPerson_Currency(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_AlarmResponse")]
         Location.WCFServiceReferences.LocationServices.NearbyPerson[] GetNearbyPerson_Alarm(int id, float fDis);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_AlarmResponse")]
+        System.IAsyncResult BeginGetNearbyPerson_Alarm(int id, float fDis, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.NearbyPerson[] EndGetNearbyPerson_Alarm(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/GetLocationAlarms", ReplyAction="http://tempuri.org/IAlarmService/GetLocationAlarmsResponse")]
         Location.WCFServiceReferences.LocationServices.LocationAlarm[] GetLocationAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAlarmService/GetLocationAlarms", ReplyAction="http://tempuri.org/IAlarmService/GetLocationAlarmsResponse")]
+        System.IAsyncResult BeginGetLocationAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.LocationAlarm[] EndGetLocationAlarms(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/GetDeviceAlarms", ReplyAction="http://tempuri.org/IAlarmService/GetDeviceAlarmsResponse")]
         Location.WCFServiceReferences.LocationServices.DeviceAlarm[] GetDeviceAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAlarmService/GetDeviceAlarms", ReplyAction="http://tempuri.org/IAlarmService/GetDeviceAlarmsResponse")]
+        System.IAsyncResult BeginGetDeviceAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.DeviceAlarm[] EndGetDeviceAlarms(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPostService/GetPostList", ReplyAction="http://tempuri.org/IPostService/GetPostListResponse")]
         Location.WCFServiceReferences.LocationServices.Post[] GetPostList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPostService/GetPostList", ReplyAction="http://tempuri.org/IPostService/GetPostListResponse")]
+        System.IAsyncResult BeginGetPostList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Post[] EndGetPostList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetTicketList", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketListResponse")]
         Location.WCFServiceReferences.LocationServices.Ticket[] GetTicketList(int type, System.DateTime start, System.DateTime end);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IBaseDataService/GetTicketList", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketListResponse")]
+        System.IAsyncResult BeginGetTicketList(int type, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Ticket[] EndGetTicketList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetTicketDetial", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketDetialResponse")]
         Location.WCFServiceReferences.LocationServices.Ticket GetTicketDetial(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IBaseDataService/GetTicketDetial", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketDetialResponse")]
+        System.IAsyncResult BeginGetTicketDetial(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Ticket EndGetTicketDetial(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetOperationTicketList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketListResponse")]
         Location.WCFServiceReferences.LocationServices.OperationTicket[] GetOperationTicketList();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetOperationTicketList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketListResponse")]
+        System.IAsyncResult BeginGetOperationTicketList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.OperationTicket[] EndGetOperationTicketList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetWorkTicketList", ReplyAction="http://tempuri.org/IWorkService/GetWorkTicketListResponse")]
         Location.WCFServiceReferences.LocationServices.WorkTicket[] GetWorkTicketList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetWorkTicketList", ReplyAction="http://tempuri.org/IWorkService/GetWorkTicketListResponse")]
+        System.IAsyncResult BeginGetWorkTicketList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.WorkTicket[] EndGetWorkTicketList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetMobileInspectionDevList", ReplyAction="http://tempuri.org/IWorkService/GetMobileInspectionDevListResponse")]
         Location.WCFServiceReferences.LocationServices.MobileInspectionDev[] GetMobileInspectionDevList();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetMobileInspectionDevList", ReplyAction="http://tempuri.org/IWorkService/GetMobileInspectionDevListResponse")]
+        System.IAsyncResult BeginGetMobileInspectionDevList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.MobileInspectionDev[] EndGetMobileInspectionDevList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetMobileInspectionList", ReplyAction="http://tempuri.org/IWorkService/GetMobileInspectionListResponse")]
         Location.WCFServiceReferences.LocationServices.MobileInspection[] GetMobileInspectionList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetMobileInspectionList", ReplyAction="http://tempuri.org/IWorkService/GetMobileInspectionListResponse")]
+        System.IAsyncResult BeginGetMobileInspectionList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.MobileInspection[] EndGetMobileInspectionList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionList", ReplyAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionListResponse")]
         Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection[] GetPersonnelMobileInspectionList();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionList", ReplyAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionListResponse")]
+        System.IAsyncResult BeginGetPersonnelMobileInspectionList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection[] EndGetPersonnelMobileInspectionList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetOperationTicketHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketHistoryListResponse")]
         Location.WCFServiceReferences.LocationServices.OperationTicketHistory[] GetOperationTicketHistoryList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetOperationTicketHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketHistoryListResponse")]
+        System.IAsyncResult BeginGetOperationTicketHistoryList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.OperationTicketHistory[] EndGetOperationTicketHistoryList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetWorkTicketHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetWorkTicketHistoryListResponse")]
         Location.WCFServiceReferences.LocationServices.WorkTicketHistory[] GetWorkTicketHistoryList();
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetWorkTicketHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetWorkTicketHistoryListResponse")]
+        System.IAsyncResult BeginGetWorkTicketHistoryList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.WorkTicketHistory[] EndGetWorkTicketHistoryList(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryListResponse")]
         Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] GetPersonnelMobileInspectionHistoryList();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryListResponse")]
+        System.IAsyncResult BeginGetPersonnelMobileInspectionHistoryList(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] EndGetPersonnelMobileInspectionHistoryList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
         Location.WCFServiceReferences.LocationServices.LoginInfo Login(Location.WCFServiceReferences.LocationServices.LoginInfo info);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
+        System.IAsyncResult BeginLogin(Location.WCFServiceReferences.LocationServices.LoginInfo info, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.LoginInfo EndLogin(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Logout", ReplyAction="http://tempuri.org/IUserService/LogoutResponse")]
         Location.WCFServiceReferences.LocationServices.LoginInfo Logout(Location.WCFServiceReferences.LocationServices.LoginInfo info);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IUserService/Logout", ReplyAction="http://tempuri.org/IUserService/LogoutResponse")]
+        System.IAsyncResult BeginLogout(Location.WCFServiceReferences.LocationServices.LoginInfo info, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.LoginInfo EndLogout(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ibus_anchor/EditBusAnchor", ReplyAction="http://tempuri.org/Ibus_anchor/EditBusAnchorResponse")]
         bool EditBusAnchor(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Ibus_anchor/EditBusAnchor", ReplyAction="http://tempuri.org/Ibus_anchor/EditBusAnchorResponse")]
+        System.IAsyncResult BeginEditBusAnchor(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditBusAnchor(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ibus_tag/EditBusTag", ReplyAction="http://tempuri.org/Ibus_tag/EditBusTagResponse")]
         bool EditBusTag(Location.WCFServiceReferences.LocationServices.Tag Tag);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Ibus_tag/EditBusTag", ReplyAction="http://tempuri.org/Ibus_tag/EditBusTagResponse")]
+        System.IAsyncResult BeginEditBusTag(Location.WCFServiceReferences.LocationServices.Tag Tag, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditBusTag(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPictureService/EditPictureInfo", ReplyAction="http://tempuri.org/IPictureService/EditPictureInfoResponse")]
         bool EditPictureInfo(Location.WCFServiceReferences.LocationServices.Picture pc);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPictureService/EditPictureInfo", ReplyAction="http://tempuri.org/IPictureService/EditPictureInfoResponse")]
+        System.IAsyncResult BeginEditPictureInfo(Location.WCFServiceReferences.LocationServices.Picture pc, System.AsyncCallback callback, object asyncState);
+        
+        bool EndEditPictureInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPictureService/GetPictureInfo", ReplyAction="http://tempuri.org/IPictureService/GetPictureInfoResponse")]
         Location.WCFServiceReferences.LocationServices.Picture GetPictureInfo(string strPictureName);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPictureService/GetPictureInfo", ReplyAction="http://tempuri.org/IPictureService/GetPictureInfoResponse")]
+        System.IAsyncResult BeginGetPictureInfo(string strPictureName, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Picture EndGetPictureInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAreaService/GetAreaStatistics", ReplyAction="http://tempuri.org/IAreaService/GetAreaStatisticsResponse")]
         Location.WCFServiceReferences.LocationServices.AreaStatistics GetAreaStatistics(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAreaService/GetAreaStatistics", ReplyAction="http://tempuri.org/IAreaService/GetAreaStatisticsResponse")]
+        System.IAsyncResult BeginGetAreaStatistics(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.AreaStatistics EndGetAreaStatistics(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -9362,7 +10306,2875 @@ namespace Location.WCFServiceReferences.LocationServices {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class HelloCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public HelloCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDepartmentListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDepartmentListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Department[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Department[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDepartmentTreeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDepartmentTreeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Department Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Department)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetTagsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetTagsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Tag[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Tag[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddTagsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddTagsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeleteTagCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeleteTagCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeleteAllTagsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeleteAllTagsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditTagCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditTagCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetRealPositonsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetRealPositonsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.TagPosition[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.TagPosition[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetRealPositonsByTagsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetRealPositonsByTagsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.TagPosition[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.TagPosition[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetHistoryPositonsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetHistoryPositonsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Position[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Position[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetHistoryPositonsByPersonnelIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetHistoryPositonsByPersonnelIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Position[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Position[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetHistoryPositonsByPidAndTopoNodeIdsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetHistoryPositonsByPidAndTopoNodeIdsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Position[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Position[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetHistoryPositonsByTimeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetHistoryPositonsByTimeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Position[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Position[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetStrsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetStrsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetHistoryU3DPositonsByTimeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetHistoryU3DPositonsByTimeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.U3DPosition[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.U3DPosition[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetObjectAddListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetObjectAddListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.ObjectAddList_Type[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.ObjectAddList_Type[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDevPositionsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDevPositionsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevPos[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevPos[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddDevPosInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddDevPosInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddDevPosByListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddDevPosByListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ModifyPosInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ModifyPosInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ModifyPosByListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ModifyPosByListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeletePosInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeletePosInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAllDevInfosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAllDevInfosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDevInfosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDevInfosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FindDevInfosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public FindDevInfosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddDevInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddDevInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddDevInfoByListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddDevInfoByListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ModifyDevInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ModifyDevInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeleteDevInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeleteDevInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDevInfoByParentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDevInfoByParentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDevByIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDevByIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDevByiIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDevByiIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddDoorAccessByListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddDoorAccessByListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddDoorAccessCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddDoorAccessCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeleteDoorAccessCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeleteDoorAccessCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ModifyDoorAccessCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ModifyDoorAccessCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDoorAccessInfoByParentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDoorAccessInfoByParentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAllDoorAccessInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAllDoorAccessInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddCameraInfoByListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddCameraInfoByListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddCameraInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddCameraInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeleteCameraInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeleteCameraInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ModifyCameraInfoByListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ModifyCameraInfoByListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ModifyCameraInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ModifyCameraInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetCameraInfoByParentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetCameraInfoByParentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAllCameraInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAllCameraInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetCameraInfoByDevInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetCameraInfoByDevInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetArchorsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetArchorsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Archor[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Archor[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetArchorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetArchorCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Archor Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Archor)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetArchorByDevIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetArchorByDevIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Archor Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Archor)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditArchorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditArchorCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddArchorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddArchorCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetNearbyDev_CurrencyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetNearbyDev_CurrencyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.NearbyDev[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.NearbyDev[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetNearbyCamera_AlarmCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetNearbyCamera_AlarmCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.NearbyDev[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.NearbyDev[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetEntranceActionInfoByPerson24HoursCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetEntranceActionInfoByPerson24HoursCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDevClassByDevModelCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDevClassByDevModelCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevModel Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DevModel)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetKKSInfoByNodeIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetKKSInfoByNodeIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.KKSCode Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.KKSCode)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetKKSInfoByCodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetKKSInfoByCodeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.KKSCode Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.KKSCode)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FindKKSInfoByNameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public FindKKSInfoByNameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.KKSCode Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.KKSCode)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetKKSCodeByNodeIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetKKSCodeByNodeIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FindKKSCodeByNameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public FindKKSCodeByNameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPhysicalTopologyListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPhysicalTopologyListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPhysicalTopologyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPhysicalTopologyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPhysicalTopologyListByNameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPhysicalTopologyListByNameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPhysicalTopologyListByPidCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPhysicalTopologyListByPidCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPhysicalTopologyTreeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPhysicalTopologyTreeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPhysicalTopologyTreeNodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPhysicalTopologyTreeNodeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.AreaNode Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.AreaNode)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPhysicalTopologyTreeByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPhysicalTopologyTreeByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddPhysicalTopologyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddPhysicalTopologyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditPhysicalTopologyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditPhysicalTopologyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class RemovePhysicalTopologyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public RemovePhysicalTopologyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetParkMonitorRangeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetParkMonitorRangeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetFloorMonitorRangeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetFloorMonitorRangeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetFloorMonitorRangeByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetFloorMonitorRangeByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PhysicalTopology[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditMonitorRangeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditMonitorRangeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddMonitorRangeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddMonitorRangeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddConfigArgCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddConfigArgCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditConfigArgCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditConfigArgCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeleteConfigArgCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeleteConfigArgCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetConfigArgCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetConfigArgCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.ConfigArg Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.ConfigArg)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetConfigArgListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetConfigArgListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.ConfigArg[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.ConfigArg[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetConfigArgByKeyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetConfigArgByKeyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.ConfigArg Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.ConfigArg)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FindConfigArgListByKeyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public FindConfigArgListByKeyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.ConfigArg[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.ConfigArg[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FindConfigArgListByClassifyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public FindConfigArgListByClassifyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.ConfigArg[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.ConfigArg[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetTransferOfAxesConfigCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetTransferOfAxesConfigCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class SetTransferOfAxesConfigCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public SetTransferOfAxesConfigCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPersonListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPersonListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Personnel[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Personnel[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FindPersonListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public FindPersonListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Personnel[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Personnel[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPersonCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPersonCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Personnel Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Personnel)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class AddPersonCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public AddPersonCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditPersonCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditPersonCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeletePersonCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeletePersonCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetNearbyPerson_CurrencyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetNearbyPerson_CurrencyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.NearbyPerson[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.NearbyPerson[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetNearbyPerson_AlarmCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetNearbyPerson_AlarmCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.NearbyPerson[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.NearbyPerson[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetLocationAlarmsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetLocationAlarmsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.LocationAlarm[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.LocationAlarm[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDeviceAlarmsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDeviceAlarmsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DeviceAlarm[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.DeviceAlarm[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPostListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPostListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Post[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Post[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetTicketListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetTicketListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Ticket[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Ticket[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetTicketDetialCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetTicketDetialCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Ticket Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Ticket)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetOperationTicketListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetOperationTicketListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.OperationTicket[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.OperationTicket[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetWorkTicketListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetWorkTicketListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.WorkTicket[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.WorkTicket[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetMobileInspectionDevListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetMobileInspectionDevListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.MobileInspectionDev[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.MobileInspectionDev[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetMobileInspectionListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetMobileInspectionListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.MobileInspection[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.MobileInspection[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPersonnelMobileInspectionListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPersonnelMobileInspectionListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetOperationTicketHistoryListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetOperationTicketHistoryListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.OperationTicketHistory[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.OperationTicketHistory[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetWorkTicketHistoryListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetWorkTicketHistoryListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.WorkTicketHistory[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.WorkTicketHistory[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPersonnelMobileInspectionHistoryListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPersonnelMobileInspectionHistoryListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class LoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public LoginCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.LoginInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.LoginInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class LogoutCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public LogoutCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.LoginInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.LoginInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditBusAnchorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditBusAnchorCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditBusTagCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditBusTagCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EditPictureInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public EditPictureInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPictureInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPictureInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Picture Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Picture)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAreaStatisticsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAreaStatisticsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.AreaStatistics Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.AreaStatistics)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class LocationServiceClient : System.ServiceModel.ClientBase<Location.WCFServiceReferences.LocationServices.ILocationService>, Location.WCFServiceReferences.LocationServices.ILocationService {
+        
+        private BeginOperationDelegate onBeginHelloDelegate;
+        
+        private EndOperationDelegate onEndHelloDelegate;
+        
+        private System.Threading.SendOrPostCallback onHelloCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDepartmentListDelegate;
+        
+        private EndOperationDelegate onEndGetDepartmentListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDepartmentListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDepartmentTreeDelegate;
+        
+        private EndOperationDelegate onEndGetDepartmentTreeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDepartmentTreeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetTagsDelegate;
+        
+        private EndOperationDelegate onEndGetTagsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTagsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddTagsDelegate;
+        
+        private EndOperationDelegate onEndAddTagsDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddTagsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteTagDelegate;
+        
+        private EndOperationDelegate onEndDeleteTagDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteTagCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteAllTagsDelegate;
+        
+        private EndOperationDelegate onEndDeleteAllTagsDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteAllTagsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditTagDelegate;
+        
+        private EndOperationDelegate onEndEditTagDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditTagCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetRealPositonsDelegate;
+        
+        private EndOperationDelegate onEndGetRealPositonsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetRealPositonsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetRealPositonsByTagsDelegate;
+        
+        private EndOperationDelegate onEndGetRealPositonsByTagsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetRealPositonsByTagsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetHistoryPositonsDelegate;
+        
+        private EndOperationDelegate onEndGetHistoryPositonsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetHistoryPositonsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetHistoryPositonsByPersonnelIDDelegate;
+        
+        private EndOperationDelegate onEndGetHistoryPositonsByPersonnelIDDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetHistoryPositonsByPersonnelIDCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetHistoryPositonsByPidAndTopoNodeIdsDelegate;
+        
+        private EndOperationDelegate onEndGetHistoryPositonsByPidAndTopoNodeIdsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetHistoryPositonsByPidAndTopoNodeIdsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetHistoryPositonsByTimeDelegate;
+        
+        private EndOperationDelegate onEndGetHistoryPositonsByTimeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetHistoryPositonsByTimeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetStrsDelegate;
+        
+        private EndOperationDelegate onEndGetStrsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetStrsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddU3DPositionDelegate;
+        
+        private EndOperationDelegate onEndAddU3DPositionDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddU3DPositionCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddU3DPositionsDelegate;
+        
+        private EndOperationDelegate onEndAddU3DPositionsDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddU3DPositionsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetHistoryU3DPositonsByTimeDelegate;
+        
+        private EndOperationDelegate onEndGetHistoryU3DPositonsByTimeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetHistoryU3DPositonsByTimeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetObjectAddListDelegate;
+        
+        private EndOperationDelegate onEndGetObjectAddListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetObjectAddListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDevPositionsDelegate;
+        
+        private EndOperationDelegate onEndGetDevPositionsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDevPositionsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddDevPosInfoDelegate;
+        
+        private EndOperationDelegate onEndAddDevPosInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddDevPosInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddDevPosByListDelegate;
+        
+        private EndOperationDelegate onEndAddDevPosByListDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddDevPosByListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginModifyPosInfoDelegate;
+        
+        private EndOperationDelegate onEndModifyPosInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onModifyPosInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginModifyPosByListDelegate;
+        
+        private EndOperationDelegate onEndModifyPosByListDelegate;
+        
+        private System.Threading.SendOrPostCallback onModifyPosByListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeletePosInfoDelegate;
+        
+        private EndOperationDelegate onEndDeletePosInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeletePosInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetAllDevInfosDelegate;
+        
+        private EndOperationDelegate onEndGetAllDevInfosDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAllDevInfosCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDevInfosDelegate;
+        
+        private EndOperationDelegate onEndGetDevInfosDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDevInfosCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFindDevInfosDelegate;
+        
+        private EndOperationDelegate onEndFindDevInfosDelegate;
+        
+        private System.Threading.SendOrPostCallback onFindDevInfosCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddDevInfoDelegate;
+        
+        private EndOperationDelegate onEndAddDevInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddDevInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddDevInfoByListDelegate;
+        
+        private EndOperationDelegate onEndAddDevInfoByListDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddDevInfoByListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginModifyDevInfoDelegate;
+        
+        private EndOperationDelegate onEndModifyDevInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onModifyDevInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteDevInfoDelegate;
+        
+        private EndOperationDelegate onEndDeleteDevInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteDevInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDevInfoByParentDelegate;
+        
+        private EndOperationDelegate onEndGetDevInfoByParentDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDevInfoByParentCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDevByIDDelegate;
+        
+        private EndOperationDelegate onEndGetDevByIDDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDevByIDCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDevByiIdDelegate;
+        
+        private EndOperationDelegate onEndGetDevByiIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDevByiIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddDoorAccessByListDelegate;
+        
+        private EndOperationDelegate onEndAddDoorAccessByListDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddDoorAccessByListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddDoorAccessDelegate;
+        
+        private EndOperationDelegate onEndAddDoorAccessDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddDoorAccessCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteDoorAccessDelegate;
+        
+        private EndOperationDelegate onEndDeleteDoorAccessDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteDoorAccessCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginModifyDoorAccessDelegate;
+        
+        private EndOperationDelegate onEndModifyDoorAccessDelegate;
+        
+        private System.Threading.SendOrPostCallback onModifyDoorAccessCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDoorAccessInfoByParentDelegate;
+        
+        private EndOperationDelegate onEndGetDoorAccessInfoByParentDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDoorAccessInfoByParentCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetAllDoorAccessInfoDelegate;
+        
+        private EndOperationDelegate onEndGetAllDoorAccessInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAllDoorAccessInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddCameraInfoByListDelegate;
+        
+        private EndOperationDelegate onEndAddCameraInfoByListDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddCameraInfoByListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddCameraInfoDelegate;
+        
+        private EndOperationDelegate onEndAddCameraInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddCameraInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteCameraInfoDelegate;
+        
+        private EndOperationDelegate onEndDeleteCameraInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteCameraInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginModifyCameraInfoByListDelegate;
+        
+        private EndOperationDelegate onEndModifyCameraInfoByListDelegate;
+        
+        private System.Threading.SendOrPostCallback onModifyCameraInfoByListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginModifyCameraInfoDelegate;
+        
+        private EndOperationDelegate onEndModifyCameraInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onModifyCameraInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetCameraInfoByParentDelegate;
+        
+        private EndOperationDelegate onEndGetCameraInfoByParentDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetCameraInfoByParentCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetAllCameraInfoDelegate;
+        
+        private EndOperationDelegate onEndGetAllCameraInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAllCameraInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetCameraInfoByDevInfoDelegate;
+        
+        private EndOperationDelegate onEndGetCameraInfoByDevInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetCameraInfoByDevInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetArchorsDelegate;
+        
+        private EndOperationDelegate onEndGetArchorsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetArchorsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetArchorDelegate;
+        
+        private EndOperationDelegate onEndGetArchorDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetArchorCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetArchorByDevIdDelegate;
+        
+        private EndOperationDelegate onEndGetArchorByDevIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetArchorByDevIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditArchorDelegate;
+        
+        private EndOperationDelegate onEndEditArchorDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditArchorCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddArchorDelegate;
+        
+        private EndOperationDelegate onEndAddArchorDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddArchorCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteArchorDelegate;
+        
+        private EndOperationDelegate onEndDeleteArchorDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteArchorCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetNearbyDev_CurrencyDelegate;
+        
+        private EndOperationDelegate onEndGetNearbyDev_CurrencyDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetNearbyDev_CurrencyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetNearbyCamera_AlarmDelegate;
+        
+        private EndOperationDelegate onEndGetNearbyCamera_AlarmDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetNearbyCamera_AlarmCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetEntranceActionInfoByPerson24HoursDelegate;
+        
+        private EndOperationDelegate onEndGetEntranceActionInfoByPerson24HoursDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetEntranceActionInfoByPerson24HoursCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDevClassByDevModelDelegate;
+        
+        private EndOperationDelegate onEndGetDevClassByDevModelDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDevClassByDevModelCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetKKSInfoByNodeIdDelegate;
+        
+        private EndOperationDelegate onEndGetKKSInfoByNodeIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetKKSInfoByNodeIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetKKSInfoByCodeDelegate;
+        
+        private EndOperationDelegate onEndGetKKSInfoByCodeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetKKSInfoByCodeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFindKKSInfoByNameDelegate;
+        
+        private EndOperationDelegate onEndFindKKSInfoByNameDelegate;
+        
+        private System.Threading.SendOrPostCallback onFindKKSInfoByNameCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetKKSCodeByNodeIdDelegate;
+        
+        private EndOperationDelegate onEndGetKKSCodeByNodeIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetKKSCodeByNodeIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFindKKSCodeByNameDelegate;
+        
+        private EndOperationDelegate onEndFindKKSCodeByNameDelegate;
+        
+        private System.Threading.SendOrPostCallback onFindKKSCodeByNameCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPhysicalTopologyListDelegate;
+        
+        private EndOperationDelegate onEndGetPhysicalTopologyListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPhysicalTopologyListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPhysicalTopologyDelegate;
+        
+        private EndOperationDelegate onEndGetPhysicalTopologyDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPhysicalTopologyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPhysicalTopologyListByNameDelegate;
+        
+        private EndOperationDelegate onEndGetPhysicalTopologyListByNameDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPhysicalTopologyListByNameCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPhysicalTopologyListByPidDelegate;
+        
+        private EndOperationDelegate onEndGetPhysicalTopologyListByPidDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPhysicalTopologyListByPidCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPhysicalTopologyTreeDelegate;
+        
+        private EndOperationDelegate onEndGetPhysicalTopologyTreeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPhysicalTopologyTreeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPhysicalTopologyTreeNodeDelegate;
+        
+        private EndOperationDelegate onEndGetPhysicalTopologyTreeNodeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPhysicalTopologyTreeNodeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPhysicalTopologyTreeByIdDelegate;
+        
+        private EndOperationDelegate onEndGetPhysicalTopologyTreeByIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPhysicalTopologyTreeByIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddPhysicalTopologyDelegate;
+        
+        private EndOperationDelegate onEndAddPhysicalTopologyDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddPhysicalTopologyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditPhysicalTopologyDelegate;
+        
+        private EndOperationDelegate onEndEditPhysicalTopologyDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditPhysicalTopologyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginRemovePhysicalTopologyDelegate;
+        
+        private EndOperationDelegate onEndRemovePhysicalTopologyDelegate;
+        
+        private System.Threading.SendOrPostCallback onRemovePhysicalTopologyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetParkMonitorRangeDelegate;
+        
+        private EndOperationDelegate onEndGetParkMonitorRangeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetParkMonitorRangeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetFloorMonitorRangeDelegate;
+        
+        private EndOperationDelegate onEndGetFloorMonitorRangeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetFloorMonitorRangeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetFloorMonitorRangeByIdDelegate;
+        
+        private EndOperationDelegate onEndGetFloorMonitorRangeByIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetFloorMonitorRangeByIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditMonitorRangeDelegate;
+        
+        private EndOperationDelegate onEndEditMonitorRangeDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditMonitorRangeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddMonitorRangeDelegate;
+        
+        private EndOperationDelegate onEndAddMonitorRangeDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddMonitorRangeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddConfigArgDelegate;
+        
+        private EndOperationDelegate onEndAddConfigArgDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddConfigArgCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditConfigArgDelegate;
+        
+        private EndOperationDelegate onEndEditConfigArgDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditConfigArgCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteConfigArgDelegate;
+        
+        private EndOperationDelegate onEndDeleteConfigArgDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteConfigArgCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetConfigArgDelegate;
+        
+        private EndOperationDelegate onEndGetConfigArgDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetConfigArgCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetConfigArgListDelegate;
+        
+        private EndOperationDelegate onEndGetConfigArgListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetConfigArgListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetConfigArgByKeyDelegate;
+        
+        private EndOperationDelegate onEndGetConfigArgByKeyDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetConfigArgByKeyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFindConfigArgListByKeyDelegate;
+        
+        private EndOperationDelegate onEndFindConfigArgListByKeyDelegate;
+        
+        private System.Threading.SendOrPostCallback onFindConfigArgListByKeyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFindConfigArgListByClassifyDelegate;
+        
+        private EndOperationDelegate onEndFindConfigArgListByClassifyDelegate;
+        
+        private System.Threading.SendOrPostCallback onFindConfigArgListByClassifyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetTransferOfAxesConfigDelegate;
+        
+        private EndOperationDelegate onEndGetTransferOfAxesConfigDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTransferOfAxesConfigCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginSetTransferOfAxesConfigDelegate;
+        
+        private EndOperationDelegate onEndSetTransferOfAxesConfigDelegate;
+        
+        private System.Threading.SendOrPostCallback onSetTransferOfAxesConfigCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPersonListDelegate;
+        
+        private EndOperationDelegate onEndGetPersonListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPersonListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFindPersonListDelegate;
+        
+        private EndOperationDelegate onEndFindPersonListDelegate;
+        
+        private System.Threading.SendOrPostCallback onFindPersonListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPersonDelegate;
+        
+        private EndOperationDelegate onEndGetPersonDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPersonCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginAddPersonDelegate;
+        
+        private EndOperationDelegate onEndAddPersonDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddPersonCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditPersonDelegate;
+        
+        private EndOperationDelegate onEndEditPersonDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditPersonCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeletePersonDelegate;
+        
+        private EndOperationDelegate onEndDeletePersonDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeletePersonCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetNearbyPerson_CurrencyDelegate;
+        
+        private EndOperationDelegate onEndGetNearbyPerson_CurrencyDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetNearbyPerson_CurrencyCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetNearbyPerson_AlarmDelegate;
+        
+        private EndOperationDelegate onEndGetNearbyPerson_AlarmDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetNearbyPerson_AlarmCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetLocationAlarmsDelegate;
+        
+        private EndOperationDelegate onEndGetLocationAlarmsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetLocationAlarmsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDeviceAlarmsDelegate;
+        
+        private EndOperationDelegate onEndGetDeviceAlarmsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDeviceAlarmsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPostListDelegate;
+        
+        private EndOperationDelegate onEndGetPostListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPostListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetTicketListDelegate;
+        
+        private EndOperationDelegate onEndGetTicketListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTicketListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetTicketDetialDelegate;
+        
+        private EndOperationDelegate onEndGetTicketDetialDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTicketDetialCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetOperationTicketListDelegate;
+        
+        private EndOperationDelegate onEndGetOperationTicketListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetOperationTicketListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetWorkTicketListDelegate;
+        
+        private EndOperationDelegate onEndGetWorkTicketListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetWorkTicketListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetMobileInspectionDevListDelegate;
+        
+        private EndOperationDelegate onEndGetMobileInspectionDevListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetMobileInspectionDevListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetMobileInspectionListDelegate;
+        
+        private EndOperationDelegate onEndGetMobileInspectionListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetMobileInspectionListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPersonnelMobileInspectionListDelegate;
+        
+        private EndOperationDelegate onEndGetPersonnelMobileInspectionListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPersonnelMobileInspectionListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetOperationTicketHistoryListDelegate;
+        
+        private EndOperationDelegate onEndGetOperationTicketHistoryListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetOperationTicketHistoryListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetWorkTicketHistoryListDelegate;
+        
+        private EndOperationDelegate onEndGetWorkTicketHistoryListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetWorkTicketHistoryListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPersonnelMobileInspectionHistoryListDelegate;
+        
+        private EndOperationDelegate onEndGetPersonnelMobileInspectionHistoryListDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPersonnelMobileInspectionHistoryListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginLoginDelegate;
+        
+        private EndOperationDelegate onEndLoginDelegate;
+        
+        private System.Threading.SendOrPostCallback onLoginCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginLogoutDelegate;
+        
+        private EndOperationDelegate onEndLogoutDelegate;
+        
+        private System.Threading.SendOrPostCallback onLogoutCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditBusAnchorDelegate;
+        
+        private EndOperationDelegate onEndEditBusAnchorDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditBusAnchorCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditBusTagDelegate;
+        
+        private EndOperationDelegate onEndEditBusTagDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditBusTagCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEditPictureInfoDelegate;
+        
+        private EndOperationDelegate onEndEditPictureInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onEditPictureInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPictureInfoDelegate;
+        
+        private EndOperationDelegate onEndGetPictureInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPictureInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetAreaStatisticsDelegate;
+        
+        private EndOperationDelegate onEndGetAreaStatisticsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAreaStatisticsCompletedDelegate;
         
         public LocationServiceClient() {
         }
@@ -9383,436 +13195,6071 @@ namespace Location.WCFServiceReferences.LocationServices {
                 base(binding, remoteAddress) {
         }
         
+        public event System.EventHandler<HelloCompletedEventArgs> HelloCompleted;
+        
+        public event System.EventHandler<GetDepartmentListCompletedEventArgs> GetDepartmentListCompleted;
+        
+        public event System.EventHandler<GetDepartmentTreeCompletedEventArgs> GetDepartmentTreeCompleted;
+        
+        public event System.EventHandler<GetTagsCompletedEventArgs> GetTagsCompleted;
+        
+        public event System.EventHandler<AddTagsCompletedEventArgs> AddTagsCompleted;
+        
+        public event System.EventHandler<DeleteTagCompletedEventArgs> DeleteTagCompleted;
+        
+        public event System.EventHandler<DeleteAllTagsCompletedEventArgs> DeleteAllTagsCompleted;
+        
+        public event System.EventHandler<EditTagCompletedEventArgs> EditTagCompleted;
+        
+        public event System.EventHandler<GetRealPositonsCompletedEventArgs> GetRealPositonsCompleted;
+        
+        public event System.EventHandler<GetRealPositonsByTagsCompletedEventArgs> GetRealPositonsByTagsCompleted;
+        
+        public event System.EventHandler<GetHistoryPositonsCompletedEventArgs> GetHistoryPositonsCompleted;
+        
+        public event System.EventHandler<GetHistoryPositonsByPersonnelIDCompletedEventArgs> GetHistoryPositonsByPersonnelIDCompleted;
+        
+        public event System.EventHandler<GetHistoryPositonsByPidAndTopoNodeIdsCompletedEventArgs> GetHistoryPositonsByPidAndTopoNodeIdsCompleted;
+        
+        public event System.EventHandler<GetHistoryPositonsByTimeCompletedEventArgs> GetHistoryPositonsByTimeCompleted;
+        
+        public event System.EventHandler<GetStrsCompletedEventArgs> GetStrsCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> AddU3DPositionCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> AddU3DPositionsCompleted;
+        
+        public event System.EventHandler<GetHistoryU3DPositonsByTimeCompletedEventArgs> GetHistoryU3DPositonsByTimeCompleted;
+        
+        public event System.EventHandler<GetObjectAddListCompletedEventArgs> GetObjectAddListCompleted;
+        
+        public event System.EventHandler<GetDevPositionsCompletedEventArgs> GetDevPositionsCompleted;
+        
+        public event System.EventHandler<AddDevPosInfoCompletedEventArgs> AddDevPosInfoCompleted;
+        
+        public event System.EventHandler<AddDevPosByListCompletedEventArgs> AddDevPosByListCompleted;
+        
+        public event System.EventHandler<ModifyPosInfoCompletedEventArgs> ModifyPosInfoCompleted;
+        
+        public event System.EventHandler<ModifyPosByListCompletedEventArgs> ModifyPosByListCompleted;
+        
+        public event System.EventHandler<DeletePosInfoCompletedEventArgs> DeletePosInfoCompleted;
+        
+        public event System.EventHandler<GetAllDevInfosCompletedEventArgs> GetAllDevInfosCompleted;
+        
+        public event System.EventHandler<GetDevInfosCompletedEventArgs> GetDevInfosCompleted;
+        
+        public event System.EventHandler<FindDevInfosCompletedEventArgs> FindDevInfosCompleted;
+        
+        public event System.EventHandler<AddDevInfoCompletedEventArgs> AddDevInfoCompleted;
+        
+        public event System.EventHandler<AddDevInfoByListCompletedEventArgs> AddDevInfoByListCompleted;
+        
+        public event System.EventHandler<ModifyDevInfoCompletedEventArgs> ModifyDevInfoCompleted;
+        
+        public event System.EventHandler<DeleteDevInfoCompletedEventArgs> DeleteDevInfoCompleted;
+        
+        public event System.EventHandler<GetDevInfoByParentCompletedEventArgs> GetDevInfoByParentCompleted;
+        
+        public event System.EventHandler<GetDevByIDCompletedEventArgs> GetDevByIDCompleted;
+        
+        public event System.EventHandler<GetDevByiIdCompletedEventArgs> GetDevByiIdCompleted;
+        
+        public event System.EventHandler<AddDoorAccessByListCompletedEventArgs> AddDoorAccessByListCompleted;
+        
+        public event System.EventHandler<AddDoorAccessCompletedEventArgs> AddDoorAccessCompleted;
+        
+        public event System.EventHandler<DeleteDoorAccessCompletedEventArgs> DeleteDoorAccessCompleted;
+        
+        public event System.EventHandler<ModifyDoorAccessCompletedEventArgs> ModifyDoorAccessCompleted;
+        
+        public event System.EventHandler<GetDoorAccessInfoByParentCompletedEventArgs> GetDoorAccessInfoByParentCompleted;
+        
+        public event System.EventHandler<GetAllDoorAccessInfoCompletedEventArgs> GetAllDoorAccessInfoCompleted;
+        
+        public event System.EventHandler<AddCameraInfoByListCompletedEventArgs> AddCameraInfoByListCompleted;
+        
+        public event System.EventHandler<AddCameraInfoCompletedEventArgs> AddCameraInfoCompleted;
+        
+        public event System.EventHandler<DeleteCameraInfoCompletedEventArgs> DeleteCameraInfoCompleted;
+        
+        public event System.EventHandler<ModifyCameraInfoByListCompletedEventArgs> ModifyCameraInfoByListCompleted;
+        
+        public event System.EventHandler<ModifyCameraInfoCompletedEventArgs> ModifyCameraInfoCompleted;
+        
+        public event System.EventHandler<GetCameraInfoByParentCompletedEventArgs> GetCameraInfoByParentCompleted;
+        
+        public event System.EventHandler<GetAllCameraInfoCompletedEventArgs> GetAllCameraInfoCompleted;
+        
+        public event System.EventHandler<GetCameraInfoByDevInfoCompletedEventArgs> GetCameraInfoByDevInfoCompleted;
+        
+        public event System.EventHandler<GetArchorsCompletedEventArgs> GetArchorsCompleted;
+        
+        public event System.EventHandler<GetArchorCompletedEventArgs> GetArchorCompleted;
+        
+        public event System.EventHandler<GetArchorByDevIdCompletedEventArgs> GetArchorByDevIdCompleted;
+        
+        public event System.EventHandler<EditArchorCompletedEventArgs> EditArchorCompleted;
+        
+        public event System.EventHandler<AddArchorCompletedEventArgs> AddArchorCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DeleteArchorCompleted;
+        
+        public event System.EventHandler<GetNearbyDev_CurrencyCompletedEventArgs> GetNearbyDev_CurrencyCompleted;
+        
+        public event System.EventHandler<GetNearbyCamera_AlarmCompletedEventArgs> GetNearbyCamera_AlarmCompleted;
+        
+        public event System.EventHandler<GetEntranceActionInfoByPerson24HoursCompletedEventArgs> GetEntranceActionInfoByPerson24HoursCompleted;
+        
+        public event System.EventHandler<GetDevClassByDevModelCompletedEventArgs> GetDevClassByDevModelCompleted;
+        
+        public event System.EventHandler<GetKKSInfoByNodeIdCompletedEventArgs> GetKKSInfoByNodeIdCompleted;
+        
+        public event System.EventHandler<GetKKSInfoByCodeCompletedEventArgs> GetKKSInfoByCodeCompleted;
+        
+        public event System.EventHandler<FindKKSInfoByNameCompletedEventArgs> FindKKSInfoByNameCompleted;
+        
+        public event System.EventHandler<GetKKSCodeByNodeIdCompletedEventArgs> GetKKSCodeByNodeIdCompleted;
+        
+        public event System.EventHandler<FindKKSCodeByNameCompletedEventArgs> FindKKSCodeByNameCompleted;
+        
+        public event System.EventHandler<GetPhysicalTopologyListCompletedEventArgs> GetPhysicalTopologyListCompleted;
+        
+        public event System.EventHandler<GetPhysicalTopologyCompletedEventArgs> GetPhysicalTopologyCompleted;
+        
+        public event System.EventHandler<GetPhysicalTopologyListByNameCompletedEventArgs> GetPhysicalTopologyListByNameCompleted;
+        
+        public event System.EventHandler<GetPhysicalTopologyListByPidCompletedEventArgs> GetPhysicalTopologyListByPidCompleted;
+        
+        public event System.EventHandler<GetPhysicalTopologyTreeCompletedEventArgs> GetPhysicalTopologyTreeCompleted;
+        
+        public event System.EventHandler<GetPhysicalTopologyTreeNodeCompletedEventArgs> GetPhysicalTopologyTreeNodeCompleted;
+        
+        public event System.EventHandler<GetPhysicalTopologyTreeByIdCompletedEventArgs> GetPhysicalTopologyTreeByIdCompleted;
+        
+        public event System.EventHandler<AddPhysicalTopologyCompletedEventArgs> AddPhysicalTopologyCompleted;
+        
+        public event System.EventHandler<EditPhysicalTopologyCompletedEventArgs> EditPhysicalTopologyCompleted;
+        
+        public event System.EventHandler<RemovePhysicalTopologyCompletedEventArgs> RemovePhysicalTopologyCompleted;
+        
+        public event System.EventHandler<GetParkMonitorRangeCompletedEventArgs> GetParkMonitorRangeCompleted;
+        
+        public event System.EventHandler<GetFloorMonitorRangeCompletedEventArgs> GetFloorMonitorRangeCompleted;
+        
+        public event System.EventHandler<GetFloorMonitorRangeByIdCompletedEventArgs> GetFloorMonitorRangeByIdCompleted;
+        
+        public event System.EventHandler<EditMonitorRangeCompletedEventArgs> EditMonitorRangeCompleted;
+        
+        public event System.EventHandler<AddMonitorRangeCompletedEventArgs> AddMonitorRangeCompleted;
+        
+        public event System.EventHandler<AddConfigArgCompletedEventArgs> AddConfigArgCompleted;
+        
+        public event System.EventHandler<EditConfigArgCompletedEventArgs> EditConfigArgCompleted;
+        
+        public event System.EventHandler<DeleteConfigArgCompletedEventArgs> DeleteConfigArgCompleted;
+        
+        public event System.EventHandler<GetConfigArgCompletedEventArgs> GetConfigArgCompleted;
+        
+        public event System.EventHandler<GetConfigArgListCompletedEventArgs> GetConfigArgListCompleted;
+        
+        public event System.EventHandler<GetConfigArgByKeyCompletedEventArgs> GetConfigArgByKeyCompleted;
+        
+        public event System.EventHandler<FindConfigArgListByKeyCompletedEventArgs> FindConfigArgListByKeyCompleted;
+        
+        public event System.EventHandler<FindConfigArgListByClassifyCompletedEventArgs> FindConfigArgListByClassifyCompleted;
+        
+        public event System.EventHandler<GetTransferOfAxesConfigCompletedEventArgs> GetTransferOfAxesConfigCompleted;
+        
+        public event System.EventHandler<SetTransferOfAxesConfigCompletedEventArgs> SetTransferOfAxesConfigCompleted;
+        
+        public event System.EventHandler<GetPersonListCompletedEventArgs> GetPersonListCompleted;
+        
+        public event System.EventHandler<FindPersonListCompletedEventArgs> FindPersonListCompleted;
+        
+        public event System.EventHandler<GetPersonCompletedEventArgs> GetPersonCompleted;
+        
+        public event System.EventHandler<AddPersonCompletedEventArgs> AddPersonCompleted;
+        
+        public event System.EventHandler<EditPersonCompletedEventArgs> EditPersonCompleted;
+        
+        public event System.EventHandler<DeletePersonCompletedEventArgs> DeletePersonCompleted;
+        
+        public event System.EventHandler<GetNearbyPerson_CurrencyCompletedEventArgs> GetNearbyPerson_CurrencyCompleted;
+        
+        public event System.EventHandler<GetNearbyPerson_AlarmCompletedEventArgs> GetNearbyPerson_AlarmCompleted;
+        
+        public event System.EventHandler<GetLocationAlarmsCompletedEventArgs> GetLocationAlarmsCompleted;
+        
+        public event System.EventHandler<GetDeviceAlarmsCompletedEventArgs> GetDeviceAlarmsCompleted;
+        
+        public event System.EventHandler<GetPostListCompletedEventArgs> GetPostListCompleted;
+        
+        public event System.EventHandler<GetTicketListCompletedEventArgs> GetTicketListCompleted;
+        
+        public event System.EventHandler<GetTicketDetialCompletedEventArgs> GetTicketDetialCompleted;
+        
+        public event System.EventHandler<GetOperationTicketListCompletedEventArgs> GetOperationTicketListCompleted;
+        
+        public event System.EventHandler<GetWorkTicketListCompletedEventArgs> GetWorkTicketListCompleted;
+        
+        public event System.EventHandler<GetMobileInspectionDevListCompletedEventArgs> GetMobileInspectionDevListCompleted;
+        
+        public event System.EventHandler<GetMobileInspectionListCompletedEventArgs> GetMobileInspectionListCompleted;
+        
+        public event System.EventHandler<GetPersonnelMobileInspectionListCompletedEventArgs> GetPersonnelMobileInspectionListCompleted;
+        
+        public event System.EventHandler<GetOperationTicketHistoryListCompletedEventArgs> GetOperationTicketHistoryListCompleted;
+        
+        public event System.EventHandler<GetWorkTicketHistoryListCompletedEventArgs> GetWorkTicketHistoryListCompleted;
+        
+        public event System.EventHandler<GetPersonnelMobileInspectionHistoryListCompletedEventArgs> GetPersonnelMobileInspectionHistoryListCompleted;
+        
+        public event System.EventHandler<LoginCompletedEventArgs> LoginCompleted;
+        
+        public event System.EventHandler<LogoutCompletedEventArgs> LogoutCompleted;
+        
+        public event System.EventHandler<EditBusAnchorCompletedEventArgs> EditBusAnchorCompleted;
+        
+        public event System.EventHandler<EditBusTagCompletedEventArgs> EditBusTagCompleted;
+        
+        public event System.EventHandler<EditPictureInfoCompletedEventArgs> EditPictureInfoCompleted;
+        
+        public event System.EventHandler<GetPictureInfoCompletedEventArgs> GetPictureInfoCompleted;
+        
+        public event System.EventHandler<GetAreaStatisticsCompletedEventArgs> GetAreaStatisticsCompleted;
+        
         public string Hello(string msg) {
             return base.Channel.Hello(msg);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginHello(string msg, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginHello(msg, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndHello(System.IAsyncResult result) {
+            return base.Channel.EndHello(result);
+        }
+        
+        private System.IAsyncResult OnBeginHello(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string msg = ((string)(inValues[0]));
+            return this.BeginHello(msg, callback, asyncState);
+        }
+        
+        private object[] OnEndHello(System.IAsyncResult result) {
+            string retVal = this.EndHello(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnHelloCompleted(object state) {
+            if ((this.HelloCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.HelloCompleted(this, new HelloCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void HelloAsync(string msg) {
+            this.HelloAsync(msg, null);
+        }
+        
+        public void HelloAsync(string msg, object userState) {
+            if ((this.onBeginHelloDelegate == null)) {
+                this.onBeginHelloDelegate = new BeginOperationDelegate(this.OnBeginHello);
+            }
+            if ((this.onEndHelloDelegate == null)) {
+                this.onEndHelloDelegate = new EndOperationDelegate(this.OnEndHello);
+            }
+            if ((this.onHelloCompletedDelegate == null)) {
+                this.onHelloCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnHelloCompleted);
+            }
+            base.InvokeAsync(this.onBeginHelloDelegate, new object[] {
+                        msg}, this.onEndHelloDelegate, this.onHelloCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Department[] GetDepartmentList() {
             return base.Channel.GetDepartmentList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDepartmentList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDepartmentList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Department[] EndGetDepartmentList(System.IAsyncResult result) {
+            return base.Channel.EndGetDepartmentList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDepartmentList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetDepartmentList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetDepartmentList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Department[] retVal = this.EndGetDepartmentList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDepartmentListCompleted(object state) {
+            if ((this.GetDepartmentListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDepartmentListCompleted(this, new GetDepartmentListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDepartmentListAsync() {
+            this.GetDepartmentListAsync(null);
+        }
+        
+        public void GetDepartmentListAsync(object userState) {
+            if ((this.onBeginGetDepartmentListDelegate == null)) {
+                this.onBeginGetDepartmentListDelegate = new BeginOperationDelegate(this.OnBeginGetDepartmentList);
+            }
+            if ((this.onEndGetDepartmentListDelegate == null)) {
+                this.onEndGetDepartmentListDelegate = new EndOperationDelegate(this.OnEndGetDepartmentList);
+            }
+            if ((this.onGetDepartmentListCompletedDelegate == null)) {
+                this.onGetDepartmentListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDepartmentListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDepartmentListDelegate, null, this.onEndGetDepartmentListDelegate, this.onGetDepartmentListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Department GetDepartmentTree() {
             return base.Channel.GetDepartmentTree();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDepartmentTree(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDepartmentTree(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Department EndGetDepartmentTree(System.IAsyncResult result) {
+            return base.Channel.EndGetDepartmentTree(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDepartmentTree(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetDepartmentTree(callback, asyncState);
+        }
+        
+        private object[] OnEndGetDepartmentTree(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Department retVal = this.EndGetDepartmentTree(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDepartmentTreeCompleted(object state) {
+            if ((this.GetDepartmentTreeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDepartmentTreeCompleted(this, new GetDepartmentTreeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDepartmentTreeAsync() {
+            this.GetDepartmentTreeAsync(null);
+        }
+        
+        public void GetDepartmentTreeAsync(object userState) {
+            if ((this.onBeginGetDepartmentTreeDelegate == null)) {
+                this.onBeginGetDepartmentTreeDelegate = new BeginOperationDelegate(this.OnBeginGetDepartmentTree);
+            }
+            if ((this.onEndGetDepartmentTreeDelegate == null)) {
+                this.onEndGetDepartmentTreeDelegate = new EndOperationDelegate(this.OnEndGetDepartmentTree);
+            }
+            if ((this.onGetDepartmentTreeCompletedDelegate == null)) {
+                this.onGetDepartmentTreeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDepartmentTreeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDepartmentTreeDelegate, null, this.onEndGetDepartmentTreeDelegate, this.onGetDepartmentTreeCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Tag[] GetTags() {
             return base.Channel.GetTags();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetTags(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTags(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Tag[] EndGetTags(System.IAsyncResult result) {
+            return base.Channel.EndGetTags(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTags(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetTags(callback, asyncState);
+        }
+        
+        private object[] OnEndGetTags(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Tag[] retVal = this.EndGetTags(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetTagsCompleted(object state) {
+            if ((this.GetTagsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTagsCompleted(this, new GetTagsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTagsAsync() {
+            this.GetTagsAsync(null);
+        }
+        
+        public void GetTagsAsync(object userState) {
+            if ((this.onBeginGetTagsDelegate == null)) {
+                this.onBeginGetTagsDelegate = new BeginOperationDelegate(this.OnBeginGetTags);
+            }
+            if ((this.onEndGetTagsDelegate == null)) {
+                this.onEndGetTagsDelegate = new EndOperationDelegate(this.OnEndGetTags);
+            }
+            if ((this.onGetTagsCompletedDelegate == null)) {
+                this.onGetTagsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTagsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTagsDelegate, null, this.onEndGetTagsDelegate, this.onGetTagsCompletedDelegate, userState);
+        }
+        
         public bool AddTags(Location.WCFServiceReferences.LocationServices.Tag[] tags) {
             return base.Channel.AddTags(tags);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddTags(Location.WCFServiceReferences.LocationServices.Tag[] tags, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddTags(tags, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddTags(System.IAsyncResult result) {
+            return base.Channel.EndAddTags(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddTags(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Tag[] tags = ((Location.WCFServiceReferences.LocationServices.Tag[])(inValues[0]));
+            return this.BeginAddTags(tags, callback, asyncState);
+        }
+        
+        private object[] OnEndAddTags(System.IAsyncResult result) {
+            bool retVal = this.EndAddTags(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddTagsCompleted(object state) {
+            if ((this.AddTagsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddTagsCompleted(this, new AddTagsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddTagsAsync(Location.WCFServiceReferences.LocationServices.Tag[] tags) {
+            this.AddTagsAsync(tags, null);
+        }
+        
+        public void AddTagsAsync(Location.WCFServiceReferences.LocationServices.Tag[] tags, object userState) {
+            if ((this.onBeginAddTagsDelegate == null)) {
+                this.onBeginAddTagsDelegate = new BeginOperationDelegate(this.OnBeginAddTags);
+            }
+            if ((this.onEndAddTagsDelegate == null)) {
+                this.onEndAddTagsDelegate = new EndOperationDelegate(this.OnEndAddTags);
+            }
+            if ((this.onAddTagsCompletedDelegate == null)) {
+                this.onAddTagsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddTagsCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddTagsDelegate, new object[] {
+                        tags}, this.onEndAddTagsDelegate, this.onAddTagsCompletedDelegate, userState);
         }
         
         public bool DeleteTag(int id) {
             return base.Channel.DeleteTag(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeleteTag(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteTag(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeleteTag(System.IAsyncResult result) {
+            return base.Channel.EndDeleteTag(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteTag(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginDeleteTag(id, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteTag(System.IAsyncResult result) {
+            bool retVal = this.EndDeleteTag(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeleteTagCompleted(object state) {
+            if ((this.DeleteTagCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteTagCompleted(this, new DeleteTagCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteTagAsync(int id) {
+            this.DeleteTagAsync(id, null);
+        }
+        
+        public void DeleteTagAsync(int id, object userState) {
+            if ((this.onBeginDeleteTagDelegate == null)) {
+                this.onBeginDeleteTagDelegate = new BeginOperationDelegate(this.OnBeginDeleteTag);
+            }
+            if ((this.onEndDeleteTagDelegate == null)) {
+                this.onEndDeleteTagDelegate = new EndOperationDelegate(this.OnEndDeleteTag);
+            }
+            if ((this.onDeleteTagCompletedDelegate == null)) {
+                this.onDeleteTagCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteTagCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteTagDelegate, new object[] {
+                        id}, this.onEndDeleteTagDelegate, this.onDeleteTagCompletedDelegate, userState);
+        }
+        
         public bool DeleteAllTags() {
             return base.Channel.DeleteAllTags();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeleteAllTags(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteAllTags(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeleteAllTags(System.IAsyncResult result) {
+            return base.Channel.EndDeleteAllTags(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteAllTags(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginDeleteAllTags(callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteAllTags(System.IAsyncResult result) {
+            bool retVal = this.EndDeleteAllTags(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeleteAllTagsCompleted(object state) {
+            if ((this.DeleteAllTagsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteAllTagsCompleted(this, new DeleteAllTagsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteAllTagsAsync() {
+            this.DeleteAllTagsAsync(null);
+        }
+        
+        public void DeleteAllTagsAsync(object userState) {
+            if ((this.onBeginDeleteAllTagsDelegate == null)) {
+                this.onBeginDeleteAllTagsDelegate = new BeginOperationDelegate(this.OnBeginDeleteAllTags);
+            }
+            if ((this.onEndDeleteAllTagsDelegate == null)) {
+                this.onEndDeleteAllTagsDelegate = new EndOperationDelegate(this.OnEndDeleteAllTags);
+            }
+            if ((this.onDeleteAllTagsCompletedDelegate == null)) {
+                this.onDeleteAllTagsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteAllTagsCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteAllTagsDelegate, null, this.onEndDeleteAllTagsDelegate, this.onDeleteAllTagsCompletedDelegate, userState);
         }
         
         public bool EditTag(Location.WCFServiceReferences.LocationServices.Tag Tag, System.Nullable<int> id) {
             return base.Channel.EditTag(Tag, id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditTag(Location.WCFServiceReferences.LocationServices.Tag Tag, System.Nullable<int> id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditTag(Tag, id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditTag(System.IAsyncResult result) {
+            return base.Channel.EndEditTag(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditTag(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Tag Tag = ((Location.WCFServiceReferences.LocationServices.Tag)(inValues[0]));
+            System.Nullable<int> id = ((System.Nullable<int>)(inValues[1]));
+            return this.BeginEditTag(Tag, id, callback, asyncState);
+        }
+        
+        private object[] OnEndEditTag(System.IAsyncResult result) {
+            bool retVal = this.EndEditTag(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditTagCompleted(object state) {
+            if ((this.EditTagCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditTagCompleted(this, new EditTagCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditTagAsync(Location.WCFServiceReferences.LocationServices.Tag Tag, System.Nullable<int> id) {
+            this.EditTagAsync(Tag, id, null);
+        }
+        
+        public void EditTagAsync(Location.WCFServiceReferences.LocationServices.Tag Tag, System.Nullable<int> id, object userState) {
+            if ((this.onBeginEditTagDelegate == null)) {
+                this.onBeginEditTagDelegate = new BeginOperationDelegate(this.OnBeginEditTag);
+            }
+            if ((this.onEndEditTagDelegate == null)) {
+                this.onEndEditTagDelegate = new EndOperationDelegate(this.OnEndEditTag);
+            }
+            if ((this.onEditTagCompletedDelegate == null)) {
+                this.onEditTagCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditTagCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditTagDelegate, new object[] {
+                        Tag,
+                        id}, this.onEndEditTagDelegate, this.onEditTagCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.TagPosition[] GetRealPositons() {
             return base.Channel.GetRealPositons();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetRealPositons(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetRealPositons(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.TagPosition[] EndGetRealPositons(System.IAsyncResult result) {
+            return base.Channel.EndGetRealPositons(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetRealPositons(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetRealPositons(callback, asyncState);
+        }
+        
+        private object[] OnEndGetRealPositons(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.TagPosition[] retVal = this.EndGetRealPositons(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetRealPositonsCompleted(object state) {
+            if ((this.GetRealPositonsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetRealPositonsCompleted(this, new GetRealPositonsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetRealPositonsAsync() {
+            this.GetRealPositonsAsync(null);
+        }
+        
+        public void GetRealPositonsAsync(object userState) {
+            if ((this.onBeginGetRealPositonsDelegate == null)) {
+                this.onBeginGetRealPositonsDelegate = new BeginOperationDelegate(this.OnBeginGetRealPositons);
+            }
+            if ((this.onEndGetRealPositonsDelegate == null)) {
+                this.onEndGetRealPositonsDelegate = new EndOperationDelegate(this.OnEndGetRealPositons);
+            }
+            if ((this.onGetRealPositonsCompletedDelegate == null)) {
+                this.onGetRealPositonsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetRealPositonsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetRealPositonsDelegate, null, this.onEndGetRealPositonsDelegate, this.onGetRealPositonsCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.TagPosition[] GetRealPositonsByTags(string[] tagCodes) {
             return base.Channel.GetRealPositonsByTags(tagCodes);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetRealPositonsByTags(string[] tagCodes, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetRealPositonsByTags(tagCodes, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.TagPosition[] EndGetRealPositonsByTags(System.IAsyncResult result) {
+            return base.Channel.EndGetRealPositonsByTags(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetRealPositonsByTags(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string[] tagCodes = ((string[])(inValues[0]));
+            return this.BeginGetRealPositonsByTags(tagCodes, callback, asyncState);
+        }
+        
+        private object[] OnEndGetRealPositonsByTags(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.TagPosition[] retVal = this.EndGetRealPositonsByTags(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetRealPositonsByTagsCompleted(object state) {
+            if ((this.GetRealPositonsByTagsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetRealPositonsByTagsCompleted(this, new GetRealPositonsByTagsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetRealPositonsByTagsAsync(string[] tagCodes) {
+            this.GetRealPositonsByTagsAsync(tagCodes, null);
+        }
+        
+        public void GetRealPositonsByTagsAsync(string[] tagCodes, object userState) {
+            if ((this.onBeginGetRealPositonsByTagsDelegate == null)) {
+                this.onBeginGetRealPositonsByTagsDelegate = new BeginOperationDelegate(this.OnBeginGetRealPositonsByTags);
+            }
+            if ((this.onEndGetRealPositonsByTagsDelegate == null)) {
+                this.onEndGetRealPositonsByTagsDelegate = new EndOperationDelegate(this.OnEndGetRealPositonsByTags);
+            }
+            if ((this.onGetRealPositonsByTagsCompletedDelegate == null)) {
+                this.onGetRealPositonsByTagsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetRealPositonsByTagsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetRealPositonsByTagsDelegate, new object[] {
+                        tagCodes}, this.onEndGetRealPositonsByTagsDelegate, this.onGetRealPositonsByTagsCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositons() {
             return base.Channel.GetHistoryPositons();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetHistoryPositons(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetHistoryPositons(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositons(System.IAsyncResult result) {
+            return base.Channel.EndGetHistoryPositons(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetHistoryPositons(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetHistoryPositons(callback, asyncState);
+        }
+        
+        private object[] OnEndGetHistoryPositons(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Position[] retVal = this.EndGetHistoryPositons(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetHistoryPositonsCompleted(object state) {
+            if ((this.GetHistoryPositonsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetHistoryPositonsCompleted(this, new GetHistoryPositonsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetHistoryPositonsAsync() {
+            this.GetHistoryPositonsAsync(null);
+        }
+        
+        public void GetHistoryPositonsAsync(object userState) {
+            if ((this.onBeginGetHistoryPositonsDelegate == null)) {
+                this.onBeginGetHistoryPositonsDelegate = new BeginOperationDelegate(this.OnBeginGetHistoryPositons);
+            }
+            if ((this.onEndGetHistoryPositonsDelegate == null)) {
+                this.onEndGetHistoryPositonsDelegate = new EndOperationDelegate(this.OnEndGetHistoryPositons);
+            }
+            if ((this.onGetHistoryPositonsCompletedDelegate == null)) {
+                this.onGetHistoryPositonsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetHistoryPositonsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetHistoryPositonsDelegate, null, this.onEndGetHistoryPositonsDelegate, this.onGetHistoryPositonsCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositonsByPersonnelID(int personnelID, System.DateTime start, System.DateTime end) {
             return base.Channel.GetHistoryPositonsByPersonnelID(personnelID, start, end);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetHistoryPositonsByPersonnelID(int personnelID, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetHistoryPositonsByPersonnelID(personnelID, start, end, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositonsByPersonnelID(System.IAsyncResult result) {
+            return base.Channel.EndGetHistoryPositonsByPersonnelID(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetHistoryPositonsByPersonnelID(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int personnelID = ((int)(inValues[0]));
+            System.DateTime start = ((System.DateTime)(inValues[1]));
+            System.DateTime end = ((System.DateTime)(inValues[2]));
+            return this.BeginGetHistoryPositonsByPersonnelID(personnelID, start, end, callback, asyncState);
+        }
+        
+        private object[] OnEndGetHistoryPositonsByPersonnelID(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Position[] retVal = this.EndGetHistoryPositonsByPersonnelID(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetHistoryPositonsByPersonnelIDCompleted(object state) {
+            if ((this.GetHistoryPositonsByPersonnelIDCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetHistoryPositonsByPersonnelIDCompleted(this, new GetHistoryPositonsByPersonnelIDCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetHistoryPositonsByPersonnelIDAsync(int personnelID, System.DateTime start, System.DateTime end) {
+            this.GetHistoryPositonsByPersonnelIDAsync(personnelID, start, end, null);
+        }
+        
+        public void GetHistoryPositonsByPersonnelIDAsync(int personnelID, System.DateTime start, System.DateTime end, object userState) {
+            if ((this.onBeginGetHistoryPositonsByPersonnelIDDelegate == null)) {
+                this.onBeginGetHistoryPositonsByPersonnelIDDelegate = new BeginOperationDelegate(this.OnBeginGetHistoryPositonsByPersonnelID);
+            }
+            if ((this.onEndGetHistoryPositonsByPersonnelIDDelegate == null)) {
+                this.onEndGetHistoryPositonsByPersonnelIDDelegate = new EndOperationDelegate(this.OnEndGetHistoryPositonsByPersonnelID);
+            }
+            if ((this.onGetHistoryPositonsByPersonnelIDCompletedDelegate == null)) {
+                this.onGetHistoryPositonsByPersonnelIDCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetHistoryPositonsByPersonnelIDCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetHistoryPositonsByPersonnelIDDelegate, new object[] {
+                        personnelID,
+                        start,
+                        end}, this.onEndGetHistoryPositonsByPersonnelIDDelegate, this.onGetHistoryPositonsByPersonnelIDCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositonsByPidAndTopoNodeIds(int personnelID, int[] topoNodeIds, System.DateTime start, System.DateTime end) {
             return base.Channel.GetHistoryPositonsByPidAndTopoNodeIds(personnelID, topoNodeIds, start, end);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetHistoryPositonsByPidAndTopoNodeIds(int personnelID, int[] topoNodeIds, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetHistoryPositonsByPidAndTopoNodeIds(personnelID, topoNodeIds, start, end, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositonsByPidAndTopoNodeIds(System.IAsyncResult result) {
+            return base.Channel.EndGetHistoryPositonsByPidAndTopoNodeIds(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetHistoryPositonsByPidAndTopoNodeIds(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int personnelID = ((int)(inValues[0]));
+            int[] topoNodeIds = ((int[])(inValues[1]));
+            System.DateTime start = ((System.DateTime)(inValues[2]));
+            System.DateTime end = ((System.DateTime)(inValues[3]));
+            return this.BeginGetHistoryPositonsByPidAndTopoNodeIds(personnelID, topoNodeIds, start, end, callback, asyncState);
+        }
+        
+        private object[] OnEndGetHistoryPositonsByPidAndTopoNodeIds(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Position[] retVal = this.EndGetHistoryPositonsByPidAndTopoNodeIds(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetHistoryPositonsByPidAndTopoNodeIdsCompleted(object state) {
+            if ((this.GetHistoryPositonsByPidAndTopoNodeIdsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetHistoryPositonsByPidAndTopoNodeIdsCompleted(this, new GetHistoryPositonsByPidAndTopoNodeIdsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetHistoryPositonsByPidAndTopoNodeIdsAsync(int personnelID, int[] topoNodeIds, System.DateTime start, System.DateTime end) {
+            this.GetHistoryPositonsByPidAndTopoNodeIdsAsync(personnelID, topoNodeIds, start, end, null);
+        }
+        
+        public void GetHistoryPositonsByPidAndTopoNodeIdsAsync(int personnelID, int[] topoNodeIds, System.DateTime start, System.DateTime end, object userState) {
+            if ((this.onBeginGetHistoryPositonsByPidAndTopoNodeIdsDelegate == null)) {
+                this.onBeginGetHistoryPositonsByPidAndTopoNodeIdsDelegate = new BeginOperationDelegate(this.OnBeginGetHistoryPositonsByPidAndTopoNodeIds);
+            }
+            if ((this.onEndGetHistoryPositonsByPidAndTopoNodeIdsDelegate == null)) {
+                this.onEndGetHistoryPositonsByPidAndTopoNodeIdsDelegate = new EndOperationDelegate(this.OnEndGetHistoryPositonsByPidAndTopoNodeIds);
+            }
+            if ((this.onGetHistoryPositonsByPidAndTopoNodeIdsCompletedDelegate == null)) {
+                this.onGetHistoryPositonsByPidAndTopoNodeIdsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetHistoryPositonsByPidAndTopoNodeIdsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetHistoryPositonsByPidAndTopoNodeIdsDelegate, new object[] {
+                        personnelID,
+                        topoNodeIds,
+                        start,
+                        end}, this.onEndGetHistoryPositonsByPidAndTopoNodeIdsDelegate, this.onGetHistoryPositonsByPidAndTopoNodeIdsCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Position[] GetHistoryPositonsByTime(string tagcode, System.DateTime start, System.DateTime end) {
             return base.Channel.GetHistoryPositonsByTime(tagcode, start, end);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetHistoryPositonsByTime(string tagcode, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetHistoryPositonsByTime(tagcode, start, end, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Position[] EndGetHistoryPositonsByTime(System.IAsyncResult result) {
+            return base.Channel.EndGetHistoryPositonsByTime(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetHistoryPositonsByTime(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string tagcode = ((string)(inValues[0]));
+            System.DateTime start = ((System.DateTime)(inValues[1]));
+            System.DateTime end = ((System.DateTime)(inValues[2]));
+            return this.BeginGetHistoryPositonsByTime(tagcode, start, end, callback, asyncState);
+        }
+        
+        private object[] OnEndGetHistoryPositonsByTime(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Position[] retVal = this.EndGetHistoryPositonsByTime(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetHistoryPositonsByTimeCompleted(object state) {
+            if ((this.GetHistoryPositonsByTimeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetHistoryPositonsByTimeCompleted(this, new GetHistoryPositonsByTimeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetHistoryPositonsByTimeAsync(string tagcode, System.DateTime start, System.DateTime end) {
+            this.GetHistoryPositonsByTimeAsync(tagcode, start, end, null);
+        }
+        
+        public void GetHistoryPositonsByTimeAsync(string tagcode, System.DateTime start, System.DateTime end, object userState) {
+            if ((this.onBeginGetHistoryPositonsByTimeDelegate == null)) {
+                this.onBeginGetHistoryPositonsByTimeDelegate = new BeginOperationDelegate(this.OnBeginGetHistoryPositonsByTime);
+            }
+            if ((this.onEndGetHistoryPositonsByTimeDelegate == null)) {
+                this.onEndGetHistoryPositonsByTimeDelegate = new EndOperationDelegate(this.OnEndGetHistoryPositonsByTime);
+            }
+            if ((this.onGetHistoryPositonsByTimeCompletedDelegate == null)) {
+                this.onGetHistoryPositonsByTimeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetHistoryPositonsByTimeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetHistoryPositonsByTimeDelegate, new object[] {
+                        tagcode,
+                        start,
+                        end}, this.onEndGetHistoryPositonsByTimeDelegate, this.onGetHistoryPositonsByTimeCompletedDelegate, userState);
+        }
+        
         public string GetStrs(int n) {
             return base.Channel.GetStrs(n);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetStrs(int n, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetStrs(n, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndGetStrs(System.IAsyncResult result) {
+            return base.Channel.EndGetStrs(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetStrs(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int n = ((int)(inValues[0]));
+            return this.BeginGetStrs(n, callback, asyncState);
+        }
+        
+        private object[] OnEndGetStrs(System.IAsyncResult result) {
+            string retVal = this.EndGetStrs(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetStrsCompleted(object state) {
+            if ((this.GetStrsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetStrsCompleted(this, new GetStrsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetStrsAsync(int n) {
+            this.GetStrsAsync(n, null);
+        }
+        
+        public void GetStrsAsync(int n, object userState) {
+            if ((this.onBeginGetStrsDelegate == null)) {
+                this.onBeginGetStrsDelegate = new BeginOperationDelegate(this.OnBeginGetStrs);
+            }
+            if ((this.onEndGetStrsDelegate == null)) {
+                this.onEndGetStrsDelegate = new EndOperationDelegate(this.OnEndGetStrs);
+            }
+            if ((this.onGetStrsCompletedDelegate == null)) {
+                this.onGetStrsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetStrsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetStrsDelegate, new object[] {
+                        n}, this.onEndGetStrsDelegate, this.onGetStrsCompletedDelegate, userState);
         }
         
         public void AddU3DPosition(Location.WCFServiceReferences.LocationServices.U3DPosition[] pList) {
             base.Channel.AddU3DPosition(pList);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddU3DPosition(Location.WCFServiceReferences.LocationServices.U3DPosition[] pList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddU3DPosition(pList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndAddU3DPosition(System.IAsyncResult result) {
+            base.Channel.EndAddU3DPosition(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddU3DPosition(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.U3DPosition[] pList = ((Location.WCFServiceReferences.LocationServices.U3DPosition[])(inValues[0]));
+            return this.BeginAddU3DPosition(pList, callback, asyncState);
+        }
+        
+        private object[] OnEndAddU3DPosition(System.IAsyncResult result) {
+            this.EndAddU3DPosition(result);
+            return null;
+        }
+        
+        private void OnAddU3DPositionCompleted(object state) {
+            if ((this.AddU3DPositionCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddU3DPositionCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddU3DPositionAsync(Location.WCFServiceReferences.LocationServices.U3DPosition[] pList) {
+            this.AddU3DPositionAsync(pList, null);
+        }
+        
+        public void AddU3DPositionAsync(Location.WCFServiceReferences.LocationServices.U3DPosition[] pList, object userState) {
+            if ((this.onBeginAddU3DPositionDelegate == null)) {
+                this.onBeginAddU3DPositionDelegate = new BeginOperationDelegate(this.OnBeginAddU3DPosition);
+            }
+            if ((this.onEndAddU3DPositionDelegate == null)) {
+                this.onEndAddU3DPositionDelegate = new EndOperationDelegate(this.OnEndAddU3DPosition);
+            }
+            if ((this.onAddU3DPositionCompletedDelegate == null)) {
+                this.onAddU3DPositionCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddU3DPositionCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddU3DPositionDelegate, new object[] {
+                        pList}, this.onEndAddU3DPositionDelegate, this.onAddU3DPositionCompletedDelegate, userState);
+        }
+        
         public void AddU3DPositions(Location.WCFServiceReferences.LocationServices.U3DPosition[] list) {
             base.Channel.AddU3DPositions(list);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddU3DPositions(Location.WCFServiceReferences.LocationServices.U3DPosition[] list, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddU3DPositions(list, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndAddU3DPositions(System.IAsyncResult result) {
+            base.Channel.EndAddU3DPositions(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddU3DPositions(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.U3DPosition[] list = ((Location.WCFServiceReferences.LocationServices.U3DPosition[])(inValues[0]));
+            return this.BeginAddU3DPositions(list, callback, asyncState);
+        }
+        
+        private object[] OnEndAddU3DPositions(System.IAsyncResult result) {
+            this.EndAddU3DPositions(result);
+            return null;
+        }
+        
+        private void OnAddU3DPositionsCompleted(object state) {
+            if ((this.AddU3DPositionsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddU3DPositionsCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddU3DPositionsAsync(Location.WCFServiceReferences.LocationServices.U3DPosition[] list) {
+            this.AddU3DPositionsAsync(list, null);
+        }
+        
+        public void AddU3DPositionsAsync(Location.WCFServiceReferences.LocationServices.U3DPosition[] list, object userState) {
+            if ((this.onBeginAddU3DPositionsDelegate == null)) {
+                this.onBeginAddU3DPositionsDelegate = new BeginOperationDelegate(this.OnBeginAddU3DPositions);
+            }
+            if ((this.onEndAddU3DPositionsDelegate == null)) {
+                this.onEndAddU3DPositionsDelegate = new EndOperationDelegate(this.OnEndAddU3DPositions);
+            }
+            if ((this.onAddU3DPositionsCompletedDelegate == null)) {
+                this.onAddU3DPositionsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddU3DPositionsCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddU3DPositionsDelegate, new object[] {
+                        list}, this.onEndAddU3DPositionsDelegate, this.onAddU3DPositionsCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.U3DPosition[] GetHistoryU3DPositonsByTime(string tagcode, System.DateTime start, System.DateTime end) {
             return base.Channel.GetHistoryU3DPositonsByTime(tagcode, start, end);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetHistoryU3DPositonsByTime(string tagcode, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetHistoryU3DPositonsByTime(tagcode, start, end, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.U3DPosition[] EndGetHistoryU3DPositonsByTime(System.IAsyncResult result) {
+            return base.Channel.EndGetHistoryU3DPositonsByTime(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetHistoryU3DPositonsByTime(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string tagcode = ((string)(inValues[0]));
+            System.DateTime start = ((System.DateTime)(inValues[1]));
+            System.DateTime end = ((System.DateTime)(inValues[2]));
+            return this.BeginGetHistoryU3DPositonsByTime(tagcode, start, end, callback, asyncState);
+        }
+        
+        private object[] OnEndGetHistoryU3DPositonsByTime(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.U3DPosition[] retVal = this.EndGetHistoryU3DPositonsByTime(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetHistoryU3DPositonsByTimeCompleted(object state) {
+            if ((this.GetHistoryU3DPositonsByTimeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetHistoryU3DPositonsByTimeCompleted(this, new GetHistoryU3DPositonsByTimeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetHistoryU3DPositonsByTimeAsync(string tagcode, System.DateTime start, System.DateTime end) {
+            this.GetHistoryU3DPositonsByTimeAsync(tagcode, start, end, null);
+        }
+        
+        public void GetHistoryU3DPositonsByTimeAsync(string tagcode, System.DateTime start, System.DateTime end, object userState) {
+            if ((this.onBeginGetHistoryU3DPositonsByTimeDelegate == null)) {
+                this.onBeginGetHistoryU3DPositonsByTimeDelegate = new BeginOperationDelegate(this.OnBeginGetHistoryU3DPositonsByTime);
+            }
+            if ((this.onEndGetHistoryU3DPositonsByTimeDelegate == null)) {
+                this.onEndGetHistoryU3DPositonsByTimeDelegate = new EndOperationDelegate(this.OnEndGetHistoryU3DPositonsByTime);
+            }
+            if ((this.onGetHistoryU3DPositonsByTimeCompletedDelegate == null)) {
+                this.onGetHistoryU3DPositonsByTimeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetHistoryU3DPositonsByTimeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetHistoryU3DPositonsByTimeDelegate, new object[] {
+                        tagcode,
+                        start,
+                        end}, this.onEndGetHistoryU3DPositonsByTimeDelegate, this.onGetHistoryU3DPositonsByTimeCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.ObjectAddList_Type[] GetObjectAddList() {
             return base.Channel.GetObjectAddList();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetObjectAddList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetObjectAddList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.ObjectAddList_Type[] EndGetObjectAddList(System.IAsyncResult result) {
+            return base.Channel.EndGetObjectAddList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetObjectAddList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetObjectAddList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetObjectAddList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.ObjectAddList_Type[] retVal = this.EndGetObjectAddList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetObjectAddListCompleted(object state) {
+            if ((this.GetObjectAddListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetObjectAddListCompleted(this, new GetObjectAddListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetObjectAddListAsync() {
+            this.GetObjectAddListAsync(null);
+        }
+        
+        public void GetObjectAddListAsync(object userState) {
+            if ((this.onBeginGetObjectAddListDelegate == null)) {
+                this.onBeginGetObjectAddListDelegate = new BeginOperationDelegate(this.OnBeginGetObjectAddList);
+            }
+            if ((this.onEndGetObjectAddListDelegate == null)) {
+                this.onEndGetObjectAddListDelegate = new EndOperationDelegate(this.OnEndGetObjectAddList);
+            }
+            if ((this.onGetObjectAddListCompletedDelegate == null)) {
+                this.onGetObjectAddListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetObjectAddListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetObjectAddListDelegate, null, this.onEndGetObjectAddListDelegate, this.onGetObjectAddListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.DevPos[] GetDevPositions() {
             return base.Channel.GetDevPositions();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDevPositions(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDevPositions(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevPos[] EndGetDevPositions(System.IAsyncResult result) {
+            return base.Channel.EndGetDevPositions(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDevPositions(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetDevPositions(callback, asyncState);
+        }
+        
+        private object[] OnEndGetDevPositions(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevPos[] retVal = this.EndGetDevPositions(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDevPositionsCompleted(object state) {
+            if ((this.GetDevPositionsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDevPositionsCompleted(this, new GetDevPositionsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDevPositionsAsync() {
+            this.GetDevPositionsAsync(null);
+        }
+        
+        public void GetDevPositionsAsync(object userState) {
+            if ((this.onBeginGetDevPositionsDelegate == null)) {
+                this.onBeginGetDevPositionsDelegate = new BeginOperationDelegate(this.OnBeginGetDevPositions);
+            }
+            if ((this.onEndGetDevPositionsDelegate == null)) {
+                this.onEndGetDevPositionsDelegate = new EndOperationDelegate(this.OnEndGetDevPositions);
+            }
+            if ((this.onGetDevPositionsCompletedDelegate == null)) {
+                this.onGetDevPositionsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDevPositionsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDevPositionsDelegate, null, this.onEndGetDevPositionsDelegate, this.onGetDevPositionsCompletedDelegate, userState);
+        }
+        
         public bool AddDevPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos) {
             return base.Channel.AddDevPosInfo(pos);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddDevPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddDevPosInfo(pos, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddDevPosInfo(System.IAsyncResult result) {
+            return base.Channel.EndAddDevPosInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddDevPosInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevPos pos = ((Location.WCFServiceReferences.LocationServices.DevPos)(inValues[0]));
+            return this.BeginAddDevPosInfo(pos, callback, asyncState);
+        }
+        
+        private object[] OnEndAddDevPosInfo(System.IAsyncResult result) {
+            bool retVal = this.EndAddDevPosInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddDevPosInfoCompleted(object state) {
+            if ((this.AddDevPosInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddDevPosInfoCompleted(this, new AddDevPosInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddDevPosInfoAsync(Location.WCFServiceReferences.LocationServices.DevPos pos) {
+            this.AddDevPosInfoAsync(pos, null);
+        }
+        
+        public void AddDevPosInfoAsync(Location.WCFServiceReferences.LocationServices.DevPos pos, object userState) {
+            if ((this.onBeginAddDevPosInfoDelegate == null)) {
+                this.onBeginAddDevPosInfoDelegate = new BeginOperationDelegate(this.OnBeginAddDevPosInfo);
+            }
+            if ((this.onEndAddDevPosInfoDelegate == null)) {
+                this.onEndAddDevPosInfoDelegate = new EndOperationDelegate(this.OnEndAddDevPosInfo);
+            }
+            if ((this.onAddDevPosInfoCompletedDelegate == null)) {
+                this.onAddDevPosInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddDevPosInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddDevPosInfoDelegate, new object[] {
+                        pos}, this.onEndAddDevPosInfoDelegate, this.onAddDevPosInfoCompletedDelegate, userState);
         }
         
         public bool AddDevPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList) {
             return base.Channel.AddDevPosByList(posList);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddDevPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddDevPosByList(posList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddDevPosByList(System.IAsyncResult result) {
+            return base.Channel.EndAddDevPosByList(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddDevPosByList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevPos[] posList = ((Location.WCFServiceReferences.LocationServices.DevPos[])(inValues[0]));
+            return this.BeginAddDevPosByList(posList, callback, asyncState);
+        }
+        
+        private object[] OnEndAddDevPosByList(System.IAsyncResult result) {
+            bool retVal = this.EndAddDevPosByList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddDevPosByListCompleted(object state) {
+            if ((this.AddDevPosByListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddDevPosByListCompleted(this, new AddDevPosByListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddDevPosByListAsync(Location.WCFServiceReferences.LocationServices.DevPos[] posList) {
+            this.AddDevPosByListAsync(posList, null);
+        }
+        
+        public void AddDevPosByListAsync(Location.WCFServiceReferences.LocationServices.DevPos[] posList, object userState) {
+            if ((this.onBeginAddDevPosByListDelegate == null)) {
+                this.onBeginAddDevPosByListDelegate = new BeginOperationDelegate(this.OnBeginAddDevPosByList);
+            }
+            if ((this.onEndAddDevPosByListDelegate == null)) {
+                this.onEndAddDevPosByListDelegate = new EndOperationDelegate(this.OnEndAddDevPosByList);
+            }
+            if ((this.onAddDevPosByListCompletedDelegate == null)) {
+                this.onAddDevPosByListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddDevPosByListCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddDevPosByListDelegate, new object[] {
+                        posList}, this.onEndAddDevPosByListDelegate, this.onAddDevPosByListCompletedDelegate, userState);
+        }
+        
         public bool ModifyPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos) {
             return base.Channel.ModifyPosInfo(pos);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginModifyPosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginModifyPosInfo(pos, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndModifyPosInfo(System.IAsyncResult result) {
+            return base.Channel.EndModifyPosInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginModifyPosInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevPos pos = ((Location.WCFServiceReferences.LocationServices.DevPos)(inValues[0]));
+            return this.BeginModifyPosInfo(pos, callback, asyncState);
+        }
+        
+        private object[] OnEndModifyPosInfo(System.IAsyncResult result) {
+            bool retVal = this.EndModifyPosInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnModifyPosInfoCompleted(object state) {
+            if ((this.ModifyPosInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ModifyPosInfoCompleted(this, new ModifyPosInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ModifyPosInfoAsync(Location.WCFServiceReferences.LocationServices.DevPos pos) {
+            this.ModifyPosInfoAsync(pos, null);
+        }
+        
+        public void ModifyPosInfoAsync(Location.WCFServiceReferences.LocationServices.DevPos pos, object userState) {
+            if ((this.onBeginModifyPosInfoDelegate == null)) {
+                this.onBeginModifyPosInfoDelegate = new BeginOperationDelegate(this.OnBeginModifyPosInfo);
+            }
+            if ((this.onEndModifyPosInfoDelegate == null)) {
+                this.onEndModifyPosInfoDelegate = new EndOperationDelegate(this.OnEndModifyPosInfo);
+            }
+            if ((this.onModifyPosInfoCompletedDelegate == null)) {
+                this.onModifyPosInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnModifyPosInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginModifyPosInfoDelegate, new object[] {
+                        pos}, this.onEndModifyPosInfoDelegate, this.onModifyPosInfoCompletedDelegate, userState);
         }
         
         public bool ModifyPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList) {
             return base.Channel.ModifyPosByList(posList);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginModifyPosByList(Location.WCFServiceReferences.LocationServices.DevPos[] posList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginModifyPosByList(posList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndModifyPosByList(System.IAsyncResult result) {
+            return base.Channel.EndModifyPosByList(result);
+        }
+        
+        private System.IAsyncResult OnBeginModifyPosByList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevPos[] posList = ((Location.WCFServiceReferences.LocationServices.DevPos[])(inValues[0]));
+            return this.BeginModifyPosByList(posList, callback, asyncState);
+        }
+        
+        private object[] OnEndModifyPosByList(System.IAsyncResult result) {
+            bool retVal = this.EndModifyPosByList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnModifyPosByListCompleted(object state) {
+            if ((this.ModifyPosByListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ModifyPosByListCompleted(this, new ModifyPosByListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ModifyPosByListAsync(Location.WCFServiceReferences.LocationServices.DevPos[] posList) {
+            this.ModifyPosByListAsync(posList, null);
+        }
+        
+        public void ModifyPosByListAsync(Location.WCFServiceReferences.LocationServices.DevPos[] posList, object userState) {
+            if ((this.onBeginModifyPosByListDelegate == null)) {
+                this.onBeginModifyPosByListDelegate = new BeginOperationDelegate(this.OnBeginModifyPosByList);
+            }
+            if ((this.onEndModifyPosByListDelegate == null)) {
+                this.onEndModifyPosByListDelegate = new EndOperationDelegate(this.OnEndModifyPosByList);
+            }
+            if ((this.onModifyPosByListCompletedDelegate == null)) {
+                this.onModifyPosByListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnModifyPosByListCompleted);
+            }
+            base.InvokeAsync(this.onBeginModifyPosByListDelegate, new object[] {
+                        posList}, this.onEndModifyPosByListDelegate, this.onModifyPosByListCompletedDelegate, userState);
+        }
+        
         public bool DeletePosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos) {
             return base.Channel.DeletePosInfo(pos);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeletePosInfo(Location.WCFServiceReferences.LocationServices.DevPos pos, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeletePosInfo(pos, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeletePosInfo(System.IAsyncResult result) {
+            return base.Channel.EndDeletePosInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeletePosInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevPos pos = ((Location.WCFServiceReferences.LocationServices.DevPos)(inValues[0]));
+            return this.BeginDeletePosInfo(pos, callback, asyncState);
+        }
+        
+        private object[] OnEndDeletePosInfo(System.IAsyncResult result) {
+            bool retVal = this.EndDeletePosInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeletePosInfoCompleted(object state) {
+            if ((this.DeletePosInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeletePosInfoCompleted(this, new DeletePosInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeletePosInfoAsync(Location.WCFServiceReferences.LocationServices.DevPos pos) {
+            this.DeletePosInfoAsync(pos, null);
+        }
+        
+        public void DeletePosInfoAsync(Location.WCFServiceReferences.LocationServices.DevPos pos, object userState) {
+            if ((this.onBeginDeletePosInfoDelegate == null)) {
+                this.onBeginDeletePosInfoDelegate = new BeginOperationDelegate(this.OnBeginDeletePosInfo);
+            }
+            if ((this.onEndDeletePosInfoDelegate == null)) {
+                this.onEndDeletePosInfoDelegate = new EndOperationDelegate(this.OnEndDeletePosInfo);
+            }
+            if ((this.onDeletePosInfoCompletedDelegate == null)) {
+                this.onDeletePosInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeletePosInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeletePosInfoDelegate, new object[] {
+                        pos}, this.onEndDeletePosInfoDelegate, this.onDeletePosInfoCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.DevInfo[] GetAllDevInfos() {
             return base.Channel.GetAllDevInfos();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAllDevInfos(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAllDevInfos(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] EndGetAllDevInfos(System.IAsyncResult result) {
+            return base.Channel.EndGetAllDevInfos(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAllDevInfos(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetAllDevInfos(callback, asyncState);
+        }
+        
+        private object[] OnEndGetAllDevInfos(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo[] retVal = this.EndGetAllDevInfos(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAllDevInfosCompleted(object state) {
+            if ((this.GetAllDevInfosCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAllDevInfosCompleted(this, new GetAllDevInfosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAllDevInfosAsync() {
+            this.GetAllDevInfosAsync(null);
+        }
+        
+        public void GetAllDevInfosAsync(object userState) {
+            if ((this.onBeginGetAllDevInfosDelegate == null)) {
+                this.onBeginGetAllDevInfosDelegate = new BeginOperationDelegate(this.OnBeginGetAllDevInfos);
+            }
+            if ((this.onEndGetAllDevInfosDelegate == null)) {
+                this.onEndGetAllDevInfosDelegate = new EndOperationDelegate(this.OnEndGetAllDevInfos);
+            }
+            if ((this.onGetAllDevInfosCompletedDelegate == null)) {
+                this.onGetAllDevInfosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllDevInfosCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAllDevInfosDelegate, null, this.onEndGetAllDevInfosDelegate, this.onGetAllDevInfosCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.DevInfo[] GetDevInfos(int[] typeList) {
             return base.Channel.GetDevInfos(typeList);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDevInfos(int[] typeList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDevInfos(typeList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] EndGetDevInfos(System.IAsyncResult result) {
+            return base.Channel.EndGetDevInfos(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDevInfos(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int[] typeList = ((int[])(inValues[0]));
+            return this.BeginGetDevInfos(typeList, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDevInfos(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo[] retVal = this.EndGetDevInfos(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDevInfosCompleted(object state) {
+            if ((this.GetDevInfosCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDevInfosCompleted(this, new GetDevInfosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDevInfosAsync(int[] typeList) {
+            this.GetDevInfosAsync(typeList, null);
+        }
+        
+        public void GetDevInfosAsync(int[] typeList, object userState) {
+            if ((this.onBeginGetDevInfosDelegate == null)) {
+                this.onBeginGetDevInfosDelegate = new BeginOperationDelegate(this.OnBeginGetDevInfos);
+            }
+            if ((this.onEndGetDevInfosDelegate == null)) {
+                this.onEndGetDevInfosDelegate = new EndOperationDelegate(this.OnEndGetDevInfos);
+            }
+            if ((this.onGetDevInfosCompletedDelegate == null)) {
+                this.onGetDevInfosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDevInfosCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDevInfosDelegate, new object[] {
+                        typeList}, this.onEndGetDevInfosDelegate, this.onGetDevInfosCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.DevInfo[] FindDevInfos(string key) {
             return base.Channel.FindDevInfos(key);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFindDevInfos(string key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFindDevInfos(key, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] EndFindDevInfos(System.IAsyncResult result) {
+            return base.Channel.EndFindDevInfos(result);
+        }
+        
+        private System.IAsyncResult OnBeginFindDevInfos(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string key = ((string)(inValues[0]));
+            return this.BeginFindDevInfos(key, callback, asyncState);
+        }
+        
+        private object[] OnEndFindDevInfos(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo[] retVal = this.EndFindDevInfos(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnFindDevInfosCompleted(object state) {
+            if ((this.FindDevInfosCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FindDevInfosCompleted(this, new FindDevInfosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FindDevInfosAsync(string key) {
+            this.FindDevInfosAsync(key, null);
+        }
+        
+        public void FindDevInfosAsync(string key, object userState) {
+            if ((this.onBeginFindDevInfosDelegate == null)) {
+                this.onBeginFindDevInfosDelegate = new BeginOperationDelegate(this.OnBeginFindDevInfos);
+            }
+            if ((this.onEndFindDevInfosDelegate == null)) {
+                this.onEndFindDevInfosDelegate = new EndOperationDelegate(this.OnEndFindDevInfos);
+            }
+            if ((this.onFindDevInfosCompletedDelegate == null)) {
+                this.onFindDevInfosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFindDevInfosCompleted);
+            }
+            base.InvokeAsync(this.onBeginFindDevInfosDelegate, new object[] {
+                        key}, this.onEndFindDevInfosDelegate, this.onFindDevInfosCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.DevInfo AddDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo) {
             return base.Channel.AddDevInfo(devInfo);
         }
         
-        public bool AddDevInfoByList(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList) {
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddDevInfo(devInfo, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo EndAddDevInfo(System.IAsyncResult result) {
+            return base.Channel.EndAddDevInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddDevInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevInfo devInfo = ((Location.WCFServiceReferences.LocationServices.DevInfo)(inValues[0]));
+            return this.BeginAddDevInfo(devInfo, callback, asyncState);
+        }
+        
+        private object[] OnEndAddDevInfo(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo retVal = this.EndAddDevInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddDevInfoCompleted(object state) {
+            if ((this.AddDevInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddDevInfoCompleted(this, new AddDevInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo devInfo) {
+            this.AddDevInfoAsync(devInfo, null);
+        }
+        
+        public void AddDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, object userState) {
+            if ((this.onBeginAddDevInfoDelegate == null)) {
+                this.onBeginAddDevInfoDelegate = new BeginOperationDelegate(this.OnBeginAddDevInfo);
+            }
+            if ((this.onEndAddDevInfoDelegate == null)) {
+                this.onEndAddDevInfoDelegate = new EndOperationDelegate(this.OnEndAddDevInfo);
+            }
+            if ((this.onAddDevInfoCompletedDelegate == null)) {
+                this.onAddDevInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddDevInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddDevInfoDelegate, new object[] {
+                        devInfo}, this.onEndAddDevInfoDelegate, this.onAddDevInfoCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] AddDevInfoByList(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList) {
             return base.Channel.AddDevInfoByList(devInfoList);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddDevInfoByList(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddDevInfoByList(devInfoList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] EndAddDevInfoByList(System.IAsyncResult result) {
+            return base.Channel.EndAddDevInfoByList(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddDevInfoByList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList = ((Location.WCFServiceReferences.LocationServices.DevInfo[])(inValues[0]));
+            return this.BeginAddDevInfoByList(devInfoList, callback, asyncState);
+        }
+        
+        private object[] OnEndAddDevInfoByList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo[] retVal = this.EndAddDevInfoByList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddDevInfoByListCompleted(object state) {
+            if ((this.AddDevInfoByListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddDevInfoByListCompleted(this, new AddDevInfoByListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddDevInfoByListAsync(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList) {
+            this.AddDevInfoByListAsync(devInfoList, null);
+        }
+        
+        public void AddDevInfoByListAsync(Location.WCFServiceReferences.LocationServices.DevInfo[] devInfoList, object userState) {
+            if ((this.onBeginAddDevInfoByListDelegate == null)) {
+                this.onBeginAddDevInfoByListDelegate = new BeginOperationDelegate(this.OnBeginAddDevInfoByList);
+            }
+            if ((this.onEndAddDevInfoByListDelegate == null)) {
+                this.onEndAddDevInfoByListDelegate = new EndOperationDelegate(this.OnEndAddDevInfoByList);
+            }
+            if ((this.onAddDevInfoByListCompletedDelegate == null)) {
+                this.onAddDevInfoByListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddDevInfoByListCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddDevInfoByListDelegate, new object[] {
+                        devInfoList}, this.onEndAddDevInfoByListDelegate, this.onAddDevInfoByListCompletedDelegate, userState);
         }
         
         public bool ModifyDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo) {
             return base.Channel.ModifyDevInfo(devInfo);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginModifyDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginModifyDevInfo(devInfo, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndModifyDevInfo(System.IAsyncResult result) {
+            return base.Channel.EndModifyDevInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginModifyDevInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevInfo devInfo = ((Location.WCFServiceReferences.LocationServices.DevInfo)(inValues[0]));
+            return this.BeginModifyDevInfo(devInfo, callback, asyncState);
+        }
+        
+        private object[] OnEndModifyDevInfo(System.IAsyncResult result) {
+            bool retVal = this.EndModifyDevInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnModifyDevInfoCompleted(object state) {
+            if ((this.ModifyDevInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ModifyDevInfoCompleted(this, new ModifyDevInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ModifyDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo devInfo) {
+            this.ModifyDevInfoAsync(devInfo, null);
+        }
+        
+        public void ModifyDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, object userState) {
+            if ((this.onBeginModifyDevInfoDelegate == null)) {
+                this.onBeginModifyDevInfoDelegate = new BeginOperationDelegate(this.OnBeginModifyDevInfo);
+            }
+            if ((this.onEndModifyDevInfoDelegate == null)) {
+                this.onEndModifyDevInfoDelegate = new EndOperationDelegate(this.OnEndModifyDevInfo);
+            }
+            if ((this.onModifyDevInfoCompletedDelegate == null)) {
+                this.onModifyDevInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnModifyDevInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginModifyDevInfoDelegate, new object[] {
+                        devInfo}, this.onEndModifyDevInfoDelegate, this.onModifyDevInfoCompletedDelegate, userState);
+        }
+        
         public bool DeleteDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo) {
             return base.Channel.DeleteDevInfo(devInfo);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeleteDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteDevInfo(devInfo, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeleteDevInfo(System.IAsyncResult result) {
+            return base.Channel.EndDeleteDevInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteDevInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevInfo devInfo = ((Location.WCFServiceReferences.LocationServices.DevInfo)(inValues[0]));
+            return this.BeginDeleteDevInfo(devInfo, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteDevInfo(System.IAsyncResult result) {
+            bool retVal = this.EndDeleteDevInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeleteDevInfoCompleted(object state) {
+            if ((this.DeleteDevInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteDevInfoCompleted(this, new DeleteDevInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo devInfo) {
+            this.DeleteDevInfoAsync(devInfo, null);
+        }
+        
+        public void DeleteDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo devInfo, object userState) {
+            if ((this.onBeginDeleteDevInfoDelegate == null)) {
+                this.onBeginDeleteDevInfoDelegate = new BeginOperationDelegate(this.OnBeginDeleteDevInfo);
+            }
+            if ((this.onEndDeleteDevInfoDelegate == null)) {
+                this.onEndDeleteDevInfoDelegate = new EndOperationDelegate(this.OnEndDeleteDevInfo);
+            }
+            if ((this.onDeleteDevInfoCompletedDelegate == null)) {
+                this.onDeleteDevInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteDevInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteDevInfoDelegate, new object[] {
+                        devInfo}, this.onEndDeleteDevInfoDelegate, this.onDeleteDevInfoCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.DevInfo[] GetDevInfoByParent(int[] pids) {
             return base.Channel.GetDevInfoByParent(pids);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDevInfoByParent(int[] pids, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDevInfoByParent(pids, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo[] EndGetDevInfoByParent(System.IAsyncResult result) {
+            return base.Channel.EndGetDevInfoByParent(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDevInfoByParent(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int[] pids = ((int[])(inValues[0]));
+            return this.BeginGetDevInfoByParent(pids, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDevInfoByParent(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo[] retVal = this.EndGetDevInfoByParent(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDevInfoByParentCompleted(object state) {
+            if ((this.GetDevInfoByParentCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDevInfoByParentCompleted(this, new GetDevInfoByParentCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDevInfoByParentAsync(int[] pids) {
+            this.GetDevInfoByParentAsync(pids, null);
+        }
+        
+        public void GetDevInfoByParentAsync(int[] pids, object userState) {
+            if ((this.onBeginGetDevInfoByParentDelegate == null)) {
+                this.onBeginGetDevInfoByParentDelegate = new BeginOperationDelegate(this.OnBeginGetDevInfoByParent);
+            }
+            if ((this.onEndGetDevInfoByParentDelegate == null)) {
+                this.onEndGetDevInfoByParentDelegate = new EndOperationDelegate(this.OnEndGetDevInfoByParent);
+            }
+            if ((this.onGetDevInfoByParentCompletedDelegate == null)) {
+                this.onGetDevInfoByParentCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDevInfoByParentCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDevInfoByParentDelegate, new object[] {
+                        pids}, this.onEndGetDevInfoByParentDelegate, this.onGetDevInfoByParentCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.DevInfo GetDevByID(string devId) {
             return base.Channel.GetDevByID(devId);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDevByID(string devId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDevByID(devId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo EndGetDevByID(System.IAsyncResult result) {
+            return base.Channel.EndGetDevByID(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDevByID(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string devId = ((string)(inValues[0]));
+            return this.BeginGetDevByID(devId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDevByID(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo retVal = this.EndGetDevByID(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDevByIDCompleted(object state) {
+            if ((this.GetDevByIDCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDevByIDCompleted(this, new GetDevByIDCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDevByIDAsync(string devId) {
+            this.GetDevByIDAsync(devId, null);
+        }
+        
+        public void GetDevByIDAsync(string devId, object userState) {
+            if ((this.onBeginGetDevByIDDelegate == null)) {
+                this.onBeginGetDevByIDDelegate = new BeginOperationDelegate(this.OnBeginGetDevByID);
+            }
+            if ((this.onEndGetDevByIDDelegate == null)) {
+                this.onEndGetDevByIDDelegate = new EndOperationDelegate(this.OnEndGetDevByID);
+            }
+            if ((this.onGetDevByIDCompletedDelegate == null)) {
+                this.onGetDevByIDCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDevByIDCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDevByIDDelegate, new object[] {
+                        devId}, this.onEndGetDevByIDDelegate, this.onGetDevByIDCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.DevInfo GetDevByiId(int id) {
             return base.Channel.GetDevByiId(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDevByiId(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDevByiId(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo EndGetDevByiId(System.IAsyncResult result) {
+            return base.Channel.EndGetDevByiId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDevByiId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetDevByiId(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDevByiId(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevInfo retVal = this.EndGetDevByiId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDevByiIdCompleted(object state) {
+            if ((this.GetDevByiIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDevByiIdCompleted(this, new GetDevByiIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDevByiIdAsync(int id) {
+            this.GetDevByiIdAsync(id, null);
+        }
+        
+        public void GetDevByiIdAsync(int id, object userState) {
+            if ((this.onBeginGetDevByiIdDelegate == null)) {
+                this.onBeginGetDevByiIdDelegate = new BeginOperationDelegate(this.OnBeginGetDevByiId);
+            }
+            if ((this.onEndGetDevByiIdDelegate == null)) {
+                this.onEndGetDevByiIdDelegate = new EndOperationDelegate(this.OnEndGetDevByiId);
+            }
+            if ((this.onGetDevByiIdCompletedDelegate == null)) {
+                this.onGetDevByiIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDevByiIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDevByiIdDelegate, new object[] {
+                        id}, this.onEndGetDevByiIdDelegate, this.onGetDevByiIdCompletedDelegate, userState);
+        }
+        
         public bool AddDoorAccessByList(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList) {
             return base.Channel.AddDoorAccessByList(doorAccessList);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddDoorAccessByList(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddDoorAccessByList(doorAccessList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddDoorAccessByList(System.IAsyncResult result) {
+            return base.Channel.EndAddDoorAccessByList(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddDoorAccessByList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList = ((Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[])(inValues[0]));
+            return this.BeginAddDoorAccessByList(doorAccessList, callback, asyncState);
+        }
+        
+        private object[] OnEndAddDoorAccessByList(System.IAsyncResult result) {
+            bool retVal = this.EndAddDoorAccessByList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddDoorAccessByListCompleted(object state) {
+            if ((this.AddDoorAccessByListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddDoorAccessByListCompleted(this, new AddDoorAccessByListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddDoorAccessByListAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList) {
+            this.AddDoorAccessByListAsync(doorAccessList, null);
+        }
+        
+        public void AddDoorAccessByListAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, object userState) {
+            if ((this.onBeginAddDoorAccessByListDelegate == null)) {
+                this.onBeginAddDoorAccessByListDelegate = new BeginOperationDelegate(this.OnBeginAddDoorAccessByList);
+            }
+            if ((this.onEndAddDoorAccessByListDelegate == null)) {
+                this.onEndAddDoorAccessByListDelegate = new EndOperationDelegate(this.OnEndAddDoorAccessByList);
+            }
+            if ((this.onAddDoorAccessByListCompletedDelegate == null)) {
+                this.onAddDoorAccessByListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddDoorAccessByListCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddDoorAccessByListDelegate, new object[] {
+                        doorAccessList}, this.onEndAddDoorAccessByListDelegate, this.onAddDoorAccessByListCompletedDelegate, userState);
         }
         
         public bool AddDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess doorAccess) {
             return base.Channel.AddDoorAccess(doorAccess);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess doorAccess, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddDoorAccess(doorAccess, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddDoorAccess(System.IAsyncResult result) {
+            return base.Channel.EndAddDoorAccess(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddDoorAccess(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_DoorAccess doorAccess = ((Location.WCFServiceReferences.LocationServices.Dev_DoorAccess)(inValues[0]));
+            return this.BeginAddDoorAccess(doorAccess, callback, asyncState);
+        }
+        
+        private object[] OnEndAddDoorAccess(System.IAsyncResult result) {
+            bool retVal = this.EndAddDoorAccess(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddDoorAccessCompleted(object state) {
+            if ((this.AddDoorAccessCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddDoorAccessCompleted(this, new AddDoorAccessCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddDoorAccessAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess doorAccess) {
+            this.AddDoorAccessAsync(doorAccess, null);
+        }
+        
+        public void AddDoorAccessAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess doorAccess, object userState) {
+            if ((this.onBeginAddDoorAccessDelegate == null)) {
+                this.onBeginAddDoorAccessDelegate = new BeginOperationDelegate(this.OnBeginAddDoorAccess);
+            }
+            if ((this.onEndAddDoorAccessDelegate == null)) {
+                this.onEndAddDoorAccessDelegate = new EndOperationDelegate(this.OnEndAddDoorAccess);
+            }
+            if ((this.onAddDoorAccessCompletedDelegate == null)) {
+                this.onAddDoorAccessCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddDoorAccessCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddDoorAccessDelegate, new object[] {
+                        doorAccess}, this.onEndAddDoorAccessDelegate, this.onAddDoorAccessCompletedDelegate, userState);
+        }
+        
         public bool DeleteDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList) {
             return base.Channel.DeleteDoorAccess(doorAccessList);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeleteDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteDoorAccess(doorAccessList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeleteDoorAccess(System.IAsyncResult result) {
+            return base.Channel.EndDeleteDoorAccess(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteDoorAccess(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList = ((Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[])(inValues[0]));
+            return this.BeginDeleteDoorAccess(doorAccessList, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteDoorAccess(System.IAsyncResult result) {
+            bool retVal = this.EndDeleteDoorAccess(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeleteDoorAccessCompleted(object state) {
+            if ((this.DeleteDoorAccessCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteDoorAccessCompleted(this, new DeleteDoorAccessCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteDoorAccessAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList) {
+            this.DeleteDoorAccessAsync(doorAccessList, null);
+        }
+        
+        public void DeleteDoorAccessAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, object userState) {
+            if ((this.onBeginDeleteDoorAccessDelegate == null)) {
+                this.onBeginDeleteDoorAccessDelegate = new BeginOperationDelegate(this.OnBeginDeleteDoorAccess);
+            }
+            if ((this.onEndDeleteDoorAccessDelegate == null)) {
+                this.onEndDeleteDoorAccessDelegate = new EndOperationDelegate(this.OnEndDeleteDoorAccess);
+            }
+            if ((this.onDeleteDoorAccessCompletedDelegate == null)) {
+                this.onDeleteDoorAccessCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteDoorAccessCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteDoorAccessDelegate, new object[] {
+                        doorAccessList}, this.onEndDeleteDoorAccessDelegate, this.onDeleteDoorAccessCompletedDelegate, userState);
         }
         
         public bool ModifyDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList) {
             return base.Channel.ModifyDoorAccess(doorAccessList);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginModifyDoorAccess(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginModifyDoorAccess(doorAccessList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndModifyDoorAccess(System.IAsyncResult result) {
+            return base.Channel.EndModifyDoorAccess(result);
+        }
+        
+        private System.IAsyncResult OnBeginModifyDoorAccess(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList = ((Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[])(inValues[0]));
+            return this.BeginModifyDoorAccess(doorAccessList, callback, asyncState);
+        }
+        
+        private object[] OnEndModifyDoorAccess(System.IAsyncResult result) {
+            bool retVal = this.EndModifyDoorAccess(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnModifyDoorAccessCompleted(object state) {
+            if ((this.ModifyDoorAccessCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ModifyDoorAccessCompleted(this, new ModifyDoorAccessCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ModifyDoorAccessAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList) {
+            this.ModifyDoorAccessAsync(doorAccessList, null);
+        }
+        
+        public void ModifyDoorAccessAsync(Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] doorAccessList, object userState) {
+            if ((this.onBeginModifyDoorAccessDelegate == null)) {
+                this.onBeginModifyDoorAccessDelegate = new BeginOperationDelegate(this.OnBeginModifyDoorAccess);
+            }
+            if ((this.onEndModifyDoorAccessDelegate == null)) {
+                this.onEndModifyDoorAccessDelegate = new EndOperationDelegate(this.OnEndModifyDoorAccess);
+            }
+            if ((this.onModifyDoorAccessCompletedDelegate == null)) {
+                this.onModifyDoorAccessCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnModifyDoorAccessCompleted);
+            }
+            base.InvokeAsync(this.onBeginModifyDoorAccessDelegate, new object[] {
+                        doorAccessList}, this.onEndModifyDoorAccessDelegate, this.onModifyDoorAccessCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] GetDoorAccessInfoByParent(int[] pids) {
             return base.Channel.GetDoorAccessInfoByParent(pids);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDoorAccessInfoByParent(int[] pids, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDoorAccessInfoByParent(pids, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] EndGetDoorAccessInfoByParent(System.IAsyncResult result) {
+            return base.Channel.EndGetDoorAccessInfoByParent(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDoorAccessInfoByParent(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int[] pids = ((int[])(inValues[0]));
+            return this.BeginGetDoorAccessInfoByParent(pids, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDoorAccessInfoByParent(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] retVal = this.EndGetDoorAccessInfoByParent(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDoorAccessInfoByParentCompleted(object state) {
+            if ((this.GetDoorAccessInfoByParentCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDoorAccessInfoByParentCompleted(this, new GetDoorAccessInfoByParentCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDoorAccessInfoByParentAsync(int[] pids) {
+            this.GetDoorAccessInfoByParentAsync(pids, null);
+        }
+        
+        public void GetDoorAccessInfoByParentAsync(int[] pids, object userState) {
+            if ((this.onBeginGetDoorAccessInfoByParentDelegate == null)) {
+                this.onBeginGetDoorAccessInfoByParentDelegate = new BeginOperationDelegate(this.OnBeginGetDoorAccessInfoByParent);
+            }
+            if ((this.onEndGetDoorAccessInfoByParentDelegate == null)) {
+                this.onEndGetDoorAccessInfoByParentDelegate = new EndOperationDelegate(this.OnEndGetDoorAccessInfoByParent);
+            }
+            if ((this.onGetDoorAccessInfoByParentCompletedDelegate == null)) {
+                this.onGetDoorAccessInfoByParentCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDoorAccessInfoByParentCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDoorAccessInfoByParentDelegate, new object[] {
+                        pids}, this.onEndGetDoorAccessInfoByParentDelegate, this.onGetDoorAccessInfoByParentCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] GetAllDoorAccessInfo() {
             return base.Channel.GetAllDoorAccessInfo();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAllDoorAccessInfo(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAllDoorAccessInfo(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] EndGetAllDoorAccessInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetAllDoorAccessInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAllDoorAccessInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetAllDoorAccessInfo(callback, asyncState);
+        }
+        
+        private object[] OnEndGetAllDoorAccessInfo(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Dev_DoorAccess[] retVal = this.EndGetAllDoorAccessInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAllDoorAccessInfoCompleted(object state) {
+            if ((this.GetAllDoorAccessInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAllDoorAccessInfoCompleted(this, new GetAllDoorAccessInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAllDoorAccessInfoAsync() {
+            this.GetAllDoorAccessInfoAsync(null);
+        }
+        
+        public void GetAllDoorAccessInfoAsync(object userState) {
+            if ((this.onBeginGetAllDoorAccessInfoDelegate == null)) {
+                this.onBeginGetAllDoorAccessInfoDelegate = new BeginOperationDelegate(this.OnBeginGetAllDoorAccessInfo);
+            }
+            if ((this.onEndGetAllDoorAccessInfoDelegate == null)) {
+                this.onEndGetAllDoorAccessInfoDelegate = new EndOperationDelegate(this.OnEndGetAllDoorAccessInfo);
+            }
+            if ((this.onGetAllDoorAccessInfoCompletedDelegate == null)) {
+                this.onGetAllDoorAccessInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllDoorAccessInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAllDoorAccessInfoDelegate, null, this.onEndGetAllDoorAccessInfoDelegate, this.onGetAllDoorAccessInfoCompletedDelegate, userState);
+        }
+        
+        public bool AddCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList) {
+            return base.Channel.AddCameraInfoByList(cameraInfoList);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddCameraInfoByList(cameraInfoList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddCameraInfoByList(System.IAsyncResult result) {
+            return base.Channel.EndAddCameraInfoByList(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddCameraInfoByList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList = ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[])(inValues[0]));
+            return this.BeginAddCameraInfoByList(cameraInfoList, callback, asyncState);
+        }
+        
+        private object[] OnEndAddCameraInfoByList(System.IAsyncResult result) {
+            bool retVal = this.EndAddCameraInfoByList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddCameraInfoByListCompleted(object state) {
+            if ((this.AddCameraInfoByListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddCameraInfoByListCompleted(this, new AddCameraInfoByListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddCameraInfoByListAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList) {
+            this.AddCameraInfoByListAsync(cameraInfoList, null);
+        }
+        
+        public void AddCameraInfoByListAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, object userState) {
+            if ((this.onBeginAddCameraInfoByListDelegate == null)) {
+                this.onBeginAddCameraInfoByListDelegate = new BeginOperationDelegate(this.OnBeginAddCameraInfoByList);
+            }
+            if ((this.onEndAddCameraInfoByListDelegate == null)) {
+                this.onEndAddCameraInfoByListDelegate = new EndOperationDelegate(this.OnEndAddCameraInfoByList);
+            }
+            if ((this.onAddCameraInfoByListCompletedDelegate == null)) {
+                this.onAddCameraInfoByListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddCameraInfoByListCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddCameraInfoByListDelegate, new object[] {
+                        cameraInfoList}, this.onEndAddCameraInfoByListDelegate, this.onAddCameraInfoByListCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo AddCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo cameraInfo) {
+            return base.Channel.AddCameraInfo(cameraInfo);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo cameraInfo, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddCameraInfo(cameraInfo, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo EndAddCameraInfo(System.IAsyncResult result) {
+            return base.Channel.EndAddCameraInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddCameraInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo cameraInfo = ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo)(inValues[0]));
+            return this.BeginAddCameraInfo(cameraInfo, callback, asyncState);
+        }
+        
+        private object[] OnEndAddCameraInfo(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo retVal = this.EndAddCameraInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddCameraInfoCompleted(object state) {
+            if ((this.AddCameraInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddCameraInfoCompleted(this, new AddCameraInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddCameraInfoAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo cameraInfo) {
+            this.AddCameraInfoAsync(cameraInfo, null);
+        }
+        
+        public void AddCameraInfoAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo cameraInfo, object userState) {
+            if ((this.onBeginAddCameraInfoDelegate == null)) {
+                this.onBeginAddCameraInfoDelegate = new BeginOperationDelegate(this.OnBeginAddCameraInfo);
+            }
+            if ((this.onEndAddCameraInfoDelegate == null)) {
+                this.onEndAddCameraInfoDelegate = new EndOperationDelegate(this.OnEndAddCameraInfo);
+            }
+            if ((this.onAddCameraInfoCompletedDelegate == null)) {
+                this.onAddCameraInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddCameraInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddCameraInfoDelegate, new object[] {
+                        cameraInfo}, this.onEndAddCameraInfoDelegate, this.onAddCameraInfoCompletedDelegate, userState);
+        }
+        
+        public bool DeleteCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList) {
+            return base.Channel.DeleteCameraInfo(cameraInfoList);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeleteCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteCameraInfo(cameraInfoList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeleteCameraInfo(System.IAsyncResult result) {
+            return base.Channel.EndDeleteCameraInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteCameraInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList = ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[])(inValues[0]));
+            return this.BeginDeleteCameraInfo(cameraInfoList, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteCameraInfo(System.IAsyncResult result) {
+            bool retVal = this.EndDeleteCameraInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeleteCameraInfoCompleted(object state) {
+            if ((this.DeleteCameraInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteCameraInfoCompleted(this, new DeleteCameraInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteCameraInfoAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList) {
+            this.DeleteCameraInfoAsync(cameraInfoList, null);
+        }
+        
+        public void DeleteCameraInfoAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, object userState) {
+            if ((this.onBeginDeleteCameraInfoDelegate == null)) {
+                this.onBeginDeleteCameraInfoDelegate = new BeginOperationDelegate(this.OnBeginDeleteCameraInfo);
+            }
+            if ((this.onEndDeleteCameraInfoDelegate == null)) {
+                this.onEndDeleteCameraInfoDelegate = new EndOperationDelegate(this.OnEndDeleteCameraInfo);
+            }
+            if ((this.onDeleteCameraInfoCompletedDelegate == null)) {
+                this.onDeleteCameraInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteCameraInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteCameraInfoDelegate, new object[] {
+                        cameraInfoList}, this.onEndDeleteCameraInfoDelegate, this.onDeleteCameraInfoCompletedDelegate, userState);
+        }
+        
+        public bool ModifyCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList) {
+            return base.Channel.ModifyCameraInfoByList(cameraInfoList);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginModifyCameraInfoByList(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginModifyCameraInfoByList(cameraInfoList, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndModifyCameraInfoByList(System.IAsyncResult result) {
+            return base.Channel.EndModifyCameraInfoByList(result);
+        }
+        
+        private System.IAsyncResult OnBeginModifyCameraInfoByList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList = ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[])(inValues[0]));
+            return this.BeginModifyCameraInfoByList(cameraInfoList, callback, asyncState);
+        }
+        
+        private object[] OnEndModifyCameraInfoByList(System.IAsyncResult result) {
+            bool retVal = this.EndModifyCameraInfoByList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnModifyCameraInfoByListCompleted(object state) {
+            if ((this.ModifyCameraInfoByListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ModifyCameraInfoByListCompleted(this, new ModifyCameraInfoByListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ModifyCameraInfoByListAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList) {
+            this.ModifyCameraInfoByListAsync(cameraInfoList, null);
+        }
+        
+        public void ModifyCameraInfoByListAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] cameraInfoList, object userState) {
+            if ((this.onBeginModifyCameraInfoByListDelegate == null)) {
+                this.onBeginModifyCameraInfoByListDelegate = new BeginOperationDelegate(this.OnBeginModifyCameraInfoByList);
+            }
+            if ((this.onEndModifyCameraInfoByListDelegate == null)) {
+                this.onEndModifyCameraInfoByListDelegate = new EndOperationDelegate(this.OnEndModifyCameraInfoByList);
+            }
+            if ((this.onModifyCameraInfoByListCompletedDelegate == null)) {
+                this.onModifyCameraInfoByListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnModifyCameraInfoByListCompleted);
+            }
+            base.InvokeAsync(this.onBeginModifyCameraInfoByListDelegate, new object[] {
+                        cameraInfoList}, this.onEndModifyCameraInfoByListDelegate, this.onModifyCameraInfoByListCompletedDelegate, userState);
+        }
+        
+        public bool ModifyCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo camInfo) {
+            return base.Channel.ModifyCameraInfo(camInfo);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginModifyCameraInfo(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo camInfo, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginModifyCameraInfo(camInfo, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndModifyCameraInfo(System.IAsyncResult result) {
+            return base.Channel.EndModifyCameraInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginModifyCameraInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo camInfo = ((Location.WCFServiceReferences.LocationServices.Dev_CameraInfo)(inValues[0]));
+            return this.BeginModifyCameraInfo(camInfo, callback, asyncState);
+        }
+        
+        private object[] OnEndModifyCameraInfo(System.IAsyncResult result) {
+            bool retVal = this.EndModifyCameraInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnModifyCameraInfoCompleted(object state) {
+            if ((this.ModifyCameraInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ModifyCameraInfoCompleted(this, new ModifyCameraInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ModifyCameraInfoAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo camInfo) {
+            this.ModifyCameraInfoAsync(camInfo, null);
+        }
+        
+        public void ModifyCameraInfoAsync(Location.WCFServiceReferences.LocationServices.Dev_CameraInfo camInfo, object userState) {
+            if ((this.onBeginModifyCameraInfoDelegate == null)) {
+                this.onBeginModifyCameraInfoDelegate = new BeginOperationDelegate(this.OnBeginModifyCameraInfo);
+            }
+            if ((this.onEndModifyCameraInfoDelegate == null)) {
+                this.onEndModifyCameraInfoDelegate = new EndOperationDelegate(this.OnEndModifyCameraInfo);
+            }
+            if ((this.onModifyCameraInfoCompletedDelegate == null)) {
+                this.onModifyCameraInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnModifyCameraInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginModifyCameraInfoDelegate, new object[] {
+                        camInfo}, this.onEndModifyCameraInfoDelegate, this.onModifyCameraInfoCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] GetCameraInfoByParent(int[] pids) {
+            return base.Channel.GetCameraInfoByParent(pids);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetCameraInfoByParent(int[] pids, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetCameraInfoByParent(pids, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] EndGetCameraInfoByParent(System.IAsyncResult result) {
+            return base.Channel.EndGetCameraInfoByParent(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetCameraInfoByParent(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int[] pids = ((int[])(inValues[0]));
+            return this.BeginGetCameraInfoByParent(pids, callback, asyncState);
+        }
+        
+        private object[] OnEndGetCameraInfoByParent(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] retVal = this.EndGetCameraInfoByParent(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetCameraInfoByParentCompleted(object state) {
+            if ((this.GetCameraInfoByParentCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetCameraInfoByParentCompleted(this, new GetCameraInfoByParentCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetCameraInfoByParentAsync(int[] pids) {
+            this.GetCameraInfoByParentAsync(pids, null);
+        }
+        
+        public void GetCameraInfoByParentAsync(int[] pids, object userState) {
+            if ((this.onBeginGetCameraInfoByParentDelegate == null)) {
+                this.onBeginGetCameraInfoByParentDelegate = new BeginOperationDelegate(this.OnBeginGetCameraInfoByParent);
+            }
+            if ((this.onEndGetCameraInfoByParentDelegate == null)) {
+                this.onEndGetCameraInfoByParentDelegate = new EndOperationDelegate(this.OnEndGetCameraInfoByParent);
+            }
+            if ((this.onGetCameraInfoByParentCompletedDelegate == null)) {
+                this.onGetCameraInfoByParentCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetCameraInfoByParentCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetCameraInfoByParentDelegate, new object[] {
+                        pids}, this.onEndGetCameraInfoByParentDelegate, this.onGetCameraInfoByParentCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] GetAllCameraInfo() {
+            return base.Channel.GetAllCameraInfo();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAllCameraInfo(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAllCameraInfo(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] EndGetAllCameraInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetAllCameraInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAllCameraInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetAllCameraInfo(callback, asyncState);
+        }
+        
+        private object[] OnEndGetAllCameraInfo(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo[] retVal = this.EndGetAllCameraInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAllCameraInfoCompleted(object state) {
+            if ((this.GetAllCameraInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAllCameraInfoCompleted(this, new GetAllCameraInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAllCameraInfoAsync() {
+            this.GetAllCameraInfoAsync(null);
+        }
+        
+        public void GetAllCameraInfoAsync(object userState) {
+            if ((this.onBeginGetAllCameraInfoDelegate == null)) {
+                this.onBeginGetAllCameraInfoDelegate = new BeginOperationDelegate(this.OnBeginGetAllCameraInfo);
+            }
+            if ((this.onEndGetAllCameraInfoDelegate == null)) {
+                this.onEndGetAllCameraInfoDelegate = new EndOperationDelegate(this.OnEndGetAllCameraInfo);
+            }
+            if ((this.onGetAllCameraInfoCompletedDelegate == null)) {
+                this.onGetAllCameraInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllCameraInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAllCameraInfoDelegate, null, this.onEndGetAllCameraInfoDelegate, this.onGetAllCameraInfoCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo GetCameraInfoByDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo dev) {
+            return base.Channel.GetCameraInfoByDevInfo(dev);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetCameraInfoByDevInfo(Location.WCFServiceReferences.LocationServices.DevInfo dev, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetCameraInfoByDevInfo(dev, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Dev_CameraInfo EndGetCameraInfoByDevInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetCameraInfoByDevInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetCameraInfoByDevInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.DevInfo dev = ((Location.WCFServiceReferences.LocationServices.DevInfo)(inValues[0]));
+            return this.BeginGetCameraInfoByDevInfo(dev, callback, asyncState);
+        }
+        
+        private object[] OnEndGetCameraInfoByDevInfo(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Dev_CameraInfo retVal = this.EndGetCameraInfoByDevInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetCameraInfoByDevInfoCompleted(object state) {
+            if ((this.GetCameraInfoByDevInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetCameraInfoByDevInfoCompleted(this, new GetCameraInfoByDevInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetCameraInfoByDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo dev) {
+            this.GetCameraInfoByDevInfoAsync(dev, null);
+        }
+        
+        public void GetCameraInfoByDevInfoAsync(Location.WCFServiceReferences.LocationServices.DevInfo dev, object userState) {
+            if ((this.onBeginGetCameraInfoByDevInfoDelegate == null)) {
+                this.onBeginGetCameraInfoByDevInfoDelegate = new BeginOperationDelegate(this.OnBeginGetCameraInfoByDevInfo);
+            }
+            if ((this.onEndGetCameraInfoByDevInfoDelegate == null)) {
+                this.onEndGetCameraInfoByDevInfoDelegate = new EndOperationDelegate(this.OnEndGetCameraInfoByDevInfo);
+            }
+            if ((this.onGetCameraInfoByDevInfoCompletedDelegate == null)) {
+                this.onGetCameraInfoByDevInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetCameraInfoByDevInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetCameraInfoByDevInfoDelegate, new object[] {
+                        dev}, this.onEndGetCameraInfoByDevInfoDelegate, this.onGetCameraInfoByDevInfoCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Archor[] GetArchors() {
             return base.Channel.GetArchors();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetArchors(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetArchors(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Archor[] EndGetArchors(System.IAsyncResult result) {
+            return base.Channel.EndGetArchors(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetArchors(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetArchors(callback, asyncState);
+        }
+        
+        private object[] OnEndGetArchors(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Archor[] retVal = this.EndGetArchors(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetArchorsCompleted(object state) {
+            if ((this.GetArchorsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetArchorsCompleted(this, new GetArchorsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetArchorsAsync() {
+            this.GetArchorsAsync(null);
+        }
+        
+        public void GetArchorsAsync(object userState) {
+            if ((this.onBeginGetArchorsDelegate == null)) {
+                this.onBeginGetArchorsDelegate = new BeginOperationDelegate(this.OnBeginGetArchors);
+            }
+            if ((this.onEndGetArchorsDelegate == null)) {
+                this.onEndGetArchorsDelegate = new EndOperationDelegate(this.OnEndGetArchors);
+            }
+            if ((this.onGetArchorsCompletedDelegate == null)) {
+                this.onGetArchorsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetArchorsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetArchorsDelegate, null, this.onEndGetArchorsDelegate, this.onGetArchorsCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Archor GetArchor(string id) {
             return base.Channel.GetArchor(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetArchor(string id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetArchor(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Archor EndGetArchor(System.IAsyncResult result) {
+            return base.Channel.EndGetArchor(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetArchor(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string id = ((string)(inValues[0]));
+            return this.BeginGetArchor(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetArchor(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Archor retVal = this.EndGetArchor(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetArchorCompleted(object state) {
+            if ((this.GetArchorCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetArchorCompleted(this, new GetArchorCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetArchorAsync(string id) {
+            this.GetArchorAsync(id, null);
+        }
+        
+        public void GetArchorAsync(string id, object userState) {
+            if ((this.onBeginGetArchorDelegate == null)) {
+                this.onBeginGetArchorDelegate = new BeginOperationDelegate(this.OnBeginGetArchor);
+            }
+            if ((this.onEndGetArchorDelegate == null)) {
+                this.onEndGetArchorDelegate = new EndOperationDelegate(this.OnEndGetArchor);
+            }
+            if ((this.onGetArchorCompletedDelegate == null)) {
+                this.onGetArchorCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetArchorCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetArchorDelegate, new object[] {
+                        id}, this.onEndGetArchorDelegate, this.onGetArchorCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Archor GetArchorByDevId(int devId) {
             return base.Channel.GetArchorByDevId(devId);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetArchorByDevId(int devId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetArchorByDevId(devId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Archor EndGetArchorByDevId(System.IAsyncResult result) {
+            return base.Channel.EndGetArchorByDevId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetArchorByDevId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int devId = ((int)(inValues[0]));
+            return this.BeginGetArchorByDevId(devId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetArchorByDevId(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Archor retVal = this.EndGetArchorByDevId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetArchorByDevIdCompleted(object state) {
+            if ((this.GetArchorByDevIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetArchorByDevIdCompleted(this, new GetArchorByDevIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetArchorByDevIdAsync(int devId) {
+            this.GetArchorByDevIdAsync(devId, null);
+        }
+        
+        public void GetArchorByDevIdAsync(int devId, object userState) {
+            if ((this.onBeginGetArchorByDevIdDelegate == null)) {
+                this.onBeginGetArchorByDevIdDelegate = new BeginOperationDelegate(this.OnBeginGetArchorByDevId);
+            }
+            if ((this.onEndGetArchorByDevIdDelegate == null)) {
+                this.onEndGetArchorByDevIdDelegate = new EndOperationDelegate(this.OnEndGetArchorByDevId);
+            }
+            if ((this.onGetArchorByDevIdCompletedDelegate == null)) {
+                this.onGetArchorByDevIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetArchorByDevIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetArchorByDevIdDelegate, new object[] {
+                        devId}, this.onEndGetArchorByDevIdDelegate, this.onGetArchorByDevIdCompletedDelegate, userState);
         }
         
         public bool EditArchor(Location.WCFServiceReferences.LocationServices.Archor Archor, int ParentId) {
             return base.Channel.EditArchor(Archor, ParentId);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditArchor(Location.WCFServiceReferences.LocationServices.Archor Archor, int ParentId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditArchor(Archor, ParentId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditArchor(System.IAsyncResult result) {
+            return base.Channel.EndEditArchor(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditArchor(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Archor Archor = ((Location.WCFServiceReferences.LocationServices.Archor)(inValues[0]));
+            int ParentId = ((int)(inValues[1]));
+            return this.BeginEditArchor(Archor, ParentId, callback, asyncState);
+        }
+        
+        private object[] OnEndEditArchor(System.IAsyncResult result) {
+            bool retVal = this.EndEditArchor(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditArchorCompleted(object state) {
+            if ((this.EditArchorCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditArchorCompleted(this, new EditArchorCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditArchorAsync(Location.WCFServiceReferences.LocationServices.Archor Archor, int ParentId) {
+            this.EditArchorAsync(Archor, ParentId, null);
+        }
+        
+        public void EditArchorAsync(Location.WCFServiceReferences.LocationServices.Archor Archor, int ParentId, object userState) {
+            if ((this.onBeginEditArchorDelegate == null)) {
+                this.onBeginEditArchorDelegate = new BeginOperationDelegate(this.OnBeginEditArchor);
+            }
+            if ((this.onEndEditArchorDelegate == null)) {
+                this.onEndEditArchorDelegate = new EndOperationDelegate(this.OnEndEditArchor);
+            }
+            if ((this.onEditArchorCompletedDelegate == null)) {
+                this.onEditArchorCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditArchorCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditArchorDelegate, new object[] {
+                        Archor,
+                        ParentId}, this.onEndEditArchorDelegate, this.onEditArchorCompletedDelegate, userState);
+        }
+        
         public bool AddArchor(Location.WCFServiceReferences.LocationServices.Archor archor) {
             return base.Channel.AddArchor(archor);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddArchor(Location.WCFServiceReferences.LocationServices.Archor archor, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddArchor(archor, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddArchor(System.IAsyncResult result) {
+            return base.Channel.EndAddArchor(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddArchor(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Archor archor = ((Location.WCFServiceReferences.LocationServices.Archor)(inValues[0]));
+            return this.BeginAddArchor(archor, callback, asyncState);
+        }
+        
+        private object[] OnEndAddArchor(System.IAsyncResult result) {
+            bool retVal = this.EndAddArchor(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddArchorCompleted(object state) {
+            if ((this.AddArchorCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddArchorCompleted(this, new AddArchorCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddArchorAsync(Location.WCFServiceReferences.LocationServices.Archor archor) {
+            this.AddArchorAsync(archor, null);
+        }
+        
+        public void AddArchorAsync(Location.WCFServiceReferences.LocationServices.Archor archor, object userState) {
+            if ((this.onBeginAddArchorDelegate == null)) {
+                this.onBeginAddArchorDelegate = new BeginOperationDelegate(this.OnBeginAddArchor);
+            }
+            if ((this.onEndAddArchorDelegate == null)) {
+                this.onEndAddArchorDelegate = new EndOperationDelegate(this.OnEndAddArchor);
+            }
+            if ((this.onAddArchorCompletedDelegate == null)) {
+                this.onAddArchorCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddArchorCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddArchorDelegate, new object[] {
+                        archor}, this.onEndAddArchorDelegate, this.onAddArchorCompletedDelegate, userState);
         }
         
         public void DeleteArchor(int archorId) {
             base.Channel.DeleteArchor(archorId);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeleteArchor(int archorId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteArchor(archorId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndDeleteArchor(System.IAsyncResult result) {
+            base.Channel.EndDeleteArchor(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteArchor(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int archorId = ((int)(inValues[0]));
+            return this.BeginDeleteArchor(archorId, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteArchor(System.IAsyncResult result) {
+            this.EndDeleteArchor(result);
+            return null;
+        }
+        
+        private void OnDeleteArchorCompleted(object state) {
+            if ((this.DeleteArchorCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteArchorCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteArchorAsync(int archorId) {
+            this.DeleteArchorAsync(archorId, null);
+        }
+        
+        public void DeleteArchorAsync(int archorId, object userState) {
+            if ((this.onBeginDeleteArchorDelegate == null)) {
+                this.onBeginDeleteArchorDelegate = new BeginOperationDelegate(this.OnBeginDeleteArchor);
+            }
+            if ((this.onEndDeleteArchorDelegate == null)) {
+                this.onEndDeleteArchorDelegate = new EndOperationDelegate(this.OnEndDeleteArchor);
+            }
+            if ((this.onDeleteArchorCompletedDelegate == null)) {
+                this.onDeleteArchorCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteArchorCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteArchorDelegate, new object[] {
+                        archorId}, this.onEndDeleteArchorDelegate, this.onDeleteArchorCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.NearbyDev[] GetNearbyDev_Currency(int id, float fDis, int nFlag) {
             return base.Channel.GetNearbyDev_Currency(id, fDis, nFlag);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetNearbyDev_Currency(int id, float fDis, int nFlag, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetNearbyDev_Currency(id, fDis, nFlag, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.NearbyDev[] EndGetNearbyDev_Currency(System.IAsyncResult result) {
+            return base.Channel.EndGetNearbyDev_Currency(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetNearbyDev_Currency(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            float fDis = ((float)(inValues[1]));
+            int nFlag = ((int)(inValues[2]));
+            return this.BeginGetNearbyDev_Currency(id, fDis, nFlag, callback, asyncState);
+        }
+        
+        private object[] OnEndGetNearbyDev_Currency(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.NearbyDev[] retVal = this.EndGetNearbyDev_Currency(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetNearbyDev_CurrencyCompleted(object state) {
+            if ((this.GetNearbyDev_CurrencyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetNearbyDev_CurrencyCompleted(this, new GetNearbyDev_CurrencyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetNearbyDev_CurrencyAsync(int id, float fDis, int nFlag) {
+            this.GetNearbyDev_CurrencyAsync(id, fDis, nFlag, null);
+        }
+        
+        public void GetNearbyDev_CurrencyAsync(int id, float fDis, int nFlag, object userState) {
+            if ((this.onBeginGetNearbyDev_CurrencyDelegate == null)) {
+                this.onBeginGetNearbyDev_CurrencyDelegate = new BeginOperationDelegate(this.OnBeginGetNearbyDev_Currency);
+            }
+            if ((this.onEndGetNearbyDev_CurrencyDelegate == null)) {
+                this.onEndGetNearbyDev_CurrencyDelegate = new EndOperationDelegate(this.OnEndGetNearbyDev_Currency);
+            }
+            if ((this.onGetNearbyDev_CurrencyCompletedDelegate == null)) {
+                this.onGetNearbyDev_CurrencyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetNearbyDev_CurrencyCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetNearbyDev_CurrencyDelegate, new object[] {
+                        id,
+                        fDis,
+                        nFlag}, this.onEndGetNearbyDev_CurrencyDelegate, this.onGetNearbyDev_CurrencyCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis) {
             return base.Channel.GetNearbyCamera_Alarm(id, fDis);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetNearbyCamera_Alarm(int id, float fDis, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetNearbyCamera_Alarm(id, fDis, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.NearbyDev[] EndGetNearbyCamera_Alarm(System.IAsyncResult result) {
+            return base.Channel.EndGetNearbyCamera_Alarm(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetNearbyCamera_Alarm(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            float fDis = ((float)(inValues[1]));
+            return this.BeginGetNearbyCamera_Alarm(id, fDis, callback, asyncState);
+        }
+        
+        private object[] OnEndGetNearbyCamera_Alarm(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.NearbyDev[] retVal = this.EndGetNearbyCamera_Alarm(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetNearbyCamera_AlarmCompleted(object state) {
+            if ((this.GetNearbyCamera_AlarmCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetNearbyCamera_AlarmCompleted(this, new GetNearbyCamera_AlarmCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetNearbyCamera_AlarmAsync(int id, float fDis) {
+            this.GetNearbyCamera_AlarmAsync(id, fDis, null);
+        }
+        
+        public void GetNearbyCamera_AlarmAsync(int id, float fDis, object userState) {
+            if ((this.onBeginGetNearbyCamera_AlarmDelegate == null)) {
+                this.onBeginGetNearbyCamera_AlarmDelegate = new BeginOperationDelegate(this.OnBeginGetNearbyCamera_Alarm);
+            }
+            if ((this.onEndGetNearbyCamera_AlarmDelegate == null)) {
+                this.onEndGetNearbyCamera_AlarmDelegate = new EndOperationDelegate(this.OnEndGetNearbyCamera_Alarm);
+            }
+            if ((this.onGetNearbyCamera_AlarmCompletedDelegate == null)) {
+                this.onGetNearbyCamera_AlarmCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetNearbyCamera_AlarmCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetNearbyCamera_AlarmDelegate, new object[] {
+                        id,
+                        fDis}, this.onEndGetNearbyCamera_AlarmDelegate, this.onGetNearbyCamera_AlarmCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] GetEntranceActionInfoByPerson24Hours(int id) {
             return base.Channel.GetEntranceActionInfoByPerson24Hours(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetEntranceActionInfoByPerson24Hours(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetEntranceActionInfoByPerson24Hours(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] EndGetEntranceActionInfoByPerson24Hours(System.IAsyncResult result) {
+            return base.Channel.EndGetEntranceActionInfoByPerson24Hours(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetEntranceActionInfoByPerson24Hours(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetEntranceActionInfoByPerson24Hours(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetEntranceActionInfoByPerson24Hours(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo[] retVal = this.EndGetEntranceActionInfoByPerson24Hours(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetEntranceActionInfoByPerson24HoursCompleted(object state) {
+            if ((this.GetEntranceActionInfoByPerson24HoursCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetEntranceActionInfoByPerson24HoursCompleted(this, new GetEntranceActionInfoByPerson24HoursCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetEntranceActionInfoByPerson24HoursAsync(int id) {
+            this.GetEntranceActionInfoByPerson24HoursAsync(id, null);
+        }
+        
+        public void GetEntranceActionInfoByPerson24HoursAsync(int id, object userState) {
+            if ((this.onBeginGetEntranceActionInfoByPerson24HoursDelegate == null)) {
+                this.onBeginGetEntranceActionInfoByPerson24HoursDelegate = new BeginOperationDelegate(this.OnBeginGetEntranceActionInfoByPerson24Hours);
+            }
+            if ((this.onEndGetEntranceActionInfoByPerson24HoursDelegate == null)) {
+                this.onEndGetEntranceActionInfoByPerson24HoursDelegate = new EndOperationDelegate(this.OnEndGetEntranceActionInfoByPerson24Hours);
+            }
+            if ((this.onGetEntranceActionInfoByPerson24HoursCompletedDelegate == null)) {
+                this.onGetEntranceActionInfoByPerson24HoursCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetEntranceActionInfoByPerson24HoursCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetEntranceActionInfoByPerson24HoursDelegate, new object[] {
+                        id}, this.onEndGetEntranceActionInfoByPerson24HoursDelegate, this.onGetEntranceActionInfoByPerson24HoursCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.DevModel GetDevClassByDevModel(string devModelName) {
+            return base.Channel.GetDevClassByDevModel(devModelName);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDevClassByDevModel(string devModelName, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDevClassByDevModel(devModelName, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DevModel EndGetDevClassByDevModel(System.IAsyncResult result) {
+            return base.Channel.EndGetDevClassByDevModel(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDevClassByDevModel(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string devModelName = ((string)(inValues[0]));
+            return this.BeginGetDevClassByDevModel(devModelName, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDevClassByDevModel(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DevModel retVal = this.EndGetDevClassByDevModel(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDevClassByDevModelCompleted(object state) {
+            if ((this.GetDevClassByDevModelCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDevClassByDevModelCompleted(this, new GetDevClassByDevModelCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDevClassByDevModelAsync(string devModelName) {
+            this.GetDevClassByDevModelAsync(devModelName, null);
+        }
+        
+        public void GetDevClassByDevModelAsync(string devModelName, object userState) {
+            if ((this.onBeginGetDevClassByDevModelDelegate == null)) {
+                this.onBeginGetDevClassByDevModelDelegate = new BeginOperationDelegate(this.OnBeginGetDevClassByDevModel);
+            }
+            if ((this.onEndGetDevClassByDevModelDelegate == null)) {
+                this.onEndGetDevClassByDevModelDelegate = new EndOperationDelegate(this.OnEndGetDevClassByDevModel);
+            }
+            if ((this.onGetDevClassByDevModelCompletedDelegate == null)) {
+                this.onGetDevClassByDevModelCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDevClassByDevModelCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDevClassByDevModelDelegate, new object[] {
+                        devModelName}, this.onEndGetDevClassByDevModelDelegate, this.onGetDevClassByDevModelCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByNodeId(int id) {
             return base.Channel.GetKKSInfoByNodeId(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetKKSInfoByNodeId(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetKKSInfoByNodeId(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.KKSCode EndGetKKSInfoByNodeId(System.IAsyncResult result) {
+            return base.Channel.EndGetKKSInfoByNodeId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetKKSInfoByNodeId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetKKSInfoByNodeId(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetKKSInfoByNodeId(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.KKSCode retVal = this.EndGetKKSInfoByNodeId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetKKSInfoByNodeIdCompleted(object state) {
+            if ((this.GetKKSInfoByNodeIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetKKSInfoByNodeIdCompleted(this, new GetKKSInfoByNodeIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetKKSInfoByNodeIdAsync(int id) {
+            this.GetKKSInfoByNodeIdAsync(id, null);
+        }
+        
+        public void GetKKSInfoByNodeIdAsync(int id, object userState) {
+            if ((this.onBeginGetKKSInfoByNodeIdDelegate == null)) {
+                this.onBeginGetKKSInfoByNodeIdDelegate = new BeginOperationDelegate(this.OnBeginGetKKSInfoByNodeId);
+            }
+            if ((this.onEndGetKKSInfoByNodeIdDelegate == null)) {
+                this.onEndGetKKSInfoByNodeIdDelegate = new EndOperationDelegate(this.OnEndGetKKSInfoByNodeId);
+            }
+            if ((this.onGetKKSInfoByNodeIdCompletedDelegate == null)) {
+                this.onGetKKSInfoByNodeIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetKKSInfoByNodeIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetKKSInfoByNodeIdDelegate, new object[] {
+                        id}, this.onEndGetKKSInfoByNodeIdDelegate, this.onGetKKSInfoByNodeIdCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByCode(string code) {
             return base.Channel.GetKKSInfoByCode(code);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetKKSInfoByCode(string code, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetKKSInfoByCode(code, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.KKSCode EndGetKKSInfoByCode(System.IAsyncResult result) {
+            return base.Channel.EndGetKKSInfoByCode(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetKKSInfoByCode(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string code = ((string)(inValues[0]));
+            return this.BeginGetKKSInfoByCode(code, callback, asyncState);
+        }
+        
+        private object[] OnEndGetKKSInfoByCode(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.KKSCode retVal = this.EndGetKKSInfoByCode(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetKKSInfoByCodeCompleted(object state) {
+            if ((this.GetKKSInfoByCodeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetKKSInfoByCodeCompleted(this, new GetKKSInfoByCodeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetKKSInfoByCodeAsync(string code) {
+            this.GetKKSInfoByCodeAsync(code, null);
+        }
+        
+        public void GetKKSInfoByCodeAsync(string code, object userState) {
+            if ((this.onBeginGetKKSInfoByCodeDelegate == null)) {
+                this.onBeginGetKKSInfoByCodeDelegate = new BeginOperationDelegate(this.OnBeginGetKKSInfoByCode);
+            }
+            if ((this.onEndGetKKSInfoByCodeDelegate == null)) {
+                this.onEndGetKKSInfoByCodeDelegate = new EndOperationDelegate(this.OnEndGetKKSInfoByCode);
+            }
+            if ((this.onGetKKSInfoByCodeCompletedDelegate == null)) {
+                this.onGetKKSInfoByCodeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetKKSInfoByCodeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetKKSInfoByCodeDelegate, new object[] {
+                        code}, this.onEndGetKKSInfoByCodeDelegate, this.onGetKKSInfoByCodeCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.KKSCode FindKKSInfoByName(string name) {
             return base.Channel.FindKKSInfoByName(name);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFindKKSInfoByName(string name, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFindKKSInfoByName(name, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.KKSCode EndFindKKSInfoByName(System.IAsyncResult result) {
+            return base.Channel.EndFindKKSInfoByName(result);
+        }
+        
+        private System.IAsyncResult OnBeginFindKKSInfoByName(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string name = ((string)(inValues[0]));
+            return this.BeginFindKKSInfoByName(name, callback, asyncState);
+        }
+        
+        private object[] OnEndFindKKSInfoByName(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.KKSCode retVal = this.EndFindKKSInfoByName(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnFindKKSInfoByNameCompleted(object state) {
+            if ((this.FindKKSInfoByNameCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FindKKSInfoByNameCompleted(this, new FindKKSInfoByNameCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FindKKSInfoByNameAsync(string name) {
+            this.FindKKSInfoByNameAsync(name, null);
+        }
+        
+        public void FindKKSInfoByNameAsync(string name, object userState) {
+            if ((this.onBeginFindKKSInfoByNameDelegate == null)) {
+                this.onBeginFindKKSInfoByNameDelegate = new BeginOperationDelegate(this.OnBeginFindKKSInfoByName);
+            }
+            if ((this.onEndFindKKSInfoByNameDelegate == null)) {
+                this.onEndFindKKSInfoByNameDelegate = new EndOperationDelegate(this.OnEndFindKKSInfoByName);
+            }
+            if ((this.onFindKKSInfoByNameCompletedDelegate == null)) {
+                this.onFindKKSInfoByNameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFindKKSInfoByNameCompleted);
+            }
+            base.InvokeAsync(this.onBeginFindKKSInfoByNameDelegate, new object[] {
+                        name}, this.onEndFindKKSInfoByNameDelegate, this.onFindKKSInfoByNameCompletedDelegate, userState);
+        }
+        
         public string GetKKSCodeByNodeId(int id) {
             return base.Channel.GetKKSCodeByNodeId(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetKKSCodeByNodeId(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetKKSCodeByNodeId(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndGetKKSCodeByNodeId(System.IAsyncResult result) {
+            return base.Channel.EndGetKKSCodeByNodeId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetKKSCodeByNodeId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetKKSCodeByNodeId(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetKKSCodeByNodeId(System.IAsyncResult result) {
+            string retVal = this.EndGetKKSCodeByNodeId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetKKSCodeByNodeIdCompleted(object state) {
+            if ((this.GetKKSCodeByNodeIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetKKSCodeByNodeIdCompleted(this, new GetKKSCodeByNodeIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetKKSCodeByNodeIdAsync(int id) {
+            this.GetKKSCodeByNodeIdAsync(id, null);
+        }
+        
+        public void GetKKSCodeByNodeIdAsync(int id, object userState) {
+            if ((this.onBeginGetKKSCodeByNodeIdDelegate == null)) {
+                this.onBeginGetKKSCodeByNodeIdDelegate = new BeginOperationDelegate(this.OnBeginGetKKSCodeByNodeId);
+            }
+            if ((this.onEndGetKKSCodeByNodeIdDelegate == null)) {
+                this.onEndGetKKSCodeByNodeIdDelegate = new EndOperationDelegate(this.OnEndGetKKSCodeByNodeId);
+            }
+            if ((this.onGetKKSCodeByNodeIdCompletedDelegate == null)) {
+                this.onGetKKSCodeByNodeIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetKKSCodeByNodeIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetKKSCodeByNodeIdDelegate, new object[] {
+                        id}, this.onEndGetKKSCodeByNodeIdDelegate, this.onGetKKSCodeByNodeIdCompletedDelegate, userState);
         }
         
         public string FindKKSCodeByName(string name) {
             return base.Channel.FindKKSCodeByName(name);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFindKKSCodeByName(string name, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFindKKSCodeByName(name, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndFindKKSCodeByName(System.IAsyncResult result) {
+            return base.Channel.EndFindKKSCodeByName(result);
+        }
+        
+        private System.IAsyncResult OnBeginFindKKSCodeByName(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string name = ((string)(inValues[0]));
+            return this.BeginFindKKSCodeByName(name, callback, asyncState);
+        }
+        
+        private object[] OnEndFindKKSCodeByName(System.IAsyncResult result) {
+            string retVal = this.EndFindKKSCodeByName(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnFindKKSCodeByNameCompleted(object state) {
+            if ((this.FindKKSCodeByNameCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FindKKSCodeByNameCompleted(this, new FindKKSCodeByNameCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FindKKSCodeByNameAsync(string name) {
+            this.FindKKSCodeByNameAsync(name, null);
+        }
+        
+        public void FindKKSCodeByNameAsync(string name, object userState) {
+            if ((this.onBeginFindKKSCodeByNameDelegate == null)) {
+                this.onBeginFindKKSCodeByNameDelegate = new BeginOperationDelegate(this.OnBeginFindKKSCodeByName);
+            }
+            if ((this.onEndFindKKSCodeByNameDelegate == null)) {
+                this.onEndFindKKSCodeByNameDelegate = new EndOperationDelegate(this.OnEndFindKKSCodeByName);
+            }
+            if ((this.onFindKKSCodeByNameCompletedDelegate == null)) {
+                this.onFindKKSCodeByNameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFindKKSCodeByNameCompleted);
+            }
+            base.InvokeAsync(this.onBeginFindKKSCodeByNameDelegate, new object[] {
+                        name}, this.onEndFindKKSCodeByNameDelegate, this.onFindKKSCodeByNameCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetPhysicalTopologyList() {
             return base.Channel.GetPhysicalTopologyList();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPhysicalTopologyList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPhysicalTopologyList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetPhysicalTopologyList(System.IAsyncResult result) {
+            return base.Channel.EndGetPhysicalTopologyList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPhysicalTopologyList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetPhysicalTopologyList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetPhysicalTopologyList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology[] retVal = this.EndGetPhysicalTopologyList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPhysicalTopologyListCompleted(object state) {
+            if ((this.GetPhysicalTopologyListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPhysicalTopologyListCompleted(this, new GetPhysicalTopologyListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPhysicalTopologyListAsync() {
+            this.GetPhysicalTopologyListAsync(null);
+        }
+        
+        public void GetPhysicalTopologyListAsync(object userState) {
+            if ((this.onBeginGetPhysicalTopologyListDelegate == null)) {
+                this.onBeginGetPhysicalTopologyListDelegate = new BeginOperationDelegate(this.OnBeginGetPhysicalTopologyList);
+            }
+            if ((this.onEndGetPhysicalTopologyListDelegate == null)) {
+                this.onEndGetPhysicalTopologyListDelegate = new EndOperationDelegate(this.OnEndGetPhysicalTopologyList);
+            }
+            if ((this.onGetPhysicalTopologyListCompletedDelegate == null)) {
+                this.onGetPhysicalTopologyListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPhysicalTopologyListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPhysicalTopologyListDelegate, null, this.onEndGetPhysicalTopologyListDelegate, this.onGetPhysicalTopologyListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology GetPhysicalTopology(string id, bool getChildren) {
             return base.Channel.GetPhysicalTopology(id, getChildren);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPhysicalTopology(string id, bool getChildren, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPhysicalTopology(id, getChildren, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology EndGetPhysicalTopology(System.IAsyncResult result) {
+            return base.Channel.EndGetPhysicalTopology(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPhysicalTopology(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string id = ((string)(inValues[0]));
+            bool getChildren = ((bool)(inValues[1]));
+            return this.BeginGetPhysicalTopology(id, getChildren, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPhysicalTopology(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology retVal = this.EndGetPhysicalTopology(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPhysicalTopologyCompleted(object state) {
+            if ((this.GetPhysicalTopologyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPhysicalTopologyCompleted(this, new GetPhysicalTopologyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPhysicalTopologyAsync(string id, bool getChildren) {
+            this.GetPhysicalTopologyAsync(id, getChildren, null);
+        }
+        
+        public void GetPhysicalTopologyAsync(string id, bool getChildren, object userState) {
+            if ((this.onBeginGetPhysicalTopologyDelegate == null)) {
+                this.onBeginGetPhysicalTopologyDelegate = new BeginOperationDelegate(this.OnBeginGetPhysicalTopology);
+            }
+            if ((this.onEndGetPhysicalTopologyDelegate == null)) {
+                this.onEndGetPhysicalTopologyDelegate = new EndOperationDelegate(this.OnEndGetPhysicalTopology);
+            }
+            if ((this.onGetPhysicalTopologyCompletedDelegate == null)) {
+                this.onGetPhysicalTopologyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPhysicalTopologyCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPhysicalTopologyDelegate, new object[] {
+                        id,
+                        getChildren}, this.onEndGetPhysicalTopologyDelegate, this.onGetPhysicalTopologyCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetPhysicalTopologyListByName(string name) {
             return base.Channel.GetPhysicalTopologyListByName(name);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPhysicalTopologyListByName(string name, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPhysicalTopologyListByName(name, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetPhysicalTopologyListByName(System.IAsyncResult result) {
+            return base.Channel.EndGetPhysicalTopologyListByName(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPhysicalTopologyListByName(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string name = ((string)(inValues[0]));
+            return this.BeginGetPhysicalTopologyListByName(name, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPhysicalTopologyListByName(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology[] retVal = this.EndGetPhysicalTopologyListByName(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPhysicalTopologyListByNameCompleted(object state) {
+            if ((this.GetPhysicalTopologyListByNameCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPhysicalTopologyListByNameCompleted(this, new GetPhysicalTopologyListByNameCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPhysicalTopologyListByNameAsync(string name) {
+            this.GetPhysicalTopologyListByNameAsync(name, null);
+        }
+        
+        public void GetPhysicalTopologyListByNameAsync(string name, object userState) {
+            if ((this.onBeginGetPhysicalTopologyListByNameDelegate == null)) {
+                this.onBeginGetPhysicalTopologyListByNameDelegate = new BeginOperationDelegate(this.OnBeginGetPhysicalTopologyListByName);
+            }
+            if ((this.onEndGetPhysicalTopologyListByNameDelegate == null)) {
+                this.onEndGetPhysicalTopologyListByNameDelegate = new EndOperationDelegate(this.OnEndGetPhysicalTopologyListByName);
+            }
+            if ((this.onGetPhysicalTopologyListByNameCompletedDelegate == null)) {
+                this.onGetPhysicalTopologyListByNameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPhysicalTopologyListByNameCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPhysicalTopologyListByNameDelegate, new object[] {
+                        name}, this.onEndGetPhysicalTopologyListByNameDelegate, this.onGetPhysicalTopologyListByNameCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetPhysicalTopologyListByPid(string id) {
             return base.Channel.GetPhysicalTopologyListByPid(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPhysicalTopologyListByPid(string id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPhysicalTopologyListByPid(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetPhysicalTopologyListByPid(System.IAsyncResult result) {
+            return base.Channel.EndGetPhysicalTopologyListByPid(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPhysicalTopologyListByPid(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string id = ((string)(inValues[0]));
+            return this.BeginGetPhysicalTopologyListByPid(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPhysicalTopologyListByPid(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology[] retVal = this.EndGetPhysicalTopologyListByPid(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPhysicalTopologyListByPidCompleted(object state) {
+            if ((this.GetPhysicalTopologyListByPidCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPhysicalTopologyListByPidCompleted(this, new GetPhysicalTopologyListByPidCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPhysicalTopologyListByPidAsync(string id) {
+            this.GetPhysicalTopologyListByPidAsync(id, null);
+        }
+        
+        public void GetPhysicalTopologyListByPidAsync(string id, object userState) {
+            if ((this.onBeginGetPhysicalTopologyListByPidDelegate == null)) {
+                this.onBeginGetPhysicalTopologyListByPidDelegate = new BeginOperationDelegate(this.OnBeginGetPhysicalTopologyListByPid);
+            }
+            if ((this.onEndGetPhysicalTopologyListByPidDelegate == null)) {
+                this.onEndGetPhysicalTopologyListByPidDelegate = new EndOperationDelegate(this.OnEndGetPhysicalTopologyListByPid);
+            }
+            if ((this.onGetPhysicalTopologyListByPidCompletedDelegate == null)) {
+                this.onGetPhysicalTopologyListByPidCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPhysicalTopologyListByPidCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPhysicalTopologyListByPidDelegate, new object[] {
+                        id}, this.onEndGetPhysicalTopologyListByPidDelegate, this.onGetPhysicalTopologyListByPidCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology GetPhysicalTopologyTree(int view) {
             return base.Channel.GetPhysicalTopologyTree(view);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPhysicalTopologyTree(int view, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPhysicalTopologyTree(view, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology EndGetPhysicalTopologyTree(System.IAsyncResult result) {
+            return base.Channel.EndGetPhysicalTopologyTree(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPhysicalTopologyTree(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int view = ((int)(inValues[0]));
+            return this.BeginGetPhysicalTopologyTree(view, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPhysicalTopologyTree(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology retVal = this.EndGetPhysicalTopologyTree(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPhysicalTopologyTreeCompleted(object state) {
+            if ((this.GetPhysicalTopologyTreeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPhysicalTopologyTreeCompleted(this, new GetPhysicalTopologyTreeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPhysicalTopologyTreeAsync(int view) {
+            this.GetPhysicalTopologyTreeAsync(view, null);
+        }
+        
+        public void GetPhysicalTopologyTreeAsync(int view, object userState) {
+            if ((this.onBeginGetPhysicalTopologyTreeDelegate == null)) {
+                this.onBeginGetPhysicalTopologyTreeDelegate = new BeginOperationDelegate(this.OnBeginGetPhysicalTopologyTree);
+            }
+            if ((this.onEndGetPhysicalTopologyTreeDelegate == null)) {
+                this.onEndGetPhysicalTopologyTreeDelegate = new EndOperationDelegate(this.OnEndGetPhysicalTopologyTree);
+            }
+            if ((this.onGetPhysicalTopologyTreeCompletedDelegate == null)) {
+                this.onGetPhysicalTopologyTreeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPhysicalTopologyTreeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPhysicalTopologyTreeDelegate, new object[] {
+                        view}, this.onEndGetPhysicalTopologyTreeDelegate, this.onGetPhysicalTopologyTreeCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.AreaNode GetPhysicalTopologyTreeNode(int view) {
             return base.Channel.GetPhysicalTopologyTreeNode(view);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPhysicalTopologyTreeNode(int view, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPhysicalTopologyTreeNode(view, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.AreaNode EndGetPhysicalTopologyTreeNode(System.IAsyncResult result) {
+            return base.Channel.EndGetPhysicalTopologyTreeNode(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPhysicalTopologyTreeNode(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int view = ((int)(inValues[0]));
+            return this.BeginGetPhysicalTopologyTreeNode(view, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPhysicalTopologyTreeNode(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.AreaNode retVal = this.EndGetPhysicalTopologyTreeNode(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPhysicalTopologyTreeNodeCompleted(object state) {
+            if ((this.GetPhysicalTopologyTreeNodeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPhysicalTopologyTreeNodeCompleted(this, new GetPhysicalTopologyTreeNodeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPhysicalTopologyTreeNodeAsync(int view) {
+            this.GetPhysicalTopologyTreeNodeAsync(view, null);
+        }
+        
+        public void GetPhysicalTopologyTreeNodeAsync(int view, object userState) {
+            if ((this.onBeginGetPhysicalTopologyTreeNodeDelegate == null)) {
+                this.onBeginGetPhysicalTopologyTreeNodeDelegate = new BeginOperationDelegate(this.OnBeginGetPhysicalTopologyTreeNode);
+            }
+            if ((this.onEndGetPhysicalTopologyTreeNodeDelegate == null)) {
+                this.onEndGetPhysicalTopologyTreeNodeDelegate = new EndOperationDelegate(this.OnEndGetPhysicalTopologyTreeNode);
+            }
+            if ((this.onGetPhysicalTopologyTreeNodeCompletedDelegate == null)) {
+                this.onGetPhysicalTopologyTreeNodeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPhysicalTopologyTreeNodeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPhysicalTopologyTreeNodeDelegate, new object[] {
+                        view}, this.onEndGetPhysicalTopologyTreeNodeDelegate, this.onGetPhysicalTopologyTreeNodeCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology GetPhysicalTopologyTreeById(string id) {
             return base.Channel.GetPhysicalTopologyTreeById(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPhysicalTopologyTreeById(string id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPhysicalTopologyTreeById(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology EndGetPhysicalTopologyTreeById(System.IAsyncResult result) {
+            return base.Channel.EndGetPhysicalTopologyTreeById(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPhysicalTopologyTreeById(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string id = ((string)(inValues[0]));
+            return this.BeginGetPhysicalTopologyTreeById(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPhysicalTopologyTreeById(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology retVal = this.EndGetPhysicalTopologyTreeById(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPhysicalTopologyTreeByIdCompleted(object state) {
+            if ((this.GetPhysicalTopologyTreeByIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPhysicalTopologyTreeByIdCompleted(this, new GetPhysicalTopologyTreeByIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPhysicalTopologyTreeByIdAsync(string id) {
+            this.GetPhysicalTopologyTreeByIdAsync(id, null);
+        }
+        
+        public void GetPhysicalTopologyTreeByIdAsync(string id, object userState) {
+            if ((this.onBeginGetPhysicalTopologyTreeByIdDelegate == null)) {
+                this.onBeginGetPhysicalTopologyTreeByIdDelegate = new BeginOperationDelegate(this.OnBeginGetPhysicalTopologyTreeById);
+            }
+            if ((this.onEndGetPhysicalTopologyTreeByIdDelegate == null)) {
+                this.onEndGetPhysicalTopologyTreeByIdDelegate = new EndOperationDelegate(this.OnEndGetPhysicalTopologyTreeById);
+            }
+            if ((this.onGetPhysicalTopologyTreeByIdCompletedDelegate == null)) {
+                this.onGetPhysicalTopologyTreeByIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPhysicalTopologyTreeByIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPhysicalTopologyTreeByIdDelegate, new object[] {
+                        id}, this.onEndGetPhysicalTopologyTreeByIdDelegate, this.onGetPhysicalTopologyTreeByIdCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology AddPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item) {
             return base.Channel.AddPhysicalTopology(item);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddPhysicalTopology(item, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology EndAddPhysicalTopology(System.IAsyncResult result) {
+            return base.Channel.EndAddPhysicalTopology(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddPhysicalTopology(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology item = ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(inValues[0]));
+            return this.BeginAddPhysicalTopology(item, callback, asyncState);
+        }
+        
+        private object[] OnEndAddPhysicalTopology(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology retVal = this.EndAddPhysicalTopology(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddPhysicalTopologyCompleted(object state) {
+            if ((this.AddPhysicalTopologyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddPhysicalTopologyCompleted(this, new AddPhysicalTopologyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddPhysicalTopologyAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology item) {
+            this.AddPhysicalTopologyAsync(item, null);
+        }
+        
+        public void AddPhysicalTopologyAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology item, object userState) {
+            if ((this.onBeginAddPhysicalTopologyDelegate == null)) {
+                this.onBeginAddPhysicalTopologyDelegate = new BeginOperationDelegate(this.OnBeginAddPhysicalTopology);
+            }
+            if ((this.onEndAddPhysicalTopologyDelegate == null)) {
+                this.onEndAddPhysicalTopologyDelegate = new EndOperationDelegate(this.OnEndAddPhysicalTopology);
+            }
+            if ((this.onAddPhysicalTopologyCompletedDelegate == null)) {
+                this.onAddPhysicalTopologyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddPhysicalTopologyCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddPhysicalTopologyDelegate, new object[] {
+                        item}, this.onEndAddPhysicalTopologyDelegate, this.onAddPhysicalTopologyCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology EditPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item) {
             return base.Channel.EditPhysicalTopology(item);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditPhysicalTopology(Location.WCFServiceReferences.LocationServices.PhysicalTopology item, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditPhysicalTopology(item, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology EndEditPhysicalTopology(System.IAsyncResult result) {
+            return base.Channel.EndEditPhysicalTopology(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditPhysicalTopology(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology item = ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(inValues[0]));
+            return this.BeginEditPhysicalTopology(item, callback, asyncState);
+        }
+        
+        private object[] OnEndEditPhysicalTopology(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology retVal = this.EndEditPhysicalTopology(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditPhysicalTopologyCompleted(object state) {
+            if ((this.EditPhysicalTopologyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditPhysicalTopologyCompleted(this, new EditPhysicalTopologyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditPhysicalTopologyAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology item) {
+            this.EditPhysicalTopologyAsync(item, null);
+        }
+        
+        public void EditPhysicalTopologyAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology item, object userState) {
+            if ((this.onBeginEditPhysicalTopologyDelegate == null)) {
+                this.onBeginEditPhysicalTopologyDelegate = new BeginOperationDelegate(this.OnBeginEditPhysicalTopology);
+            }
+            if ((this.onEndEditPhysicalTopologyDelegate == null)) {
+                this.onEndEditPhysicalTopologyDelegate = new EndOperationDelegate(this.OnEndEditPhysicalTopology);
+            }
+            if ((this.onEditPhysicalTopologyCompletedDelegate == null)) {
+                this.onEditPhysicalTopologyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditPhysicalTopologyCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditPhysicalTopologyDelegate, new object[] {
+                        item}, this.onEndEditPhysicalTopologyDelegate, this.onEditPhysicalTopologyCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology RemovePhysicalTopology(string id) {
             return base.Channel.RemovePhysicalTopology(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginRemovePhysicalTopology(string id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginRemovePhysicalTopology(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology EndRemovePhysicalTopology(System.IAsyncResult result) {
+            return base.Channel.EndRemovePhysicalTopology(result);
+        }
+        
+        private System.IAsyncResult OnBeginRemovePhysicalTopology(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string id = ((string)(inValues[0]));
+            return this.BeginRemovePhysicalTopology(id, callback, asyncState);
+        }
+        
+        private object[] OnEndRemovePhysicalTopology(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology retVal = this.EndRemovePhysicalTopology(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnRemovePhysicalTopologyCompleted(object state) {
+            if ((this.RemovePhysicalTopologyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.RemovePhysicalTopologyCompleted(this, new RemovePhysicalTopologyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void RemovePhysicalTopologyAsync(string id) {
+            this.RemovePhysicalTopologyAsync(id, null);
+        }
+        
+        public void RemovePhysicalTopologyAsync(string id, object userState) {
+            if ((this.onBeginRemovePhysicalTopologyDelegate == null)) {
+                this.onBeginRemovePhysicalTopologyDelegate = new BeginOperationDelegate(this.OnBeginRemovePhysicalTopology);
+            }
+            if ((this.onEndRemovePhysicalTopologyDelegate == null)) {
+                this.onEndRemovePhysicalTopologyDelegate = new EndOperationDelegate(this.OnEndRemovePhysicalTopology);
+            }
+            if ((this.onRemovePhysicalTopologyCompletedDelegate == null)) {
+                this.onRemovePhysicalTopologyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnRemovePhysicalTopologyCompleted);
+            }
+            base.InvokeAsync(this.onBeginRemovePhysicalTopologyDelegate, new object[] {
+                        id}, this.onEndRemovePhysicalTopologyDelegate, this.onRemovePhysicalTopologyCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetParkMonitorRange() {
             return base.Channel.GetParkMonitorRange();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetParkMonitorRange(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetParkMonitorRange(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetParkMonitorRange(System.IAsyncResult result) {
+            return base.Channel.EndGetParkMonitorRange(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetParkMonitorRange(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetParkMonitorRange(callback, asyncState);
+        }
+        
+        private object[] OnEndGetParkMonitorRange(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology[] retVal = this.EndGetParkMonitorRange(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetParkMonitorRangeCompleted(object state) {
+            if ((this.GetParkMonitorRangeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetParkMonitorRangeCompleted(this, new GetParkMonitorRangeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetParkMonitorRangeAsync() {
+            this.GetParkMonitorRangeAsync(null);
+        }
+        
+        public void GetParkMonitorRangeAsync(object userState) {
+            if ((this.onBeginGetParkMonitorRangeDelegate == null)) {
+                this.onBeginGetParkMonitorRangeDelegate = new BeginOperationDelegate(this.OnBeginGetParkMonitorRange);
+            }
+            if ((this.onEndGetParkMonitorRangeDelegate == null)) {
+                this.onEndGetParkMonitorRangeDelegate = new EndOperationDelegate(this.OnEndGetParkMonitorRange);
+            }
+            if ((this.onGetParkMonitorRangeCompletedDelegate == null)) {
+                this.onGetParkMonitorRangeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetParkMonitorRangeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetParkMonitorRangeDelegate, null, this.onEndGetParkMonitorRangeDelegate, this.onGetParkMonitorRangeCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetFloorMonitorRange() {
             return base.Channel.GetFloorMonitorRange();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetFloorMonitorRange(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetFloorMonitorRange(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetFloorMonitorRange(System.IAsyncResult result) {
+            return base.Channel.EndGetFloorMonitorRange(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetFloorMonitorRange(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetFloorMonitorRange(callback, asyncState);
+        }
+        
+        private object[] OnEndGetFloorMonitorRange(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology[] retVal = this.EndGetFloorMonitorRange(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetFloorMonitorRangeCompleted(object state) {
+            if ((this.GetFloorMonitorRangeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetFloorMonitorRangeCompleted(this, new GetFloorMonitorRangeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetFloorMonitorRangeAsync() {
+            this.GetFloorMonitorRangeAsync(null);
+        }
+        
+        public void GetFloorMonitorRangeAsync(object userState) {
+            if ((this.onBeginGetFloorMonitorRangeDelegate == null)) {
+                this.onBeginGetFloorMonitorRangeDelegate = new BeginOperationDelegate(this.OnBeginGetFloorMonitorRange);
+            }
+            if ((this.onEndGetFloorMonitorRangeDelegate == null)) {
+                this.onEndGetFloorMonitorRangeDelegate = new EndOperationDelegate(this.OnEndGetFloorMonitorRange);
+            }
+            if ((this.onGetFloorMonitorRangeCompletedDelegate == null)) {
+                this.onGetFloorMonitorRangeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetFloorMonitorRangeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetFloorMonitorRangeDelegate, null, this.onEndGetFloorMonitorRangeDelegate, this.onGetFloorMonitorRangeCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] GetFloorMonitorRangeById(int id) {
             return base.Channel.GetFloorMonitorRangeById(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetFloorMonitorRangeById(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetFloorMonitorRangeById(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PhysicalTopology[] EndGetFloorMonitorRangeById(System.IAsyncResult result) {
+            return base.Channel.EndGetFloorMonitorRangeById(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetFloorMonitorRangeById(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetFloorMonitorRangeById(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetFloorMonitorRangeById(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology[] retVal = this.EndGetFloorMonitorRangeById(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetFloorMonitorRangeByIdCompleted(object state) {
+            if ((this.GetFloorMonitorRangeByIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetFloorMonitorRangeByIdCompleted(this, new GetFloorMonitorRangeByIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetFloorMonitorRangeByIdAsync(int id) {
+            this.GetFloorMonitorRangeByIdAsync(id, null);
+        }
+        
+        public void GetFloorMonitorRangeByIdAsync(int id, object userState) {
+            if ((this.onBeginGetFloorMonitorRangeByIdDelegate == null)) {
+                this.onBeginGetFloorMonitorRangeByIdDelegate = new BeginOperationDelegate(this.OnBeginGetFloorMonitorRangeById);
+            }
+            if ((this.onEndGetFloorMonitorRangeByIdDelegate == null)) {
+                this.onEndGetFloorMonitorRangeByIdDelegate = new EndOperationDelegate(this.OnEndGetFloorMonitorRangeById);
+            }
+            if ((this.onGetFloorMonitorRangeByIdCompletedDelegate == null)) {
+                this.onGetFloorMonitorRangeByIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetFloorMonitorRangeByIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetFloorMonitorRangeByIdDelegate, new object[] {
+                        id}, this.onEndGetFloorMonitorRangeByIdDelegate, this.onGetFloorMonitorRangeByIdCompletedDelegate, userState);
         }
         
         public bool EditMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt) {
             return base.Channel.EditMonitorRange(pt);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditMonitorRange(pt, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditMonitorRange(System.IAsyncResult result) {
+            return base.Channel.EndEditMonitorRange(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditMonitorRange(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology pt = ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(inValues[0]));
+            return this.BeginEditMonitorRange(pt, callback, asyncState);
+        }
+        
+        private object[] OnEndEditMonitorRange(System.IAsyncResult result) {
+            bool retVal = this.EndEditMonitorRange(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditMonitorRangeCompleted(object state) {
+            if ((this.EditMonitorRangeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditMonitorRangeCompleted(this, new EditMonitorRangeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditMonitorRangeAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt) {
+            this.EditMonitorRangeAsync(pt, null);
+        }
+        
+        public void EditMonitorRangeAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt, object userState) {
+            if ((this.onBeginEditMonitorRangeDelegate == null)) {
+                this.onBeginEditMonitorRangeDelegate = new BeginOperationDelegate(this.OnBeginEditMonitorRange);
+            }
+            if ((this.onEndEditMonitorRangeDelegate == null)) {
+                this.onEndEditMonitorRangeDelegate = new EndOperationDelegate(this.OnEndEditMonitorRange);
+            }
+            if ((this.onEditMonitorRangeCompletedDelegate == null)) {
+                this.onEditMonitorRangeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditMonitorRangeCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditMonitorRangeDelegate, new object[] {
+                        pt}, this.onEndEditMonitorRangeDelegate, this.onEditMonitorRangeCompletedDelegate, userState);
+        }
+        
         public bool AddMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt) {
             return base.Channel.AddMonitorRange(pt);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddMonitorRange(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddMonitorRange(pt, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddMonitorRange(System.IAsyncResult result) {
+            return base.Channel.EndAddMonitorRange(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddMonitorRange(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.PhysicalTopology pt = ((Location.WCFServiceReferences.LocationServices.PhysicalTopology)(inValues[0]));
+            return this.BeginAddMonitorRange(pt, callback, asyncState);
+        }
+        
+        private object[] OnEndAddMonitorRange(System.IAsyncResult result) {
+            bool retVal = this.EndAddMonitorRange(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddMonitorRangeCompleted(object state) {
+            if ((this.AddMonitorRangeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddMonitorRangeCompleted(this, new AddMonitorRangeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddMonitorRangeAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt) {
+            this.AddMonitorRangeAsync(pt, null);
+        }
+        
+        public void AddMonitorRangeAsync(Location.WCFServiceReferences.LocationServices.PhysicalTopology pt, object userState) {
+            if ((this.onBeginAddMonitorRangeDelegate == null)) {
+                this.onBeginAddMonitorRangeDelegate = new BeginOperationDelegate(this.OnBeginAddMonitorRange);
+            }
+            if ((this.onEndAddMonitorRangeDelegate == null)) {
+                this.onEndAddMonitorRangeDelegate = new EndOperationDelegate(this.OnEndAddMonitorRange);
+            }
+            if ((this.onAddMonitorRangeCompletedDelegate == null)) {
+                this.onAddMonitorRangeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddMonitorRangeCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddMonitorRangeDelegate, new object[] {
+                        pt}, this.onEndAddMonitorRangeDelegate, this.onAddMonitorRangeCompletedDelegate, userState);
         }
         
         public bool AddConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config) {
             return base.Channel.AddConfigArg(config);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddConfigArg(config, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndAddConfigArg(System.IAsyncResult result) {
+            return base.Channel.EndAddConfigArg(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddConfigArg(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg config = ((Location.WCFServiceReferences.LocationServices.ConfigArg)(inValues[0]));
+            return this.BeginAddConfigArg(config, callback, asyncState);
+        }
+        
+        private object[] OnEndAddConfigArg(System.IAsyncResult result) {
+            bool retVal = this.EndAddConfigArg(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddConfigArgCompleted(object state) {
+            if ((this.AddConfigArgCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddConfigArgCompleted(this, new AddConfigArgCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddConfigArgAsync(Location.WCFServiceReferences.LocationServices.ConfigArg config) {
+            this.AddConfigArgAsync(config, null);
+        }
+        
+        public void AddConfigArgAsync(Location.WCFServiceReferences.LocationServices.ConfigArg config, object userState) {
+            if ((this.onBeginAddConfigArgDelegate == null)) {
+                this.onBeginAddConfigArgDelegate = new BeginOperationDelegate(this.OnBeginAddConfigArg);
+            }
+            if ((this.onEndAddConfigArgDelegate == null)) {
+                this.onEndAddConfigArgDelegate = new EndOperationDelegate(this.OnEndAddConfigArg);
+            }
+            if ((this.onAddConfigArgCompletedDelegate == null)) {
+                this.onAddConfigArgCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddConfigArgCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddConfigArgDelegate, new object[] {
+                        config}, this.onEndAddConfigArgDelegate, this.onAddConfigArgCompletedDelegate, userState);
+        }
+        
         public bool EditConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config) {
             return base.Channel.EditConfigArg(config);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditConfigArg(config, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditConfigArg(System.IAsyncResult result) {
+            return base.Channel.EndEditConfigArg(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditConfigArg(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg config = ((Location.WCFServiceReferences.LocationServices.ConfigArg)(inValues[0]));
+            return this.BeginEditConfigArg(config, callback, asyncState);
+        }
+        
+        private object[] OnEndEditConfigArg(System.IAsyncResult result) {
+            bool retVal = this.EndEditConfigArg(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditConfigArgCompleted(object state) {
+            if ((this.EditConfigArgCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditConfigArgCompleted(this, new EditConfigArgCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditConfigArgAsync(Location.WCFServiceReferences.LocationServices.ConfigArg config) {
+            this.EditConfigArgAsync(config, null);
+        }
+        
+        public void EditConfigArgAsync(Location.WCFServiceReferences.LocationServices.ConfigArg config, object userState) {
+            if ((this.onBeginEditConfigArgDelegate == null)) {
+                this.onBeginEditConfigArgDelegate = new BeginOperationDelegate(this.OnBeginEditConfigArg);
+            }
+            if ((this.onEndEditConfigArgDelegate == null)) {
+                this.onEndEditConfigArgDelegate = new EndOperationDelegate(this.OnEndEditConfigArg);
+            }
+            if ((this.onEditConfigArgCompletedDelegate == null)) {
+                this.onEditConfigArgCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditConfigArgCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditConfigArgDelegate, new object[] {
+                        config}, this.onEndEditConfigArgDelegate, this.onEditConfigArgCompletedDelegate, userState);
         }
         
         public bool DeleteConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config) {
             return base.Channel.DeleteConfigArg(config);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeleteConfigArg(Location.WCFServiceReferences.LocationServices.ConfigArg config, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteConfigArg(config, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeleteConfigArg(System.IAsyncResult result) {
+            return base.Channel.EndDeleteConfigArg(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteConfigArg(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg config = ((Location.WCFServiceReferences.LocationServices.ConfigArg)(inValues[0]));
+            return this.BeginDeleteConfigArg(config, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteConfigArg(System.IAsyncResult result) {
+            bool retVal = this.EndDeleteConfigArg(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeleteConfigArgCompleted(object state) {
+            if ((this.DeleteConfigArgCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteConfigArgCompleted(this, new DeleteConfigArgCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteConfigArgAsync(Location.WCFServiceReferences.LocationServices.ConfigArg config) {
+            this.DeleteConfigArgAsync(config, null);
+        }
+        
+        public void DeleteConfigArgAsync(Location.WCFServiceReferences.LocationServices.ConfigArg config, object userState) {
+            if ((this.onBeginDeleteConfigArgDelegate == null)) {
+                this.onBeginDeleteConfigArgDelegate = new BeginOperationDelegate(this.OnBeginDeleteConfigArg);
+            }
+            if ((this.onEndDeleteConfigArgDelegate == null)) {
+                this.onEndDeleteConfigArgDelegate = new EndOperationDelegate(this.OnEndDeleteConfigArg);
+            }
+            if ((this.onDeleteConfigArgCompletedDelegate == null)) {
+                this.onDeleteConfigArgCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteConfigArgCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteConfigArgDelegate, new object[] {
+                        config}, this.onEndDeleteConfigArgDelegate, this.onDeleteConfigArgCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.ConfigArg GetConfigArg(int id) {
             return base.Channel.GetConfigArg(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetConfigArg(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetConfigArg(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.ConfigArg EndGetConfigArg(System.IAsyncResult result) {
+            return base.Channel.EndGetConfigArg(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetConfigArg(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetConfigArg(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetConfigArg(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg retVal = this.EndGetConfigArg(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetConfigArgCompleted(object state) {
+            if ((this.GetConfigArgCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetConfigArgCompleted(this, new GetConfigArgCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetConfigArgAsync(int id) {
+            this.GetConfigArgAsync(id, null);
+        }
+        
+        public void GetConfigArgAsync(int id, object userState) {
+            if ((this.onBeginGetConfigArgDelegate == null)) {
+                this.onBeginGetConfigArgDelegate = new BeginOperationDelegate(this.OnBeginGetConfigArg);
+            }
+            if ((this.onEndGetConfigArgDelegate == null)) {
+                this.onEndGetConfigArgDelegate = new EndOperationDelegate(this.OnEndGetConfigArg);
+            }
+            if ((this.onGetConfigArgCompletedDelegate == null)) {
+                this.onGetConfigArgCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetConfigArgCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetConfigArgDelegate, new object[] {
+                        id}, this.onEndGetConfigArgDelegate, this.onGetConfigArgCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.ConfigArg[] GetConfigArgList() {
             return base.Channel.GetConfigArgList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetConfigArgList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetConfigArgList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.ConfigArg[] EndGetConfigArgList(System.IAsyncResult result) {
+            return base.Channel.EndGetConfigArgList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetConfigArgList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetConfigArgList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetConfigArgList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg[] retVal = this.EndGetConfigArgList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetConfigArgListCompleted(object state) {
+            if ((this.GetConfigArgListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetConfigArgListCompleted(this, new GetConfigArgListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetConfigArgListAsync() {
+            this.GetConfigArgListAsync(null);
+        }
+        
+        public void GetConfigArgListAsync(object userState) {
+            if ((this.onBeginGetConfigArgListDelegate == null)) {
+                this.onBeginGetConfigArgListDelegate = new BeginOperationDelegate(this.OnBeginGetConfigArgList);
+            }
+            if ((this.onEndGetConfigArgListDelegate == null)) {
+                this.onEndGetConfigArgListDelegate = new EndOperationDelegate(this.OnEndGetConfigArgList);
+            }
+            if ((this.onGetConfigArgListCompletedDelegate == null)) {
+                this.onGetConfigArgListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetConfigArgListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetConfigArgListDelegate, null, this.onEndGetConfigArgListDelegate, this.onGetConfigArgListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.ConfigArg GetConfigArgByKey(string key) {
             return base.Channel.GetConfigArgByKey(key);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetConfigArgByKey(string key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetConfigArgByKey(key, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.ConfigArg EndGetConfigArgByKey(System.IAsyncResult result) {
+            return base.Channel.EndGetConfigArgByKey(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetConfigArgByKey(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string key = ((string)(inValues[0]));
+            return this.BeginGetConfigArgByKey(key, callback, asyncState);
+        }
+        
+        private object[] OnEndGetConfigArgByKey(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg retVal = this.EndGetConfigArgByKey(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetConfigArgByKeyCompleted(object state) {
+            if ((this.GetConfigArgByKeyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetConfigArgByKeyCompleted(this, new GetConfigArgByKeyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetConfigArgByKeyAsync(string key) {
+            this.GetConfigArgByKeyAsync(key, null);
+        }
+        
+        public void GetConfigArgByKeyAsync(string key, object userState) {
+            if ((this.onBeginGetConfigArgByKeyDelegate == null)) {
+                this.onBeginGetConfigArgByKeyDelegate = new BeginOperationDelegate(this.OnBeginGetConfigArgByKey);
+            }
+            if ((this.onEndGetConfigArgByKeyDelegate == null)) {
+                this.onEndGetConfigArgByKeyDelegate = new EndOperationDelegate(this.OnEndGetConfigArgByKey);
+            }
+            if ((this.onGetConfigArgByKeyCompletedDelegate == null)) {
+                this.onGetConfigArgByKeyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetConfigArgByKeyCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetConfigArgByKeyDelegate, new object[] {
+                        key}, this.onEndGetConfigArgByKeyDelegate, this.onGetConfigArgByKeyCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.ConfigArg[] FindConfigArgListByKey(string key) {
             return base.Channel.FindConfigArgListByKey(key);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFindConfigArgListByKey(string key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFindConfigArgListByKey(key, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.ConfigArg[] EndFindConfigArgListByKey(System.IAsyncResult result) {
+            return base.Channel.EndFindConfigArgListByKey(result);
+        }
+        
+        private System.IAsyncResult OnBeginFindConfigArgListByKey(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string key = ((string)(inValues[0]));
+            return this.BeginFindConfigArgListByKey(key, callback, asyncState);
+        }
+        
+        private object[] OnEndFindConfigArgListByKey(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg[] retVal = this.EndFindConfigArgListByKey(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnFindConfigArgListByKeyCompleted(object state) {
+            if ((this.FindConfigArgListByKeyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FindConfigArgListByKeyCompleted(this, new FindConfigArgListByKeyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FindConfigArgListByKeyAsync(string key) {
+            this.FindConfigArgListByKeyAsync(key, null);
+        }
+        
+        public void FindConfigArgListByKeyAsync(string key, object userState) {
+            if ((this.onBeginFindConfigArgListByKeyDelegate == null)) {
+                this.onBeginFindConfigArgListByKeyDelegate = new BeginOperationDelegate(this.OnBeginFindConfigArgListByKey);
+            }
+            if ((this.onEndFindConfigArgListByKeyDelegate == null)) {
+                this.onEndFindConfigArgListByKeyDelegate = new EndOperationDelegate(this.OnEndFindConfigArgListByKey);
+            }
+            if ((this.onFindConfigArgListByKeyCompletedDelegate == null)) {
+                this.onFindConfigArgListByKeyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFindConfigArgListByKeyCompleted);
+            }
+            base.InvokeAsync(this.onBeginFindConfigArgListByKeyDelegate, new object[] {
+                        key}, this.onEndFindConfigArgListByKeyDelegate, this.onFindConfigArgListByKeyCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.ConfigArg[] FindConfigArgListByClassify(string key) {
             return base.Channel.FindConfigArgListByClassify(key);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFindConfigArgListByClassify(string key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFindConfigArgListByClassify(key, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.ConfigArg[] EndFindConfigArgListByClassify(System.IAsyncResult result) {
+            return base.Channel.EndFindConfigArgListByClassify(result);
+        }
+        
+        private System.IAsyncResult OnBeginFindConfigArgListByClassify(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string key = ((string)(inValues[0]));
+            return this.BeginFindConfigArgListByClassify(key, callback, asyncState);
+        }
+        
+        private object[] OnEndFindConfigArgListByClassify(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.ConfigArg[] retVal = this.EndFindConfigArgListByClassify(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnFindConfigArgListByClassifyCompleted(object state) {
+            if ((this.FindConfigArgListByClassifyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FindConfigArgListByClassifyCompleted(this, new FindConfigArgListByClassifyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FindConfigArgListByClassifyAsync(string key) {
+            this.FindConfigArgListByClassifyAsync(key, null);
+        }
+        
+        public void FindConfigArgListByClassifyAsync(string key, object userState) {
+            if ((this.onBeginFindConfigArgListByClassifyDelegate == null)) {
+                this.onBeginFindConfigArgListByClassifyDelegate = new BeginOperationDelegate(this.OnBeginFindConfigArgListByClassify);
+            }
+            if ((this.onEndFindConfigArgListByClassifyDelegate == null)) {
+                this.onEndFindConfigArgListByClassifyDelegate = new EndOperationDelegate(this.OnEndFindConfigArgListByClassify);
+            }
+            if ((this.onFindConfigArgListByClassifyCompletedDelegate == null)) {
+                this.onFindConfigArgListByClassifyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFindConfigArgListByClassifyCompleted);
+            }
+            base.InvokeAsync(this.onBeginFindConfigArgListByClassifyDelegate, new object[] {
+                        key}, this.onEndFindConfigArgListByClassifyDelegate, this.onFindConfigArgListByClassifyCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig GetTransferOfAxesConfig() {
             return base.Channel.GetTransferOfAxesConfig();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetTransferOfAxesConfig(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTransferOfAxesConfig(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig EndGetTransferOfAxesConfig(System.IAsyncResult result) {
+            return base.Channel.EndGetTransferOfAxesConfig(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTransferOfAxesConfig(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetTransferOfAxesConfig(callback, asyncState);
+        }
+        
+        private object[] OnEndGetTransferOfAxesConfig(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig retVal = this.EndGetTransferOfAxesConfig(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetTransferOfAxesConfigCompleted(object state) {
+            if ((this.GetTransferOfAxesConfigCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTransferOfAxesConfigCompleted(this, new GetTransferOfAxesConfigCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTransferOfAxesConfigAsync() {
+            this.GetTransferOfAxesConfigAsync(null);
+        }
+        
+        public void GetTransferOfAxesConfigAsync(object userState) {
+            if ((this.onBeginGetTransferOfAxesConfigDelegate == null)) {
+                this.onBeginGetTransferOfAxesConfigDelegate = new BeginOperationDelegate(this.OnBeginGetTransferOfAxesConfig);
+            }
+            if ((this.onEndGetTransferOfAxesConfigDelegate == null)) {
+                this.onEndGetTransferOfAxesConfigDelegate = new EndOperationDelegate(this.OnEndGetTransferOfAxesConfig);
+            }
+            if ((this.onGetTransferOfAxesConfigCompletedDelegate == null)) {
+                this.onGetTransferOfAxesConfigCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTransferOfAxesConfigCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTransferOfAxesConfigDelegate, null, this.onEndGetTransferOfAxesConfigDelegate, this.onGetTransferOfAxesConfigCompletedDelegate, userState);
+        }
+        
         public bool SetTransferOfAxesConfig(Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig config) {
             return base.Channel.SetTransferOfAxesConfig(config);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginSetTransferOfAxesConfig(Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig config, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginSetTransferOfAxesConfig(config, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndSetTransferOfAxesConfig(System.IAsyncResult result) {
+            return base.Channel.EndSetTransferOfAxesConfig(result);
+        }
+        
+        private System.IAsyncResult OnBeginSetTransferOfAxesConfig(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig config = ((Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig)(inValues[0]));
+            return this.BeginSetTransferOfAxesConfig(config, callback, asyncState);
+        }
+        
+        private object[] OnEndSetTransferOfAxesConfig(System.IAsyncResult result) {
+            bool retVal = this.EndSetTransferOfAxesConfig(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnSetTransferOfAxesConfigCompleted(object state) {
+            if ((this.SetTransferOfAxesConfigCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.SetTransferOfAxesConfigCompleted(this, new SetTransferOfAxesConfigCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void SetTransferOfAxesConfigAsync(Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig config) {
+            this.SetTransferOfAxesConfigAsync(config, null);
+        }
+        
+        public void SetTransferOfAxesConfigAsync(Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig config, object userState) {
+            if ((this.onBeginSetTransferOfAxesConfigDelegate == null)) {
+                this.onBeginSetTransferOfAxesConfigDelegate = new BeginOperationDelegate(this.OnBeginSetTransferOfAxesConfig);
+            }
+            if ((this.onEndSetTransferOfAxesConfigDelegate == null)) {
+                this.onEndSetTransferOfAxesConfigDelegate = new EndOperationDelegate(this.OnEndSetTransferOfAxesConfig);
+            }
+            if ((this.onSetTransferOfAxesConfigCompletedDelegate == null)) {
+                this.onSetTransferOfAxesConfigCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnSetTransferOfAxesConfigCompleted);
+            }
+            base.InvokeAsync(this.onBeginSetTransferOfAxesConfigDelegate, new object[] {
+                        config}, this.onEndSetTransferOfAxesConfigDelegate, this.onSetTransferOfAxesConfigCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Personnel[] GetPersonList() {
             return base.Channel.GetPersonList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPersonList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPersonList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Personnel[] EndGetPersonList(System.IAsyncResult result) {
+            return base.Channel.EndGetPersonList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPersonList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetPersonList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetPersonList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Personnel[] retVal = this.EndGetPersonList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPersonListCompleted(object state) {
+            if ((this.GetPersonListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPersonListCompleted(this, new GetPersonListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPersonListAsync() {
+            this.GetPersonListAsync(null);
+        }
+        
+        public void GetPersonListAsync(object userState) {
+            if ((this.onBeginGetPersonListDelegate == null)) {
+                this.onBeginGetPersonListDelegate = new BeginOperationDelegate(this.OnBeginGetPersonList);
+            }
+            if ((this.onEndGetPersonListDelegate == null)) {
+                this.onEndGetPersonListDelegate = new EndOperationDelegate(this.OnEndGetPersonList);
+            }
+            if ((this.onGetPersonListCompletedDelegate == null)) {
+                this.onGetPersonListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPersonListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPersonListDelegate, null, this.onEndGetPersonListDelegate, this.onGetPersonListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Personnel[] FindPersonList(string key) {
             return base.Channel.FindPersonList(key);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFindPersonList(string key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFindPersonList(key, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Personnel[] EndFindPersonList(System.IAsyncResult result) {
+            return base.Channel.EndFindPersonList(result);
+        }
+        
+        private System.IAsyncResult OnBeginFindPersonList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string key = ((string)(inValues[0]));
+            return this.BeginFindPersonList(key, callback, asyncState);
+        }
+        
+        private object[] OnEndFindPersonList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Personnel[] retVal = this.EndFindPersonList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnFindPersonListCompleted(object state) {
+            if ((this.FindPersonListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FindPersonListCompleted(this, new FindPersonListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FindPersonListAsync(string key) {
+            this.FindPersonListAsync(key, null);
+        }
+        
+        public void FindPersonListAsync(string key, object userState) {
+            if ((this.onBeginFindPersonListDelegate == null)) {
+                this.onBeginFindPersonListDelegate = new BeginOperationDelegate(this.OnBeginFindPersonList);
+            }
+            if ((this.onEndFindPersonListDelegate == null)) {
+                this.onEndFindPersonListDelegate = new EndOperationDelegate(this.OnEndFindPersonList);
+            }
+            if ((this.onFindPersonListCompletedDelegate == null)) {
+                this.onFindPersonListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFindPersonListCompleted);
+            }
+            base.InvokeAsync(this.onBeginFindPersonListDelegate, new object[] {
+                        key}, this.onEndFindPersonListDelegate, this.onFindPersonListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Personnel GetPerson(int id) {
             return base.Channel.GetPerson(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPerson(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPerson(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Personnel EndGetPerson(System.IAsyncResult result) {
+            return base.Channel.EndGetPerson(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPerson(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetPerson(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPerson(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Personnel retVal = this.EndGetPerson(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPersonCompleted(object state) {
+            if ((this.GetPersonCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPersonCompleted(this, new GetPersonCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPersonAsync(int id) {
+            this.GetPersonAsync(id, null);
+        }
+        
+        public void GetPersonAsync(int id, object userState) {
+            if ((this.onBeginGetPersonDelegate == null)) {
+                this.onBeginGetPersonDelegate = new BeginOperationDelegate(this.OnBeginGetPerson);
+            }
+            if ((this.onEndGetPersonDelegate == null)) {
+                this.onEndGetPersonDelegate = new EndOperationDelegate(this.OnEndGetPerson);
+            }
+            if ((this.onGetPersonCompletedDelegate == null)) {
+                this.onGetPersonCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPersonCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPersonDelegate, new object[] {
+                        id}, this.onEndGetPersonDelegate, this.onGetPersonCompletedDelegate, userState);
+        }
+        
         public int AddPerson(Location.WCFServiceReferences.LocationServices.Personnel p) {
             return base.Channel.AddPerson(p);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddPerson(Location.WCFServiceReferences.LocationServices.Personnel p, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddPerson(p, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public int EndAddPerson(System.IAsyncResult result) {
+            return base.Channel.EndAddPerson(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddPerson(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Personnel p = ((Location.WCFServiceReferences.LocationServices.Personnel)(inValues[0]));
+            return this.BeginAddPerson(p, callback, asyncState);
+        }
+        
+        private object[] OnEndAddPerson(System.IAsyncResult result) {
+            int retVal = this.EndAddPerson(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnAddPersonCompleted(object state) {
+            if ((this.AddPersonCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddPersonCompleted(this, new AddPersonCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddPersonAsync(Location.WCFServiceReferences.LocationServices.Personnel p) {
+            this.AddPersonAsync(p, null);
+        }
+        
+        public void AddPersonAsync(Location.WCFServiceReferences.LocationServices.Personnel p, object userState) {
+            if ((this.onBeginAddPersonDelegate == null)) {
+                this.onBeginAddPersonDelegate = new BeginOperationDelegate(this.OnBeginAddPerson);
+            }
+            if ((this.onEndAddPersonDelegate == null)) {
+                this.onEndAddPersonDelegate = new EndOperationDelegate(this.OnEndAddPerson);
+            }
+            if ((this.onAddPersonCompletedDelegate == null)) {
+                this.onAddPersonCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddPersonCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddPersonDelegate, new object[] {
+                        p}, this.onEndAddPersonDelegate, this.onAddPersonCompletedDelegate, userState);
         }
         
         public bool EditPerson(Location.WCFServiceReferences.LocationServices.Personnel p) {
             return base.Channel.EditPerson(p);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditPerson(Location.WCFServiceReferences.LocationServices.Personnel p, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditPerson(p, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditPerson(System.IAsyncResult result) {
+            return base.Channel.EndEditPerson(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditPerson(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Personnel p = ((Location.WCFServiceReferences.LocationServices.Personnel)(inValues[0]));
+            return this.BeginEditPerson(p, callback, asyncState);
+        }
+        
+        private object[] OnEndEditPerson(System.IAsyncResult result) {
+            bool retVal = this.EndEditPerson(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditPersonCompleted(object state) {
+            if ((this.EditPersonCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditPersonCompleted(this, new EditPersonCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditPersonAsync(Location.WCFServiceReferences.LocationServices.Personnel p) {
+            this.EditPersonAsync(p, null);
+        }
+        
+        public void EditPersonAsync(Location.WCFServiceReferences.LocationServices.Personnel p, object userState) {
+            if ((this.onBeginEditPersonDelegate == null)) {
+                this.onBeginEditPersonDelegate = new BeginOperationDelegate(this.OnBeginEditPerson);
+            }
+            if ((this.onEndEditPersonDelegate == null)) {
+                this.onEndEditPersonDelegate = new EndOperationDelegate(this.OnEndEditPerson);
+            }
+            if ((this.onEditPersonCompletedDelegate == null)) {
+                this.onEditPersonCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditPersonCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditPersonDelegate, new object[] {
+                        p}, this.onEndEditPersonDelegate, this.onEditPersonCompletedDelegate, userState);
+        }
+        
         public bool DeletePerson(int id) {
             return base.Channel.DeletePerson(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginDeletePerson(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeletePerson(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndDeletePerson(System.IAsyncResult result) {
+            return base.Channel.EndDeletePerson(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeletePerson(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginDeletePerson(id, callback, asyncState);
+        }
+        
+        private object[] OnEndDeletePerson(System.IAsyncResult result) {
+            bool retVal = this.EndDeletePerson(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnDeletePersonCompleted(object state) {
+            if ((this.DeletePersonCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeletePersonCompleted(this, new DeletePersonCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeletePersonAsync(int id) {
+            this.DeletePersonAsync(id, null);
+        }
+        
+        public void DeletePersonAsync(int id, object userState) {
+            if ((this.onBeginDeletePersonDelegate == null)) {
+                this.onBeginDeletePersonDelegate = new BeginOperationDelegate(this.OnBeginDeletePerson);
+            }
+            if ((this.onEndDeletePersonDelegate == null)) {
+                this.onEndDeletePersonDelegate = new EndOperationDelegate(this.OnEndDeletePerson);
+            }
+            if ((this.onDeletePersonCompletedDelegate == null)) {
+                this.onDeletePersonCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeletePersonCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeletePersonDelegate, new object[] {
+                        id}, this.onEndDeletePersonDelegate, this.onDeletePersonCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.NearbyPerson[] GetNearbyPerson_Currency(int id, float fDis) {
             return base.Channel.GetNearbyPerson_Currency(id, fDis);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetNearbyPerson_Currency(int id, float fDis, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetNearbyPerson_Currency(id, fDis, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.NearbyPerson[] EndGetNearbyPerson_Currency(System.IAsyncResult result) {
+            return base.Channel.EndGetNearbyPerson_Currency(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetNearbyPerson_Currency(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            float fDis = ((float)(inValues[1]));
+            return this.BeginGetNearbyPerson_Currency(id, fDis, callback, asyncState);
+        }
+        
+        private object[] OnEndGetNearbyPerson_Currency(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.NearbyPerson[] retVal = this.EndGetNearbyPerson_Currency(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetNearbyPerson_CurrencyCompleted(object state) {
+            if ((this.GetNearbyPerson_CurrencyCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetNearbyPerson_CurrencyCompleted(this, new GetNearbyPerson_CurrencyCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetNearbyPerson_CurrencyAsync(int id, float fDis) {
+            this.GetNearbyPerson_CurrencyAsync(id, fDis, null);
+        }
+        
+        public void GetNearbyPerson_CurrencyAsync(int id, float fDis, object userState) {
+            if ((this.onBeginGetNearbyPerson_CurrencyDelegate == null)) {
+                this.onBeginGetNearbyPerson_CurrencyDelegate = new BeginOperationDelegate(this.OnBeginGetNearbyPerson_Currency);
+            }
+            if ((this.onEndGetNearbyPerson_CurrencyDelegate == null)) {
+                this.onEndGetNearbyPerson_CurrencyDelegate = new EndOperationDelegate(this.OnEndGetNearbyPerson_Currency);
+            }
+            if ((this.onGetNearbyPerson_CurrencyCompletedDelegate == null)) {
+                this.onGetNearbyPerson_CurrencyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetNearbyPerson_CurrencyCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetNearbyPerson_CurrencyDelegate, new object[] {
+                        id,
+                        fDis}, this.onEndGetNearbyPerson_CurrencyDelegate, this.onGetNearbyPerson_CurrencyCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.NearbyPerson[] GetNearbyPerson_Alarm(int id, float fDis) {
             return base.Channel.GetNearbyPerson_Alarm(id, fDis);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetNearbyPerson_Alarm(int id, float fDis, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetNearbyPerson_Alarm(id, fDis, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.NearbyPerson[] EndGetNearbyPerson_Alarm(System.IAsyncResult result) {
+            return base.Channel.EndGetNearbyPerson_Alarm(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetNearbyPerson_Alarm(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            float fDis = ((float)(inValues[1]));
+            return this.BeginGetNearbyPerson_Alarm(id, fDis, callback, asyncState);
+        }
+        
+        private object[] OnEndGetNearbyPerson_Alarm(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.NearbyPerson[] retVal = this.EndGetNearbyPerson_Alarm(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetNearbyPerson_AlarmCompleted(object state) {
+            if ((this.GetNearbyPerson_AlarmCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetNearbyPerson_AlarmCompleted(this, new GetNearbyPerson_AlarmCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetNearbyPerson_AlarmAsync(int id, float fDis) {
+            this.GetNearbyPerson_AlarmAsync(id, fDis, null);
+        }
+        
+        public void GetNearbyPerson_AlarmAsync(int id, float fDis, object userState) {
+            if ((this.onBeginGetNearbyPerson_AlarmDelegate == null)) {
+                this.onBeginGetNearbyPerson_AlarmDelegate = new BeginOperationDelegate(this.OnBeginGetNearbyPerson_Alarm);
+            }
+            if ((this.onEndGetNearbyPerson_AlarmDelegate == null)) {
+                this.onEndGetNearbyPerson_AlarmDelegate = new EndOperationDelegate(this.OnEndGetNearbyPerson_Alarm);
+            }
+            if ((this.onGetNearbyPerson_AlarmCompletedDelegate == null)) {
+                this.onGetNearbyPerson_AlarmCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetNearbyPerson_AlarmCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetNearbyPerson_AlarmDelegate, new object[] {
+                        id,
+                        fDis}, this.onEndGetNearbyPerson_AlarmDelegate, this.onGetNearbyPerson_AlarmCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.LocationAlarm[] GetLocationAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg) {
             return base.Channel.GetLocationAlarms(arg);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetLocationAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetLocationAlarms(arg, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.LocationAlarm[] EndGetLocationAlarms(System.IAsyncResult result) {
+            return base.Channel.EndGetLocationAlarms(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetLocationAlarms(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg = ((Location.WCFServiceReferences.LocationServices.AlarmSearchArg)(inValues[0]));
+            return this.BeginGetLocationAlarms(arg, callback, asyncState);
+        }
+        
+        private object[] OnEndGetLocationAlarms(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.LocationAlarm[] retVal = this.EndGetLocationAlarms(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetLocationAlarmsCompleted(object state) {
+            if ((this.GetLocationAlarmsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetLocationAlarmsCompleted(this, new GetLocationAlarmsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetLocationAlarmsAsync(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg) {
+            this.GetLocationAlarmsAsync(arg, null);
+        }
+        
+        public void GetLocationAlarmsAsync(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg, object userState) {
+            if ((this.onBeginGetLocationAlarmsDelegate == null)) {
+                this.onBeginGetLocationAlarmsDelegate = new BeginOperationDelegate(this.OnBeginGetLocationAlarms);
+            }
+            if ((this.onEndGetLocationAlarmsDelegate == null)) {
+                this.onEndGetLocationAlarmsDelegate = new EndOperationDelegate(this.OnEndGetLocationAlarms);
+            }
+            if ((this.onGetLocationAlarmsCompletedDelegate == null)) {
+                this.onGetLocationAlarmsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetLocationAlarmsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetLocationAlarmsDelegate, new object[] {
+                        arg}, this.onEndGetLocationAlarmsDelegate, this.onGetLocationAlarmsCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.DeviceAlarm[] GetDeviceAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg) {
             return base.Channel.GetDeviceAlarms(arg);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDeviceAlarms(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDeviceAlarms(arg, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.DeviceAlarm[] EndGetDeviceAlarms(System.IAsyncResult result) {
+            return base.Channel.EndGetDeviceAlarms(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDeviceAlarms(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg = ((Location.WCFServiceReferences.LocationServices.AlarmSearchArg)(inValues[0]));
+            return this.BeginGetDeviceAlarms(arg, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDeviceAlarms(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.DeviceAlarm[] retVal = this.EndGetDeviceAlarms(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDeviceAlarmsCompleted(object state) {
+            if ((this.GetDeviceAlarmsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDeviceAlarmsCompleted(this, new GetDeviceAlarmsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDeviceAlarmsAsync(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg) {
+            this.GetDeviceAlarmsAsync(arg, null);
+        }
+        
+        public void GetDeviceAlarmsAsync(Location.WCFServiceReferences.LocationServices.AlarmSearchArg arg, object userState) {
+            if ((this.onBeginGetDeviceAlarmsDelegate == null)) {
+                this.onBeginGetDeviceAlarmsDelegate = new BeginOperationDelegate(this.OnBeginGetDeviceAlarms);
+            }
+            if ((this.onEndGetDeviceAlarmsDelegate == null)) {
+                this.onEndGetDeviceAlarmsDelegate = new EndOperationDelegate(this.OnEndGetDeviceAlarms);
+            }
+            if ((this.onGetDeviceAlarmsCompletedDelegate == null)) {
+                this.onGetDeviceAlarmsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDeviceAlarmsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDeviceAlarmsDelegate, new object[] {
+                        arg}, this.onEndGetDeviceAlarmsDelegate, this.onGetDeviceAlarmsCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Post[] GetPostList() {
             return base.Channel.GetPostList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPostList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPostList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Post[] EndGetPostList(System.IAsyncResult result) {
+            return base.Channel.EndGetPostList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPostList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetPostList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetPostList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Post[] retVal = this.EndGetPostList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPostListCompleted(object state) {
+            if ((this.GetPostListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPostListCompleted(this, new GetPostListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPostListAsync() {
+            this.GetPostListAsync(null);
+        }
+        
+        public void GetPostListAsync(object userState) {
+            if ((this.onBeginGetPostListDelegate == null)) {
+                this.onBeginGetPostListDelegate = new BeginOperationDelegate(this.OnBeginGetPostList);
+            }
+            if ((this.onEndGetPostListDelegate == null)) {
+                this.onEndGetPostListDelegate = new EndOperationDelegate(this.OnEndGetPostList);
+            }
+            if ((this.onGetPostListCompletedDelegate == null)) {
+                this.onGetPostListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPostListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPostListDelegate, null, this.onEndGetPostListDelegate, this.onGetPostListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.Ticket[] GetTicketList(int type, System.DateTime start, System.DateTime end) {
             return base.Channel.GetTicketList(type, start, end);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetTicketList(int type, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTicketList(type, start, end, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Ticket[] EndGetTicketList(System.IAsyncResult result) {
+            return base.Channel.EndGetTicketList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTicketList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int type = ((int)(inValues[0]));
+            System.DateTime start = ((System.DateTime)(inValues[1]));
+            System.DateTime end = ((System.DateTime)(inValues[2]));
+            return this.BeginGetTicketList(type, start, end, callback, asyncState);
+        }
+        
+        private object[] OnEndGetTicketList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Ticket[] retVal = this.EndGetTicketList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetTicketListCompleted(object state) {
+            if ((this.GetTicketListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTicketListCompleted(this, new GetTicketListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTicketListAsync(int type, System.DateTime start, System.DateTime end) {
+            this.GetTicketListAsync(type, start, end, null);
+        }
+        
+        public void GetTicketListAsync(int type, System.DateTime start, System.DateTime end, object userState) {
+            if ((this.onBeginGetTicketListDelegate == null)) {
+                this.onBeginGetTicketListDelegate = new BeginOperationDelegate(this.OnBeginGetTicketList);
+            }
+            if ((this.onEndGetTicketListDelegate == null)) {
+                this.onEndGetTicketListDelegate = new EndOperationDelegate(this.OnEndGetTicketList);
+            }
+            if ((this.onGetTicketListCompletedDelegate == null)) {
+                this.onGetTicketListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTicketListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTicketListDelegate, new object[] {
+                        type,
+                        start,
+                        end}, this.onEndGetTicketListDelegate, this.onGetTicketListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Ticket GetTicketDetial(int id) {
             return base.Channel.GetTicketDetial(id);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetTicketDetial(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTicketDetial(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Ticket EndGetTicketDetial(System.IAsyncResult result) {
+            return base.Channel.EndGetTicketDetial(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTicketDetial(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetTicketDetial(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetTicketDetial(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Ticket retVal = this.EndGetTicketDetial(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetTicketDetialCompleted(object state) {
+            if ((this.GetTicketDetialCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTicketDetialCompleted(this, new GetTicketDetialCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTicketDetialAsync(int id) {
+            this.GetTicketDetialAsync(id, null);
+        }
+        
+        public void GetTicketDetialAsync(int id, object userState) {
+            if ((this.onBeginGetTicketDetialDelegate == null)) {
+                this.onBeginGetTicketDetialDelegate = new BeginOperationDelegate(this.OnBeginGetTicketDetial);
+            }
+            if ((this.onEndGetTicketDetialDelegate == null)) {
+                this.onEndGetTicketDetialDelegate = new EndOperationDelegate(this.OnEndGetTicketDetial);
+            }
+            if ((this.onGetTicketDetialCompletedDelegate == null)) {
+                this.onGetTicketDetialCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTicketDetialCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTicketDetialDelegate, new object[] {
+                        id}, this.onEndGetTicketDetialDelegate, this.onGetTicketDetialCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.OperationTicket[] GetOperationTicketList() {
             return base.Channel.GetOperationTicketList();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetOperationTicketList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetOperationTicketList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.OperationTicket[] EndGetOperationTicketList(System.IAsyncResult result) {
+            return base.Channel.EndGetOperationTicketList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetOperationTicketList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetOperationTicketList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetOperationTicketList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.OperationTicket[] retVal = this.EndGetOperationTicketList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetOperationTicketListCompleted(object state) {
+            if ((this.GetOperationTicketListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetOperationTicketListCompleted(this, new GetOperationTicketListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetOperationTicketListAsync() {
+            this.GetOperationTicketListAsync(null);
+        }
+        
+        public void GetOperationTicketListAsync(object userState) {
+            if ((this.onBeginGetOperationTicketListDelegate == null)) {
+                this.onBeginGetOperationTicketListDelegate = new BeginOperationDelegate(this.OnBeginGetOperationTicketList);
+            }
+            if ((this.onEndGetOperationTicketListDelegate == null)) {
+                this.onEndGetOperationTicketListDelegate = new EndOperationDelegate(this.OnEndGetOperationTicketList);
+            }
+            if ((this.onGetOperationTicketListCompletedDelegate == null)) {
+                this.onGetOperationTicketListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetOperationTicketListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetOperationTicketListDelegate, null, this.onEndGetOperationTicketListDelegate, this.onGetOperationTicketListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.WorkTicket[] GetWorkTicketList() {
             return base.Channel.GetWorkTicketList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetWorkTicketList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetWorkTicketList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.WorkTicket[] EndGetWorkTicketList(System.IAsyncResult result) {
+            return base.Channel.EndGetWorkTicketList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetWorkTicketList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetWorkTicketList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetWorkTicketList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.WorkTicket[] retVal = this.EndGetWorkTicketList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetWorkTicketListCompleted(object state) {
+            if ((this.GetWorkTicketListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetWorkTicketListCompleted(this, new GetWorkTicketListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetWorkTicketListAsync() {
+            this.GetWorkTicketListAsync(null);
+        }
+        
+        public void GetWorkTicketListAsync(object userState) {
+            if ((this.onBeginGetWorkTicketListDelegate == null)) {
+                this.onBeginGetWorkTicketListDelegate = new BeginOperationDelegate(this.OnBeginGetWorkTicketList);
+            }
+            if ((this.onEndGetWorkTicketListDelegate == null)) {
+                this.onEndGetWorkTicketListDelegate = new EndOperationDelegate(this.OnEndGetWorkTicketList);
+            }
+            if ((this.onGetWorkTicketListCompletedDelegate == null)) {
+                this.onGetWorkTicketListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetWorkTicketListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetWorkTicketListDelegate, null, this.onEndGetWorkTicketListDelegate, this.onGetWorkTicketListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.MobileInspectionDev[] GetMobileInspectionDevList() {
             return base.Channel.GetMobileInspectionDevList();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetMobileInspectionDevList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetMobileInspectionDevList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.MobileInspectionDev[] EndGetMobileInspectionDevList(System.IAsyncResult result) {
+            return base.Channel.EndGetMobileInspectionDevList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetMobileInspectionDevList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetMobileInspectionDevList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetMobileInspectionDevList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.MobileInspectionDev[] retVal = this.EndGetMobileInspectionDevList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetMobileInspectionDevListCompleted(object state) {
+            if ((this.GetMobileInspectionDevListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetMobileInspectionDevListCompleted(this, new GetMobileInspectionDevListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetMobileInspectionDevListAsync() {
+            this.GetMobileInspectionDevListAsync(null);
+        }
+        
+        public void GetMobileInspectionDevListAsync(object userState) {
+            if ((this.onBeginGetMobileInspectionDevListDelegate == null)) {
+                this.onBeginGetMobileInspectionDevListDelegate = new BeginOperationDelegate(this.OnBeginGetMobileInspectionDevList);
+            }
+            if ((this.onEndGetMobileInspectionDevListDelegate == null)) {
+                this.onEndGetMobileInspectionDevListDelegate = new EndOperationDelegate(this.OnEndGetMobileInspectionDevList);
+            }
+            if ((this.onGetMobileInspectionDevListCompletedDelegate == null)) {
+                this.onGetMobileInspectionDevListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetMobileInspectionDevListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetMobileInspectionDevListDelegate, null, this.onEndGetMobileInspectionDevListDelegate, this.onGetMobileInspectionDevListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.MobileInspection[] GetMobileInspectionList() {
             return base.Channel.GetMobileInspectionList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetMobileInspectionList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetMobileInspectionList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.MobileInspection[] EndGetMobileInspectionList(System.IAsyncResult result) {
+            return base.Channel.EndGetMobileInspectionList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetMobileInspectionList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetMobileInspectionList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetMobileInspectionList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.MobileInspection[] retVal = this.EndGetMobileInspectionList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetMobileInspectionListCompleted(object state) {
+            if ((this.GetMobileInspectionListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetMobileInspectionListCompleted(this, new GetMobileInspectionListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetMobileInspectionListAsync() {
+            this.GetMobileInspectionListAsync(null);
+        }
+        
+        public void GetMobileInspectionListAsync(object userState) {
+            if ((this.onBeginGetMobileInspectionListDelegate == null)) {
+                this.onBeginGetMobileInspectionListDelegate = new BeginOperationDelegate(this.OnBeginGetMobileInspectionList);
+            }
+            if ((this.onEndGetMobileInspectionListDelegate == null)) {
+                this.onEndGetMobileInspectionListDelegate = new EndOperationDelegate(this.OnEndGetMobileInspectionList);
+            }
+            if ((this.onGetMobileInspectionListCompletedDelegate == null)) {
+                this.onGetMobileInspectionListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetMobileInspectionListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetMobileInspectionListDelegate, null, this.onEndGetMobileInspectionListDelegate, this.onGetMobileInspectionListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection[] GetPersonnelMobileInspectionList() {
             return base.Channel.GetPersonnelMobileInspectionList();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPersonnelMobileInspectionList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPersonnelMobileInspectionList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection[] EndGetPersonnelMobileInspectionList(System.IAsyncResult result) {
+            return base.Channel.EndGetPersonnelMobileInspectionList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPersonnelMobileInspectionList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetPersonnelMobileInspectionList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetPersonnelMobileInspectionList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection[] retVal = this.EndGetPersonnelMobileInspectionList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPersonnelMobileInspectionListCompleted(object state) {
+            if ((this.GetPersonnelMobileInspectionListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPersonnelMobileInspectionListCompleted(this, new GetPersonnelMobileInspectionListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPersonnelMobileInspectionListAsync() {
+            this.GetPersonnelMobileInspectionListAsync(null);
+        }
+        
+        public void GetPersonnelMobileInspectionListAsync(object userState) {
+            if ((this.onBeginGetPersonnelMobileInspectionListDelegate == null)) {
+                this.onBeginGetPersonnelMobileInspectionListDelegate = new BeginOperationDelegate(this.OnBeginGetPersonnelMobileInspectionList);
+            }
+            if ((this.onEndGetPersonnelMobileInspectionListDelegate == null)) {
+                this.onEndGetPersonnelMobileInspectionListDelegate = new EndOperationDelegate(this.OnEndGetPersonnelMobileInspectionList);
+            }
+            if ((this.onGetPersonnelMobileInspectionListCompletedDelegate == null)) {
+                this.onGetPersonnelMobileInspectionListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPersonnelMobileInspectionListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPersonnelMobileInspectionListDelegate, null, this.onEndGetPersonnelMobileInspectionListDelegate, this.onGetPersonnelMobileInspectionListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.OperationTicketHistory[] GetOperationTicketHistoryList() {
             return base.Channel.GetOperationTicketHistoryList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetOperationTicketHistoryList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetOperationTicketHistoryList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.OperationTicketHistory[] EndGetOperationTicketHistoryList(System.IAsyncResult result) {
+            return base.Channel.EndGetOperationTicketHistoryList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetOperationTicketHistoryList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetOperationTicketHistoryList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetOperationTicketHistoryList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.OperationTicketHistory[] retVal = this.EndGetOperationTicketHistoryList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetOperationTicketHistoryListCompleted(object state) {
+            if ((this.GetOperationTicketHistoryListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetOperationTicketHistoryListCompleted(this, new GetOperationTicketHistoryListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetOperationTicketHistoryListAsync() {
+            this.GetOperationTicketHistoryListAsync(null);
+        }
+        
+        public void GetOperationTicketHistoryListAsync(object userState) {
+            if ((this.onBeginGetOperationTicketHistoryListDelegate == null)) {
+                this.onBeginGetOperationTicketHistoryListDelegate = new BeginOperationDelegate(this.OnBeginGetOperationTicketHistoryList);
+            }
+            if ((this.onEndGetOperationTicketHistoryListDelegate == null)) {
+                this.onEndGetOperationTicketHistoryListDelegate = new EndOperationDelegate(this.OnEndGetOperationTicketHistoryList);
+            }
+            if ((this.onGetOperationTicketHistoryListCompletedDelegate == null)) {
+                this.onGetOperationTicketHistoryListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetOperationTicketHistoryListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetOperationTicketHistoryListDelegate, null, this.onEndGetOperationTicketHistoryListDelegate, this.onGetOperationTicketHistoryListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.WorkTicketHistory[] GetWorkTicketHistoryList() {
             return base.Channel.GetWorkTicketHistoryList();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetWorkTicketHistoryList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetWorkTicketHistoryList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.WorkTicketHistory[] EndGetWorkTicketHistoryList(System.IAsyncResult result) {
+            return base.Channel.EndGetWorkTicketHistoryList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetWorkTicketHistoryList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetWorkTicketHistoryList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetWorkTicketHistoryList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.WorkTicketHistory[] retVal = this.EndGetWorkTicketHistoryList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetWorkTicketHistoryListCompleted(object state) {
+            if ((this.GetWorkTicketHistoryListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetWorkTicketHistoryListCompleted(this, new GetWorkTicketHistoryListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetWorkTicketHistoryListAsync() {
+            this.GetWorkTicketHistoryListAsync(null);
+        }
+        
+        public void GetWorkTicketHistoryListAsync(object userState) {
+            if ((this.onBeginGetWorkTicketHistoryListDelegate == null)) {
+                this.onBeginGetWorkTicketHistoryListDelegate = new BeginOperationDelegate(this.OnBeginGetWorkTicketHistoryList);
+            }
+            if ((this.onEndGetWorkTicketHistoryListDelegate == null)) {
+                this.onEndGetWorkTicketHistoryListDelegate = new EndOperationDelegate(this.OnEndGetWorkTicketHistoryList);
+            }
+            if ((this.onGetWorkTicketHistoryListCompletedDelegate == null)) {
+                this.onGetWorkTicketHistoryListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetWorkTicketHistoryListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetWorkTicketHistoryListDelegate, null, this.onEndGetWorkTicketHistoryListDelegate, this.onGetWorkTicketHistoryListCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] GetPersonnelMobileInspectionHistoryList() {
             return base.Channel.GetPersonnelMobileInspectionHistoryList();
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPersonnelMobileInspectionHistoryList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPersonnelMobileInspectionHistoryList(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] EndGetPersonnelMobileInspectionHistoryList(System.IAsyncResult result) {
+            return base.Channel.EndGetPersonnelMobileInspectionHistoryList(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPersonnelMobileInspectionHistoryList(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetPersonnelMobileInspectionHistoryList(callback, asyncState);
+        }
+        
+        private object[] OnEndGetPersonnelMobileInspectionHistoryList(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] retVal = this.EndGetPersonnelMobileInspectionHistoryList(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPersonnelMobileInspectionHistoryListCompleted(object state) {
+            if ((this.GetPersonnelMobileInspectionHistoryListCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPersonnelMobileInspectionHistoryListCompleted(this, new GetPersonnelMobileInspectionHistoryListCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPersonnelMobileInspectionHistoryListAsync() {
+            this.GetPersonnelMobileInspectionHistoryListAsync(null);
+        }
+        
+        public void GetPersonnelMobileInspectionHistoryListAsync(object userState) {
+            if ((this.onBeginGetPersonnelMobileInspectionHistoryListDelegate == null)) {
+                this.onBeginGetPersonnelMobileInspectionHistoryListDelegate = new BeginOperationDelegate(this.OnBeginGetPersonnelMobileInspectionHistoryList);
+            }
+            if ((this.onEndGetPersonnelMobileInspectionHistoryListDelegate == null)) {
+                this.onEndGetPersonnelMobileInspectionHistoryListDelegate = new EndOperationDelegate(this.OnEndGetPersonnelMobileInspectionHistoryList);
+            }
+            if ((this.onGetPersonnelMobileInspectionHistoryListCompletedDelegate == null)) {
+                this.onGetPersonnelMobileInspectionHistoryListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPersonnelMobileInspectionHistoryListCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPersonnelMobileInspectionHistoryListDelegate, null, this.onEndGetPersonnelMobileInspectionHistoryListDelegate, this.onGetPersonnelMobileInspectionHistoryListCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.LoginInfo Login(Location.WCFServiceReferences.LocationServices.LoginInfo info) {
             return base.Channel.Login(info);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginLogin(Location.WCFServiceReferences.LocationServices.LoginInfo info, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginLogin(info, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.LoginInfo EndLogin(System.IAsyncResult result) {
+            return base.Channel.EndLogin(result);
+        }
+        
+        private System.IAsyncResult OnBeginLogin(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.LoginInfo info = ((Location.WCFServiceReferences.LocationServices.LoginInfo)(inValues[0]));
+            return this.BeginLogin(info, callback, asyncState);
+        }
+        
+        private object[] OnEndLogin(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.LoginInfo retVal = this.EndLogin(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnLoginCompleted(object state) {
+            if ((this.LoginCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.LoginCompleted(this, new LoginCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void LoginAsync(Location.WCFServiceReferences.LocationServices.LoginInfo info) {
+            this.LoginAsync(info, null);
+        }
+        
+        public void LoginAsync(Location.WCFServiceReferences.LocationServices.LoginInfo info, object userState) {
+            if ((this.onBeginLoginDelegate == null)) {
+                this.onBeginLoginDelegate = new BeginOperationDelegate(this.OnBeginLogin);
+            }
+            if ((this.onEndLoginDelegate == null)) {
+                this.onEndLoginDelegate = new EndOperationDelegate(this.OnEndLogin);
+            }
+            if ((this.onLoginCompletedDelegate == null)) {
+                this.onLoginCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnLoginCompleted);
+            }
+            base.InvokeAsync(this.onBeginLoginDelegate, new object[] {
+                        info}, this.onEndLoginDelegate, this.onLoginCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.LoginInfo Logout(Location.WCFServiceReferences.LocationServices.LoginInfo info) {
             return base.Channel.Logout(info);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginLogout(Location.WCFServiceReferences.LocationServices.LoginInfo info, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginLogout(info, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.LoginInfo EndLogout(System.IAsyncResult result) {
+            return base.Channel.EndLogout(result);
+        }
+        
+        private System.IAsyncResult OnBeginLogout(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.LoginInfo info = ((Location.WCFServiceReferences.LocationServices.LoginInfo)(inValues[0]));
+            return this.BeginLogout(info, callback, asyncState);
+        }
+        
+        private object[] OnEndLogout(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.LoginInfo retVal = this.EndLogout(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnLogoutCompleted(object state) {
+            if ((this.LogoutCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.LogoutCompleted(this, new LogoutCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void LogoutAsync(Location.WCFServiceReferences.LocationServices.LoginInfo info) {
+            this.LogoutAsync(info, null);
+        }
+        
+        public void LogoutAsync(Location.WCFServiceReferences.LocationServices.LoginInfo info, object userState) {
+            if ((this.onBeginLogoutDelegate == null)) {
+                this.onBeginLogoutDelegate = new BeginOperationDelegate(this.OnBeginLogout);
+            }
+            if ((this.onEndLogoutDelegate == null)) {
+                this.onEndLogoutDelegate = new EndOperationDelegate(this.OnEndLogout);
+            }
+            if ((this.onLogoutCompletedDelegate == null)) {
+                this.onLogoutCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnLogoutCompleted);
+            }
+            base.InvokeAsync(this.onBeginLogoutDelegate, new object[] {
+                        info}, this.onEndLogoutDelegate, this.onLogoutCompletedDelegate, userState);
+        }
+        
         public bool EditBusAnchor(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId) {
             return base.Channel.EditBusAnchor(archor, parentId);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditBusAnchor(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditBusAnchor(archor, parentId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditBusAnchor(System.IAsyncResult result) {
+            return base.Channel.EndEditBusAnchor(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditBusAnchor(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Archor archor = ((Location.WCFServiceReferences.LocationServices.Archor)(inValues[0]));
+            int parentId = ((int)(inValues[1]));
+            return this.BeginEditBusAnchor(archor, parentId, callback, asyncState);
+        }
+        
+        private object[] OnEndEditBusAnchor(System.IAsyncResult result) {
+            bool retVal = this.EndEditBusAnchor(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditBusAnchorCompleted(object state) {
+            if ((this.EditBusAnchorCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditBusAnchorCompleted(this, new EditBusAnchorCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditBusAnchorAsync(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId) {
+            this.EditBusAnchorAsync(archor, parentId, null);
+        }
+        
+        public void EditBusAnchorAsync(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId, object userState) {
+            if ((this.onBeginEditBusAnchorDelegate == null)) {
+                this.onBeginEditBusAnchorDelegate = new BeginOperationDelegate(this.OnBeginEditBusAnchor);
+            }
+            if ((this.onEndEditBusAnchorDelegate == null)) {
+                this.onEndEditBusAnchorDelegate = new EndOperationDelegate(this.OnEndEditBusAnchor);
+            }
+            if ((this.onEditBusAnchorCompletedDelegate == null)) {
+                this.onEditBusAnchorCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditBusAnchorCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditBusAnchorDelegate, new object[] {
+                        archor,
+                        parentId}, this.onEndEditBusAnchorDelegate, this.onEditBusAnchorCompletedDelegate, userState);
         }
         
         public bool EditBusTag(Location.WCFServiceReferences.LocationServices.Tag Tag) {
             return base.Channel.EditBusTag(Tag);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditBusTag(Location.WCFServiceReferences.LocationServices.Tag Tag, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditBusTag(Tag, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditBusTag(System.IAsyncResult result) {
+            return base.Channel.EndEditBusTag(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditBusTag(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Tag Tag = ((Location.WCFServiceReferences.LocationServices.Tag)(inValues[0]));
+            return this.BeginEditBusTag(Tag, callback, asyncState);
+        }
+        
+        private object[] OnEndEditBusTag(System.IAsyncResult result) {
+            bool retVal = this.EndEditBusTag(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditBusTagCompleted(object state) {
+            if ((this.EditBusTagCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditBusTagCompleted(this, new EditBusTagCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditBusTagAsync(Location.WCFServiceReferences.LocationServices.Tag Tag) {
+            this.EditBusTagAsync(Tag, null);
+        }
+        
+        public void EditBusTagAsync(Location.WCFServiceReferences.LocationServices.Tag Tag, object userState) {
+            if ((this.onBeginEditBusTagDelegate == null)) {
+                this.onBeginEditBusTagDelegate = new BeginOperationDelegate(this.OnBeginEditBusTag);
+            }
+            if ((this.onEndEditBusTagDelegate == null)) {
+                this.onEndEditBusTagDelegate = new EndOperationDelegate(this.OnEndEditBusTag);
+            }
+            if ((this.onEditBusTagCompletedDelegate == null)) {
+                this.onEditBusTagCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditBusTagCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditBusTagDelegate, new object[] {
+                        Tag}, this.onEndEditBusTagDelegate, this.onEditBusTagCompletedDelegate, userState);
+        }
+        
         public bool EditPictureInfo(Location.WCFServiceReferences.LocationServices.Picture pc) {
             return base.Channel.EditPictureInfo(pc);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginEditPictureInfo(Location.WCFServiceReferences.LocationServices.Picture pc, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEditPictureInfo(pc, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndEditPictureInfo(System.IAsyncResult result) {
+            return base.Channel.EndEditPictureInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginEditPictureInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Location.WCFServiceReferences.LocationServices.Picture pc = ((Location.WCFServiceReferences.LocationServices.Picture)(inValues[0]));
+            return this.BeginEditPictureInfo(pc, callback, asyncState);
+        }
+        
+        private object[] OnEndEditPictureInfo(System.IAsyncResult result) {
+            bool retVal = this.EndEditPictureInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnEditPictureInfoCompleted(object state) {
+            if ((this.EditPictureInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EditPictureInfoCompleted(this, new EditPictureInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EditPictureInfoAsync(Location.WCFServiceReferences.LocationServices.Picture pc) {
+            this.EditPictureInfoAsync(pc, null);
+        }
+        
+        public void EditPictureInfoAsync(Location.WCFServiceReferences.LocationServices.Picture pc, object userState) {
+            if ((this.onBeginEditPictureInfoDelegate == null)) {
+                this.onBeginEditPictureInfoDelegate = new BeginOperationDelegate(this.OnBeginEditPictureInfo);
+            }
+            if ((this.onEndEditPictureInfoDelegate == null)) {
+                this.onEndEditPictureInfoDelegate = new EndOperationDelegate(this.OnEndEditPictureInfo);
+            }
+            if ((this.onEditPictureInfoCompletedDelegate == null)) {
+                this.onEditPictureInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEditPictureInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginEditPictureInfoDelegate, new object[] {
+                        pc}, this.onEndEditPictureInfoDelegate, this.onEditPictureInfoCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.Picture GetPictureInfo(string strPictureName) {
             return base.Channel.GetPictureInfo(strPictureName);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPictureInfo(string strPictureName, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPictureInfo(strPictureName, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Picture EndGetPictureInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetPictureInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPictureInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string strPictureName = ((string)(inValues[0]));
+            return this.BeginGetPictureInfo(strPictureName, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPictureInfo(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Picture retVal = this.EndGetPictureInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPictureInfoCompleted(object state) {
+            if ((this.GetPictureInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPictureInfoCompleted(this, new GetPictureInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPictureInfoAsync(string strPictureName) {
+            this.GetPictureInfoAsync(strPictureName, null);
+        }
+        
+        public void GetPictureInfoAsync(string strPictureName, object userState) {
+            if ((this.onBeginGetPictureInfoDelegate == null)) {
+                this.onBeginGetPictureInfoDelegate = new BeginOperationDelegate(this.OnBeginGetPictureInfo);
+            }
+            if ((this.onEndGetPictureInfoDelegate == null)) {
+                this.onEndGetPictureInfoDelegate = new EndOperationDelegate(this.OnEndGetPictureInfo);
+            }
+            if ((this.onGetPictureInfoCompletedDelegate == null)) {
+                this.onGetPictureInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPictureInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPictureInfoDelegate, new object[] {
+                        strPictureName}, this.onEndGetPictureInfoDelegate, this.onGetPictureInfoCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.AreaStatistics GetAreaStatistics(int id) {
             return base.Channel.GetAreaStatistics(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAreaStatistics(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAreaStatistics(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.AreaStatistics EndGetAreaStatistics(System.IAsyncResult result) {
+            return base.Channel.EndGetAreaStatistics(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAreaStatistics(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetAreaStatistics(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetAreaStatistics(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.AreaStatistics retVal = this.EndGetAreaStatistics(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAreaStatisticsCompleted(object state) {
+            if ((this.GetAreaStatisticsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAreaStatisticsCompleted(this, new GetAreaStatisticsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAreaStatisticsAsync(int id) {
+            this.GetAreaStatisticsAsync(id, null);
+        }
+        
+        public void GetAreaStatisticsAsync(int id, object userState) {
+            if ((this.onBeginGetAreaStatisticsDelegate == null)) {
+                this.onBeginGetAreaStatisticsDelegate = new BeginOperationDelegate(this.OnBeginGetAreaStatistics);
+            }
+            if ((this.onEndGetAreaStatisticsDelegate == null)) {
+                this.onEndGetAreaStatisticsDelegate = new EndOperationDelegate(this.OnEndGetAreaStatistics);
+            }
+            if ((this.onGetAreaStatisticsCompletedDelegate == null)) {
+                this.onGetAreaStatisticsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAreaStatisticsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAreaStatisticsDelegate, new object[] {
+                        id}, this.onEndGetAreaStatisticsDelegate, this.onGetAreaStatisticsCompletedDelegate, userState);
         }
     }
 }

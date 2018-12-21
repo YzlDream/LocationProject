@@ -26,8 +26,16 @@ public class TwoTicketSystemManage : MonoBehaviour
     void Start()
     {
         Instance = this;
-        personnels = PersonnelTreeManage.Instance.departmentDivideTree.personnels;
+        GetPersonnels();
         workTicketHistoryPaths = new List<WorkTicketHistoryPath>();
+    }
+
+    private void GetPersonnels()
+    {
+        if (personnels == null && PersonnelTreeManage.Instance)
+        {
+            personnels = PersonnelTreeManage.Instance.departmentDivideTree.personnels;
+        }
     }
 
     // Update is called once per frame
@@ -60,6 +68,7 @@ public class TwoTicketSystemManage : MonoBehaviour
     /// </summary>
     public void CreateWorkTicketHistoryPath(WorkTicket workTicketT)
     {
+        GetPersonnels();
         Personnel personnel = personnels.Find((item) => item.Id == workTicketT.PersonInChargePersonelId);
         if (personnel != null)
         {
@@ -218,6 +227,7 @@ public class TwoTicketSystemManage : MonoBehaviour
     /// </summary>
     public void CreateOperationTicketHistoryPath(OperationTicket operationTicketT)
     {
+        GetPersonnels();
         Personnel personnel = personnels.Find((item) => item.Id == operationTicketT.OperatorPersonelId);
         if (personnel != null)
         {

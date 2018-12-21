@@ -365,11 +365,13 @@ public class PersonInfoUI : MonoBehaviour
     /// </summary>
     public void VideoMonitorBtn_OnClick()
     {
+        Vector3 PerRotion = new Vector3(locationObj.transform.eulerAngles.x, locationObj.transform.eulerAngles.z, locationObj.transform.eulerAngles.y);
         //  if (VideoMonitoringManage.Instance)
         //  VideoMonitoringManage.Instance.Show();
         NearPersonnelCameraManage.Instance.Personnel.text = personnel.Name.ToString();
         NearPersonnelCameraManage.Instance.CurrentArea.text = personnel.AreaName.ToString();
         NearPersonnelCameraManage.Instance.ShowNearPersonnelCameraWindow();
+        NearPersonnelCameraManage.Instance.PersonnelRotation.GetComponent<RectTransform>().localEulerAngles = PerRotion;
         float dis = 250;
         NearPersonnelCameraManage.Instance.GetNearPerCamData(personnel.Id, dis, 1);
 

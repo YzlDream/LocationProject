@@ -370,6 +370,7 @@ namespace RTEditor
         private bool IsEnableShortcut()
         {
             //Todo:静态布尔值，记录是否在漫游状态
+            if (EventSystem.current == null) return true;
             DevSubsystemManage devSystem = DevSubsystemManage.Instance;
             if (devSystem && devSystem.RoamToggle.isOn) return false;
             GameObject selected = EventSystem.current.currentSelectedGameObject;

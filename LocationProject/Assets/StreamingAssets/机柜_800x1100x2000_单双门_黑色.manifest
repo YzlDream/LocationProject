@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1667775748
+CRC: 762268620
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0e85202a71154f9499665bdace6a0d76
+    Hash: 12eccd3e6c5202d0e0c902d3347f37aa
   TypeTreeHash:
     serializedVersion: 2
     Hash: e70483b45abbef22f4c41835eaa6a9ec
@@ -39,6 +39,7 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/JG800WZA.png"
+- "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/Grids.png"
 - "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/Materials/JG800WZB.mat"
 - "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/Materials/JG800WZA.mat"
 - "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/JG800WZC.png"
@@ -50,5 +51,4 @@ Assets:
 - "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/Materials/Grids.mat"
 - "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272.3DS"
 - "Assets/AssetBundleResources/JFComponent/Cabinets/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272/\u673A\u67DC_800X1100X2000_\u5355\u53CC\u95E8_\u9ED1\u8272.png"
-Dependencies:
-- "E:/A-UnityProject/ModelResources/ModelsProject/Assets/StreamingAssets/\u673A\u67DC_600x1000x2000_\u5355\u95E8_\u767D\u8272"
+Dependencies: []

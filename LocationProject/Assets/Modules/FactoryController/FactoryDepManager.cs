@@ -138,7 +138,9 @@ public class FactoryDepManager : DepNode {
             {
                 Debug.Log("OtherBuilding is null...");
             }
-        }catch(Exception e)
+            FactoryDevContainer.SetActive(false);
+        }
+        catch(Exception e)
         {
             Debug.LogError("FactoryDepManager.HideOtherBuilding Error:"+e.ToString());
         }
@@ -158,6 +160,7 @@ public class FactoryDepManager : DepNode {
             }
         }
         if (OtherBuilding != null) OtherBuilding.SetActive(true);
+        FactoryDevContainer.SetActive(true);
     }
     /// <summary>
     /// 打开区域

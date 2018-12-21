@@ -81,7 +81,7 @@ public class DeviceDataPaging : MonoBehaviour {
     public Sprite OddImage;
     void Start () {
         Instance = this;
-        devSearch = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
+        //devSearch = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
         SeachDevName = devSearch;
         TotaiLine(devSearch);
         GetPageDevData(devSearch);
@@ -90,26 +90,41 @@ public class DeviceDataPaging : MonoBehaviour {
         pageNumText.onValueChanged.AddListener(InputDevPage);
         DevBut.onClick.AddListener(InputDevName);
         closeButton.onClick.AddListener(ClosedevSearchWindow);
-        pageNumText.text = "1";
-        StartPageNum = 0;
+        //pageNumText.text = "1";
+        //StartPageNum = 0;
     }
     /// <summary>
     /// 刚打开时的界面 
     /// </summary>
     public void StartDevSeachUI()
     {
-        SeachDevName = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
-        TotaiLine(devSearch);
-        pageNumText.text = "1";
-        PageNum = 1;
-        StartPageNum = 0;
-        InputDev.text = "";
-        GetPageDevData(devSearch);
-        ShowTotalPage(true);
-        //  SearchDevInfo.Instance.SearchPageing.SetActive(false);
-        promptText.gameObject.SetActive(false);
+        //SeachDevName = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
+        //TotaiLine(devSearch);
+        //pageNumText.text = "1";
+        //PageNum = 1;
+        //StartPageNum = 0;
+        //InputDev.text = "";
+        //GetPageDevData(devSearch);
+        //ShowTotalPage(true);
+        ////  SearchDevInfo.Instance.SearchPageing.SetActive(false);
+        //promptText.gameObject.SetActive(false);
 
-
+        Loom.StartSingleThread(() =>
+        {
+            SeachDevName = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
+            Loom.DispatchToMainThread(() =>
+            {
+                TotaiLine(devSearch);
+                pageNumText.text = "1";
+                PageNum = 1;
+                StartPageNum = 0;
+                InputDev.text = "";
+                GetPageDevData(devSearch);
+                ShowTotalPage(true);
+                //  SearchDevInfo.Instance.SearchPageing.SetActive(false);
+                promptText.gameObject.SetActive(false);
+            });
+        });
     }
     /// <summary>
     /// zongye

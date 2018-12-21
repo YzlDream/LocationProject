@@ -216,11 +216,9 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
             DevPos pos = GetDevPos(devInfo.DevID);
             devInfo.Pos = pos;
             service.AddDevInfo(ref dev.Info);
-            //Debug.LogError("DevID:"+ dev.Info.Id+"  DevName"+dev.gameObject.name);
+            //Debug.LogError("DevID:"+ dev.Info.Id+"  DevName"+dev.gameObject.name);           
+            SaveDevSubInfo(dev, service);
             ShowEditUI(model);
-            SaveDevSubInfo(dev.Info, service);
-
-          
         }
         else
         {
@@ -232,8 +230,10 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
     /// </summary>
     /// <param name="devInfo"></param>
     /// <param name="service"></param>
-    private void SaveDevSubInfo(DevInfo devInfo,CommunicationObject service)
+    private void SaveDevSubInfo(DevNode devNode,CommunicationObject service)
     {
+        DevInfo devInfo = devNode.Info;
+        if (devInfo == null) return;
         if(TypeCodeHelper.IsLocationDev(devInfo.TypeCode.ToString()))
         {
             Archor archor = new Archor();
@@ -255,6 +255,25 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
             //archor.DevInfo = devInfo;
             bool value = service.AddArchor(archor);
             Debug.Log("Add archor value:"+value);
+        }else if(TypeCodeHelper.IsCamera(devInfo.TypeCode.ToString()))
+        {
+            Dev_CameraInfo cameraInfo = new Dev_CameraInfo();
+            cameraInfo.Ip = "127.0.0.1";
+            cameraInfo.DevInfoId = devInfo.Id;
+            cameraInfo.UserName = "admin";
+            cameraInfo.PassWord = "12345";
+            cameraInfo.Port = 80;
+            cameraInfo.CameraIndex = 0;
+            cameraInfo.Local_DevID = devInfo.Abutment_DevID;
+            cameraInfo.ParentId = devInfo.ParentId;
+            CameraDevController camera = devNode as CameraDevController;
+            //camera.SetCameraInfo(cameraInfo);            
+            Dev_CameraInfo value = service.AddCameraInfo(cameraInfo);
+            if(value!=null)
+            {
+                camera.SetCameraInfo(value);
+            }
+            Debug.Log("Add cameraInfo value:" + value==null);
         }
     }
     /// <summary>
@@ -400,23 +419,14 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
             if (Info.ParentId==depManager.NodeID)
             {
                 model.transform.parent = depManager.FactoryDevContainer.transform;
-                if(TypeCodeHelper.IsBorderAlarmDev(Info.TypeCode.ToString()))
-                {
-                    BorderDevController borderDev = model.AddMissingComponent<BorderDevController>();
-                    return InitDevInfo(borderDev, Info, depManager);
-                }
-                else
-                {
-                    DepDevController controller = model.AddComponent<DepDevController>();
-                    return InitDevInfo(controller, Info, depManager);
-                }
+                return DevControllerAdd(Info,model, depManager);
             }
             else
             {
                 FloorController floor = FactoryDepManager.currentDep as FloorController;
                 if (floor && Info.ParentId == floor.NodeID)
                 {
-                    if (floor.RoomDevContainer != null) return InitRoomDevParent(floor, null, Info);
+                    if (floor.RoomDevContainer != null) return InitRoomDevParent(floor, floor.RoomDevContainer, Info);
                 }
                 else
                 {
@@ -426,17 +436,17 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
                         if (room != null && room as RoomController)
                         {
                             RoomController controller = room as RoomController;
-                            return InitRoomDevParent(null, controller, Info);
+                            return InitRoomDevParent(controller, controller.RoomDevContainer, Info);
                         }
                         else
                         {
-                            if (floor.RoomDevContainer != null) return InitRoomDevParent(floor, null, Info);
+                            if (floor.RoomDevContainer != null) return InitRoomDevParent(floor, floor.RoomDevContainer, Info);
                         }
                     }
                     else
                     {
                         RoomController roomController = FactoryDepManager.currentDep as RoomController;
-                        if (roomController) return InitRoomDevParent(null,roomController,Info);                       
+                        if (roomController) return InitRoomDevParent(roomController, roomController.RoomDevContainer,Info);                       
                     }
                     //Todo:保存到机柜
                     //Debug.Log("Check Dev PID:"+Info.ParentId);
@@ -446,22 +456,51 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
         return null;
     }
     /// <summary>
+    /// 添加设备控制脚本
+    /// </summary>
+    /// <param name="devInfo"></param>
+    /// <param name="modelTemp"></param>
+    /// <returns></returns>
+    private DevNode DevControllerAdd(DevInfo devInfo,GameObject modelTemp,DepNode parentNode)
+    {
+        string typeCode = devInfo.TypeCode.ToString();
+        if (TypeCodeHelper.IsBorderAlarmDev(typeCode))
+        {
+            BorderDevController borderDev = modelTemp.AddMissingComponent<BorderDevController>();
+            InitDevInfo(borderDev,devInfo, parentNode);
+            return borderDev;
+        }else if(TypeCodeHelper.IsCamera(typeCode))
+        {
+            CameraDevController cameraDev = modelTemp.AddMissingComponent<CameraDevController>();
+            InitDevInfo(cameraDev, devInfo, parentNode);
+            return cameraDev;
+        }
+        else
+        {
+            DepDevController controller = modelTemp.AddComponent<DepDevController>();
+            InitDevInfo(controller, devInfo, parentNode);
+            return controller;
+        }
+    }
+    /// <summary>
     /// 初始化房间内设备
     /// </summary>
     /// <param name="room"></param>
     /// <param name="info"></param>
     /// <returns></returns>
-    private DevNode InitRoomDevParent(FloorController floor,RoomController room,DevInfo info)
+    private DevNode InitRoomDevParent(DepNode dep,GameObject devContainer,DevInfo info)
     {
-        if(floor!=null)
+        model.transform.parent = devContainer.transform;
+        if(TypeCodeHelper.IsCamera(info.TypeCode.ToString()))
         {
-            model.transform.parent = floor.RoomDevContainer.transform;
-        }else
-        {
-            model.transform.parent = room.RoomDevContainer.transform;
+            CameraDevController roomDev = model.AddMissingComponent<CameraDevController>();
+            return InitDevInfo(roomDev, info, dep);
         }
-        RoomDevController roomDev = model.AddMissingComponent<RoomDevController>();
-        return InitDevInfo(roomDev, info, room);
+        else
+        {
+            RoomDevController roomDev = model.AddMissingComponent<RoomDevController>();
+            return InitDevInfo(roomDev, info, dep);
+        }
     }
     /// <summary>
     /// 初始化设备信息
@@ -473,20 +512,11 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         devController.Info = info;
         devController.ParentDepNode = parentNode;
-        SaveDevInfo(parentNode.NodeID, devController);
-        return devController;
-    }
-    /// <summary>
-    /// 保存新创建的设备信息
-    /// </summary>
-    /// <param name="depId"></param>
-    /// <param name="dev"></param>
-    private void SaveDevInfo(int depId,DevNode dev)
-    {
-        if(RoomFactory.Instance)
+        if (RoomFactory.Instance)
         {
-            RoomFactory.Instance.SaveDepDevInfo(depId,dev);
+            RoomFactory.Instance.SaveDepDevInfo(parentNode,devController,info);
         }
+        return devController;
     }
     /// <summary>
     /// unity位置转换cad位置
@@ -501,7 +531,7 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
         {
             pos = LocationManager.GetCadVector(dev.position);
         }
-        else if (devNode as RoomDevController)
+        else if (devNode!=null)
         {
             pos = UnityLocalPosToCad(dev.localPosition);
         }

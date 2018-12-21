@@ -31,13 +31,20 @@ public class PersonnelTreeManage : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        departmentDivideTree.ShowDepartmentDivideTree();
-        areaDivideTree.ShowAreaDivideTree();
+        Invoke("InitTree", 1f);//不延迟1秒，会导致加载拓扑树异常
+        //InitTree();
 
         AreaDivideToggle.onValueChanged.AddListener(areaDivideTree.ShowAreaDivideWindow);
         areaDivideTree.ShowAreaDivideWindow(true);
         DepartmentDivideToggle.onValueChanged.AddListener(departmentDivideTree.ShowDepartmentWindow);
     }
+
+    private void InitTree()
+    {
+        departmentDivideTree.ShowDepartmentDivideTree();
+        areaDivideTree.ShowAreaDivideTree();
+    }
+
     public void ClosePersonnelWindow()
     {
         departmentDivideTree.ShowDepartmentWindow(false);

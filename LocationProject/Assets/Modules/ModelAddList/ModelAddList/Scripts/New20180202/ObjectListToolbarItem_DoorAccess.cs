@@ -541,12 +541,10 @@ public class ObjectListToolbarItem_DoorAccess : MonoBehaviour, IPointerEnterHand
         DepNode node = RoomFactory.Instance.GetDepNodeById((int)parentID);
         devModel.transform.parent = GetDevContainer(node).transform;
         DoorAccessDevController controller = devModel.AddMissingComponent<DoorAccessDevController>();
-        controller.Info = devInfo;
         controller.DevId = devInfo.DevID;
-        controller.ParentDepNode = node;
         if(RoomFactory.Instance)
         {
-            RoomFactory.Instance.SaveDepDevInfo(node.NodeID,controller);
+            RoomFactory.Instance.SaveDepDevInfo(node,controller,devInfo);
         }
         if (access)
         {

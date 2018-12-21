@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1670657234
+CRC: 109442946
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d68a4b35461739e3019c83e95d05865d
+    Hash: d99db1d3442d66708f01b5c39cc8d33b
   TypeTreeHash:
     serializedVersion: 2
     Hash: bc193d49e7d16f71ac778acf3c7bfc27
@@ -26,8 +26,8 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 Assets:
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/\u827E\u9ED8\u751F_UPS_3D.png"
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/\u827E\u9ED8\u751F_UPS_3D.3DS"
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/Materials/AMSUPS1.mat"
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/AMSUPS1.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/\u827E\u9ED8\u751F_UPS_3D.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/\u827E\u9ED8\u751F_UPS_3D.3DS"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/Materials/AMSUPS1.mat"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/\u827E\u9ED8\u751F_UPS_3D/AMSUPS1.png"
 Dependencies: []

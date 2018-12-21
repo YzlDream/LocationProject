@@ -39,8 +39,15 @@ public class FactoryViewController : MonoBehaviour
     public void Hide()
     {
         SmallMapController.Instance.Hide();
-        StartOutManage.Instance.Hide();
-        ActionBarManage.Instance.Hide();
+        if (StartOutManage.Instance != null)
+        {
+            StartOutManage.Instance.Hide();
+        }
+
+        if (ActionBarManage.Instance)
+        {
+            ActionBarManage.Instance.Hide();
+        }
     }
     /// <summary>
     /// 区域切换响应事件

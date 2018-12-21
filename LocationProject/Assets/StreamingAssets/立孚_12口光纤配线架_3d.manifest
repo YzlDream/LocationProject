@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1745106727
+CRC: 3693503275
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1aad00f338436f593d666e5131eef083
+    Hash: 83029fbb425c83f85e6a3686431798e2
   TypeTreeHash:
     serializedVersion: 2
     Hash: bc193d49e7d16f71ac778acf3c7bfc27
@@ -26,8 +26,8 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 Assets:
-- "Assets/AssetBundleResources/JFComponent/Devices/\u6258\u514B\u900A\u673A\u623F/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D.png"
 - "Assets/AssetBundleResources/JFComponent/Devices/\u6258\u514B\u900A\u673A\u623F/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D/LFOC12.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u6258\u514B\u900A\u673A\u623F/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D.png"
 - "Assets/AssetBundleResources/JFComponent/Devices/\u6258\u514B\u900A\u673A\u623F/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D/Materials/LFOC12.mat"
 - "Assets/AssetBundleResources/JFComponent/Devices/\u6258\u514B\u900A\u673A\u623F/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D/\u7ACB\u5B5A_12\u53E3\u5149\u7EA4\u914D\u7EBF\u67B6_3D.3DS"
 Dependencies: []

@@ -23,6 +23,9 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AlarmIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Location.WCFServiceReferences.LocationCallbackServices.LocationAlarmLevel AlarmLevelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -33,6 +36,9 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int AreaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CardRoleIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ContentField;
@@ -77,6 +83,19 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AlarmId {
+            get {
+                return this.AlarmIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlarmIdField, value) != true)) {
+                    this.AlarmIdField = value;
+                    this.RaisePropertyChanged("AlarmId");
+                }
             }
         }
         
@@ -128,6 +147,19 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
                 if ((this.AreaIdField.Equals(value) != true)) {
                     this.AreaIdField = value;
                     this.RaisePropertyChanged("AreaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CardRoleId {
+            get {
+                return this.CardRoleIdField;
+            }
+            set {
+                if ((this.CardRoleIdField.Equals(value) != true)) {
+                    this.CardRoleIdField = value;
+                    this.RaisePropertyChanged("CardRoleId");
                 }
             }
         }
@@ -1123,6 +1155,9 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         private int AreaStateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1219,6 +1254,19 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
                 if ((this.AreaStateField.Equals(value) != true)) {
                     this.AreaStateField = value;
                     this.RaisePropertyChanged("AreaState");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateTime {
+            get {
+                return this.DateTimeField;
+            }
+            set {
+                if ((this.DateTimeField.Equals(value) != true)) {
+                    this.DateTimeField = value;
+                    this.RaisePropertyChanged("DateTime");
                 }
             }
         }
@@ -1457,9 +1505,6 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         private System.Nullable<int> NumberField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Location.WCFServiceReferences.LocationCallbackServices.PhysicalTopology ParentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> ParentIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1683,19 +1728,6 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Location.WCFServiceReferences.LocationCallbackServices.PhysicalTopology Parent {
-            get {
-                return this.ParentField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ParentField, value) != true)) {
-                    this.ParentField = value;
-                    this.RaisePropertyChanged("Parent");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<int> ParentId {
             get {
                 return this.ParentIdField;
@@ -1796,9 +1828,6 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsRectangleField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsRelativeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1822,6 +1851,9 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Location.WCFServiceReferences.LocationCallbackServices.Point[] PointsField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ShapeField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -1841,19 +1873,6 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsRectangle {
-            get {
-                return this.IsRectangleField;
-            }
-            set {
-                if ((this.IsRectangleField.Equals(value) != true)) {
-                    this.IsRectangleField = value;
-                    this.RaisePropertyChanged("IsRectangle");
                 }
             }
         }
@@ -1958,6 +1977,19 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
                 if ((object.ReferenceEquals(this.PointsField, value) != true)) {
                     this.PointsField = value;
                     this.RaisePropertyChanged("Points");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Shape {
+            get {
+                return this.ShapeField;
+            }
+            set {
+                if ((this.ShapeField.Equals(value) != true)) {
+                    this.ShapeField = value;
+                    this.RaisePropertyChanged("Shape");
                 }
             }
         }

@@ -11,7 +11,7 @@ public class DeviceEditUIManager : MonoBehaviour
     /// <summary>
     /// 设备编辑部分
     /// </summary>
-    public DeviceEdit EditPart;
+    public DeviceParts EditPart;
     /// <summary>
     /// 边界告警设备编辑
     /// </summary>
@@ -101,6 +101,8 @@ public class DeviceEditUIManager : MonoBehaviour
         HideMultiDev();
         CurrentDevList.Clear();
         SetFollowTarget(devList);
+        Window.SetActive(true);
+        EditPart.SetDeviceInfo(devList);
     }
     /// <summary>
     /// 关闭设备多选情况
@@ -111,6 +113,14 @@ public class DeviceEditUIManager : MonoBehaviour
         {
             item.SetActive(false);
         }
+    }
+    /// <summary>
+    /// 显示空值
+    /// </summary>
+    public void SetEmptValue()
+    {
+        Window.SetActive(true);
+        EditPart.SetEmptyInfo();
     }
     /// <summary>
     /// 刷新设备编辑Gizmo位置
@@ -236,7 +246,7 @@ public class DeviceEditUIManager : MonoBehaviour
     /// 移除即将删除的设备
     /// </summary>
     /// <param name="dev"></param>
-    private void RemoveObjectFromSelection(GameObject dev)
+    public void RemoveObjectFromSelection(GameObject dev)
     {
         EditorObjectSelection selection = EditorObjectSelection.Instance;
         if (selection)
@@ -299,7 +309,7 @@ public class DeviceEditUIManager : MonoBehaviour
             {
      
                 UGUIFollowTarget followTarget = FollowObject[i].GetComponent<UGUIFollowTarget>();
-                followTarget.Target = devList[i].gameObject;
+                followTarget.Target = GetTitleObj(devList[i].gameObject);
                 DevInfoFollowUI followItem = followTarget.GetComponent<DevInfoFollowUI>();
                 followItem.Show(devList[i]);
                 followTarget.gameObject.SetActive(true);

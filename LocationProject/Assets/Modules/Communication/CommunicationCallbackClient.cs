@@ -16,11 +16,11 @@ public class CommunicationCallbackClient : MonoSingletonBase<CommunicationCallba
     /// <summary>
     /// IP地址
     /// </summary>
-    public string Ip;
+    private string Ip;
     /// <summary>
     /// 端口
     /// </summary>
-    public int Port;
+    private string Port;
     /// <summary>
     /// SignalR服务地址
     /// </summary>
@@ -47,23 +47,33 @@ public class CommunicationCallbackClient : MonoSingletonBase<CommunicationCallba
     public DoorAccessHub doorAccessHub = new DoorAccessHub();
     // Use this for initialization
     void Start () {
+               
+    }
+    /// <summary>
+    /// 连接SignalR服务端
+    /// </summary>
+    /// <param name="IpTemp"></param>
+    /// <param name="portTemp"></param>
+    public void Login(string IpTemp,string portTemp)
+    {
+        if(string.IsNullOrEmpty(IpTemp))
+        {
+            Debug.LogError("SignalR.Login->Ip is null...");
+            return;
+        }
+        //string PortT = Port.ToString();
 
-        string PortT = Port.ToString();
-
-#if !UNITY_EDITOR
-        Ip = SystemSettingHelper.communicationSetting.Ip2;
-        PortT = SystemSettingHelper.communicationSetting.Port2;
-#endif
-
+        //#if !UNITY_EDITOR
+        //        Ip = SystemSettingHelper.communicationSetting.Ip2;
+        //        PortT = SystemSettingHelper.communicationSetting.Port2;
+        //#endif
+        portTemp = "8735";
         RegisterImporter();
-        //if(alarmHub==null)alarmHub = new AlarmHub();
-        //if(echoHub==null) echoHub = new EchoHubT();
-        URI = new Uri(string.Format("http://{0}:{1}/realtime",Ip, PortT));
+        InitIpArgs(IpTemp,portTemp);
+        URI = new Uri(string.Format("http://{0}:{1}/realtime", IpTemp, portTemp));
         // Create the SignalR connection, passing all the three hubs to it
-        signalRConnection = new Connection(URI, alarmHub, echoHub,doorAccessHub);
-
-        signalRConnection.JsonEncoder = new LitJsonEncoder();        
-
+        signalRConnection = new Connection(URI, alarmHub, echoHub, doorAccessHub);
+        signalRConnection.JsonEncoder = new LitJsonEncoder();
         signalRConnection.OnStateChanged += signalRConnection_OnStateChanged;
         signalRConnection.OnError += signalRConnection_OnError;
         signalRConnection.OnNonHubMessage += signaleRConnection_OnNoHubMsg;
@@ -75,6 +85,16 @@ public class CommunicationCallbackClient : MonoSingletonBase<CommunicationCallba
 
         // Start opening the signalR connection
         signalRConnection.Open();
+    }
+    /// <summary>
+    /// 初始化参数
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <param name="port"></param>
+    public void InitIpArgs(string ip,string port)
+    {
+        Ip = ip;
+        Port = port;
     }
     /// <summary>
     /// 注册类型转换器
@@ -90,10 +110,7 @@ public class CommunicationCallbackClient : MonoSingletonBase<CommunicationCallba
             return (float)value;
         });
     }
-    // Update is called once per frame
-    void Update () {
 
-	}
     /// <summary>
     /// Display state changes
     /// </summary>

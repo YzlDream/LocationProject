@@ -9,6 +9,7 @@ using Base.Common.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 using StardardShader;
+using MonitorRange;
 
 public class LocationManager : MonoBehaviour
 {
@@ -103,7 +104,7 @@ public class LocationManager : MonoBehaviour
         //ShowLocation();
         if (exitFocusbtn)
         {
-            exitFocusbtn.GetComponentInChildren<Button>().onClick.AddListener(()=> { RecoverBeforeFocusAlign(); });
+            exitFocusbtn.GetComponentInChildren<Button>().onClick.AddListener(() => { RecoverBeforeFocusAlign(); });
         }
         //ShowLocation();
 
@@ -121,9 +122,11 @@ public class LocationManager : MonoBehaviour
 
             //});
         });
-        
+
+        CommunicationCallbackClient.Instance.alarmHub.OnLocationAlarmRecieved += AlarmHub_OnLocationAlarmRecieved; ;
 
     }
+
 
     [Tooltip("是否加载数据库配置信息")]
     public bool isChuLingDemo;//是否加载数据库，定位配置信息
@@ -605,7 +608,7 @@ public class LocationManager : MonoBehaviour
         Vector3 pos;
         if (!isLocalPos)
         {
-            pos =GetRealVector(cadPos);
+            pos = GetRealVector(cadPos);
         }
         else
         {
@@ -682,7 +685,7 @@ public class LocationManager : MonoBehaviour
         {
             tempPos = new Vector3(position.x * Instance.LocationOffsetScale.x, position.y * Instance.LocationOffsetScale.y, position.z * Instance.LocationOffsetScale.z);
         }
-        tempPos = new Vector3(tempPos.x/Instance.direction.x, tempPos.y, tempPos.z/Instance.direction.z);
+        tempPos = new Vector3(tempPos.x / Instance.direction.x, tempPos.y, tempPos.z / Instance.direction.z);
         return tempPos;
     }
     /// <summary>
@@ -905,10 +908,10 @@ public class LocationManager : MonoBehaviour
     /// <summary>
     /// 获取LocationObject通过PersonnelId
     /// </summary>
-    public LocationObject GetLocationObjByPersonalId(int id)
+    public LocationObject GetLocationObjByTagId(int tagId)
     {
         List<LocationObject> listT = code_character.Values.ToList();
-        LocationObject locationObjectT = listT.Find((item) => item.Tag.Id == id);
+        LocationObject locationObjectT = listT.Find((item) => item.Tag.Id == tagId);
         return locationObjectT;
     }
 
@@ -918,7 +921,7 @@ public class LocationManager : MonoBehaviour
     public void FocusPersonAndShowInfo(int tagId)
     {
 
-        
+
         List<LocationObject> listT = code_character.Values.ToList();
         LocationObject locationObjectT = listT.Find((item) => item.Tag.Id == tagId);
         //if (locationObjectT.IsRenderEnable == false && FactoryDepManager.currentDep == FactoryDepManager.Instance)
@@ -952,7 +955,8 @@ public class LocationManager : MonoBehaviour
         {
             beforeFocusAlign = CameraSceneManager.Instance.GetCurrentAlignTarget();
         }
-        RoomFactory.Instance.FocusNodeForFocusPerson(locationObjectT.currentDepNode,()=> {
+        RoomFactory.Instance.FocusNodeForFocusPerson(locationObjectT.currentDepNode, () =>
+        {
 
             FocusPerson(locationObjectT.alignTarget);
 
@@ -1066,18 +1070,18 @@ public class LocationManager : MonoBehaviour
     /// <summary>
     /// 恢复在聚焦之前的摄像机状态
     /// </summary>
-    public void RecoverBeforeFocusAlign(Action onComplete=null)
+    public void RecoverBeforeFocusAlign(Action onComplete = null)
     {
-        RecoverFocus(()=> 
+        RecoverFocus(() =>
         {
-            if (PersonSubsystemManage.Instance .IsHistorical ==false)
+            if (PersonSubsystemManage.Instance.IsHistorical == false)
             {
                 DepNode dep = FactoryDepManager.Instance;
                 ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
                 ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
             }
-           
-           
+
+
             if (onComplete != null)
             {
                 onComplete();
@@ -1085,12 +1089,12 @@ public class LocationManager : MonoBehaviour
         });
     }
 
-    private void RecoverFocus(Action onComplete=null)
+    private void RecoverFocus(Action onComplete = null)
     {
         if (IsFocus && !IsSwitchFocus)
         {
             StartOutManage.Instance.HideBackButton();
-            if(RoomFactory.Instance.IsFocusingDep)
+            if (RoomFactory.Instance.IsFocusingDep)
             {
                 IsClickUGUIorNGUI.Instance.SetIsCheck(true);
             }
@@ -1260,7 +1264,7 @@ public class LocationManager : MonoBehaviour
     {
         foreach (LocationObject obj in code_character.Values)
         {
-            if (obj != null&&obj.personInfoUI!=null)
+            if (obj != null && obj.personInfoUI != null)
             {
                 obj.personInfoUI.SetHistoryButton(isActive);
             }
@@ -1309,7 +1313,7 @@ public class LocationManager : MonoBehaviour
     /// <returns></returns>
     public int? GetAreaByTag(Tag tagT)
     {
-        TagPosition tagposT= GetPositionByTag(tagT);
+        TagPosition tagposT = GetPositionByTag(tagT);
         if (tagposT != null)
         {
             return tagposT.AreaId;
@@ -1327,5 +1331,40 @@ public class LocationManager : MonoBehaviour
         return a;
     }
 
+    #region 人员告警接收、实现
+    private void AlarmHub_OnLocationAlarmRecieved(List<LocationAlarm> objs)
+    {
+        //throw new NotImplementedException();
+        Debug.Log("AlarmHub_OnLocationAlarmRecieved:" + objs.Count);
 
+        foreach (LocationAlarm locationAlarm in objs)
+        {
+            ////处理人员告警
+            LocationObject locationObject = GetLocationObjByTagId(locationAlarm.TagId);
+            if (locationObject == null) continue;
+
+            if (locationAlarm.AlarmLevel == LocationAlarmLevel.正常)
+            {
+                locationObject.HideAlarm(locationAlarm);
+            }
+            else
+            {
+                locationObject.ShowAlarm(locationAlarm);
+            }
+
+            MonitorRangeObject monitorRangeObject = MonitorRangeManager.Instance.GetMonitorRangeObjectByAreaId(locationAlarm.AreaId);
+            if (monitorRangeObject == null) continue;
+            if (locationAlarm.AlarmLevel == LocationAlarmLevel.正常)
+            {
+                monitorRangeObject.HideAlarm(locationObject);
+            }
+            else
+            {
+                monitorRangeObject.ShowAlarm(locationObject);
+            }
+
+        }
+    }
+
+    #endregion
 }

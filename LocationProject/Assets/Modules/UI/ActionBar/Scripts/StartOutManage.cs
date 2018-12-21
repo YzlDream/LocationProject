@@ -31,6 +31,8 @@ public class StartOutManage : MonoBehaviour {
     /// </summary>
     public Action BackButtonCall;
 
+    public Button ExitDevEditButton;//退出设备编辑模式
+
 
     // Use this for initialization
     void Start () {
@@ -39,6 +41,7 @@ public class StartOutManage : MonoBehaviour {
         MainPageButton.onClick.AddListener(OnMainPageButtonClick);
         UpperStoryButton.onClick.AddListener(OnUpperStoryButtonClick);
         BackButton.onClick.AddListener(OnBackButtonClick);
+        ExitDevEditButton.onClick.AddListener(HideDevEditButton);
         SceneEvents.DepNodeChanged+=OnDepNodeChanged;
 	}
     /// <summary>
@@ -137,5 +140,31 @@ public class StartOutManage : MonoBehaviour {
     public void HideBackButton()
     {
         BackButton.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 显示退出设备编辑按钮
+    /// </summary>
+    public void ShowDevEditButton()
+    {
+        ExitDevEditButton.gameObject.SetActive(true);
+    }
+    /// <summary>
+    /// 退出设备编辑模式
+    /// </summary>
+    public void HideDevEditButton()
+    {
+        ExitDevEditButton.gameObject.SetActive(false);
+        DevSubsystemManage.Instance.DevEditorToggle.isOn = false;
+        ActionBarManage.Instance.Show();
+    }
+    /// <summary>
+    /// 设置首页和返回按钮状态
+    /// </summary>
+    /// <param name="isOn"></param>
+    public void SetMainPageAndBackState(bool isOn)
+    {
+        ExitButton.gameObject.SetActive(isOn);
+        MainPageButton.gameObject.SetActive(isOn);
     }
 }

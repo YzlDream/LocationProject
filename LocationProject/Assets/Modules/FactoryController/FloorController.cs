@@ -316,7 +316,7 @@ public class FloorController : DepNode {
         foreach (var child in childAreas)
         {
             Bound initBound = child.InitBound;
-            if (initBound == null) continue;
+            if (initBound == null||child.Name.Contains("测试范围")) continue;
             bool isXField = cadPos.x > initBound.MinX && cadPos.x < initBound.MaxX ? true : false;
             bool isZField = cadPos.z > initBound.MinY && cadPos.z < initBound.MaxY ? true : false;
             if (isXField && isZField)

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4137681648
+CRC: 694761991
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4cb3034940b0ae79f7892831808052d4
+    Hash: 62aed53161f5f7dd97ca267ebb848096
   TypeTreeHash:
     serializedVersion: 2
     Hash: bc193d49e7d16f71ac778acf3c7bfc27
@@ -26,8 +26,8 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 Assets:
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/APC_UPS.png"
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/APC_SmartUps_3D.3DS"
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/APC_SmartUps_3D.png"
-- "Assets/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/Materials/APC_UPS.mat"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/APC_UPS.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/APC_SmartUps_3D.3DS"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/APC_SmartUps_3D.png"
+- "Assets/AssetBundleResources/JFComponent/Devices/\u52A8\u529B\u76D1\u63A7\u8BBE\u5907/APC_SmartUps_3D/Materials/APC_UPS.mat"
 Dependencies: []

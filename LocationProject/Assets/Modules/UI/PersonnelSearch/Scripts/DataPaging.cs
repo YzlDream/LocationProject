@@ -91,7 +91,7 @@ public class DataPaging : MonoBehaviour
     {
         Instance = this;
         NewpagingData = new List<Personnel>();
-        personnels = CommunicationObject.Instance.GetPersonnels();
+        //personnels = CommunicationObject.Instance.GetPersonnels();
       
         // StartPerSearchUI();
         AddPageBut. onClick.AddListener(AddPersonnelPage);
@@ -106,17 +106,37 @@ public class DataPaging : MonoBehaviour
     /// </summary>
     public void StartPerSearchUI()
     {
-        peraonnelData = new List<Personnel>(personnels);
-        selectedItem = new List<Personnel>(personnels);
-        //PersonnelSearchTweener.Instance.ShowMinWindow(false);
-        personnelSearchUI.SetActive(true);
-        StartPageNum = 0;
-        PageNum = 1;
-        GetPageData(peraonnelData);
-        TotaiLine(peraonnelData);
-        pegeNumText.text = "1";
-        PerSelected.text = "";
-        promptText.gameObject.SetActive(false);
+        //personnels = CommunicationObject.Instance.GetPersonnels();
+        //peraonnelData = new List<Personnel>(personnels);
+        //selectedItem = new List<Personnel>(personnels);
+        ////PersonnelSearchTweener.Instance.ShowMinWindow(false);
+        //personnelSearchUI.SetActive(true);
+        //StartPageNum = 0;
+        //PageNum = 1;
+        //GetPageData(peraonnelData);
+        //TotaiLine(peraonnelData);
+        //pegeNumText.text = "1";
+        //PerSelected.text = "";
+        //promptText.gameObject.SetActive(false);
+
+        Loom.StartSingleThread(() =>
+        {
+            personnels = CommunicationObject.Instance.GetPersonnels(); ;
+            Loom.DispatchToMainThread(() =>
+            {
+                peraonnelData = new List<Personnel>(personnels);
+                selectedItem = new List<Personnel>(personnels);
+                //PersonnelSearchTweener.Instance.ShowMinWindow(false);
+                personnelSearchUI.SetActive(true);
+                StartPageNum = 0;
+                PageNum = 1;
+                GetPageData(peraonnelData);
+                TotaiLine(peraonnelData);
+                pegeNumText.text = "1";
+                PerSelected.text = "";
+                promptText.gameObject.SetActive(false);
+            });
+        });
     }
     /// <summary>
     /// 有几页数据

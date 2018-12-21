@@ -188,11 +188,16 @@ public class DevSubsystemManage : MonoBehaviour {
             if (HighlightManage.Instance) HighlightManage.Instance.CancelHighLight();
             FunctionSwitchBarManage.Instance.SetWindow(false);
             SetGizmoTypeState(false);
+            StartOutManage.Instance.ShowDevEditButton();
+            DeviceEditUIManager.Instacne.SetEmptValue();
+            ActionBarManage.Instance.Hide();
+            UGUITooltip.Instance.Hide();
         }
         else
         {
             isDevEdit = isOn;
             ShowUiOnDevEditEnd();
+            ActionBarManage.Instance.Show();
             ObjectAddListManage.Instance.Hide();
             ObjectsEditManage.Instance.CloseDevEdit();
             DeviceEditUIManager.Instacne.Close();
@@ -208,6 +213,7 @@ public class DevSubsystemManage : MonoBehaviour {
         if (TopoTreeManager.Instance) TopoTreeManager.Instance.CloseWindow();
         if (PersonnelTreeManage.Instance) PersonnelTreeManage.Instance.CloseWindow();
         if (SmallMapController.Instance) SmallMapController.Instance.Hide();
+        if (StartOutManage.Instance) StartOutManage.Instance.SetMainPageAndBackState(false);
     }
     /// <summary>
     /// 结束设备编辑时，显示的界面 
@@ -230,6 +236,7 @@ public class DevSubsystemManage : MonoBehaviour {
             }
         }
         if (SmallMapController.Instance) SmallMapController.Instance.Show();
+        if (StartOutManage.Instance) StartOutManage.Instance.SetMainPageAndBackState(true);
     }
     /// <summary>
     /// 保存编辑之前的状态

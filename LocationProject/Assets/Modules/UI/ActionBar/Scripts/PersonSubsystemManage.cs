@@ -145,10 +145,11 @@ public class PersonSubsystemManage : MonoBehaviour {
         ChangeImage(isOn ,SearchToggle );
         Debug.Log("OnSearchToggleChange:" + isOn);
       
-        DataPaging.Instance.StartPerSearchUI();
+        //DataPaging.Instance.StartPerSearchUI();
         if (isOn)
         {
             ToggleChangedBefore();
+            DataPaging.Instance.StartPerSearchUI();
             DataPaging.Instance.ShowpersonnelSearchWindow();
         }
         else

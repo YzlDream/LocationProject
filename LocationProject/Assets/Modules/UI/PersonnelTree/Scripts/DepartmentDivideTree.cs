@@ -109,7 +109,15 @@ public class DepartmentDivideTree : MonoBehaviour
     {
         Loom.StartSingleThread(() =>
         {
-            topoRoot = CommunicationObject.Instance.GetDepTree();
+
+            try
+            {
+                topoRoot = CommunicationObject.Instance.GetDepTree();
+            }
+            catch
+            {
+                Debug.LogError("刷新部门树数据，出错！");
+            }
             //StructureTree(topoRoot);
             if (personnels == null)
             {

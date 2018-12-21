@@ -63,7 +63,7 @@ public class PersonnelAlarmList : MonoBehaviour
     private string startTime;
     private string endTime;
     private string PerID;
-
+    private string AlarmType;
     public AlarmSearchArg perAlarmData;
     public LocationAlarm[] perAlarmInfo;
     public List<LocationAlarm> PerAlarmList;
@@ -77,7 +77,7 @@ public class PersonnelAlarmList : MonoBehaviour
         Instance = this;
         perAlarmData = new AlarmSearchArg();
       
-        LoadData();
+        //LoadData();
         //StartPerAlarmUI();
         AddPageBut.onClick.AddListener(AddPerAlarmPage);
         MinusPageBut.onClick.AddListener(MinPerAlarmPage);
@@ -101,21 +101,42 @@ public class PersonnelAlarmList : MonoBehaviour
     /// </summary>
     public void StartPerAlarmUI()
     {
-        LoadData();
+        //LoadData();
 
-        StartPageNum = 0;
-        PageNum = 1;
-        GetPersonnelAlarmPage(PerAlarmList);
-        TotaiLine(PerAlarmList);
-        pegeNumText.text = "1";
-        InputPerAlarm.text = "";
-        DateTime CurrentTime = System.DateTime.Now;
-        string currenttime = CurrentTime.ToString("yyyy年MM月dd日");
-        StartTimeText.text = currenttime;
-        DealTimeText.text = currenttime;
-        promptText.gameObject.SetActive(false);
-        showStartTime.ShowStartTime();
-        perAlarmType.ShowDropdownFirstData();
+        //StartPageNum = 0;
+        //PageNum = 1;
+        //GetPersonnelAlarmPage(PerAlarmList);
+        //TotaiLine(PerAlarmList);
+        //pegeNumText.text = "1";
+        //InputPerAlarm.text = "";
+        //DateTime CurrentTime = System.DateTime.Now;
+        //string currenttime = CurrentTime.ToString("yyyy年MM月dd日");
+        //StartTimeText.text = currenttime;
+        //DealTimeText.text = currenttime;
+        //promptText.gameObject.SetActive(false);
+        //showStartTime.ShowStartTime();
+        //perAlarmType.ShowDropdownFirstData();
+
+        Loom.StartSingleThread(() =>
+        {
+            LoadData();
+            Loom.DispatchToMainThread(() =>
+            {
+                StartPageNum = 0;
+                PageNum = 1;
+                GetPersonnelAlarmPage(PerAlarmList);
+                TotaiLine(PerAlarmList);
+                pegeNumText.text = "1";
+                InputPerAlarm.text = "";
+                DateTime CurrentTime = System.DateTime.Now;
+                string currenttime = CurrentTime.ToString("yyyy年MM月dd日");
+                StartTimeText.text = currenttime;
+                DealTimeText.text = currenttime;
+                promptText.gameObject.SetActive(false);
+                showStartTime.ShowStartTime();
+                perAlarmType.ShowDropdownFirstData();
+            });
+        });
     }
     /// <summary>
     /// 生成多少页
@@ -289,18 +310,20 @@ public class PersonnelAlarmList : MonoBehaviour
             }
 
             string endTime1 = newPerAlarmList[i].HandleTime.ToString();
+           
             if (endTime1 == "1/1/0001 12:00:00 AM")
             {
-                endTime = "";
+                endTime = "<color=#C66BABFF>未消除</color>"; ;
             }
             else
             {
                 DateTime NewTime = Convert.ToDateTime(endTime1);
-                endTime = NewTime.ToString("yyyy年MM月dd日 HH:mm:ss");
+                endTime = "<color=#FFFFFFFF>已消除</color>"+" "+ NewTime.ToString("yyyy年MM月dd日 HH:mm:ss");
             }
+            AlarmType = newPerAlarmList[i].AlarmType.ToString();
             PerID = newPerAlarmList[i].TagId.ToString();
             SetInstantiateLine(newPerAlarmList.Count);
-            SetPersonnelAlarmData(i, num, nameT, job, content, startTime, endTime, PerID);
+            SetPersonnelAlarmData(i, num, nameT, job, AlarmType, content, startTime, endTime, PerID);
         }
     }
     /// <summary>
@@ -320,16 +343,17 @@ public class PersonnelAlarmList : MonoBehaviour
             GetPersonnelAlarmData();
         }
     }
-    public void SetPersonnelAlarmData(int i, string num, string name, string job, string content, string startTime, string endTime, string PerID)
+    public void SetPersonnelAlarmData(int i, string num, string name, string job,string AlarmType, string content, string startTime, string endTime, string PerID)
     {
         Transform line = grid.transform.GetChild(i);
         line.GetChild(0).GetComponent<Text>().text = num;
         line.GetChild(1).GetComponent<Text>().text = name;
         line.GetChild(2).GetComponent<Text>().text = job;
-        line.GetChild(3).GetComponent<Text>().text = content;
-        line.GetChild(4).GetComponent<Text>().text = startTime;
-        line.GetChild(5).GetComponent<Text>().text = endTime;
-        Button but = line.GetChild(6).GetChild(0).GetComponent<Button>();
+        line.GetChild(3).GetComponent<Text>().text = AlarmType;
+        line.GetChild(4).GetComponent<Text>().text = content;
+        line.GetChild(5).GetComponent<Text>().text = startTime;
+        line.GetChild(6).GetComponent<Text>().text = endTime;
+        Button but = line.GetChild(7).GetChild(0).GetComponent<Button>();
         but.onClick.RemoveAllListeners();
         but.onClick.AddListener(() =>
   {

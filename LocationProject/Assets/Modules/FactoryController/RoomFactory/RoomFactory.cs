@@ -988,9 +988,7 @@ public class RoomFactory : MonoBehaviour
         FacilityDevController staticDevT = StaticDevList.Find(i => i.gameObject.name == dev.ModelName);
         if (staticDevT != null)
         {
-            staticDevT.ParentDepNode = parnetDep;
-            staticDevT.Info = dev;
-            SaveDepDevInfo(parnetDep.NodeID, staticDevT);
+            SaveDepDevInfo(parnetDep, staticDevT,dev);
             staticDevT.CreateFollowUI();
             if (onComplete != null) onComplete(staticDevT.gameObject);
         }
@@ -1080,11 +1078,9 @@ public class RoomFactory : MonoBehaviour
                 Debug.LogError("DoorAccess not find:" + info.DevID);
                 return;
             }
-            doorController.Info = info;
             doorAccess.DevInfo = info;
-            doorController.ParentDepNode = depNode;
             doorController.DoorAccessInfo = doorAccess;
-            SaveDepDevInfo(depNode.NodeID, doorController);
+            SaveDepDevInfo(depNode, doorController,info);
             if (depNode.Doors != null)
             {
                 DoorAccessItem doorItem = depNode.Doors.GetDoorItem(doorAccess.DoorId);
@@ -1097,10 +1093,12 @@ public class RoomFactory : MonoBehaviour
             }
         }else if(TypeCodeHelper.IsBorderAlarmDev(info.TypeCode.ToString()))
         {
-            BorderDevController depDev = dev.AddComponent<BorderDevController>();
-            depDev.Info = info;
-            depDev.ParentDepNode = depNode;
-            SaveDepDevInfo(depNode.NodeID, depDev);
+            BorderDevController depDev = dev.AddComponent<BorderDevController>();           
+            SaveDepDevInfo(depNode, depDev,info);
+        }else if(TypeCodeHelper.IsCamera(info.TypeCode.ToString()))
+        {
+            CameraDevController depDev = dev.AddComponent<CameraDevController>();
+            SaveDepDevInfo(depNode, depDev, info);
         }
         else
         {
@@ -1108,16 +1106,11 @@ public class RoomFactory : MonoBehaviour
             {
                 case DevType.DepDev:
                     DepDevController depDev = dev.AddComponent<DepDevController>();
-                    depDev.Info = info;
-                    depDev.ParentDepNode = depNode;
-                    SaveDepDevInfo(depNode.NodeID, depDev);
+                    SaveDepDevInfo(depNode, depDev, info);
                     break;
                 case DevType.RoomDev:
                     RoomDevController roomDev = dev.AddComponent<RoomDevController>();
-                    roomDev.Info = info;
-                    roomDev.DevId = info.DevID;
-                    roomDev.ParentDepNode = depNode;
-                    SaveDepDevInfo(depNode.NodeID, roomDev);
+                    SaveDepDevInfo(depNode, roomDev, info);
                     break;
                 default:
                     Debug.Log("DevType not find:" + type);
@@ -1133,8 +1126,11 @@ public class RoomFactory : MonoBehaviour
     /// </summary>
     /// <param name="depId"></param>
     /// <param name="dev"></param>
-    public void SaveDepDevInfo(int depId, DevNode dev)
+    public void SaveDepDevInfo(DepNode dep, DevNode dev,DevInfo devInfo)
     {
+        dev.Info = devInfo;
+        dev.ParentDepNode = dep;
+        int depId = dep.NodeID;   
         if (!DepDevDic.ContainsKey(depId))
         {
             List<DevNode> devList = new List<DevNode>();

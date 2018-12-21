@@ -127,6 +127,14 @@ public class ObjectAddListManage : MonoBehaviour {
         SetEditMode(false);
     }
     /// <summary>
+    /// 显示\关闭窗口
+    /// </summary>
+    /// <param name="isOn"></param>
+    public void SetWindowState(bool isOn)
+    {
+        window.SetActive(isOn);
+    }
+    /// <summary>
     /// 设置编辑模式
     /// </summary>
     /// <param name="isOn">是否编辑模式</param>

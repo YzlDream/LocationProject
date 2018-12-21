@@ -22,11 +22,38 @@ public class AddStaticDevTest : MonoBehaviour {
         for(int i=0;i<childCount;i++)
         {
             GameObject obj = transform.GetChild(i).gameObject;
-            BoxCollider col = obj.GetComponent<BoxCollider>();
-            if(col==null)obj.AddCollider();
             obj.AddMissingComponent<FacilityDevController>();
+            MeshRenderer render = obj.transform.GetComponent<MeshRenderer>();
+            if(render != null)
+            {
+                MeshCollider meshCollider = obj.AddMissingComponent<MeshCollider>();              
+            }
+            AddSubDevScripts(obj.transform);
         }
     }
+    /// <summary>
+    /// 添加子物体脚本
+    /// </summary>
+    /// <param name="childTransform"></param>
+    private void AddSubDevScripts(Transform childTransform)
+    {
+        for(int i= 0;i< childTransform.childCount;i++)
+        {
+            Transform child = childTransform.GetChild(i);
+            if (child.GetComponent<MeshRenderer>() != null)
+            {
+                child.gameObject.AddMissingComponent<MeshCollider>();
+                if (child.GetComponent<FacilityDevController>() == null)
+                {
+                    child.gameObject.AddMissingComponent<FacilityMeshTrigger>();
+                }
+            }
+            AddSubDevScripts(child);
+        }               
+    }
+
+
+
     [ContextMenu("AddDevInfo")]
     public void SaveDevInfo()
     {

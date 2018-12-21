@@ -15,11 +15,19 @@ public class CommunicationObject : MonoBehaviour
     /// <summary>
     /// 服务器IP地址
     /// </summary>
-    public string ip = "192.168.1.155";//localhost
+    public string ip = "127.0.0.1";//localhost
     /// <summary>
     /// 服务器端口号
     /// </summary>
     public string port = "8733";
+    /// <summary>
+    /// 连接服务器的线程
+    /// </summary>
+    private Thread connectionServerThread;
+    /// <summary>
+    /// 是否连接服务器成功
+    /// </summary>
+    public bool isConnectSucceed;
 
     private void Awake()
     {
@@ -31,64 +39,137 @@ public class CommunicationObject : MonoBehaviour
     {
 
         //Hello();
-        //GetUser();
-        //GetUsers();
-        //GetTags();
-        //GetMaps();
-        //GetHistoryPositons();
+        //StartConnectionServerThread();
 
-        //DateTime end = DateTime.Now;
-        //DateTime start = end.AddDays(-1);
-        //DateTime end = new DateTime(2018, 6, 13, 13, 43, 0);
-        //DateTime start = end.AddMinutes(-1);
-        //GetHistoryPositonsByTime(start, end);
-#if !UNITY_EDITOR
-        ip = SystemSettingHelper.communicationSetting.Ip1;
-        port = SystemSettingHelper.communicationSetting.Port1;
-#endif
-        GetTopoTree();
+        //#if !UNITY_EDITOR
+        //        ip = SystemSettingHelper.communicationSetting.Ip1;
+        //        port = SystemSettingHelper.communicationSetting.Port1;
+        //#endif
+        //GetTopoTree();
     }
 
-    public PhysicalTopology GetTopoTree()
+    void OnDisable()
     {
-        Debug.Log("->GetTopoTree");
-        client = GetClient();
-        int view = 0; //0:基本数据; 1:设备信息; 2:人员信息; 3:设备信息 + 人员信息
-        PhysicalTopology topoRoot=client.GetPhysicalTopologyTree(view);
-        if (topoRoot == null)
+        EndConnectionServerThread();
+        if (connectionServerClient != null)
         {
-            Log.Error("GetTopoTree topoRoot == null");
+            connectionServerClient.Close();
+            connectionServerClient.Abort();
         }
-        string txt = ShowTopo(topoRoot,0);
-        Debug.Log(txt);
-        return topoRoot;
+        if (client != null)
+        {
+            client.Close();
+            client.Abort();
+        }
+    }
+    private void OnDestroy()
+    {
+        EndConnectionServerThread();
+        if (connectionServerClient != null)
+        {
+            connectionServerClient.Close();
+            connectionServerClient.Abort();
+        }
+        if (client != null)
+        {
+            client.Close();
+            client.Abort();
+        }
     }
 
-    private string ShowTopo(PhysicalTopology dep, int layer)
+    #region 心跳包
+
+    private int breakingTimes;//断线次数
+    private LocationServiceClient connectionServerClient;//连接服务器的客户端
+
+    /// <summary>
+    /// 连接服务器心跳包
+    /// </summary>
+    private void StartConnectionServerThread()
     {
-        string whitespace = GetWhiteSpace(layer);
-        if (dep == null) return "";
-        string txt = whitespace + layer + ":" + dep.Name + "\n";
-        if (dep.Children != null)
+        EndConnectionServerThread();
+        connectionServerThread = new Thread(ConnectionServerTesting);
+        connectionServerThread.Start();
+    }
+
+    /// <summary>
+    /// 关闭心跳包
+    /// </summary>
+    private void EndConnectionServerThread()
+    {
+        breakingTimes = 0;
+        if (connectionServerThread != null)
         {
-            //txt+=whitespace + "length:" + dep.Children.Length+"\n";
-            foreach (PhysicalTopology child in dep.Children)
+            connectionServerThread.Abort();
+            connectionServerThread = null;
+        }
+    }
+
+    /// <summary>
+    /// 连接服务器检测
+    /// </summary>
+    private void ConnectionServerTesting()
+    {
+        //while (true)
+        //{
+        //    client = GetClient();
+        //    client.HelloCompleted -= ConnectionServerCallBack;
+        //    client.HelloCompleted += ConnectionServerCallBack;
+        //    lock (client)
+        //    {
+        //        client.HelloAsync("1");//心跳包
+        //    }
+        //    Thread.Sleep(1000);
+        //}
+        while (true)
+        {
+            Debug.Log("ConnectionServerTesting!");
+            //if (connectionServerClient == null)
+            //{
+            if (connectionServerClient != null)
             {
-                txt += ShowTopo(child, layer + 1);
+                //        if (connectionServerClient.State == CommunicationState.Opened)
+                //        {
+                //            connectionServerClient.Close();
+                connectionServerClient.Abort();
+                //        }
             }
+
+            connectionServerClient = CreateServiceClient();
+            //}
+            connectionServerClient.HelloCompleted -= ConnectionServerCallBack;
+            connectionServerClient.HelloCompleted += ConnectionServerCallBack;
+            connectionServerClient.HelloAsync("1");//心跳包
+            Thread.Sleep(1000);
+        }
+    }
+
+    private void ConnectionServerCallBack(object sender, HelloCompletedEventArgs e)
+    {
+        if (e.Error == null)
+        {
+            breakingTimes = 0;
+            string result = e.Result;
+            Debug.LogFormat("{0}", result);
+            isConnectSucceed = true;
         }
         else
         {
-            //txt += whitespace + "children==null\n";
+            //lock (connectionServerClient)
+            //{
+            //    if (connectionServerClient != null)
+            //    {
+            //        connectionServerClient.Close();
+            //    }
+            //    connectionServerClient = CreateServiceClient();
+            //}
+
+            breakingTimes += 1;
+            Debug.LogFormat("连接服务失败！");
+            isConnectSucceed = false;
         }
-        return txt;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    #endregion
 
     public LocationServiceClient CreateServiceClient()
     {
@@ -99,9 +180,19 @@ public class CommunicationObject : MonoBehaviour
             string.Format("http://{0}:{1}/LocationService/",
                 hostName, portNum);
         Log.Info("Create Service Client:" + url);
-        EndpointAddress endpointAddress = new EndpointAddress(url);
+        LocationServiceClient serviceClient = null;
+        try
+        {
+            EndpointAddress endpointAddress = new EndpointAddress(url);
+            serviceClient = new LocationServiceClient(wsBinding, endpointAddress);
+        }
+        catch
+        {
+            Debug.LogError("CreateServiceClient报错了！");
+            return null;
+        }
 
-        return new LocationServiceClient(wsBinding, endpointAddress);
+        return serviceClient;
     }
 
     public LocationServiceClient GetClient()
@@ -131,8 +222,140 @@ public class CommunicationObject : MonoBehaviour
             string hello = client.Hello(msg);
             Debug.Log("Hello:" + hello);
         }
-        
+
     }
+
+    #region 登录相关
+    /// <summary>
+    /// 登录回调
+    /// </summary>
+    public Action<object, LoginCompletedEventArgs> LoginCompleted;
+
+    /// <summary>
+    /// 登录
+    /// </summary>
+    /// <param name="ipT"></param>
+    /// <param name="portT"></param>
+    /// <param name="loginInfo"></param>
+    /// <param name="LoginCompletedT"></param>
+    public void Login(string ipT, string portT, LoginInfo loginInfo, Action<object, LoginCompletedEventArgs> LoginCompletedT)
+    {
+        EndConnectionServerThread();
+        ip = ipT;
+        port = portT;
+        LoginCompleted = null;
+        LoginCompleted = LoginCompletedT;
+        //Debug.Log("->GetTags");
+        if (client != null)
+        {
+            client.Abort();
+        }
+        client = CreateServiceClient();
+        if (client == null)
+        {
+            DianChangLogin.Instance.LoginFail();
+            return;
+        }
+        else
+        {
+            DianChangLogin.Instance.LoginProcess();
+        }
+        lock (client)
+        {
+            client.LoginCompleted -= LoginCompleted_CallBack;
+            client.LoginCompleted += LoginCompleted_CallBack;//返回数据回调
+            client.LoginAsync(loginInfo);//WCF的异步调用
+        }
+    }
+
+    private void LoginCompleted_CallBack(object sender, LoginCompletedEventArgs e)
+    {
+        if (e.Error == null)
+        {
+            isConnectSucceed = true;
+            StartConnectionServerThread();
+        }
+        else
+        {
+            isConnectSucceed = false;
+        }
+
+        if (LoginCompleted != null)
+        {
+            LoginCompleted(sender, e);
+        }
+    }
+
+    /// <summary>
+    /// 退出登录
+    /// </summary>
+    /// <param name="loginInfo"></param>
+    public void LoginOut(LoginInfo loginInfo)
+    {
+        EndConnectionServerThread();
+        //Debug.Log("->GetTags");
+        client = GetClient();
+        lock (client)
+        {
+            client.LogoutAsync(loginInfo);
+        }
+    }
+
+    #endregion
+
+    public PhysicalTopology GetTopoTree()
+    {
+        Debug.Log("->GetTopoTree");
+        client = GetClient();
+        int view = 0; //0:基本数据; 1:设备信息; 2:人员信息; 3:设备信息 + 人员信息
+        PhysicalTopology topoRoot = client.GetPhysicalTopologyTree(view);
+        if (topoRoot == null)
+        {
+            Log.Error("GetTopoTree topoRoot == null");
+        }
+        string txt = ShowTopo(topoRoot, 0);
+        Debug.Log(txt);
+        return topoRoot;
+    }
+
+    private string ShowTopo(PhysicalTopology dep, int layer)
+    {
+        string whitespace = GetWhiteSpace(layer);
+        if (dep == null) return "";
+        string txt = whitespace + layer + ":" + dep.Name + "\n";
+        if (dep.Children != null)
+        {
+            //txt+=whitespace + "length:" + dep.Children.Length+"\n";
+            foreach (PhysicalTopology child in dep.Children)
+            {
+                txt += ShowTopo(child, layer + 1);
+            }
+        }
+        else
+        {
+            //txt += whitespace + "children==null\n";
+        }
+        return txt;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (WaitFormManage.Instance != null)
+        {
+            //先关闭断线重连判断功能20181220
+            //if (breakingTimes > 3 && isConnectSucceed == false)//重连服务器失败超过3次,
+            //{
+            //    WaitFormManage.Instance.ShowConnectSeverWaitPanel();
+            //}
+            //else
+            //{
+            //    WaitFormManage.Instance.HideConnectSeverWaitPanel();
+            //}
+        }
+    }
+
+
 
     //public void GetUser()
     //{
@@ -152,8 +375,8 @@ public class CommunicationObject : MonoBehaviour
     //    client = GetClient();
     //    lock (client)
     //    {
-            
-        
+
+
     //        User[] list = client.GetUsers();
     //        for (int i = 0; i < list.Length; i++)
     //        {
@@ -201,6 +424,7 @@ public class CommunicationObject : MonoBehaviour
 
     public Department GetDepTree()
     {
+        //if (isConnectSucceed == false) return null;
         client = GetClient();
         lock (client)
         {
@@ -381,7 +605,7 @@ public class CommunicationObject : MonoBehaviour
     /// 获取取定位卡历史位置信息,根据时间和和TopoNodeId建筑id列表(人员所在的区域)
     /// </summary>
     /// <returns></returns>
-    public List<Position> GetHistoryPositonsByPidAndTopoNodeIds(int personnelID,List<int> topoNodeIdsT, DateTime start, DateTime end)
+    public List<Position> GetHistoryPositonsByPidAndTopoNodeIds(int personnelID, List<int> topoNodeIdsT, DateTime start, DateTime end)
     {
         client = GetClient();
         lock (client)
@@ -588,14 +812,15 @@ public class CommunicationObject : MonoBehaviour
     /// 添加设备
     /// </summary>
     /// <param name="devInfos"></param>
-    public void AddDevInfo(List<DevInfo>devInfos)
+    public List<DevInfo> AddDevInfo(List<DevInfo> devInfos)
     {
         client = GetClient();
         lock (client)
         {
             DevInfo[] devs = devInfos.ToArray();
-            bool value = client.AddDevInfoByList(devs);
-            Debug.Log("AddDevInfoByList result:" + value);
+            devInfos = client.AddDevInfoByList(devs).ToList();
+            Debug.Log("AddDevInfoByList result:" + devInfos.Count);
+            return devInfos;
         }
     }
     /// <summary>
@@ -705,7 +930,7 @@ public class CommunicationObject : MonoBehaviour
             return devInfo;
         }
     }
-    
+
     /// <summary>
     /// 获取所有设备信息
     /// </summary>
@@ -920,19 +1145,19 @@ public class CommunicationObject : MonoBehaviour
         {
             return client.GetAreaStatistics(Id);
         }
-        
+
     }
     /// <summary>
     /// 附近人员
     /// </summary>
     /// <param name="Id"></param>
     /// <returns></returns>
-    public NearbyPerson [] GetNearbyPerson_Currency(int Id,float distance )
+    public NearbyPerson[] GetNearbyPerson_Currency(int Id, float distance)
     {
         client = GetClient();
         lock (client)
-        {  
-            return client.GetNearbyPerson_Currency(Id,distance );
+        {
+            return client.GetNearbyPerson_Currency(Id, distance);
         }
     }
     /// <summary>
@@ -942,12 +1167,12 @@ public class CommunicationObject : MonoBehaviour
     /// <param name="distance"></param>
     /// <param name="nFlag"></param>
     /// <returns></returns>
-   public NearbyDev[] GetNearbyDev_Currency(int id,float distance,int nFlag)
+    public NearbyDev[] GetNearbyDev_Currency(int id, float distance, int nFlag)
     {
         client = GetClient();
         lock (client)
         {
-            return client.GetNearbyDev_Currency(id ,distance , nFlag);
+            return client.GetNearbyDev_Currency(id, distance, nFlag);
         }
     }
     /// <summary>
@@ -1033,6 +1258,107 @@ public class CommunicationObject : MonoBehaviour
             return doorList;
         }
     }
+    #region 摄像头信息
+    /// <summary>
+    /// 增加摄像头设备
+    /// </summary>
+    /// <param name="doorAccessList"></param>
+    /// <returns></returns>
+    public bool AddCameraInfo(List<Dev_CameraInfo> cameraInfoList)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            return client.AddCameraInfoByList(cameraInfoList.ToArray());
+        }
+    }
+    /// <summary>
+    /// 增加摄像头设备
+    /// </summary>
+    /// <param name="cameraInfo"></param>
+    /// <returns></returns>
+    public Dev_CameraInfo AddCameraInfo(Dev_CameraInfo cameraInfo)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            return client.AddCameraInfo(cameraInfo);
+        }
+    }
+    /// <summary>
+    /// 删除摄像头设备
+    /// </summary>
+    /// <param name="doorAccessList"></param>
+    /// <returns></returns>
+    public bool DeleteCameraInfo(List<Dev_CameraInfo> cameraInfoList)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            return client.DeleteCameraInfo(cameraInfoList.ToArray());
+        }
+    }
+    /// <summary>
+    /// 修改摄像头设备
+    /// </summary>
+    /// <param name="doorAccessList"></param>
+    /// <returns></returns>
+    public bool ModifyCameraInfo(Dev_CameraInfo cameraInfo)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            return client.ModifyCameraInfo(cameraInfo);
+        }
+    }
+    /// <summary>
+    /// 通过区域ID，获取区域下摄像头设备
+    /// </summary>
+    /// <param name="pidList"></param>
+    /// <returns></returns>
+    public List<Dev_CameraInfo> GetCameraInfoByParent(List<int> pidList)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            List<Dev_CameraInfo> cameraInfoList;
+            Dev_CameraInfo[] cameraInfos = client.GetCameraInfoByParent(pidList.ToArray());
+            if (cameraInfos == null) cameraInfoList = new List<Dev_CameraInfo>();
+            else cameraInfoList = cameraInfos.ToList();
+            return cameraInfoList;
+        }
+    }
+    /// <summary>
+    /// 获取所有的摄像头信息
+    /// </summary>
+    /// <returns></returns>
+    public List<Dev_CameraInfo> GetAllCameraInfo()
+    {
+        client = GetClient();
+        lock (client)
+        {
+            List<Dev_CameraInfo> cameraInfoList;
+            Dev_CameraInfo[] cameraInfos = client.GetAllCameraInfo();
+            if (cameraInfos == null) cameraInfoList = new List<Dev_CameraInfo>();
+            else cameraInfoList = cameraInfos.ToList();
+            return cameraInfoList;
+        }
+    }
+    /// <summary>
+    /// 通过设备信息，获取对应摄像头信息
+    /// </summary>
+    /// <param name="dev"></param>
+    /// <returns></returns>
+    public Dev_CameraInfo GetCameraInfoByDevInfo(DevInfo dev)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            Dev_CameraInfo cameraInfo = client.GetCameraInfoByDevInfo(dev);
+            return cameraInfo;
+        }
+    }
+    #endregion
     #region 基站编辑
     /// <summary>
     /// 获取所有基站信息
@@ -1054,7 +1380,7 @@ public class CommunicationObject : MonoBehaviour
         client = GetClient();
         lock (client)
         {
-           
+
             Archor archor = client.GetArchor(archorId);
             return archor;
         }
@@ -1244,7 +1570,7 @@ public class CommunicationObject : MonoBehaviour
     {
         client = GetClient();
         lock (client)
-        {           
+        {
             bool value = client.EditPictureInfo(picture);
             return value;
         }

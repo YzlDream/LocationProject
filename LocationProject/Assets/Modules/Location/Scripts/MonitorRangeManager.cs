@@ -894,6 +894,29 @@ namespace MonitorRange
             }
         }
 
+        /// <summary>
+        /// 获取MonitorRangeObject根据区域id
+        /// </summary>
+        /// <param name="areaId"></param>
+        public MonitorRangeObject GetMonitorRangeObjectByAreaId(int areaId)
+        {
+            try
+            {
+                MonitorRangeObject m = rangelist.Find((i) => i.depNode.TopoNode.Id == areaId);
+                return m;
+            }
+            catch
+            {
+                return null;
+            }
+
+            //foreach (MonitorRangeObject m in rangelist)
+            //{
+
+            //}
+            //rootDepNode.TopoNode.
+        }
+
         #region 区域编辑
 
         /// <summary>

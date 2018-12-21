@@ -415,10 +415,16 @@ namespace RTEditor
 
             _background.OnCameraUpdate(Camera, _isDoingPerspectiveSwitch);
 
-            if (_transform.hasChanged)
+            //if (_transform.hasChanged)
+            //{
+            //    SetObjectVisibilityDirty();
+            //    _transform.hasChanged = false;
+            //}
+            //该脚本不一定绑定在使用的Camera上，所以得判断Camera.transfrom
+            if (Camera!=null&&Camera.transform.hasChanged)
             {
                 SetObjectVisibilityDirty();
-                _transform.hasChanged = false;
+                Camera.transform.hasChanged = false;
             }
         }
 

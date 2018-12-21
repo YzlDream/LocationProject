@@ -30,4 +30,8 @@ public static class Layers
     /// unity自带的忽略射线碰撞层，但能触发Collider碰撞
     /// </summary>
     public const string IgnoreRaycast = "Ignore Raycast";
+    /// <summary>
+    /// 地板
+    /// </summary>
+    public const string Floor = "Floor";
 }
