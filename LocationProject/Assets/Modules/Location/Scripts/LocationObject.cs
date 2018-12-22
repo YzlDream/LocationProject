@@ -270,9 +270,18 @@ public class LocationObject : MonoBehaviour
         {
             if (locationAreas.Count == 0)
             {
+                if (isRenderEnable==false) return;
                 if (!LocationManager.Instance.isShowLeavePerson)
                 {
                     SetRendererEnable(false);
+                }
+                else
+                {
+                    bool b = LocationManager.IsBelongtoCurrentDep(this);
+                    if (!b)
+                    {
+                        SetRendererEnable(false);
+                    }
                 }
             }
         }

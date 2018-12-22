@@ -1002,15 +1002,15 @@ public class LocationManager : MonoBehaviour
     /// </summary>
     /// <param name="locationObjectT"></param>
     /// <returns></returns>
-    private static bool IsBelongtoCurrentDep(LocationObject locationObjectT)
+    public static bool IsBelongtoCurrentDep(LocationObject locationObjectT)
     {
         List<DepNode> depNodeListT = FactoryDepManager.currentDep.GetComponentsInChildren<DepNode>().ToList();
         if (!depNodeListT.Contains(locationObjectT.currentDepNode))
         {
-            RoomFactory.Instance.ChangeDepNodeNoTween();
-            //RoomFactory.Instance.FocusNode(FactoryDepManager.Instance);
+            //RoomFactory.Instance.ChangeDepNodeNoTween();
+            ////RoomFactory.Instance.FocusNode(FactoryDepManager.Instance);
 
-            LocationManager.Instance.RecoverBeforeFocusAlignToOrigin();
+            //LocationManager.Instance.RecoverBeforeFocusAlignToOrigin();
             return false;
         }
         return true;
