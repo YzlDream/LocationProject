@@ -511,8 +511,11 @@ public class LocationObject : MonoBehaviour
         else
         {
             if (currentDepNode == null) return;
-            //如果位置点在当前所在区域范围内部,但是当前区域不是定位区域返回
-            if (currentDepNode.monitorRangeObject == null || currentDepNode.monitorRangeObject.IsOnLocationArea == false) return;
+            if (!LocationManager.Instance.isShowLeavePerson)
+            {
+                //如果位置点在当前所在区域范围内部,但是当前区域不是定位区域返回
+                if (currentDepNode.monitorRangeObject == null || currentDepNode.monitorRangeObject.IsOnLocationArea == false) return;
+            }
         }
 
         float dis = Vector3.Distance(transform.position, targetPos);

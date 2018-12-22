@@ -19,6 +19,6 @@ void Update () {
 	}
     public void ShowStartTime()
     {
-        startTime.text = "2018年1月1日";
+        startTime.text = "2018年01月01日";
     }
 }

@@ -92,8 +92,13 @@ public class PersonnelAlarmList : MonoBehaviour
     private void LoadData()
     {
         var personnelAlarm = CommunicationObject.Instance.GetLocationAlarms(perAlarmData);
-        PerAlarmList = new List<LocationAlarm>(personnelAlarm);
-        ScreenAlarmItem = new List<LocationAlarm>(personnelAlarm); ;
+        if (personnelAlarm!=null)
+        {
+            PerAlarmList = new List<LocationAlarm>(personnelAlarm);
+            ScreenAlarmItem = new List<LocationAlarm>(personnelAlarm); ;
+        }
+       
+       
     }
 
     /// <summary>
@@ -125,9 +130,9 @@ public class PersonnelAlarmList : MonoBehaviour
                 StartPageNum = 0;
                 PageNum = 1;
                 GetPersonnelAlarmPage(PerAlarmList);
-                TotaiLine(PerAlarmList);
                 pegeNumText.text = "1";
                 InputPerAlarm.text = "";
+                TotaiLine(PerAlarmList);
                 DateTime CurrentTime = System.DateTime.Now;
                 string currenttime = CurrentTime.ToString("yyyy年MM月dd日");
                 StartTimeText.text = currenttime;
@@ -157,6 +162,7 @@ public class PersonnelAlarmList : MonoBehaviour
         else
         {
             pegeTotalText.text = "1";
+           
         }
       
     }
@@ -311,7 +317,7 @@ public class PersonnelAlarmList : MonoBehaviour
 
             string endTime1 = newPerAlarmList[i].HandleTime.ToString();
            
-            if (endTime1 == "1/1/0001 12:00:00 AM")
+            if (endTime1 == "1/1/2000 12:00:00 AM")
             {
                 endTime = "<color=#C66BABFF>未消除</color>"; ;
             }

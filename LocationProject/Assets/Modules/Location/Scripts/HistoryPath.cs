@@ -121,7 +121,7 @@ public class HistoryPath : MonoBehaviour {
         lineObjT.name = "dottedline";
         lineObjT.transform.SetParent(pathParent);
         Renderer r = lineObjT.GetComponent<Renderer>();
-        color = new Color(color.r, color.g, color.b, 0.7f);
+        color = new Color(color.r, color.g, color.b, 0.4f);
         r.material.SetColor("_TintColor", color);//默认透明度是0.5,这里改为0.7；
         r.material.SetFloat("_InvFade", 0.15f);//原本是1，改为0.2，让线绘制的更加柔和，不会出现断裂
         r.material.renderQueue = 4000;//默认透明度是3000,这里改为4000；让透明物体先渲染，该轨迹后渲染，效果会更好
@@ -248,7 +248,7 @@ public class HistoryPath : MonoBehaviour {
             if (i < timelist.Count - 1)
             {
                 double secords = (timelist[i + 1] - timelist[i]).TotalSeconds;
-                if (secords > 10)//一般两点时间超过10秒，认为中间为无历史数据
+                if (secords > 2f)//一般两点时间超过10秒，认为中间为无历史数据
                 {
                     try
                     {
@@ -290,7 +290,7 @@ public class HistoryPath : MonoBehaviour {
             Vector3 p2 = vList[1];
 
             float dis = Vector3.Distance(p1, p2);
-            float unit = 0.3f;
+            float unit = 1f;
             float nfloat = dis / unit;//无数据轨迹每隔0.2个单位画一个点
             int n = (int)Math.Round(nfloat, 0) + 1;
             if (n % 2 > 0)

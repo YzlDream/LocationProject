@@ -68,7 +68,7 @@ public class StartCommand : MonoBehaviour {
             (a, b) => a + "|" + b);
         CommandLineText.text = text1;
         CommandLineArgsText.text = text2;
-        string[] abs = text2.Split('|');
+        string[] abs = text2.Split(new string[] { "|", "%7C" }, StringSplitOptions.None);//这里分隔加%7C，是因为谷歌浏览器传过来的数据会把"|"转化为 "%7C"。
         if (abs.Length > 2)
         {
             string str = abs[2];
