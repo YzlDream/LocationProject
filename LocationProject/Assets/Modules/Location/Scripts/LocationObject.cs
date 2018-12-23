@@ -384,18 +384,8 @@ public class LocationObject : MonoBehaviour
                 currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
             }
             //聚焦人员切换楼层控制
-            if (LocationManager.Instance.IsFocus && LocationManager.Instance.currentLocationFocusObj == this && FactoryDepManager.currentDep != currentDepNode)
-            {
-                RoomFactory.Instance.FocusNodeForFocusPerson(currentDepNode, () =>
-                {
-                    //FocusPerson(locationObjectT.alignTarget);
+            ChangeDep();
 
-                    //if (locationObjectT.personInfoUI != null)
-                    //{
-                    //    locationObjectT.personInfoUI.SetOpenOrClose(true);
-                    //}
-                }, false);
-            }
             //Debug.LogFormat("名称:{0},类型:{1}", depnode.name, depnode.NodeObject);
             if (depnode != null && floorCubeT != null)//二层267
             {
@@ -465,6 +455,37 @@ public class LocationObject : MonoBehaviour
         else
         {
             FlashingOffArchors();
+        }
+    }
+
+    /// <summary>
+    /// 切换区域：在聚焦该人员时，人员移动到不同区域，场景需要切换区域
+    /// </summary>
+    public void ChangeDep()
+    {
+        if (LocationManager.Instance.IsFocus && LocationManager.Instance.currentLocationFocusObj == this && FactoryDepManager.currentDep != currentDepNode)
+        {
+            DepNode depnodeT = currentDepNode;
+            if (depnodeT.TopoNode.Type == AreaTypes.机房 || depnodeT.TopoNode.Type == AreaTypes.范围)
+            {
+                depnodeT = depnodeT.ParentNode;
+            }
+            DepNode currentDepT = FactoryDepManager.currentDep;
+            if (currentDepT.TopoNode.Type == AreaTypes.机房 || currentDepT.TopoNode.Type == AreaTypes.范围)
+            {
+                currentDepT = depnodeT.ParentNode;
+            }
+            if (depnodeT == currentDepT) return;
+
+            RoomFactory.Instance.FocusNodeForFocusPerson(currentDepNode, () =>
+            {
+                //FocusPerson(locationObjectT.alignTarget);
+
+                //if (locationObjectT.personInfoUI != null)
+                //{
+                //    locationObjectT.personInfoUI.SetOpenOrClose(true);
+                //}
+            }, false);
         }
     }
 
