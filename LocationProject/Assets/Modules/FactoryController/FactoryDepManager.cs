@@ -166,10 +166,20 @@ public class FactoryDepManager : DepNode {
     /// 打开区域
     /// </summary>
     /// <param name="onComplete"></param>
-    public override void OpenDep(Action onComplete=null)
+    public override void OpenDep(Action onComplete=null, bool isFocusT = true)
     {
         ShowFactory();
-        FocusOn(onComplete);
+        if (isFocusT)
+        {
+            FocusOn(onComplete);
+        }
+        else
+        {
+            if (onComplete != null)
+            {
+                onComplete();
+            }
+        }
         SceneBackButton.Instance.Hide();
         //ShowLocation();
         DepNode last = currentDep;

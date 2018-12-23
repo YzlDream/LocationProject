@@ -79,7 +79,7 @@ public class RoomController : DepNode {
     /// 打开区域
     /// </summary>
     /// <param name="onComplete"></param>
-    public override void OpenDep(Action onComplete = null)
+    public override void OpenDep(Action onComplete = null, bool isFocusT = true)
     {
         HideFacotry();
         BuildingController building = ParentNode.ParentNode as BuildingController;
@@ -90,10 +90,17 @@ public class RoomController : DepNode {
             FactoryDepManager.currentDep = this;
             SceneEvents.OnDepNodeChanged(lastDep, this);
             //Todo:摄像头聚焦    
-            FocusOn(()=> 
+            if (isFocusT)
+            {
+                FocusOn(() =>
+                {
+                    AfterRoomFocus(true);
+                });
+            }
+            else
             {
                 AfterRoomFocus(true);
-            });
+            }
         });
     }
     public override void HideDep(Action onComplete = null)

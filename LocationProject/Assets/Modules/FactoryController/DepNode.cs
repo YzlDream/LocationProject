@@ -112,7 +112,7 @@ public class DepNode : MonoBehaviour
     /// <summary>
     /// 打开并聚焦区域
     /// </summary>
-    public virtual void OpenDep(Action onComplete=null)
+    public virtual void OpenDep(Action onComplete=null, bool isFocusT = true)
     {
 
     }

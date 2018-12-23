@@ -77,12 +77,22 @@ public class DepController : DepNode {
     /// 打开区域
     /// </summary>
     /// <param name="onComplete"></param>
-    public override void OpenDep(Action onComplete = null)
+    public override void OpenDep(Action onComplete = null, bool isFocusT = true)
     {
         ShowFactory();
         DisSelectLastDep();
-        IsFocus = true;
-        FocusOn(onComplete);
+        if (isFocusT)
+        {
+            IsFocus = true;
+            FocusOn(onComplete);
+        }
+        else
+        {
+            if (onComplete != null)
+            {
+                onComplete();
+            }
+        }
         foreach (var building in ChildNodes)
         {
             building.HighlightOn(false);

@@ -583,7 +583,7 @@ public class RoomFactory : MonoBehaviour
                 IsFocusingDep = false;
                 if (onDevCreateFinish != null) onDevCreateFinish();
                 SceneEvents.OnDepCreateCompleted(node);
-            });
+            },false);
             if (isFocusBreak) IsFocusingDep = true;
         }
 

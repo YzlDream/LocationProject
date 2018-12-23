@@ -185,7 +185,7 @@ public class BuildingController : DepNode {
     /// 打开区域
     /// </summary>
     /// <param name="onComplete"></param>
-    public override void OpenDep(Action onComplete = null)
+    public override void OpenDep(Action onComplete = null, bool isFocusT = true)
     {
         ShowFactory();
         if (NodeObject == null)
@@ -198,7 +198,17 @@ public class BuildingController : DepNode {
         {
             ShowBuildingDev(true);
             FactoryDepManager.Instance.HideOtherBuilding(this);
-            FocusOn(onComplete);
+            if (isFocusT)
+            {
+                FocusOn(onComplete);
+            }
+            else
+            {
+                if (onComplete != null)
+                {
+                    onComplete();
+                }
+            }
             DepNode lastDep = FactoryDepManager.currentDep;
             lastDep.IsFocus = false;
             FactoryDepManager.currentDep = this;

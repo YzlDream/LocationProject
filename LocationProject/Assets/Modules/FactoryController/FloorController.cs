@@ -97,7 +97,7 @@ public class FloorController : DepNode {
     /// 打开区域
     /// </summary>
     /// <param name="onComplete"></param>
-    public override void OpenDep(Action onComplete = null)
+    public override void OpenDep(Action onComplete = null, bool isFocusT = true)
     {
         HideFacotry();
         BuildingController parentNode = ParentNode as BuildingController;

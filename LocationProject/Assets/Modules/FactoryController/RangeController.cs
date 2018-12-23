@@ -66,7 +66,7 @@ public class RangeController : DepNode
     /// 打开区域
     /// </summary>
     /// <param name="onComplete"></param>
-    public override void OpenDep(Action onComplete = null)
+    public override void OpenDep(Action onComplete = null, bool isFocusT = true)
     {
         HideFacotry();
         BuildingController building = ParentNode.ParentNode as BuildingController;
@@ -76,21 +76,53 @@ public class RangeController : DepNode
             DepNode lastDep = FactoryDepManager.currentDep;
             FactoryDepManager.currentDep = this;
             SceneEvents.OnDepNodeChanged(lastDep, this);
-            //Todo:摄像头聚焦    
-            FocusOn(() =>
+
+            if (isFocusT)
             {
+                //Todo:摄像头聚焦    
+                FocusOn(() =>
+                {
+                    if (onComplete != null)
+                    {
+                        onComplete();
+                    }
+                    AfterRangeFocus(true);
+                });
+            }
+            else
+            {
+                if (onComplete != null)
+                {
+                    onComplete();
+                }
                 AfterRangeFocus(true);
-            });
+            }
         });
         else
         {
             DepNode lastDep = FactoryDepManager.currentDep;
             FactoryDepManager.currentDep = this;
             SceneEvents.OnDepNodeChanged(lastDep, this);
-            FocusOn(() =>
+
+            if (isFocusT)
             {
+                FocusOn(() =>
+                {
+                    if (onComplete != null)
+                    {
+                        onComplete();
+                    }
+                    AfterRangeFocus(true);
+                });
+            }
+            else
+            {
+                if (onComplete != null)
+                {
+                    onComplete();
+                }
                 AfterRangeFocus(true);
-            });
+            }
         }
     }
 
@@ -156,6 +188,7 @@ public class RangeController : DepNode
 
     public void FocusOn(Action onDevCreateFinish = null)
     {
+        IsFocus = true;
         //OnDevCreateComplete = onDevCreateFinish;
         DepNode lastDep = FactoryDepManager.currentDep;
         FactoryDepManager.currentDep = this;
