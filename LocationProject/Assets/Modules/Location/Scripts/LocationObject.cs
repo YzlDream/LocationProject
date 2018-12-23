@@ -270,7 +270,7 @@ public class LocationObject : MonoBehaviour
         {
             if (locationAreas.Count == 0)
             {
-                if (isRenderEnable==false) return;
+                if (isRenderEnable == false) return;
                 if (!LocationManager.Instance.isShowLeavePerson)
                 {
                     SetRendererEnable(false);
@@ -346,7 +346,7 @@ public class LocationObject : MonoBehaviour
 
         targetPos = LocationManager.GetRealVector(targetPos);
 
-        if (tagPos.Tag == "097F"|| tagPos.Tag == "0986")
+        if (tagPos.Tag == "097F" || tagPos.Tag == "0986")
         {
             //Debug.Log(tagPos.Tag + ":" + tagPos.TopoNodes);
             int i = 0;
@@ -383,8 +383,8 @@ public class LocationObject : MonoBehaviour
             {
                 currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
             }
-
-            if (FactoryDepManager.currentDep != currentDepNode)
+            //聚焦人员切换楼层控制
+            if (LocationManager.Instance.IsFocus && LocationManager.Instance.currentLocationFocusObj == this && FactoryDepManager.currentDep != currentDepNode)
             {
                 RoomFactory.Instance.FocusNodeForFocusPerson(currentDepNode, () =>
                 {
@@ -1184,7 +1184,7 @@ public class LocationObject : MonoBehaviour
             }
             alarmList.Add(locationAlarm);
         }
-        
+
     }
 
     /// <summary>
