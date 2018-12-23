@@ -441,14 +441,24 @@ public class BuildingController : DepNode {
         if (!isFocusRoom)
         {
             SceneEvents.OnDepNodeChanged(currentRoom);
-            //摄像头对焦完成后，开始加载设备
-            FocusCamera(roomObject, () =>
+            if (!LocationManager.Instance.IsFocus)
             {
-                controller.CreateFloorDev(()=> 
+                //摄像头对焦完成后，开始加载设备
+                FocusCamera(roomObject, () =>
+                {
+                    controller.CreateFloorDev(() =>
+                    {
+                        if (OnComplete != null) OnComplete(currentRoom);
+                    });
+                });
+            }
+            else
+            {
+                controller.CreateFloorDev(() =>
                 {
                     if (OnComplete != null) OnComplete(currentRoom);
                 });
-            });
+            }
         }
         else
         {
