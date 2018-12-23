@@ -383,6 +383,19 @@ public class LocationObject : MonoBehaviour
             {
                 currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
             }
+
+            if (FactoryDepManager.currentDep != currentDepNode)
+            {
+                RoomFactory.Instance.FocusNodeForFocusPerson(currentDepNode, () =>
+                {
+                    //FocusPerson(locationObjectT.alignTarget);
+
+                    //if (locationObjectT.personInfoUI != null)
+                    //{
+                    //    locationObjectT.personInfoUI.SetOpenOrClose(true);
+                    //}
+                }, false);
+            }
             //Debug.LogFormat("名称:{0},类型:{1}", depnode.name, depnode.NodeObject);
             if (depnode != null && floorCubeT != null)//二层267
             {

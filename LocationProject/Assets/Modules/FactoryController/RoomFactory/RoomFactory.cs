@@ -545,7 +545,7 @@ public class RoomFactory : MonoBehaviour
     /// </summary>
     /// <param name="node"></param>
     /// <param name="onDevCreateFinish"></param>
-    public void FocusNodeForFocusPerson(DepNode node, Action onDevCreateFinish = null)
+    public void FocusNodeForFocusPerson(DepNode node, Action onDevCreateFinish = null,bool isSetSelectNode=true)
     {
         //if (node.TopoNode != null && node.TopoNode.Type == AreaTypes.范围) return;
         if (FactoryDepManager.currentDep == node && IsFocusingDep)
@@ -587,7 +587,10 @@ public class RoomFactory : MonoBehaviour
             if (isFocusBreak) IsFocusingDep = true;
         }
 
-        if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
+        if (isSetSelectNode)
+        {
+            if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
+        }
     }
 
     ///// <summary>
