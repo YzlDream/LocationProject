@@ -16,7 +16,7 @@ public class DepDevController : DevNode
 
     private void OnClick()
     {
-        if (DevSubsystemManage.IsRoamState) return;
+        if (DevSubsystemManage.IsRoamState||ObjectAddListManage.IsEditMode) return;//设备编辑模式，插件自带高亮边框) return;
         HighlightOn();
         Debug.Log("Click  ID: " + Info.Id+" DevID: "+Info.DevID);
     }

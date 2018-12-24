@@ -62,8 +62,7 @@ public class DevNode : MonoBehaviour {
     /// 高亮设备
     /// </summary>
     public virtual void HighlightOn()
-    {
-        if (ObjectAddListManage.IsEditMode) return;//设备编辑模式，插件自带高亮边框
+    {    
         Highlighter h = gameObject.AddMissingComponent<Highlighter>();
         Color colorConstant = Color.green;
         //h.ConstantOn(colorConstant);

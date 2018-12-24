@@ -16,7 +16,7 @@ public class RoomDevController : DevNode
 	
     private void OnClick()
     {
-        if (DevSubsystemManage.IsRoamState) return;
+        if (DevSubsystemManage.IsRoamState|| ObjectAddListManage.IsEditMode) return;
         HighlightOn();
         //Debug.Log("Click:" + Info.DevName);
     }
