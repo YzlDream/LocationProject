@@ -5,6 +5,7 @@ using DG.Tweening;
 using Vectrosity;
 using Mogoson.CameraExtension;
 using RTEditor;
+using HighlightingSystem;
 
 public class demo : MonoBehaviour {
 
@@ -111,5 +112,24 @@ public class demo : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         print("OnTriggerExit!" + other.name);
+    }
+
+    [ContextMenu("FlashingOn")]
+    public void Flashing()
+    {
+        FlashingOn(Color.red);
+    }
+
+    public void FlashingOn(Color color)
+    {
+        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+        h.FlashingOn(new Color(color.r, color.g, color.b, 0), new Color(color.r, color.g, color.b, 1));
+    }
+
+    [ContextMenu("FlashingOff")]
+    public void FlashingOff()
+    {
+        Highlighter h = gameObject.AddMissingComponent<Highlighter>();
+        h.FlashingOff();
     }
 }

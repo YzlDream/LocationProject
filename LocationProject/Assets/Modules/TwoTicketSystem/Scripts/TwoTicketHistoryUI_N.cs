@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TwoTicketSystem
@@ -48,8 +49,8 @@ namespace TwoTicketSystem
             searchInput.onEndEdit.AddListener(SearchInput_OnEndEdit);
             searchInput.onValueChanged.AddListener(SearchInput_OnValueChanged);
             searchBtn.onClick.AddListener(SearchBtn_OnClick);
-            calendarStart.onDayClick.AddListener(CalendarStart_onDayClick);
-            calendarEnd.onDayClick.AddListener(CalendarEnd_onDayClick);
+            calendarStart.onDayClick.AddListener(ShowStartTimeIno);
+            calendarEnd.onDayClick.AddListener(ShowEndTimeIno);
             closeBtn.onClick.AddListener(CloseBtn_OnClick);
 
             SetCalendarOpenAndClose();
@@ -71,7 +72,7 @@ namespace TwoTicketSystem
             calendarEnd.transform.parent.Find("PickButton").GetComponent<Button>().onClick.AddListener(() =>
             {
                 if (calendarStart.gameObject.activeInHierarchy)
-                { 
+                {
                     calendarStart.gameObject.SetActive(false);
                 }
             });
@@ -114,6 +115,7 @@ namespace TwoTicketSystem
         {
             SetContentActive(true);
             searchInput.text = "";
+
             Loom.StartSingleThread((System.Threading.ThreadStart)(() =>
             {
                 if (curentState == State.工作票)
@@ -121,7 +123,56 @@ namespace TwoTicketSystem
                     GetWorkTicketHistoryData();
                     Loom.DispatchToMainThread((Frankfort.Threading.ThreadDispatchDelegate)(() =>
                     {
-                        CreateWorkTicketGrid();
+                        ShowWorkTicketHistoryInfo();
+                    }));
+                }
+                else if (curentState == State.操作票 )
+                {
+                    GetOperationTicketHistoryData();
+                    Loom.DispatchToMainThread(() =>
+                    {
+                        ShowOperationTicketInfo();
+                    });
+                }
+
+            }));
+        }
+        public void StartShow()
+        {
+            SetContentActive(true);
+            searchInput.text = "";
+
+            if (TwoTicketSystemUI_N.Instance.State == TwoTicketState.工作票)
+            {
+                TitleDropdown_OnValueChanged(0);
+                GetWorkTicketHistoryData();
+                Loom.DispatchToMainThread((Frankfort.Threading.ThreadDispatchDelegate)(() =>
+                {
+                    ShowWorkTicketHistoryInfo();
+                }));
+            }
+            else if (TwoTicketSystemUI_N.Instance.State == TwoTicketState.操作票)
+            {
+                TitleDropdown_OnValueChanged(1);
+                GetOperationTicketHistoryData();
+                Loom.DispatchToMainThread(() =>
+                {
+                    ShowOperationTicketInfo();
+                });
+            }
+
+
+        }
+        public void ShowStartTimeIno(DateTime dateTime)
+        {
+            Loom.StartSingleThread((System.Threading.ThreadStart)(() =>
+            {
+                if (curentState == State.工作票)
+                {
+                    GetWorkTicketHistoryData();
+                    Loom.DispatchToMainThread((Frankfort.Threading.ThreadDispatchDelegate)(() =>
+                    {
+                        workTicketHistoryGrid.ScreeningStartTime(dateTime);
                     }));
                 }
                 else if (curentState == State.操作票)
@@ -129,13 +180,34 @@ namespace TwoTicketSystem
                     GetOperationTicketHistoryData();
                     Loom.DispatchToMainThread(() =>
                     {
-                        CreateOperationTicketGrid();
+                        operationTicketHistoryGrid.ScreeningStartTime(dateTime);
                     });
                 }
 
             }));
         }
-
+        public void ShowEndTimeIno(DateTime dateTime)
+        {
+            Loom.StartSingleThread((System.Threading.ThreadStart)(() =>
+            {
+                if (curentState == State.工作票)
+                {
+                    GetWorkTicketHistoryData();
+                    Loom.DispatchToMainThread((Frankfort.Threading.ThreadDispatchDelegate)(() =>
+                    {
+                        workTicketHistoryGrid.ScreeningSecondTime(dateTime);
+                    }));
+                }
+                else if (curentState == State.操作票)
+                {
+                    GetOperationTicketHistoryData();
+                    Loom.DispatchToMainThread(() =>
+                    {
+                        operationTicketHistoryGrid.ScreeningSecondTime(dateTime);
+                    });
+                }
+            }));
+        }
         /// <summary>
         /// 改变状态
         /// </summary>
@@ -167,22 +239,37 @@ namespace TwoTicketSystem
         /// </summary>
         public void CreateWorkTicketGrid()
         {
-            operationTicketHistoryGrid.gameObject.SetActive(false);
-            workTicketHistoryGrid.gameObject.SetActive(true);
+
             workTicketHistoryGrid.Search();
+
         }
 
+        /// <summary>
+        /// 展示两票历史列表信息
+        /// </summary>
+        public void ShowWorkTicketHistoryInfo()
+        {
+            operationTicketHistoryGrid.gameObject.SetActive(false);
+            workTicketHistoryGrid.gameObject.SetActive(true);
+            workTicketHistoryGrid.StartShowWorkTicketHistory();
+            workTicketHistoryGrid.TotaiLine(workTicketHistoryList);
+        }
         /// <summary>
         /// 创建操作票列表
         /// </summary>
         public void CreateOperationTicketGrid()
         {
-            workTicketHistoryGrid.gameObject.SetActive(false);
-            operationTicketHistoryGrid.gameObject.SetActive(true);
-            operationTicketHistoryGrid.gameObject.SetActive(true);
             operationTicketHistoryGrid.Search();
         }
+        public void ShowOperationTicketInfo()
+        {
 
+            workTicketHistoryGrid.gameObject.SetActive(false);
+            operationTicketHistoryGrid.gameObject.SetActive(true);
+            //     operationTicketHistoryGrid.gameObject.SetActive(true);
+            operationTicketHistoryGrid.StartShowOperationTicketInfo();
+            operationTicketHistoryGrid.TotaiLine(operationTicketHistoryList);
+        }
         /// <summary>
         /// 搜索
         /// </summary>
@@ -234,17 +321,7 @@ namespace TwoTicketSystem
         }
 
 
-        public void CalendarStart_onDayClick(DateTime dateTimeT)
-        {
-            //DateTime endtime = Convert.ToDateTime("2018年8月10日");//8/10/2018 12:00:00 AM,就是10日早上0点
-            startTime = dateTimeT;
-            Search();
-        }
-        public void CalendarEnd_onDayClick(DateTime dateTimeT)
-        {
-            endTime = dateTimeT.AddHours(24);
-            Search();
-        }
+      
 
         /// <summary>
         /// 关闭

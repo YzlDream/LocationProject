@@ -26,18 +26,40 @@ public class FacilityMeshTrigger : MonoBehaviour {
         if (Dev == null) return;
         Dev.OnDoubleClick();
     }
-    void OnMouseEnter()
+
+    /// <summary>
+    /// 鼠标是否Hover
+    /// </summary>
+    /// <param name="isEnter"></param>
+    public void SetMouseState(bool isEnter)
     {
-        if (Dev==null||!DevSubsystemManage.IsRoamState) return;
-        Dev.HighlightOn();
-        DevSubsystemManage.Instance.SetFocusDevInfo(Dev, true);
-        if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.ShowDevInfo(Dev.Info);
+        if(isEnter)
+        {
+            if (Dev == null || !DevSubsystemManage.IsRoamState) return;
+            Dev.HighlightOn();
+            DevSubsystemManage.Instance.SetFocusDevInfo(Dev, true);
+            if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.ShowDevInfo(Dev.Info);
+        }
+        else
+        {
+            if (!DevSubsystemManage.IsRoamState) return;
+            Dev.HighLightOff();
+            DevSubsystemManage.Instance.SetFocusDevInfo(Dev, false);
+            if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.Close();
+        }
     }
-    void OnMouseExit()
-    {
-        if (!DevSubsystemManage.IsRoamState) return;
-        Dev.HighLightOff();
-        DevSubsystemManage.Instance.SetFocusDevInfo(Dev, false);
-        if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.Close();
-    }
+    //void OnMouseEnter()
+    //{
+    //    if (Dev==null||!DevSubsystemManage.IsRoamState) return;
+    //    Dev.HighlightOn();
+    //    DevSubsystemManage.Instance.SetFocusDevInfo(Dev, true);
+    //    if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.ShowDevInfo(Dev.Info);
+    //}
+    //void OnMouseExit()
+    //{
+    //    if (!DevSubsystemManage.IsRoamState) return;
+    //    Dev.HighLightOff();
+    //    DevSubsystemManage.Instance.SetFocusDevInfo(Dev, false);
+    //    if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.Close();
+    //}
 }

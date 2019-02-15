@@ -1,4 +1,5 @@
 ﻿using Location.WCFServiceReferences.LocationServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TwoTicketSystem;
@@ -17,18 +18,27 @@ namespace TwoTicketSystem
         public Button nextPageBtn;//下一页
         public Text txtPageCount;//总页数Text
                                  //private List<HistoryPersonsSearchUIItem> selectPersonnelList;//当前显示的列表集合
-        private int currentPageNum;//当前所在页
-        private int pageCount;//总页数
+        private int currentPageNum = 0;//当前所在页
+        private int pageCount = 1;//页数
         private int showCount = 10;//每页显示人员的个数
 
         private List<WorkTicketHistory> searchList;//当前搜索出来的工作票历史记录
 
+        public Text StartTimeText;//开始时间
+        public Text EndTimeText;//结束时间
+        bool IsSearch;
+        bool IsStartTime;
+        bool IsEndTime;
+        public Sprite Singleline;
+        public Sprite DoubleLine;
         // Use this for initialization
         void Start()
         {
+
+            searchList = new List<WorkTicketHistory>();
             previousPageBtn.onClick.AddListener(PreviousPageBtn_OnClick);
             nextPageBtn.onClick.AddListener(NextPageBtn_OnClick);
-            InputFieldPage.onEndEdit.AddListener(InputFieldPage_OnEndEdit);
+            InputFieldPage.onValueChanged.AddListener(InputFieldPage_OnEndEdit);
         }
 
         // Update is called once per frame
@@ -36,70 +46,306 @@ namespace TwoTicketSystem
         {
 
         }
+        public void TotaiLine(List<WorkTicketHistory> date)
+        {
+            if (date.Count != 0)
+            {
+                if (date.Count % showCount == 0)
+                {
+                    txtPageCount.text = (date.Count / showCount).ToString();
+                }
+                else
+                {
+                    txtPageCount.text = Convert.ToString(Math.Ceiling((double)date.Count / (double)showCount));
+                }
+            }
+            else
+            {
+                txtPageCount.text = "1";
 
+            }
+
+        }
+        public void StartShowWorkTicketHistory()
+        {
+            currentPageNum = 0;
+            pageCount = 1;
+            IsSearch = false;
+            IsStartTime = false;
+            IsEndTime = false;
+            InputFieldPage.text = pageCount.ToString();
+            TotaiLine(TwoTicketHistoryUI_N.Instance.workTicketHistoryList);
+            CreateGrid(TwoTicketHistoryUI_N.Instance.workTicketHistoryList);
+        }
         /// <summary>
         /// 搜索
         /// </summary>
         public void Search()
         {
-            currentPageNum = 0;
-            if (TwoTicketHistoryUI_N.Instance.searchInput.text == "")
-            {
-                searchList = TwoTicketHistoryUI_N.Instance.workTicketHistoryList;
-            }
-            else
-            {
-                searchList = TwoTicketHistoryUI_N.Instance.workTicketHistoryList.FindAll((item) => WorkTicketContains(item));
-            }
+            IsSearch = true;
 
-            //if (workTicketHistoryList == null) return;
-            pageCount = searchList.Count / showCount;
-            if (searchList.Count % showCount > 0)
+            if (searchList.Count != 0)
             {
-                pageCount += 1;
+                searchList.Clear();
             }
+            string key = TwoTicketHistoryUI_N.Instance.searchInput.text.ToString().ToLower();
+            string StartTime = StartTimeText.text;
+            string EndTime = EndTimeText.text;
+            for (int i = 0; i < TwoTicketHistoryUI_N.Instance.workTicketHistoryList.Count; i++)
+            {
+                DateTime starttime = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].StartTimeOfPlannedWork;
+                DateTime endtime = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].EndTimeOfPlannedWork;
+                DateTime NewStartTime = Convert.ToDateTime(StartTime);
+                DateTime CurrentEndTime = Convert.ToDateTime(EndTime);  
+                DateTime NewEndTime = CurrentEndTime.AddHours(24);
 
-            txtPageCount.text = pageCount.ToString();
-            CreateGrid();
+                bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+                bool ScreenStartTime = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                bool ScreenEndTime = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+
+                string lssuer = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].Lssuer.ToLower();
+                string licensor = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].Licensor.ToLower();
+                string noNum = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].No.ToLower();
+                string personInCharge = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].PersonInCharge.ToLower();
+              
+
+                if (IsTime)
+                {
+                    if (TwoTicketHistoryUI_N.Instance.searchInput.text == "" && ScreenStartTime && ScreenEndTime)
+                    {
+                        searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                    }
+                    else if(lssuer!=null&& noNum!=null && licensor!=null && personInCharge!=null )
+                    {
+                        if (licensor.ToLower().Contains(key) || noNum.ToLower().Contains(key) || personInCharge.ToLower().Contains(key) || lssuer.ToLower().Contains(key))
+                        {
+                            if (ScreenStartTime && ScreenEndTime)
+                            {
+                                searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                            }
+                        }
+                    }
+                    
+                    
+                }
+                else
+                {
+                    DateTime time1 = NewStartTime.AddHours(24);
+                    NewEndTime = time1;
+                    bool Time2 = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                    bool Time3 = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+                    if (TwoTicketHistoryUI_N.Instance.searchInput.text == "" && Time2 && Time3)
+                    {
+                        searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                    }
+                    else if (lssuer != null && noNum != null && licensor != null && personInCharge != null)
+                    {
+                        if (licensor.ToLower().Contains(key) || noNum.ToLower().Contains(key) || personInCharge.ToLower().Contains(key) || lssuer.ToLower().Contains(key))
+                        {
+                            if (ScreenStartTime && ScreenEndTime)
+                            {
+                                searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                            }
+                        }
+                    }
+                    Invoke("ChangeEndTime", 0.1f);
+                }
+            }
+            TotaiLine(searchList);
+            CreateGrid(searchList);
+
         }
+        /// <summary>
+        /// 第一个时间筛选
+        /// </summary>
+        /// <param name="dateTime"></param>
+        public void ScreeningStartTime(DateTime dateTime)
+        {
+            IsStartTime = true;
 
+            if (searchList.Count != 0)
+            {
+                searchList.Clear();
+            }
+            string key = TwoTicketHistoryUI_N.Instance.searchInput.text.ToString().ToLower();
+
+            string EndTime = EndTimeText.text;
+            for (int i = 0; i < TwoTicketHistoryUI_N.Instance.workTicketHistoryList.Count; i++)
+            {
+                DateTime starttime = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].StartTimeOfPlannedWork;
+                DateTime endtime = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].EndTimeOfPlannedWork;
+                DateTime NewStartTime = Convert.ToDateTime(dateTime);
+                DateTime CurrentEndTime = Convert.ToDateTime(EndTime);
+                DateTime NewEndTime = CurrentEndTime.AddHours(24);
+
+                bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+                bool ScreenStartTime = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                bool ScreenEndTime = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+
+
+                string lssuer = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].Lssuer.ToLower();
+                string licensor = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].Licensor.ToLower();
+                string noNum = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].No.ToLower();
+                string personInCharge = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].PersonInCharge.ToLower();
+           
+
+                if (IsTime)
+                {
+                    if (key == "" && ScreenStartTime && ScreenEndTime)
+                    {
+                        searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                    }
+                    else if (lssuer != null && noNum != null && licensor != null && personInCharge != null)
+                    {
+                        if (licensor.ToLower().Contains(key) || noNum.ToLower().Contains(key) || personInCharge.ToLower().Contains(key) || lssuer.ToLower().Contains(key))
+                        {
+                            if (ScreenStartTime && ScreenEndTime)
+                            {
+                                searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DateTime time1 = NewStartTime.AddHours(24);
+                    NewEndTime = time1;
+                    bool Time2 = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                    bool Time3 = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+                    if (key == "" && Time2 && Time3)
+                    {
+                        searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                    }
+                    else if (lssuer != null && noNum != null && licensor != null && personInCharge != null)
+                    {
+                        if (licensor.ToLower().Contains(key) || noNum.ToLower().Contains(key) || personInCharge.ToLower().Contains(key) || lssuer.ToLower().Contains(key))
+                        {
+                            if (ScreenStartTime && ScreenEndTime)
+                            {
+                                searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                            }
+                        }
+                    }
+                    Invoke("ChangeEndTime", 0.1f);
+                }
+            }
+
+
+            TotaiLine(searchList);
+            CreateGrid(searchList);
+        }
+        /// <summary>
+        /// 第二个时间筛选
+        /// </summary>
+        /// <param name="dateTime"></param>
+        public void ScreeningSecondTime(DateTime dateTime)
+        {
+            IsEndTime = true;
+
+            if (searchList.Count != 0)
+            {
+                searchList.Clear();
+            }
+            string key = TwoTicketHistoryUI_N.Instance.searchInput.text.ToString();
+            string StartTime = StartTimeText.text;
+
+            for (int i = 0; i < TwoTicketHistoryUI_N.Instance.workTicketHistoryList.Count; i++)
+            {
+                DateTime starttime = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].StartTimeOfPlannedWork;
+                DateTime endtime = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].EndTimeOfPlannedWork;
+                DateTime NewStartTime = Convert.ToDateTime(StartTime);
+
+                DateTime CurrentEndTime = Convert.ToDateTime(dateTime);
+                DateTime NewEndTime = CurrentEndTime.AddHours(24);
+             
+
+                bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+                bool ScreenStartTime = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                bool ScreenEndTime = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+
+
+                string lssuer = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].Lssuer;
+                string licensor = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].Licensor;
+                string noNum = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].No;
+                string personInCharge = TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i].PersonInCharge;
+               
+
+                if (IsTime)
+                {
+                    if (key == "" && ScreenStartTime && ScreenEndTime)
+                    {
+                        searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                    }
+                    else if (lssuer != null && noNum != null && licensor != null && personInCharge != null)
+                    {
+                        if (licensor.Contains(key) || noNum.Contains(key) || personInCharge.Contains(key) || lssuer.Contains(key))
+                        {
+                            if (ScreenStartTime && ScreenEndTime)
+                            {
+                                searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DateTime time1 = NewStartTime.AddHours(24);
+                    NewEndTime = time1;
+                    bool Time2 = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                    bool Time3 = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+                    if (key == "" && Time2 && Time3)
+                    {
+                        searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                    }
+                    else if (lssuer != null && noNum != null && licensor != null && personInCharge != null)
+                    {
+                        if (licensor.Contains(key) || noNum.Contains(key) || personInCharge.Contains(key) || lssuer.Contains(key))
+                        {
+                            if (ScreenStartTime && ScreenEndTime)
+                            {
+                                searchList.Add(TwoTicketHistoryUI_N.Instance.workTicketHistoryList[i]);
+                            }
+                        }
+                    }
+                    Invoke("ChangeEndTime", 0.1f);
+                }
+            }
+            TotaiLine(searchList);
+            CreateGrid(searchList);
+        }
+        int i = 0;
         /// <summary>
         /// 创建人员列表
         /// </summary>
-        public void CreateGrid()
+        public void CreateGrid(List<WorkTicketHistory> date)
         {
             ClearItems();
-            InputFieldPage.text = (currentPageNum + 1).ToString();
+       
             int startIndex = currentPageNum * showCount;
             int num = showCount;
-            if (startIndex + num > searchList.Count)
+            if (startIndex + num > date.Count)
             {
-                num = searchList.Count - startIndex;
+                num = date.Count - startIndex;
             }
-            if (searchList.Count == 0) return;
-            List<WorkTicketHistory> workTicketHistoryT = searchList.GetRange(startIndex, num);
+            if (date.Count == 0) return;
+            List<WorkTicketHistory> workTicketHistoryT = date.GetRange(startIndex, num);
 
             foreach (WorkTicketHistory w in workTicketHistoryT)
             {
-                ////HistoryPersonsSearchUIItem item = selectPersonnelList.Find((i) => i.personnel == p);
-                //if (item != null)
-                //{
-                //    item.gameObject.SetActive(true);
-                //    item.transform.SetAsLastSibling();
-                //    continue;
-                //}
+                i = i + 1;
+                
                 WorkTicketHistoryItem item = CreatePersonItem(w);
-                //if (currentSelectPersonnels.Contains(p))
-                //{
-                //    item.SetToggle(true);
-                //}
-
                 item.gameObject.SetActive(true);
-                //personItemList.Add(item);
-
+                if (i % 2 == 0)
+                {
+                    item.transform.gameObject.GetComponent<Image>().sprite = DoubleLine;
+                }
+                else
+                {
+                    item.transform.gameObject.GetComponent<Image>().sprite = Singleline;
+                }     
             }
-
-            SetPreviousAndNextPageBtn();
+            //   SetPreviousAndNextPageBtn();
         }
 
         /// <summary>
@@ -180,11 +426,25 @@ namespace TwoTicketSystem
         /// </summary>
         public void PreviousPageBtn_OnClick()
         {
-            Debug.Log("PreviousPageBtn_OnClick!");
-            currentPageNum = currentPageNum - 1;
-            //int currentPageNumT = currentPageNum;
-            //SetPreviousAndNextPageBtn();
-            CreateGrid();
+            if (currentPageNum > 0 && pageCount > 0)
+            {
+                currentPageNum = currentPageNum - 1;
+                pageCount = pageCount - 1;
+                InputFieldPage.text = (pageCount).ToString();
+                //int currentPageNumT = currentPageNum;
+                //SetPreviousAndNextPageBtn();
+                if (IsSearch || IsStartTime || IsEndTime)
+                {
+                    CreateGrid(searchList);
+                }
+                else
+                {
+                    CreateGrid(TwoTicketHistoryUI_N.Instance.workTicketHistoryList);
+
+                }
+            }
+
+
         }
 
         /// <summary>
@@ -192,10 +452,49 @@ namespace TwoTicketSystem
         /// </summary>
         public void NextPageBtn_OnClick()
         {
+
             Debug.Log("NextPageBtn_OnClick!");
-            currentPageNum = currentPageNum + 1;
+
             //SetPreviousAndNextPageBtn();
-            CreateGrid();
+            if (IsSearch || IsStartTime || IsEndTime)
+            {
+                double a = Math.Ceiling((double)searchList.Count / (double)showCount);
+                int m = (int)a;
+
+                if (currentPageNum < m && pageCount < m)
+                {
+                    currentPageNum = currentPageNum + 1;
+                    pageCount = pageCount + 1;
+                    InputFieldPage.text = (pageCount).ToString();
+                    CreateGrid(searchList);
+                }
+                else if (currentPageNum==m)
+                {
+                    pageCount = m;
+                    InputFieldPage.text = (pageCount).ToString();
+                    CreateGrid(searchList);
+                }
+
+            }
+            else
+            {
+                double a = Math.Ceiling((double)TwoTicketHistoryUI_N.Instance.workTicketHistoryList.Count / (double)showCount);
+                int m = (int)a;
+                if (currentPageNum < m && pageCount < m)
+                {
+                    currentPageNum = currentPageNum + 1;
+                    pageCount = pageCount + 1;
+                    InputFieldPage.text = (pageCount).ToString();
+                    CreateGrid(TwoTicketHistoryUI_N.Instance.workTicketHistoryList);
+                }
+                else if (currentPageNum == m)
+                {
+                    pageCount = m;
+                    InputFieldPage.text = (pageCount).ToString();
+                    CreateGrid(searchList);
+                }
+            }
+
         }
 
         /// <summary>
@@ -230,7 +529,51 @@ namespace TwoTicketSystem
         /// <param name="txt"></param>
         public void InputFieldPage_OnEndEdit(string txt)
         {
-            Debug.Log("InputFieldPage_OnEndEdit!");
+            int currentPage = int.Parse(InputFieldPage.text);
+            if (IsSearch || IsStartTime || IsEndTime)
+            {
+                int MaxPage = (int)Math.Ceiling((double)searchList.Count / (double)showCount);
+                if (currentPage > MaxPage)
+                {
+                    currentPage = MaxPage;
+                    InputFieldPage.text = currentPage.ToString();
+
+                }
+                if (currentPage <= 0)
+                {
+                    currentPage = 1;
+                    InputFieldPage.text = currentPage.ToString();
+                }
+                currentPageNum = int.Parse(InputFieldPage.text) - 1;
+                pageCount = int.Parse(InputFieldPage.text);
+                CreateGrid(searchList);
+            }
+            else
+            {
+                int MaxPage = (int)Math.Ceiling((double)TwoTicketHistoryUI_N.Instance.workTicketHistoryList.Count / (double)showCount);
+                if (currentPage > MaxPage)
+                {
+                    currentPage = MaxPage;
+                    InputFieldPage.text = currentPage.ToString();
+
+                }
+                if (currentPage <= 0)
+                {
+                    currentPage = 1;
+                    InputFieldPage.text = currentPage.ToString();
+                }
+                pageCount = int.Parse(InputFieldPage.text);
+                currentPageNum = int.Parse(InputFieldPage.text) - 1;
+                CreateGrid(TwoTicketHistoryUI_N.Instance.workTicketHistoryList);
+            }
+        }
+
+        public void ChangeEndTime()
+        {
+            string startTime = StartTimeText.text;
+            DateTime NewStartTime = Convert.ToDateTime(startTime);
+            string CurrentTime = NewStartTime.ToString("yyyy年MM月dd日");
+            EndTimeText.text = CurrentTime.ToString();
         }
     }
 }

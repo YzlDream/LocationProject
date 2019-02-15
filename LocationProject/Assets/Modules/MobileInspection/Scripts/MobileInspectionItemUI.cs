@@ -9,8 +9,11 @@ public class MobileInspectionItemUI : MonoBehaviour {
     public Text txtNumber;//编号
     public Text txtPerson;//负责人
 
-    public PersonnelMobileInspection info;//操作票信息
+    //  public PersonnelMobileInspection info;//操作票信息
 
+    public InspectionTrack InspectionTrackInfo;
+    public Text NumText;//序号
+    public ChangeTextColor changeTextColor;
     // Use this for initialization
     void Start()
     {
@@ -33,10 +36,11 @@ public class MobileInspectionItemUI : MonoBehaviour {
     /// </summary>
     /// <param name="numberStr"></param>
     /// <param name="personStr"></param>
-    public void Init(PersonnelMobileInspection infoT)
+    public void Init(InspectionTrack infoT)
     {
-        info = infoT;
-        UpdateData(info.MobileInspectionName, info.PersonnelName);
+        InspectionTrackInfo = infoT;
+        UpdateData(InspectionTrackInfo.Code, InspectionTrackInfo.Name );
+        NumText.text = MobileInspectionUI_N.Instance.mobileInspectionNum.ToString();
     }
 
     /// <summary>
@@ -58,15 +62,17 @@ public class MobileInspectionItemUI : MonoBehaviour {
         if (ison)
         {
             print("ItemBtn_OnClick!");
-            MobileInspectionDetailsUI.Instance.Show(info);
-            MobileInspectionManage.Instance.ShowMobileInspectionPath(info);
-            ToggleGroup toggleGroup = MobileInspectionUI_N.Instance.toggleGroup;
+            MobileInspectionDetailsUI.Instance.Show(InspectionTrackInfo);
+            MobileInspectionInfoFollow.Instance.DateUpdate(InspectionTrackInfo);
+               ToggleGroup toggleGroup = MobileInspectionUI_N.Instance.toggleGroup;
             FunctionSwitchBarManage.Instance.SetTransparentToggle(true);
+            changeTextColor.ClickTextColor();
         }
         else
         {
-            //TwoTicketSystemManage.Instance.Hide();
-            MobileInspectionManage.Instance.Hide();
+           changeTextColor.NormalTextColor();
+
+            MobileInspectionInfoFollow.Instance.Hide();
             FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
             MobileInspectionDetailsUI.Instance.SetWindowActive(false);
         }

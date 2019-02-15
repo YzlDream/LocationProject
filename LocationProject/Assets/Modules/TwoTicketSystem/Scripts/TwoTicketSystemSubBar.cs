@@ -97,7 +97,7 @@ public class TwoTicketSystemSubBar : MonoBehaviour {
         ActionBarManage.Instance.ChangeImage(ison, historyToggle);
         if (ison)
         {
-            TwoTicketHistoryUI_N.Instance.Show();
+            TwoTicketHistoryUI_N.Instance.StartShow();
         }
         else
         {

@@ -4,16 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayCastTest : MonoBehaviour {
+public class RayCastTest : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        //RayTest();
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        RayTest();
         loadXML();
     }
     private void loadXML()
@@ -27,14 +30,15 @@ public class RayCastTest : MonoBehaviour {
     }
     private void RayTest()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
-            if(Physics.Raycast(ray,out hitInfo))
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask("Floor")))
             {
-                Debug.Log(hitInfo.transform.name);
+                Debug.Log(hitInfo.transform.name + LayerMask.LayerToName(hitInfo.transform.gameObject.layer));
             }
+            //if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.NameToLayer("Floor")))
         }
     }
 }

@@ -14,8 +14,12 @@ public class LocationHistoryPath : LocationHistoryPathBase
         base.Start();
         LocationHistoryManager.Instance.AddHistoryPath(this as LocationHistoryPath);
         //timeStart = HistoryPlayUI.Instance.timeStart;
+        Hide();
     }
-
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
     protected override void Update()
     {
         base.Update();
@@ -34,21 +38,56 @@ public class LocationHistoryPath : LocationHistoryPathBase
                     //double timesum2 = (timelist[currentPointIndex] - HistoryPlayUI.Instance.GetStartTime()).TotalSeconds;
                     //Debug.Log("timesum2:" + timesum2);
                     //progressTargetValue = (double)timesum2 / HistoryPlayUI.Instance.timeLength;
-                    ExcuteHistoryPath(currentPointIndex);
+                    if (currentPointIndex - 1 >= 0)
+                    {
+                        double temp = (timelist[currentPointIndex] - timelist[currentPointIndex - 1]).TotalSeconds;
+                        if (temp > 2f)//如果当前点的时间超过了上个点时间2秒，这中间就存在卡信号丢失问题，人立马移动到当前点，不需要缓动
+                        {
+                            //ExcuteHistoryPath(currentPointIndex,1f, false);
+                            ExcuteHistoryPath(currentPointIndex, HistoryPlayUI.Instance.CurrentSpeed);
+                            currentPointIndex++;
+                            return;
+                        }
+                        else
+                        {
+                            ExcuteHistoryPath(currentPointIndex, HistoryPlayUI.Instance.CurrentSpeed);
+                        }
+                    }
+                    else
+                    {
+                        ExcuteHistoryPath(currentPointIndex, HistoryPlayUI.Instance.CurrentSpeed);
+                    }
+                    //ExcuteHistoryPath(currentPointIndex);
                     currentPointIndex++;
                     Show();
                 }
-                else
+                else//如果当前点的时间超过了当前进度时间
                 {
+                    //if (currentPointIndex - 1 >= 0)
+                    //{
+                    //    ExcuteHistoryPath(currentPointIndex - 1);
+                    //}
+
+                    ExcuteHistoryPath(currentPointIndex, HistoryPlayUI.Instance.CurrentSpeed);
+
                     if (currentPointIndex - 1 >= 0)
                     {
-                        ExcuteHistoryPath(currentPointIndex - 1);
+                        double temp = (timelist[currentPointIndex] - timelist[currentPointIndex - 1]).TotalSeconds;
+                        if (temp > 2f)//如果当前要执行历史点的值，超过播放时间值5秒，就认为这超过5秒时间里，没历史轨迹数据，则让人员消失
+                        {
+                            //Hide();
+                        }
                     }
-                    double temp = (timelist[currentPointIndex] - showPointTime).TotalSeconds;
-                    if (temp > 5f)//如果当前要执行历史点的值，超过播放时间值5秒，就认为这超过5秒时间里，没历史轨迹数据，则让人员消失
+                    else
                     {
-                        Hide();
+                        //Hide();
                     }
+
+                    //double temp = (timelist[currentPointIndex] - showPointTime).TotalSeconds;
+                    //if (temp > 5f)//如果当前要执行历史点的值，超过播放时间值5秒，就认为这超过5秒时间里，没历史轨迹数据，则让人员消失
+                    //{
+                    //    Hide();
+                    //}
                 }
                 //progressValue = Mathf.Lerp((float)progressValue, (float)progressTargetValue, 2 * Time.deltaTime);
                 //transform.position = line.GetPoint3D01((float)progressValue);
@@ -67,6 +106,31 @@ public class LocationHistoryPath : LocationHistoryPathBase
         }
 
         ShowArea();
+    }
+
+
+    public HistoryManController historyManController;
+
+    protected override void StartInit()
+    {
+        lines = new List<VectorLine>();
+        dottedlines = new List<VectorLine>();
+        splinePointsList = new List<List<Vector3>>();        timelistLsit = new List<List<DateTime>>();        CreatePathParent();        //LocationHistoryManager.Instance.AddHistoryPath(this as LocationHistoryPath);
+        transform.SetParent(pathParent);        if (splinePoints.Count <= 1) return;
+        render = gameObject.GetComponent<Renderer>();
+        renders = gameObject.GetComponentsInChildren<Renderer>();
+        collider = gameObject.GetComponent<Collider>();
+
+        GameObject targetTagObj = UGUIFollowTarget.CreateTitleTag(gameObject, new Vector3(0, 0.1f, 0));
+        followUI = UGUIFollowManage.Instance.CreateItem(LocationHistoryManager.Instance.NameUIPrefab, targetTagObj, "LocationNameUI");
+        Text nametxt = followUI.GetComponentInChildren<Text>();
+        nametxt.text = name;
+        if (historyManController)
+        {
+            historyManController.SetFollowUI(followUI);
+        }
+
+        GroupingLine();
     }
 
     /// <summary>
@@ -129,8 +193,17 @@ public class LocationHistoryPath : LocationHistoryPathBase
             {
                 Position p = ps[num];
                 DepNode depnode = RoomFactory.Instance.GetDepNodeById((int)p.TopoNodeId);
-                HistoryPlayUI.Instance.SetItemArea(depnode.NodeName);
+                if (depnode != null)
+                {
+                    HistoryPlayUI.Instance.SetItemArea(depnode.NodeName);
+                }
             }
         }
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        historyManController.FlashingOffArchors();
     }
 }

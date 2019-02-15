@@ -183,16 +183,36 @@ public class ChildTypeItem : MonoBehaviour
         }
         for (int j = childcount - 1; j >= childType.modelList.Length; j--)
         {
+            if (j>=content.transform.childCount)
+            {
+                continue;
+            }
             Transform tran = content.transform.GetChild(j);
-            if(tran!=null)
+            if (tran != null)
             {
                 DestroyImmediate(tran.gameObject);
                 yield return null;
             }
         }
-
+        SetContentPos();
     }
-
+    /// <summary>
+    /// 设置Content位置
+    /// </summary>
+    private void SetContentPos()
+    {
+        ObjectListController listController = ObjectListController.Instance;
+        if(listController)
+        {
+            Transform contentTemp = listController.content;
+            RectTransform rect = contentTemp.GetComponent<RectTransform>();
+            RectTransform rectParent = contentTemp.parent.GetComponent<RectTransform>();
+            if(rect.rect.size.y<=rectParent.rect.size.y)
+            {
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x,0);
+            }
+        }
+    }
     /// <summary>
     /// 获取设备的真实名称
     /// </summary>

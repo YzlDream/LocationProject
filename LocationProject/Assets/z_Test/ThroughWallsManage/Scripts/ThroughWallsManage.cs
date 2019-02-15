@@ -11,6 +11,7 @@ public class ThroughWallsManage : MonoBehaviour {
 
     public GameObject TestBuilding;//测试的建筑
 
+    public GameObject manPrefabNormal;//一般人物预设
     public GameObject manPrefabCollider;//碰撞器人物预设
     public GameObject manPrefabNavMesh;//NavMesh人物预设
 
@@ -33,7 +34,7 @@ public class ThroughWallsManage : MonoBehaviour {
         boxColliders = new List<BoxCollider>();
         if (isColliderThroughWallsTest)
         {
-            SetAllMeshColliderTrue();
+            //SetAllMeshColliderTrue();
         }
     }
 	
@@ -134,4 +135,50 @@ public class ThroughWallsManage : MonoBehaviour {
     {
         SetAllBoxCollider(false);
     }
+
+    ///// <summary>
+    ///// 碰撞器检测穿墙测试
+    ///// </summary>
+    //[ContextMenu("SetColliderThroughWalls")]
+    //public void SetColliderThroughWalls()
+    //{
+    //    isColliderThroughWallsTest = true;
+    //    isNavMeshThroughWallsTest = false;
+    //}
+
+    ///// <summary>
+    ///// NavMesh穿墙测试
+    ///// </summary>
+    //[ContextMenu("SetNavMeshThroughWallsc")]
+    //public void SetNavMeshThroughWalls()
+    //{
+    //    isColliderThroughWallsTest = false;
+    //    isNavMeshThroughWallsTest = true;
+    //}
+
+    ///// <summary>
+    ///// 不考虑穿墙问题
+    ///// </summary>
+    //[ContextMenu("SetNormalThroughWalls")]
+    //public void SetNormalThroughWalls()
+    //{
+    //    isColliderThroughWallsTest = false;
+    //    isNavMeshThroughWallsTest = false;
+    //}
+
+    //private void SetThroughWall()
+    //{
+    //    if (isColliderThroughWallsTest)
+    //    {
+    //        locationManager.characterPrefab = manPrefabCollider;
+    //    }
+    //    else if (isNavMeshThroughWallsTest)
+    //    {
+    //        locationManager.characterPrefab = manPrefabNavMesh;
+    //    }
+    //    else
+    //    {
+    //        locationManager.characterPrefab = manPrefabNormal;
+    //    }
+    //}
 }

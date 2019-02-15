@@ -7,7 +7,7 @@ public class DevAlarmType : MonoBehaviour {
     public static  DevAlarmType instance;
     public Dropdown DevTypedropdownItem;
 
-    List<string> tempNames;
+    public   List<string> tempNames;
     void Start()
     {
         instance = this;
@@ -35,16 +35,16 @@ public class DevAlarmType : MonoBehaviour {
         }
         DevTypedropdownItem.captionText.text = showName[0];
     }
-    public void ShowDropdownFirstData()
-    {
-        DevTypedropdownItem.captionText.text = "设备类型";
-    }
+    //public void ShowDropdownFirstData()
+    //{
+    //    DevTypedropdownItem.captionText.text = "设备类型";
+    //}
     /// <summary>
     /// 添加名字
     /// </summary>
 	public void AddName()
     {
-        string n0 = "设备类型";
+        string n0 = "所有设备";
         string n1 = "基站";
         string n2 = "摄像头";
         string n3 = "生产设备";

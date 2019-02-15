@@ -273,7 +273,7 @@ public class CommunicationObject : MonoBehaviour
         if (e.Error == null)
         {
             isConnectSucceed = true;
-            StartConnectionServerThread();
+            //StartConnectionServerThread();
         }
         else
         {
@@ -300,7 +300,19 @@ public class CommunicationObject : MonoBehaviour
             client.LogoutAsync(loginInfo);
         }
     }
-
+    /// <summary>
+    /// 获取版本号
+    /// </summary>
+    /// <returns></returns>
+    public VersionInfo GetVersionInfo()
+    {
+        client = GetClient();
+        lock (client)
+        {
+            VersionInfo info = client.GetVersionInfo();
+            return info;
+        }
+    }
     #endregion
 
     public PhysicalTopology GetTopoTree()
@@ -316,6 +328,15 @@ public class CommunicationObject : MonoBehaviour
         string txt = ShowTopo(topoRoot, 0);
         Debug.Log(txt);
         return topoRoot;
+    }
+
+    [ContextMenu("TTTTT")]
+    public void TTTTT()
+    {
+        int view = 0; //0:基本数据; 1:设备信息; 2:人员信息; 3:设备信息 + 人员信息
+        Debug.Log("TTTTT0");
+        PhysicalTopology topoRoot = client.GetPhysicalTopologyTree(view);
+        Debug.Log("TTTTT1");
     }
 
     private string ShowTopo(PhysicalTopology dep, int layer)
@@ -1413,12 +1434,12 @@ public class CommunicationObject : MonoBehaviour
             return value;
         }
     }
-    public void DeleteArchor(int archorId)
+    public bool DeleteArchor(int devId)
     {
         client = GetClient();
         lock (client)
         {
-            client.DeleteArchor(archorId);
+            return client.DeleteArchor(devId);
         }
     }
     public bool EditBusAnchor(Archor busArchor, int parentId)
@@ -1535,6 +1556,24 @@ public class CommunicationObject : MonoBehaviour
         };
     }
 
+   public  List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            InspectionTrackHistory[] ps = client.Getinspectionhistorylist( dtBeginTime,  dtEndTime,  bFlag);
+            if (ps==null)
+            {
+                List<InspectionTrackHistory> pList = new List<InspectionTrackHistory>();
+                return pList;
+            }
+            else
+            {
+                return ps.ToList();
+            }
+        }
+    }
+
     /// <summary>
     /// 获取人员巡检轨迹历史记录
     /// </summary>
@@ -1589,5 +1628,18 @@ public class CommunicationObject : MonoBehaviour
             return value;
         }
     }
+    #endregion
+    #region 设备KKS监控
+
+    public Dev_Monitor GetMonitorInfoByKKS(string kksCode,bool isContainChild)
+    {
+        client = GetClient();
+        lock (client)
+        {
+            Dev_Monitor value = client.GetDevMonitorInfoByKKS(kksCode, isContainChild);
+            return value;
+        }
+    }
+
     #endregion
 }

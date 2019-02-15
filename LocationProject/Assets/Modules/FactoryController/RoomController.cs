@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomController : DepNode {
+public class RoomController : DepNode
+{
     /// <summary>
     /// 房间碰撞体
     /// </summary>
@@ -29,11 +30,11 @@ public class RoomController : DepNode {
     /// </summary>
     private Action OnDevCreateComplete;
     // Use this for initialization
-	void Start ()
-	{
-	    depType = DepType.Room;
-	}
-	
+    void Start()
+    {
+        depType = DepType.Room;
+    }
+
     /// <summary>
     /// 设置监控区域
     /// </summary>
@@ -58,7 +59,7 @@ public class RoomController : DepNode {
             Transform parentCotainer = floor.RoomDevContainer.transform;
             _roomDevContainer.transform.position = parentCotainer.position;
             _roomDevContainer.transform.eulerAngles = parentCotainer.eulerAngles;
-            _roomDevContainer.transform.localScale = parentCotainer.lossyScale;          
+            _roomDevContainer.transform.localScale = parentCotainer.lossyScale;
         }
     }
     /// <summary>
@@ -102,6 +103,7 @@ public class RoomController : DepNode {
                 AfterRoomFocus(true);
             }
         });
+
     }
     public override void HideDep(Action onComplete = null)
     {
@@ -123,19 +125,19 @@ public class RoomController : DepNode {
     /// 聚焦房间
     /// </summary>
     /// <param name="onFocusFinish"></param>
-    public override void FocusOn(Action onFocusFinish=null)
+    public override void FocusOn(Action onFocusFinish = null)
     {
         AlignTarget alignTargetTemp;
         alignTargetTemp = monitorRangeObject != null ? GetTargetInfo(monitorRangeObject.gameObject) : GetTargetInfo(gameObject);
         CameraSceneManager camera = CameraSceneManager.Instance;
         //FlashingRoom();
-        camera.FocusTargetWithTranslate(alignTargetTemp, AreaSize, onFocusFinish,()=> 
-        {
-            if (RoomFactory.Instance) RoomFactory.Instance.SetDepFoucusingState(false);
-        });
+        camera.FocusTargetWithTranslate(alignTargetTemp, AreaSize, onFocusFinish, () =>
+         {
+             if (RoomFactory.Instance) RoomFactory.Instance.SetDepFoucusingState(false);
+         });
     }
 
-    public override void FocusOff(Action onFocusComplete=null)
+    public override void FocusOff(Action onFocusComplete = null)
     {
         IsFocus = false;
         CameraSceneManager.Instance.ReturnToDefaultAlign(onFocusComplete);
@@ -151,7 +153,7 @@ public class RoomController : DepNode {
     /// <summary>
     /// 创建机房设备
     /// </summary>
-    public void CreateRoomDev(Action onDevCreateCompleteT=null)
+    public void CreateRoomDev(Action onDevCreateCompleteT = null)
     {
         try
         {
@@ -160,9 +162,10 @@ public class RoomController : DepNode {
                 FloorController controller = ParentNode as FloorController;
                 controller.CreateFloorDev(onDevCreateCompleteT);
             }
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
-            Debug.LogError("RoomController.CreateRoomdev :"+e.ToString());
+            Debug.LogError("RoomController.CreateRoomdev :" + e.ToString());
             if (onDevCreateCompleteT != null) onDevCreateCompleteT();
         }
     }
@@ -176,7 +179,7 @@ public class RoomController : DepNode {
         if (RoomFactory.Instance)
         {
             List<DevNode> devs = RoomFactory.Instance.GetDepDevs(this);
-            DevNode dev = devs.Find(i=>i.isAlarm==true);
+            DevNode dev = devs.Find(i => i.isAlarm == true);
             if (dev != null) return;
         }
         monitorRangeObject.FlashingOn(Color.green, 2f);
@@ -216,7 +219,8 @@ public class RoomController : DepNode {
 
     public Vector2 angleFocus = new Vector2(40, 270);
     public float camDistance = 10;
-    public Range angleRange = new Range(5, 90);
+    [HideInInspector]
+    public Range angleRange = new Range(0, 90);
     public Range disRange = new Range(2, 30);
     //拖动区域大小
     public Vector2 AreaSize = new Vector2(2, 2);
@@ -225,7 +229,7 @@ public class RoomController : DepNode {
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    private AlignTarget GetTargetInfo(GameObject obj)
+    public AlignTarget GetTargetInfo(GameObject obj)
     {
         AlignTarget alignTargetTemp = new AlignTarget(obj.transform, angleFocus,
                                camDistance, angleRange, disRange);

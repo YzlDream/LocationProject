@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Location.WCFServiceReferences.LocationServices;
 using System;
+using RTEditor;
+
 public class FacilityDevController : DevNode
 {
 	// Use this for initialization
@@ -17,9 +19,8 @@ public class FacilityDevController : DevNode
     }
     public void OnClick()
     {
-        if (DevSubsystemManage.IsRoamState) return;
-        ModifyDevInfo();
-        HighlightOn();
+        if (!DevSubsystemManage.IsRoamState) HighlightOn();
+        ModifyDevInfo();       
         Debug.Log("Click  ID: " + Info.Id + " DevID: " + Info.DevID);
     }
     public void OnDoubleClick()
@@ -50,21 +51,56 @@ public class FacilityDevController : DevNode
         DevSubsystemManage manager = DevSubsystemManage.Instance;
         if(manager&&manager.DevEditorToggle.isOn)
         {
+            ClearSelection();
             DeviceEditUIManager.Instacne.Show(this);
         }
     }
-    void OnMouseEnter()
+
+    /// <summary>
+    /// 清除设备选中
+    /// </summary>
+    private void ClearSelection()
     {
-        if (!DevSubsystemManage.IsRoamState) return;
-        HighlightOn();
-        DevSubsystemManage.Instance.SetFocusDevInfo(this, true);
-        if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.ShowDevInfo(Info);
+        EditorObjectSelection selection = EditorObjectSelection.Instance;
+        if (selection)
+        {
+            selection.ClearSelection(false);
+        }
     }
-    void OnMouseExit()
+    /// <summary>
+    /// 鼠标是否Hover
+    /// </summary>
+    /// <param name="isEnter"></param>
+    public void SetMouseState(bool isEnter)
     {
-        if (!DevSubsystemManage.IsRoamState) return;
-        HighLightOff();
-        DevSubsystemManage.Instance.SetFocusDevInfo(this, false);
-        if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.Close();
+        if(isEnter)
+        {
+            if (!DevSubsystemManage.IsRoamState) return;
+            HighlightOn();
+            DevSubsystemManage.Instance.SetFocusDevInfo(this, true);
+            if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.ShowDevInfo(Info);
+        }
+        else
+        {
+            if (!DevSubsystemManage.IsRoamState) return;
+            HighLightOff();
+            DevSubsystemManage.Instance.SetFocusDevInfo(this, false);
+            if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.Close();
+        }
     }
+
+    //void OnMouseEnter()
+    //{
+    //    if (!DevSubsystemManage.IsRoamState) return;
+    //    HighlightOn();
+    //    DevSubsystemManage.Instance.SetFocusDevInfo(this, true);
+    //    if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.ShowDevInfo(Info);
+    //}
+    //void OnMouseExit()
+    //{
+    //    if (!DevSubsystemManage.IsRoamState) return;
+    //    HighLightOff();
+    //    DevSubsystemManage.Instance.SetFocusDevInfo(this, false);
+    //    if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.Close();
+    //}
 }

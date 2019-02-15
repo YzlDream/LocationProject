@@ -106,12 +106,13 @@ Material:
     - _RefractionIntensity: 0
     - _ShoreFoamDistance: 0
     - _ShoreFoamIntensity: 0.1
-    - _ShoreLineOpacity: 0.2
-    - _ShoreWaterOpacity: 0.2
+    - _ShoreLineOpacity: -13.6
+    - _ShoreWaterOpacity: -21.21
     - _SmoothnessTextureChannel: 0
     - _Specular: 0.01
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TessellationLevel: 1
     - _UVSec: 0
     - _UseMask: 0
     - _UseReflection: 0
@@ -120,11 +121,11 @@ Material:
     - _WavesDisplacementFoamIntensity: 0.3
     - _WavesDisplacementSpeed: 1
     - _WavesIntensity: 1
-    - _WavesScale: 0.1
-    - _WavesSpeed: 0.11
+    - _WavesScale: 0.275
+    - _WavesSpeed: 0.353
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ReflectionColor: {r: 0.7058823, g: 0.7058823, b: 0.7058823, a: 1}
-    - _WaterColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _WaterColor: {r: 1, g: 1, b: 1, a: 1}

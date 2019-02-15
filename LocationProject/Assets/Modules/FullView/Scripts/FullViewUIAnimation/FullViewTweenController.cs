@@ -42,7 +42,8 @@ public class FullViewTweenController : MonoBehaviour {
         //    //CompleteAllTween();
         //    AfterLoadParkEDITOR();
         //});
-        AfterLoadParkEDITOR();
+        //AfterLoadParkEDITOR();
+        AfterLoadParkPack();
 #else
         //AsyncLoadScene.Instance.LoadAdd("Park", () =>
         //{

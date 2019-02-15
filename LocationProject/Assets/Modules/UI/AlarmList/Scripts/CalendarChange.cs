@@ -123,6 +123,7 @@ public class CalendarChange : UIBehaviour
             day.GetComponent<Button>().onClick.AddListener(() =>
             {
                 m_selectDT = dmy.DateTime;
+                DateTime new_selectDT= dmy.DateTime;
                 onDayClick.Invoke(dmy.DateTime);
                 Refresh();
             });

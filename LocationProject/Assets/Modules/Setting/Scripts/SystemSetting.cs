@@ -15,12 +15,14 @@ public class SystemSetting
     public CinemachineSetting cinemachineSetting;
     [XmlElement]
     public CommunicationSetting communicationSetting;
-    
+    [XmlElement]
+    public VersionSetting versionSetting;
 
     public SystemSetting()
     {
         cinemachineSetting = new CinemachineSetting();
         communicationSetting = new CommunicationSetting();
+        versionSetting = new VersionSetting();
     }
 }
 

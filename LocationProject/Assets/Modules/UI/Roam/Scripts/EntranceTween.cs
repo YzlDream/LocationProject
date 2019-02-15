@@ -164,7 +164,7 @@ public class EntranceTween : MonoBehaviour {
         else if (obj ==ForthTransform)
         {
             DOTween.Pause(ForthTransform.GetComponent<RectTransform>());
-           ForthTransform.GetComponent<RectTransform>().DOLocalMoveY(0, 0.38f).SetEase(Ease.OutSine);
+            ForthTransform.GetComponent<RectTransform>().DOLocalMoveY(0, 0.38f).SetEase(Ease.OutSine);
             ForthTweener.Pause();
         }
         else if (obj ==FiveTransform)
@@ -174,5 +174,13 @@ public class EntranceTween : MonoBehaviour {
             FiveTweener.Pause();
 
         }
+    }
+    public void CloseRoamTween()
+    {
+        FirstTweener.Pause();
+        SecoundTweener.Pause();
+        ThirdTweener.Pause();
+        ForthTweener.Pause();
+        FiveTweener.Pause();
     }
 }

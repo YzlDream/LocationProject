@@ -3,7 +3,8 @@ using Location.WCFServiceReferences.LocationServices;
 using System;
 using Mogoson.CameraExtension;
 
-public class FloorController : DepNode {
+public class FloorController : DepNode
+{
     ///// <summary>
     ///// 机房物体
     ///// </summary>
@@ -45,10 +46,11 @@ public class FloorController : DepNode {
     /// </summary>
     private bool IsDevContainerInit;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         depType = DepType.Room;
-	}
+    }
 
     protected override void Start()
     {
@@ -65,21 +67,21 @@ public class FloorController : DepNode {
     private void OnDoubleClick()
     {
         if (LocationManager.Instance.IsFocus) return;
-        if (IsClickUGUIorNGUI.Instance && IsClickUGUIorNGUI.Instance.isOverUI||DevSubsystemManage.IsRoamState) return;
+        if (IsClickUGUIorNGUI.Instance && IsClickUGUIorNGUI.Instance.isOverUI || DevSubsystemManage.IsRoamState) return;
         if (ParentNode is BuildingController)
         {
             BuildingController controller = ParentNode as BuildingController;
             if (!controller.IsFloorExpand || BuildingController.isTweening) return;
             ShowFloor();
-        }      
+        }
     }
     /// <summary>
     /// 双击展示楼层
     /// </summary>
     private void ShowFloor()
     {
-        if(RoomFactory.Instance)
-        RoomFactory.Instance.FocusNode(this);
+        if (RoomFactory.Instance)
+            RoomFactory.Instance.FocusNode(this);
     }
     /// <summary>
     /// 单击关闭楼层
@@ -101,7 +103,7 @@ public class FloorController : DepNode {
     {
         HideFacotry();
         BuildingController parentNode = ParentNode as BuildingController;
-        if (parentNode != null) parentNode.LoadRoom(this, false, floor=> 
+        if (parentNode != null) parentNode.LoadRoom(this, false, floor =>
         {
             if (onComplete != null) onComplete();
         });
@@ -125,10 +127,10 @@ public class FloorController : DepNode {
         IsFocus = true;
         AlignTarget alignTargetTemp = GetTargetInfo(gameObject);
         CameraSceneManager cameraT = CameraSceneManager.Instance;
-        cameraT.FocusTargetWithTranslate(alignTargetTemp, AreaSize, onFocusComplete,()=> 
-        {
-            if (RoomFactory.Instance) RoomFactory.Instance.SetDepFoucusingState(false);
-        });
+        cameraT.FocusTargetWithTranslate(alignTargetTemp, AreaSize, onFocusComplete, () =>
+         {
+             if (RoomFactory.Instance) RoomFactory.Instance.SetDepFoucusingState(false);
+         });
     }
     /// <summary>
     /// 取消区域聚焦
@@ -172,7 +174,7 @@ public class FloorController : DepNode {
         {
             _roomDevContainer.transform.localScale = GetContainerScale(transform.lossyScale);
             Vector3 floorSize = monitorRangeObject.gameObject.GetSize();
-            _roomDevContainer.transform.position = monitorRangeObject.transform.position+new Vector3(floorSize.x/2,-floorSize.y/2,floorSize.z/2);
+            _roomDevContainer.transform.position = monitorRangeObject.transform.position + new Vector3(floorSize.x / 2, -floorSize.y / 2, floorSize.z / 2);
             _roomDevContainer.transform.eulerAngles = new Vector3(0, 180, 0);
         }
         else
@@ -189,11 +191,26 @@ public class FloorController : DepNode {
                 return;
             }
             TransformM tm = buildingNode.Transfrom;
-            Vector3 pos2D = new Vector3((float)(tm.X - tm.SX / 2f), (float)(tm.Y - tm.SY / 2 + topoNode.Transfrom.SY), (float)(tm.Z - tm.SZ / 2));//建筑物的右下角坐标
-            Log.Info("建筑物的右下角坐标:" + pos2D);
-            Vector3 buildPos = LocationManager.GetRealVector(pos2D);
-            _roomDevContainer.transform.position = buildPos;
-        }       
+            //Vector3 pos2D = new Vector3((float)(tm.X - tm.SX / 2f), (float)(tm.Y - tm.SY / 2 + topoNode.Transfrom.SY), (float)(tm.Z - tm.SZ / 2));//建筑物的右下角坐标
+            //Log.Info("建筑物的右下角坐标:" + pos2D);
+            //Vector3 buildPos = LocationManager.GetRealVector(pos2D);
+            //_roomDevContainer.transform.position = buildPos;
+
+            if (topoNode.Transfrom != null)
+            {
+                Vector3 pos2D = new Vector3((float)(tm.X - tm.SX / 2f), (float)(tm.Y - tm.SY / 2 + topoNode.Transfrom.SY), (float)(tm.Z - tm.SZ / 2));//建筑物的右下角坐标
+                Log.Info("建筑物的右下角坐标:" + pos2D);
+                Vector3 buildPos = LocationManager.GetRealVector(pos2D);
+                _roomDevContainer.transform.position = buildPos;
+            }
+            else
+            {
+                Vector3 pos2D = new Vector3((float)(tm.X - tm.SX / 2f), 0, (float)(tm.Z - tm.SZ / 2));//建筑物的右下角坐标
+                Vector3 buildPos = LocationManager.GetRealVector(pos2D);
+                buildPos.y = transform.position.y - gameObject.GetSize().y / 2;
+                _roomDevContainer.transform.position = buildPos;
+            }
+        }
     }
     /// <summary>
     /// 获取设备存放处的缩放值
@@ -208,7 +225,7 @@ public class FloorController : DepNode {
         if (x != 0) x = 1 / x;
         if (y != 0) y = 1 / y;
         if (z != 0) z = 1 / z;
-        return new Vector3(x,y,z);
+        return new Vector3(x, y, z);
     }
     /// <summary>
     /// 记录楼层在大楼中的位置
@@ -228,7 +245,7 @@ public class FloorController : DepNode {
     {
         transform.parent = FloorParent;
         transform.position = FloorPos;
-        transform.localScale = FloorLossyScale;       
+        transform.localScale = FloorLossyScale;
     }
     /// <summary>
     /// 隐藏楼层设备
@@ -236,7 +253,7 @@ public class FloorController : DepNode {
     public void HideFloorDev()
     {
         if (StaticDevContainer != null) StaticDevContainer.SetActive(false);
-        if(_roomDevContainer != null) _roomDevContainer.SetActive(false);
+        if (_roomDevContainer != null) _roomDevContainer.SetActive(false);
         foreach (var room in ChildNodes)
         {
             RoomController controller = room as RoomController;
@@ -262,13 +279,13 @@ public class FloorController : DepNode {
     /// <param name="isShowCollider"></param>
     public void SetColliderState(bool isShowCollider)
     {
-        BoxCollider colliderT = transform.GetComponent<BoxCollider>();
+        Collider colliderT = transform.GetComponent<Collider>();
         if (colliderT) colliderT.enabled = isShowCollider;
     }
     /// <summary>
     /// 创建楼层设备
     /// </summary>
-    public void CreateFloorDev(Action onDevCreateComplete=null)
+    public void CreateFloorDev(Action onDevCreateComplete = null)
     {
         SetColliderState(false);
         Debug.Log("创建机房设备...");
@@ -277,7 +294,7 @@ public class FloorController : DepNode {
     /// <summary>
     /// 创建楼层设备
     /// </summary>
-    private void InitFloorDev(Action onDevCreateComplete=null)
+    private void InitFloorDev(Action onDevCreateComplete = null)
     {
         if (IsDevCreate)
         {
@@ -286,7 +303,7 @@ public class FloorController : DepNode {
         }
         IsDevCreate = true;
         InitContainer();
-        RoomFactory.Instance.CreateDepDev(this,onDevCreateComplete);
+        RoomFactory.Instance.CreateDepDev(this, onDevCreateComplete);
         //CreateRoomDev();
     }
     /// <summary>
@@ -296,12 +313,12 @@ public class FloorController : DepNode {
     /// <returns></returns>
     public int GetDevNodeID(Vector3 pos)
     {
-        foreach(var room in ChildNodes)
+        foreach (var room in ChildNodes)
         {
             RoomController controller = room as RoomController;
-            if(controller&&controller.IsInDepField(pos))
+            if (controller && controller.IsInDepField(pos))
             {
-                Debug.Log("Dev is in room:"+controller.NodeName);
+                Debug.Log("Dev is in room:" + controller.NodeName);
                 return controller.NodeID;
             }
         }
@@ -312,18 +329,18 @@ public class FloorController : DepNode {
     {
         PhysicalTopology[] childAreas = TopoNode.Children;
         if (childAreas == null) return NodeID;
-        Vector3 cadPos = LocationManager.UnityToCadPos(devLocalPos,true);
+        Vector3 cadPos = LocationManager.UnityToCadPos(devLocalPos, true);
         foreach (var child in childAreas)
         {
             Bound initBound = child.InitBound;
-            if (initBound == null||child.Name.Contains("测试范围")) continue;
+            if (initBound == null || child.Name.Contains("测试范围")) continue;
             bool isXField = cadPos.x > initBound.MinX && cadPos.x < initBound.MaxX ? true : false;
             bool isZField = cadPos.z > initBound.MinY && cadPos.z < initBound.MaxY ? true : false;
             if (isXField && isZField)
             {
                 //initBound.Id不是机房对应的ID
-                Debug.Log(string.Format("设备所属区域:{0} 区域ID:{1}",child.Id,child.Name));
-                if(ChildNodes.Find(i=>i.NodeID==child.Id)!=null)
+                Debug.Log(string.Format("设备所属区域:{0} 区域ID:{1}", child.Id, child.Name));
+                if (ChildNodes.Find(i => i.NodeID == child.Id) != null)
                 {
                     return child.Id;
                 }
@@ -331,7 +348,7 @@ public class FloorController : DepNode {
                 {
                     break;
                 }
-                
+
             }
         }
         return NodeID;
@@ -351,7 +368,7 @@ public class FloorController : DepNode {
             floorCube.position = new Vector3(transform.position.x, transform.position.y - sizeT.y / 2 + 0.09f, transform.position.z);//0.09f为高度偏移系数
             floorCube.transform.SetParent(transform);
             floorCube.GetComponent<Renderer>().enabled = false;
-            floorCube.gameObject.layer = LayerMask.NameToLayer("Floor");
+            //floorCube.gameObject.layer = LayerMask.NameToLayer("Floor");
             floorCube.name = "FloorCube";
             Collider collider = floorCube.GetComponent<Collider>();
             if (collider) collider.isTrigger = true;
@@ -362,13 +379,13 @@ public class FloorController : DepNode {
 
     void OnMouseEnter()
     {
-        if(ParentNode is BuildingController)
+        if (ParentNode is BuildingController)
         {
             BuildingController controller = ParentNode as BuildingController;
-            if (!controller.IsFloorExpand||BuildingController.isTweening) return;
+            if (!controller.IsFloorExpand || BuildingController.isTweening) return;
             HighlightOn();
             DepNameUI.Instance.Show(NodeName);
-        }      
+        }
     }
     void OnMouseExit()
     {
@@ -383,7 +400,8 @@ public class FloorController : DepNode {
     #region 摄像头移动模块
     public Vector2 angleFocus = new Vector2(50, 0);
     public float camDistance = 30;
-    public Range angleRange = new Range(5, 90);
+    [HideInInspector]
+    public Range angleRange = new Range(0, 90);
     public Range disRange = new Range(2, 30);
     //拖动区域大小
     public Vector2 AreaSize = new Vector2(2, 40);

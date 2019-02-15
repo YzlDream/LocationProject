@@ -38,7 +38,7 @@ public class MapExpand : MonoBehaviour {
     {
         DepNode CurrentNode = node;
         MapLoadManage Map = MapLoadManage.Instance;
-        if (CurrentNode as RoomController)
+        if (IsParentFloor(CurrentNode))
         {
             CurrentNode = node.ParentNode;
         }
@@ -82,6 +82,16 @@ public class MapExpand : MonoBehaviour {
             ExpandOut();
             ScaleTreeWindow(false);
         }
+    }
+    /// <summary>
+    /// 父节点是否楼层
+    /// </summary>
+    /// <param name="dep"></param>
+    /// <returns></returns>
+    private bool IsParentFloor(DepNode dep)
+    {
+        if (dep as RoomController || (dep.ParentNode != null && dep.ParentNode is FloorController))return true;
+        else return false;
     }
     /// <summary>
     /// 缩放树窗体

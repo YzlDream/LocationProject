@@ -293,15 +293,16 @@ public class HistoryPlayUI : MonoBehaviour
                     //Vector3 offset = LocationManager.Instance.transform.position;
                     //temp = new Vector3(temp.x + offset.x, temp.y + offset.y, temp.z + offset.z);
                     list.Add(tempVector3);
-                    //DateTime t = LocationManager.GetTimestampToDateTime(p.Time);
-                    DateTime t = p.DateTime;
+                    DateTime t = LocationManager.GetTimestampToDateTime(p.Time);
+                    //DateTime t = p.DateTime;
                     timelist.Add(t);
                     //}
                 }
 
                 LocationHistoryPath histoyObj = LocationHistoryManager.Instance.ShowLocationHistoryPath(personnel, list, list.Count, Color.green, "HistoryPath0002");
                 HistoryManController historyManController= histoyObj.gameObject.AddComponent<HistoryManController>();
-                historyManController.Init(Color.green);
+                histoyObj.historyManController = historyManController;
+                historyManController.Init(Color.green, histoyObj);
                 PersonAnimationController personAnimationController = histoyObj.gameObject.GetComponent<PersonAnimationController>();
                 personAnimationController.DoMove();
                 isLoadDataSuccessed = true;

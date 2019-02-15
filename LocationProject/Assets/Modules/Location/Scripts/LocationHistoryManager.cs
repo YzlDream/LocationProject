@@ -1,4 +1,6 @@
 ﻿using Location.WCFServiceReferences.LocationServices;
+using Mogoson.CameraExtension;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +14,39 @@ public class LocationHistoryManager : MonoBehaviour {
     private Transform historyPathParent;//历史记录父物体
     public GameObject characterPrefab;//人员预设
     public GameObject NameUIPrefab;//名称UI预设
+    public GameObject ArrowPrefab;//箭头预设
 
+    private bool isFocus;//是否聚焦
+    public bool IsFocus
+    {
+        get
+        {
+            return isFocus;
+        }
+    }
+
+    private HistoryManController currentFocusController;//当前聚焦项
+    public HistoryManController CurrentFocusController
+    {
+        get
+        {
+            return currentFocusController;
+        }
+    }
+
+    /// <summary>
+    /// 摄像机聚焦前状态
+    /// </summary>
+    private AlignTarget beforeFocusAlign;
+
+    private bool isMulHistory;//是否是多人历史轨迹
+    public bool IsMulHistory
+    {
+        get
+        {
+            return isMulHistory;
+        }
+    }
 
     // Use this for initialization
     void Start () {
@@ -48,6 +82,149 @@ public class LocationHistoryManager : MonoBehaviour {
         else
         {
             return historyPathParent;
+        }
+    }
+
+    public void Focus(HistoryManController controller)
+    {
+        if (IsFocus)
+        {
+            if (controller == currentFocusController)
+            {
+                RecoverBeforeFocusAlign();
+                return;
+            }
+        }
+        SetFocusController(controller);
+        AlignTarget alignTargetT = controller.GetAlignTarget();
+        FocusPerson(alignTargetT);
+    }
+
+    /// <summary>
+    /// 聚焦人员
+    /// </summary>
+    private void FocusPerson(AlignTarget alignTargetT)
+    {
+        if (IsFocus == false)
+        {
+            beforeFocusAlign = CameraSceneManager.Instance.GetCurrentAlignTarget();
+            //SetIsIsFocus(true);
+            SetIsFocus(true);
+            //SetExitFocusbtn(true);
+        }
+        SetFollowuiIsCheckCollider(IsFocus);
+        IsClickUGUIorNGUI.Instance.SetIsCheck(false);//不关闭UI检测，会导致人员移动时，鼠标移动在UI上，场景出现异常
+        CameraSceneManager.Instance.FocusTarget(alignTargetT,()=>
+        {
+            RefleshDrawLine();
+        });
+    }
+
+    /// <summary>
+    /// 恢复在聚焦之前的摄像机状态
+    /// </summary>
+    public void RecoverBeforeFocusAlign()
+    {
+        RecoverFocus();
+    }
+
+    private void RecoverFocus()
+    {
+
+        StartOutManage.Instance.HideBackButton();
+        IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+        if (RoomFactory.Instance.IsFocusingDep)
+        {
+            //IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+        }
+        else
+        {
+            if (currentFocusController == null) return;
+            CameraSceneManager.Instance.FocusTarget(beforeFocusAlign, () =>
+            {
+                //IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+                //if (onComplete != null)
+                //{
+                //    onComplete();
+                //}
+            });
+
+            //RoomFactory.Instance.FocusNode(FactoryDepManager.Instance);
+        }
+        if (currentFocusController == null) return;
+
+        SetIsFocus(false);
+        //SetExitFocusbtn(false);
+        SetFocusController(null);
+        SetFollowuiIsCheckCollider(false);
+    }
+
+    /// <summary>
+    /// 设置当前聚焦定位人员
+    /// </summary>
+    public void SetFocusController(HistoryManController controllerT)
+    {
+        currentFocusController = controllerT;
+    }
+
+    /// <summary>
+    /// 设置是否聚焦
+    /// </summary>
+    /// <param name="b"></param>
+    public void SetIsFocus(bool b)
+    {
+        isFocus = b;
+    }
+
+    /// <summary>
+    /// 设置跟随UI检测视线遮挡碰撞
+    /// </summary>
+    public void SetFollowuiIsCheckCollider(bool IsCheck)
+    {
+        //foreach (LocationObject obj in code_character.Values)
+        //{
+        //    if (obj.personInfoUI == null) continue;
+        //    UGUIFollowTarget follow = obj.personInfoUI.GetComponent<UGUIFollowTarget>();
+        //    if (IsCheck)
+        //    {
+        //        if (obj == currentLocationFocusObj)
+        //        {
+        //            follow.SetIsRayCheckCollision(false);
+        //            //Debug.LogError("SetFollowuiIsCheckCollider:"+obj.name);
+        //            continue;//开启检测时，当前聚焦人物不检测
+        //        }
+        //    }
+
+        //    if (obj.personInfoUI != null)
+        //    {
+        //        follow.SetIsRayCheckCollision(IsCheck);
+        //    }
+        //}
+    }
+
+    /// <summary>
+    /// 设置是否是多人历史轨迹
+    /// </summary>
+    public void SetIsMulHistory(bool b)
+    {
+        isMulHistory = b;
+    }
+
+    /// <summary>
+    /// 刷新轨迹
+    /// </summary>
+    public void RefleshDrawLine()
+    {
+        foreach (LocationHistoryPath path in historyPaths)
+        {
+            //path.RefleshDrawLineOP();
+            StartCoroutine(path.RefleshDrawLineOP());
+        }
+
+        foreach (LocationHistoryPath_M path in historyPath_Ms)
+        {
+            //path.RefleshDrawLineOP();
+            StartCoroutine(path.RefleshDrawLineOP());
         }
     }
 
@@ -104,6 +281,9 @@ public class LocationHistoryManager : MonoBehaviour {
         }
 
         historyPaths.Clear();
+
+        SetFocusController(null);
+        SetIsFocus(false);
     }
 
     #endregion
@@ -123,7 +303,6 @@ public class LocationHistoryManager : MonoBehaviour {
         o.name = personnelT.Name + "(" + personnelT.Tag.Code + ")";
         path.Init(personnelT, color, points, segmentsT);
         o.SetActive(true);
-
         return path;
     }
 
@@ -158,6 +337,8 @@ public class LocationHistoryManager : MonoBehaviour {
         }
 
         historyPath_Ms.Clear();
+        SetFocusController(null);
+        SetIsFocus(false);
     }
 
     #endregion

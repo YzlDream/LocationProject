@@ -172,7 +172,7 @@ public class ActionBarManage : MonoBehaviour
 
             DevSubsystemManage.Instance.ExitDevSubSystem();
             SmallMapController.Instance.Hide();
-            if(FactoryDepManager.currentDep!=null)RoomFactory.Instance.FocusNode(FactoryDepManager.currentDep);
+            //if(FactoryDepManager.currentDep!=null)RoomFactory.Instance.FocusNode(FactoryDepManager.currentDep);
         }
         DevSubsystemManage.Instance.DevSubsystemUI(isOn);
     }
@@ -193,6 +193,7 @@ public class ActionBarManage : MonoBehaviour
             CurrentState = ViewState.人员定位;
             Debug.Log("开启人员定位！");
             ShowLocation();
+            if (CameraGizmoFactory.Instance) CameraGizmoFactory.Instance.Show();
         }
         else
         {
@@ -206,13 +207,15 @@ public class ActionBarManage : MonoBehaviour
             //    StartOutManage.Instance.SetUpperStoryButtonActive(true);
             //}           
             SmallMapController.Instance.Hide();
-
+            if (CameraGizmoFactory.Instance) CameraGizmoFactory.Instance.Close();
         }
         if(PersonSubsystemManage.Instance)
         PersonSubsystemManage.Instance.PersonSubsystemUI(isOn);
         FunctionSwitchBarManage.Instance.SetAlarmAreaToggleActive(isOn);
     }
 
+    public WorkTicketHistoryDetailsUI workTicketHistoryDetailsUI;
+    public OperationTicketHistoryDetailsUI operationTicketHistoryDetailsUI;
     public void OnTwoVotesToggleChange(bool isOn)
     {
         ParkInformationManage.Instance.ShowParkInfoUI(!isOn);
@@ -240,6 +243,8 @@ public class ActionBarManage : MonoBehaviour
             //    TwoTicketSystemUI.Instance.Hide();
             //}
             TwoTicketSystemUI_N.Instance.Hide();
+            workTicketHistoryDetailsUI.SetWindowActive(false);
+            operationTicketHistoryDetailsUI.SetWindowActive(false);
             // TwoTicketSystemManage.Instance.HideDemo();
         }
         TwoTicketSystemSubBar.Instance.SetShoworHide(isOn);
@@ -270,7 +275,8 @@ public class ActionBarManage : MonoBehaviour
         else
         {
             AlamText.SetActive(false);
-            MobileInspectionManage.Instance.HideDemo();
+            MobileInspectionInfoFollow.Instance.Hide();
+         //   MobileInspectionManage.Instance.HideDemo();
             //if (MobileInspectionUI.Instance)
             //{
             //    MobileInspectionUI.Instance.SetWindowActive(false);

@@ -5,9 +5,10 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 
-public class EntranceManage : MonoBehaviour {
+public class EntranceManage : MonoBehaviour
+{
     public static EntranceManage instance;
-    
+
 
     /// <summary>
     /// 第一个入口
@@ -30,9 +31,9 @@ public class EntranceManage : MonoBehaviour {
     /// </summary>
     public GameObject FiveObj;
 
- /// <summary>
- /// 点击时入口图片
- /// </summary>
+    /// <summary>
+    /// 点击时入口图片
+    /// </summary>
     public Sprite ClickImage;
     /// <summary>
     /// 不点击入口图片
@@ -42,32 +43,33 @@ public class EntranceManage : MonoBehaviour {
     /// 入口选择ui界面
     /// </summary>
     public GameObject Window;
-   
 
-    void Start () {
+
+    void Start()
+    {
         instance = this;
-        FirstObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(()=>
+        FirstObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
         {
             FirstBut_Click(FirstObj.transform);
         });
-        SecoundObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(()=>
+        SecoundObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
         {
             SecoundBut_Click(SecoundObj.transform);
         });
 
-        ThirdObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(()=>
+        ThirdObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
         {
             ThirdBut_Click(ThirdObj.transform);
         });
 
-        ForthObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(()=>
+        ForthObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
         {
             ForthBut_Click(ForthObj.transform);
         });
 
-        FiveObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(()=> 
+        FiveObj.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
         {
-            FiveBut_Click(FiveObj.transform );
+            FiveBut_Click(FiveObj.transform);
         });
 
         ClickChange(FirstObj);
@@ -75,9 +77,9 @@ public class EntranceManage : MonoBehaviour {
         ClickChange(ThirdObj);
         ClickChange(ForthObj);
         ClickChange(FiveObj);
-       
+
     }
-	/// <summary>
+    /// <summary>
     /// 点击第一个入口
     /// </summary>
     public void FirstBut_Click(Transform obj)
@@ -91,7 +93,7 @@ public class EntranceManage : MonoBehaviour {
     public void SecoundBut_Click(Transform obj)
     {
         ClickEntranceBut(obj);
-        FPSMode.Instance.FPSController.transform.GetComponent<Transform>().localPosition = new Vector3(95, 0.65f, 21.45F );
+        FPSMode.Instance.FPSController.transform.GetComponent<Transform>().localPosition = new Vector3(95, 0.65f, 21.45F);
     }
     /// <summary>
     /// 点击第三个入口
@@ -112,7 +114,7 @@ public class EntranceManage : MonoBehaviour {
     /// <summary>
     /// 点击第五个入口
     /// </summary>
-    public void FiveBut_Click(Transform  obj)
+    public void FiveBut_Click(Transform obj)
     {
         ClickEntranceBut(obj);
         FPSMode.Instance.FPSController.transform.GetComponent<Transform>().localPosition = new Vector3(-115, 0.65f, -13f);
@@ -126,19 +128,20 @@ public class EntranceManage : MonoBehaviour {
         EntranceTween.instance.SetButtonExitTweener(obj.GetChild(0));
         ShowWindow(false);
         FPSMode.Instance.SwitchTo(true);
-        RoamManage.Instance. FPSController.ChangeGravityValue(1f);
-        obj.GetChild(1).GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        RoamManage.Instance.FPSController.ChangeGravityValue(1f);
+        obj.GetChild(1).gameObject.SetActive(false);
         obj.GetChild(0).GetChild(0).GetComponent<Text>().color = new Color(109f / 255, 236f / 255, 254f / 255, 255 / 255);
         obj.GetChild(0).GetComponent<Image>().sprite = NormalImage;
         RoamManage.Instance.EntranceRoam();
-      //  FPSMode.Instance.SetBorder(true);
+        FPSMode.Instance.FPSController.SetFirstMousePos();
+        //  FPSMode.Instance.SetBorder(true);
     }
     public void ClickChange(GameObject obj)
     {
         EventTriggerListener ObjColor = EventTriggerListener.Get(obj);
-        ObjColor.onEnter  = UpButton;
+        ObjColor.onEnter = UpButton;
         ObjColor.onExit = NoClickButton;
-      
+
     }
     /// <summary>
     /// 鼠标放上ui界面时的改变
@@ -146,21 +149,21 @@ public class EntranceManage : MonoBehaviour {
     /// <param name="obj"></param>
     public void UpButton(GameObject obj)
     {
-        obj.transform.GetChild(1).GetComponent<Image>().color = new Color(255 / 255, 255 / 255, 255 / 255, 255 / 255);
+        obj.transform.GetChild(1).gameObject.SetActive(true);
         obj.transform.GetChild(0).GetChild(0).GetComponent<Text>().color = new Color(255 / 255, 255 / 255, 255 / 255, 255 / 255);
         obj.transform.GetChild(0).GetComponent<Image>().sprite = ClickImage;
-        
-         EntranceTween.instance.SetButtonEnterTweener(obj.transform.GetChild(0));
-      
+
+        EntranceTween.instance.SetButtonEnterTweener(obj.transform.GetChild(0));
+
     }
-   
+
     /// <summary>
     /// 鼠标离开时ui界面的改变
     /// </summary>
     /// <param name="obj"></param>
     public void NoClickButton(GameObject obj)
     {
-        obj.transform.GetChild(1).GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        obj.transform.GetChild(1).gameObject.SetActive(false);
         obj.transform.GetChild(0).GetChild(0).GetComponent<Text>().color = new Color(109f / 255, 236f / 255, 254f / 255, 255 / 255);
         obj.transform.GetChild(0).GetComponent<Image>().sprite = NormalImage;
         Debug.Log(12365);
@@ -176,10 +179,12 @@ public class EntranceManage : MonoBehaviour {
         if (b)
         {
             Window.SetActive(true);
-           
+
         }
         else
         {
+
+            CloseCurrentEntranceTweener();
             Window.SetActive(false);
         }
     }
@@ -189,10 +194,50 @@ public class EntranceManage : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                CloseCurrentEntranceTweener();
                 Window.SetActive(false);
                 DevSubsystemManage.Instance.ChangeImage(false, DevSubsystemManage.Instance.RoamToggle);
                 DevSubsystemManage.Instance.RoamToggle.isOn = false;
             }
         }
-    } 
+    }
+    /// <summary>
+    /// 离开时关闭动画
+    /// </summary>
+    /// <param name="obj"></param>
+    public void CloseEntranceTweener(Transform obj)
+    {
+
+
+        EntranceTween.instance.SetButtonExitTweener(obj.GetChild(0));
+        obj.GetChild(1).gameObject.SetActive(false);
+        obj.GetChild(0).GetChild(0).GetComponent<Text>().color = new Color(109f / 255, 236f / 255, 254f / 255, 255 / 255);
+        obj.GetChild(0).GetComponent<Image>().sprite = NormalImage;
+        RoamManage.Instance.EntranceRoam();
+
+
+    }
+    public void CloseCurrentEntranceTweener()
+    {
+        if (FirstObj.transform.GetChild(1).gameObject.activeInHierarchy)
+        {
+            CloseEntranceTweener(FirstObj.transform);
+        }
+        else if (SecoundObj.transform.GetChild(1).gameObject.activeInHierarchy)
+        {
+            CloseEntranceTweener(SecoundObj.transform);
+        }
+        else if (ThirdObj.transform.GetChild(1).gameObject.activeInHierarchy)
+        {
+            CloseEntranceTweener(ThirdObj.transform);
+        }
+        else if (ForthObj.transform.GetChild(1).gameObject.activeInHierarchy)
+        {
+            CloseEntranceTweener(ForthObj.transform);
+        }
+        else if (FiveObj.transform.GetChild(1).gameObject.activeInHierarchy)
+        {
+            CloseEntranceTweener(FiveObj.transform);
+        }
+    }
 }

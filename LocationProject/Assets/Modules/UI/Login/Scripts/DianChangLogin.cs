@@ -17,6 +17,8 @@ public class DianChangLogin : MonoBehaviour
     public InputField PortInput;
     public InputField NameInput;
     public InputField PasswordInput;
+    public Button ExitBut;
+    public GameObject  ExitObj;
     /// <summary>
     /// 点击登陆
     /// </summary>
@@ -33,10 +35,22 @@ public class DianChangLogin : MonoBehaviour
     {
         Instance = this;
         LoginBut.onClick.AddListener(Login_Click);
+        ExitBut.onClick.AddListener(ExitLogin);
         StartShowLogin();
+        CheckBut(ExitObj);
 
     }
-
+    private void Update()
+    {
+        if (loginText.activeInHierarchy|| FailObj.activeInHierarchy)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                StopAllCoroutines();
+                LoginObj.SetActive(false);
+            }
+        }
+    } 
     /// <summary>
     /// 设置Ip，用户信息
     /// </summary>
@@ -78,7 +92,7 @@ public class DianChangLogin : MonoBehaviour
     }
     public void LoginProcess()
     {
-        progressText.text = "加载过程中";
+        progressText.text = "正在登录";
         progressTag.text = "";
         FailObj.SetActive(false);
         loginText.SetActive(false);    
@@ -141,5 +155,35 @@ public class DianChangLogin : MonoBehaviour
     public void LoginBtn_Trigger()
     {
         ExecuteEvents.Execute<ISubmitHandler>(LoginBut.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+    }
+    /// <summary>
+    /// 退出程序
+    /// </summary>
+    public void ExitLogin()
+    {
+        UGUIMessageBox.Show("是否确定退出软件？", () =>
+        {
+            Application.Quit();
+        }, () =>
+        {
+
+        });
+        //Application.Quit();
+    }
+    Color normalColor = new Color(107/255f, 184/255f, 195/255f, 255/ 255f);
+    Color HovelColor = new Color(109/255f,236/255f,254/255f,255/255f);
+    public void CheckBut(GameObject but)
+    {
+        EventTriggerListener colorBut = EventTriggerListener.Get(but);
+        colorBut.onEnter = HovelBut;
+        colorBut.onExit = NormalBut;
+    }
+    public void NormalBut(GameObject but)
+    {
+        but.transform.GetChild(1).GetComponent<Text>().color = normalColor;
+    }
+    public void HovelBut(GameObject but)
+    {
+        but.transform.GetChild(1).GetComponent<Text>().color =  HovelColor;
     }
 }

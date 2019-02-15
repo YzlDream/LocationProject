@@ -1,5 +1,6 @@
 ﻿using Location.WCFServiceReferences.LocationServices;
 using RTEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,6 +65,27 @@ namespace MonitorRange
                 isShowAlarmArea = value;
             }
         }
+
+        /// <summary>
+        /// 创建区域结束
+        /// </summary>
+        public bool IsCreateAreaComplete
+        {
+            get
+            {
+                return isCreateAreaComplete;
+            }
+
+            set
+            {
+                isCreateAreaComplete = value;
+            }
+        }
+
+        /// <summary>
+        /// 创建区域结束
+        /// </summary>
+        private bool isCreateAreaComplete;
 
         // Use this for initialization
         void Start()
@@ -172,6 +194,9 @@ namespace MonitorRange
             {
                 HideAllRanges(true);
             }
+            MonitorRangeObject[] rangeObjs = areasParent.GetComponentsInChildren<MonitorRangeObject>();
+            rangelist = new List<MonitorRangeObject>(rangeObjs);
+            IsCreateAreaComplete = true;
         }
 
         /// <summary>
@@ -225,7 +250,7 @@ namespace MonitorRange
             rangeNode.info = pNode;
             rangeNode.ranges = new List<MonitorRangeObject>();
             rangeNode.subNodes = new List<RangeNode>();
-            if (pNode.Name.Contains("调压站控制室"))
+            if (pNode.Name.Contains("#1变主区域告警区域"))
             {
                 int i = 0;
             }
@@ -234,7 +259,7 @@ namespace MonitorRange
                 int i = 0;
             }
             MonitorRangeObject thisRangeObject = null;
-            if (pNode.Type != Types.分组)
+            if (pNode.Type != Types.分组 && pNode.Type != Types.CAD)
             {
                 thisRangeObject = CreateRange(pNode, rangeNode, pparent); //创建自身区域范围
             }
@@ -312,7 +337,9 @@ namespace MonitorRange
                     RangeNode subNode = new RangeNode();
                     subNode.parentNode = rangeNode;
                     rangeNode.subNodes.Add(subNode);
+
                     CreateRangesByRootNode(child, subNode, content);
+
                 }
             }
         }
@@ -638,10 +665,19 @@ namespace MonitorRange
             }
             //Log.Info(string.Format("CreateRange：{0},({1},{2},{3})", p.Name, p.Transfrom.X, p.Transfrom.Y, p.Transfrom.Z));
             DepNode depNodeT = RoomFactory.Instance.GetDepNodeById(p.Id);
-            if (depNodeT == null || depNodeT.NodeObject == null)
+            if (p.Id == 63)
             {
-                return null;
+                int i = 0;
             }
+            if (p.Id == 710)
+            {
+                int i = 0;
+            }
+            //if (depNodeT == null || depNodeT.NodeObject == null)
+            //{
+            //    return null;
+            //}
+            //if (p.Type == Types.CAD) return null;
             MonitorRangeObject rangeObject = rangelist.Find((item) => item.info.Id == p.Id);
             if (!rangeObject)
             {
@@ -809,6 +845,36 @@ namespace MonitorRange
                     FilterRangesByMRObjectop(childNodeT);
                 }
             }
+
+            if (depNodeT.TopoNode.Type == Types.机房)//如果过滤的节点是机房类型，则与该节点兄弟节点的Collider不应该被关闭
+            {
+                if (depNodeT.ParentNode != null&& depNodeT.ParentNode.ChildNodes != null)
+                {
+                    foreach (DepNode childNodeT in depNodeT.ParentNode.ChildNodes)
+                    {
+                        SetRangeCollider(childNodeT, true);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 设置范围的碰撞器是否启用
+        /// </summary>
+        public void SetRangeCollider(DepNode depNodeT, bool isEnable)
+        {
+            if (depNodeT.monitorRangeObject != null)
+            {
+                depNodeT.monitorRangeObject.SetColliderEnable(isEnable);
+            }
+
+            if (depNodeT.ChildNodes != null)
+            {
+                foreach (DepNode childNodeT in depNodeT.ChildNodes)
+                {
+                    SetRangeCollider(childNodeT, isEnable);
+                }
+            }
         }
 
         /// <summary>
@@ -887,7 +953,7 @@ namespace MonitorRange
             MonitorRangeObject[] rangeObjs = areasParent.GetComponentsInChildren<MonitorRangeObject>();
             foreach (MonitorRangeObject obj in rangeObjs)
             {
-                if (obj.IsOnAlarmArea&& obj.alarmPersons.Count==0)
+                if (obj.IsOnAlarmArea && obj.alarmPersons.Count == 0)
                 {
                     obj.SetRendererEnable(false);
                 }
@@ -902,7 +968,8 @@ namespace MonitorRange
         {
             try
             {
-                MonitorRangeObject m = rangelist.Find((i) => i.depNode.TopoNode.Id == areaId);
+                //MonitorRangeObject m = rangelist.Find((i) => i.depNode.TopoNode.Id == areaId);
+                MonitorRangeObject m = rangelist.Find((i) => i.info.Id == areaId);
                 return m;
             }
             catch
@@ -952,27 +1019,39 @@ namespace MonitorRange
                 {
                     currentEditDepNode = null;
                 }
-                if (depnodeT.ChildNodes != null)
-                {
-                    foreach (DepNode childNodeT in depnodeT.ChildNodes)
-                    {
-                        if (childNodeT.TopoNode == null)
-                        {
-                            continue;
-                        }
-                        if (childNodeT.TopoNode.Type == Types.范围 || childNodeT.TopoNode.Type == Types.机房)
-                        {
-                            if (childNodeT.monitorRangeObject == null) continue;
+                SetAreaEditEnableOP(depnodeT, isEnable);
+            }
+        }
 
-                            childNodeT.monitorRangeObject.SetEditEnable(isEnable);
-                            if (childNodeT.monitorRangeObject.IsOnAlarmArea && MonitorRangeManager.Instance.IsShowAlarmArea && !isEnable)
-                            {
-                            }
-                            else
-                            {
-                                childNodeT.monitorRangeObject.SetRendererEnable(isEnable);
-                            }
+        private static void SetAreaEditEnableOP(DepNode depnodeT, bool isEnable)
+        {
+            if (depnodeT.ChildNodes != null)
+            {
+                foreach (DepNode childNodeT in depnodeT.ChildNodes)
+                {
+                    if (childNodeT.TopoNode == null)
+                    {
+                        continue;
+                    }
+                    if (childNodeT.TopoNode.Type == Types.范围 || childNodeT.TopoNode.Type == Types.机房)
+                    {
+                        if (childNodeT.monitorRangeObject == null) continue;
+
+                        childNodeT.monitorRangeObject.SetEditEnable(isEnable);
+                        if (childNodeT.monitorRangeObject.IsOnAlarmArea && MonitorRangeManager.Instance.IsShowAlarmArea && !isEnable)
+                        {
                         }
+                        else
+                        {
+                            childNodeT.monitorRangeObject.SetRendererEnable(isEnable);
+                        }
+                    }
+                    else if (childNodeT.TopoNode.Type == Types.分组)
+                    {
+                        //foreach (DepNode cchildNodeT in childNodeT.ChildNodes)
+                        //{
+                            SetAreaEditEnableOP(childNodeT, isEnable);
+                        //}
                     }
                 }
             }
@@ -1153,6 +1232,144 @@ namespace MonitorRange
             }
             return reVal;
         }
+        #endregion
+
+        #region 针对主厂房区域的特殊处理
+
+        public DepNode ZhuchangfangFirstDepNode;
+        public DepNode ZhuchangfangSecordDepNode;
+
+        /// <summary>
+        /// 对主厂房的人员进行特殊处理，定位高度要是大于2，就返回二层
+        /// </summary>
+        public DepNode GetDoZhuchangfang(DepNode depnodeT, float y)
+        {
+            InitZhuchangfang();
+            bool b = GetZhuchangfangDepNode(depnodeT);
+            if (b)
+            {
+                if (y > 2f)
+                {
+                    bool isbool = IsBelongDepNodeByName("主厂房4.5m层", depnodeT);
+                    if (isbool)
+                    {
+                        return depnodeT;
+                    }
+                    return ZhuchangfangSecordDepNode;
+                }
+                else
+                {
+                    bool isbool = IsBelongDepNodeByName("主厂房0m层", depnodeT);
+                    if (isbool)
+                    {
+                        return depnodeT;
+                    }
+                    return ZhuchangfangFirstDepNode;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 针对主厂房做特殊处理
+        /// </summary>
+        public void InitZhuchangfang()
+        {
+            if (ZhuchangfangFirstDepNode == null)
+            {
+                ZhuchangfangFirstDepNode = GetZhuchangfangFirstDepNode(rootDepNode);
+            }
+
+            if (ZhuchangfangSecordDepNode == null)
+            {
+                ZhuchangfangSecordDepNode = GetZhuchangfangSecordDepNode(rootDepNode);
+            }
+        }
+
+        /// <summary>
+        /// 是否是主厂房下子区域
+        /// </summary>
+        public bool GetZhuchangfangDepNode(DepNode depnodeT)
+        {
+            if (depnodeT == null) return false;
+            if (depnodeT.NodeName == "主厂房")
+            {
+                return true;
+            }
+            else
+            {
+                return GetZhuchangfangDepNode(depnodeT.ParentNode);
+            }
+        }
+
+        /// <summary>
+        /// 获取主厂房0m层区域
+        /// </summary>
+        public DepNode GetZhuchangfangFirstDepNode(DepNode depnodeT)
+        {
+            if (depnodeT == null) return null;
+            if (depnodeT.NodeName == "主厂房0m层")
+            {
+                return depnodeT;
+            }
+            else
+            {
+                if (depnodeT.ChildNodes == null) return null;
+                foreach (DepNode nodeT in depnodeT.ChildNodes)
+                {
+                    DepNode nodeTT = GetZhuchangfangFirstDepNode(nodeT);
+                    if (nodeTT != null)
+                    {
+                        return nodeTT;
+                    }
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取主厂房4.5m层区域
+        /// </summary>
+        /// <returns></returns>
+        public DepNode GetZhuchangfangSecordDepNode(DepNode depnodeT)
+        {
+            if (depnodeT == null) return null;
+            if (depnodeT.NodeName == "主厂房4.5m层")
+            {
+                return depnodeT;
+            }
+            else
+            {
+                if (depnodeT.ChildNodes == null) return null;
+                foreach (DepNode nodeT in depnodeT.ChildNodes)
+                {
+                    DepNode nodeTT = GetZhuchangfangSecordDepNode(nodeT);
+                    if (nodeTT != null)
+                    {
+                        return nodeTT;
+                    }
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 判断是否属于某个区域的子区域
+        /// </summary>
+        /// <returns></returns>
+        public bool IsBelongDepNodeByName(string depnodeName,DepNode depnodeT)
+        {
+            if (depnodeT == null) return false;
+            if (depnodeT.NodeName == depnodeName)
+            {
+                return depnodeT;
+            }
+            else
+            {
+                return IsBelongDepNodeByName(depnodeName,depnodeT.ParentNode);
+            }
+        }
+
         #endregion
     }
 

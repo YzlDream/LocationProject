@@ -176,7 +176,7 @@ public class RoomFactory : MonoBehaviour
         if (depManager)
         {
             AddDepNode(depManager);
-            depManager.AllNodes = GameObject.FindObjectsOfType<DepNode>().ToList();
+            depManager.AllNodes = depManager.transform.GetComponentsInChildren<DepNode>(false).ToList();
             foreach (DepNode item in depManager.ChildNodes)
             {
                 AddDepNode(item);
@@ -195,6 +195,14 @@ public class RoomFactory : MonoBehaviour
     {
         foreach (var child in node.ChildNodes)
         {
+            if(child==null)
+            {
+                if(node!=null)
+                {
+                    Debug.LogError(string.Format("{0} child is null..", node.NodeName));
+                }
+                continue;
+            }
             AddDepNode(child);
             if (child.HaveChildren())
                 StoreChildInfo(child);
@@ -281,30 +289,13 @@ public class RoomFactory : MonoBehaviour
         List<PhysicalTopology> rangesT = new List<PhysicalTopology>();
         foreach (var item in node.ChildNodes)
         {
-            if (item.NodeName.Contains("集控楼"))
-            {
-                int i = 0;
-            }
+            if (item == null) continue;
             if (!string.IsNullOrEmpty(item.NodeName))
             {
                 PhysicalTopology topology = topologies.Find(topo => topo.Name == item.NodeName);
                 if (topology != null)
                 {
                     item.TopoNode = topology;
-                    //if (item.TopoNode != null && item.TopoNode.Type == Types.范围)
-                    //{
-                    //    rangesT.Add(item.TopoNode);
-                    //}
-                    //else
-                    //{
-                    //PhysicalTopology topology = topologies.Find(topo => topo.Name == item.NodeName);
-                    //if (topology != null)
-                    //{
-
-                    if (item.name.Contains("测试范围"))
-                    {
-                        int i = 0;
-                    }
                     if (topology.Children == null || topology.Children.Length == 0) continue;
 
                     if (item as FloorController)
@@ -314,12 +305,6 @@ public class RoomFactory : MonoBehaviour
                     }
 
                     BindingChild(item, topology.Children.ToList());
-                    //}
-                    //else
-                    //{
-                    //    Log.Alarm("BindingChild", "未找到Topo节点:" + item.NodeName);
-                    //}
-                    //}
                 }
                 else
                 {
@@ -504,12 +489,19 @@ public class RoomFactory : MonoBehaviour
             Debug.Log(string.Format("{0} is Focusing...", node.NodeName));
             return;
         }
+
+        //if (LocationManager.Instance)
+        //{
+        //    LocationManager.Instance.HideCurrentPersonInfoUI();
+        //}
+
         bool isFocusBreak = false;
         if (IsFocusingDep) isFocusBreak = true;
         IsFocusingDep = true;
         if (DevNode.CurrentFocusDev != null) DevNode.CurrentFocusDev.FocusOff(false);
         Log.Info(string.Format("FocusNode ID:{0},Name:{1},Type:{2}", node.NodeID, node.NodeName, node.GetType()));
         DepNode lastNodep = FactoryDepManager.currentDep;
+        SceneEvents.OnDepNodeChangeStart(lastNodep,node);
         if (FactoryDepManager.currentDep == node)
         {
             node.FocusOn(() =>
@@ -537,7 +529,8 @@ public class RoomFactory : MonoBehaviour
             if (isFocusBreak) IsFocusingDep = true;
         }
 
-        if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
+        if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);        
+        if(node!=FactoryDepManager.Instance)PersonnelTreeManage.Instance.areaDivideTree.Tree.AreaSelectNodeByType(node.NodeID);       
     }
 
     /// <summary>
@@ -545,7 +538,7 @@ public class RoomFactory : MonoBehaviour
     /// </summary>
     /// <param name="node"></param>
     /// <param name="onDevCreateFinish"></param>
-    public void FocusNodeForFocusPerson(DepNode node, Action onDevCreateFinish = null,bool isSetSelectNode=true)
+    public void FocusNodeForFocusPerson(DepNode node, Action onDevCreateFinish = null, bool isSetSelectNode = true)
     {
         //if (node.TopoNode != null && node.TopoNode.Type == AreaTypes.范围) return;
         if (FactoryDepManager.currentDep == node && IsFocusingDep)
@@ -560,6 +553,7 @@ public class RoomFactory : MonoBehaviour
         if (DevNode.CurrentFocusDev != null) DevNode.CurrentFocusDev.FocusOff(false);
         Log.Info(string.Format("FocusNode ID:{0},Name:{1},Type:{2}", node.NodeID, node.NodeName, node.GetType()));
         DepNode lastNodep = FactoryDepManager.currentDep;
+        SceneEvents.OnDepNodeChangeStart(lastNodep, node);
         if (FactoryDepManager.currentDep == node)
         {
             //node.FocusOn(() =>
@@ -583,14 +577,14 @@ public class RoomFactory : MonoBehaviour
                 IsFocusingDep = false;
                 if (onDevCreateFinish != null) onDevCreateFinish();
                 SceneEvents.OnDepCreateCompleted(node);
-            },false);
+            }, false);
             if (isFocusBreak) IsFocusingDep = true;
         }
 
-        if (isSetSelectNode)
-        {
-            if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
-        }
+        //if (isSetSelectNode)
+        //{
+        //    if (TopoTreeManager.Instance) TopoTreeManager.Instance.SetSelectNode(lastNodep, node);
+        //}
     }
 
     ///// <summary>
@@ -936,6 +930,10 @@ public class RoomFactory : MonoBehaviour
         {
             if (TypeCodeHelper.IsStaticDev(dev.TypeCode.ToString()))
             {
+                if(dev.ModelName=="J1_65")
+                {
+                    int iii = 0;
+                }
                 CreateStaticDev(dev, dep, onComplete);
             }
             else
@@ -991,7 +989,7 @@ public class RoomFactory : MonoBehaviour
         FacilityDevController staticDevT = StaticDevList.Find(i => i.gameObject.name == dev.ModelName);
         if (staticDevT != null)
         {
-            SaveDepDevInfo(parnetDep, staticDevT,dev);
+            SaveDepDevInfo(parnetDep, staticDevT, dev);
             staticDevT.CreateFollowUI();
             if (onComplete != null) onComplete(staticDevT.gameObject);
         }
@@ -1042,7 +1040,7 @@ public class RoomFactory : MonoBehaviour
             return;
         }
         DevNode devNode = obj.GetComponent<DevNode>();
-        bool isLocalPos = !(devNode.ParentDepNode==FactoryDepManager.Instance);
+        bool isLocalPos = !(devNode.ParentDepNode == FactoryDepManager.Instance);
         Vector3 cadPos = new Vector3(pos.PosX, pos.PosY, pos.PosZ);
         Vector3 unityPos = LocationManager.CadToUnityPos(cadPos, isLocalPos);
         if (isLocalPos)
@@ -1083,7 +1081,7 @@ public class RoomFactory : MonoBehaviour
             }
             doorAccess.DevInfo = info;
             doorController.DoorAccessInfo = doorAccess;
-            SaveDepDevInfo(depNode, doorController,info);
+            SaveDepDevInfo(depNode, doorController, info);
             if (depNode.Doors != null)
             {
                 DoorAccessItem doorItem = depNode.Doors.GetDoorItem(doorAccess.DoorId);
@@ -1094,11 +1092,13 @@ public class RoomFactory : MonoBehaviour
             {
                 Debug.Log(string.Format("{0} ，Doors is null", depNode.NodeName));
             }
-        }else if(TypeCodeHelper.IsBorderAlarmDev(info.TypeCode.ToString()))
+        }
+        else if (TypeCodeHelper.IsBorderAlarmDev(info.TypeCode.ToString()))
         {
-            BorderDevController depDev = dev.AddComponent<BorderDevController>();           
-            SaveDepDevInfo(depNode, depDev,info);
-        }else if(TypeCodeHelper.IsCamera(info.TypeCode.ToString()))
+            BorderDevController depDev = dev.AddComponent<BorderDevController>();
+            SaveDepDevInfo(depNode, depDev, info);
+        }
+        else if (TypeCodeHelper.IsCamera(info.TypeCode.ToString()))
         {
             CameraDevController depDev = dev.AddComponent<CameraDevController>();
             SaveDepDevInfo(depNode, depDev, info);
@@ -1129,11 +1129,11 @@ public class RoomFactory : MonoBehaviour
     /// </summary>
     /// <param name="depId"></param>
     /// <param name="dev"></param>
-    public void SaveDepDevInfo(DepNode dep, DevNode dev,DevInfo devInfo)
+    public void SaveDepDevInfo(DepNode dep, DevNode dev, DevInfo devInfo)
     {
         dev.Info = devInfo;
         dev.ParentDepNode = dep;
-        int depId = dep.NodeID;   
+        int depId = dep.NodeID;
         if (!DepDevDic.ContainsKey(depId))
         {
             List<DevNode> devList = new List<DevNode>();

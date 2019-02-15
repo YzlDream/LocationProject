@@ -5,22 +5,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MobileInspectionDetailsUI : MonoBehaviour {
+public class MobileInspectionDetailsUI : MonoBehaviour
+{
     public static MobileInspectionDetailsUI Instance;
     /// <summary>
     /// 窗体
     /// </summary>
     public GameObject window;
 
-    public PersonnelMobileInspection info;//工作票信息
+    public InspectionTrack info;//工作票信息
 
     public Text TxtNumber;//编号
                           //T1
     public Text TxtEstimatedStartingTime;//预计开始时间
     public Text TxtEstimatedEndingTime;//预计结束时间
-                                       //T2
-    public Text TxtRealStartTime;//实际开始时间
-    public Text TxtRealEndTime;//实际结束时间
+
+    public Button DetailBut;
+    public string TitleText;
+
+
+    //  public Text StateText;
+    public Text CreateTime;
+    // public Text InspectionNum;//巡检编号
+
+    public PatrolPoint patrolPointItems;//巡检点列表
+    public List<PatrolPoint> patrolPointList;
     //public Text TxtDutyOfficer;//值班负责人
     //public Text TxtDispatchingOfficer;//调度负责人
 
@@ -32,7 +41,10 @@ public class MobileInspectionDetailsUI : MonoBehaviour {
     void Start()
     {
         Instance = this;
+        patrolPointList = new List<PatrolPoint>();
+
         //closeBtn.onClick.AddListener(CloseBtn_OnClick);
+       
     }
 
     // Update is called once per frame
@@ -41,11 +53,17 @@ public class MobileInspectionDetailsUI : MonoBehaviour {
 
     }
 
-    public void Show(PersonnelMobileInspection infoT)
+    public void Show(InspectionTrack infoT)
     {
+        patrolPointList.Clear();
         info = infoT;
+        patrolPointList.AddRange(info.Route);
         UpdateData();
         CreateMeasuresItems();
+        DetailBut.onClick.AddListener(() =>
+        {
+            MobileInspectionInfoManage.Instance.CreatMobileInspectionInfo(patrolPointList);
+        });
         SetWindowActive(true);
     }
 
@@ -54,23 +72,12 @@ public class MobileInspectionDetailsUI : MonoBehaviour {
     /// </summary>
     public void UpdateData()
     {
-        TxtNumber.text = info.MobileInspectionId + "(" + info.PersonnelName + ")";
-        TxtEstimatedStartingTime.text = info.PlanStartTime.ToString("yyyy/MM/dd HH:mm");
-        TxtEstimatedEndingTime.text = info.PlanEndTime.ToString("yyyy/MM/dd HH:mm");
+        TitleText = info.Code + "--" + info.Name;
+        TxtNumber.text = info.Name + "--" + info.Code + "(" + info.State + ")";
+        CreateTime.text = info.dtCreateTime.ToString("yyyy年MM月dd日 HH:mm");
+        TxtEstimatedStartingTime.text = info.dtStartTime.ToString("yyyy年MM月dd日 HH:mm");
+        TxtEstimatedEndingTime.text = info.dtEndTime.ToString("yyyy年MM月dd日 HH:mm");
 
-        if (info.StartTime != null)
-        {
-            DateTime startTime = (DateTime)info.StartTime;
-            TxtRealStartTime.text = startTime.ToString("yyyy/MM/dd HH:mm");
-        }
-        else
-        {
-            TxtRealStartTime.text = "";
-        }
-
-        //DateTime startTime = (DateTime)info.StartTime;
-        //TxtRealStartTime.text = startTime.ToString("yyyy/MM/dd HH:mm");
-        TxtRealEndTime.text = "";
     }
 
     /// <summary>
@@ -79,27 +86,31 @@ public class MobileInspectionDetailsUI : MonoBehaviour {
     public void CreateMeasuresItems()
     {
         ClearMeasuresItems();
-        if (info.list == null || info.list.Length == 0) return;
-        foreach (PersonnelMobileInspectionItem sm in info.list)
+        if (patrolPointList == null || patrolPointList.Count == 0) return;
+        for (int i = 0; i < patrolPointList.Count; i++)
         {
             GameObject itemT = CreateMeasuresItem();
             Text[] ts = itemT.GetComponentsInChildren<Text>();
             if (ts.Length > 0)
             {
-                ts[0].text = sm.nOrder.ToString();
+                ts[0].text = patrolPointList[i].DeviceId.ToString();
             }
             if (ts.Length > 1)
             {
 
-                if (sm.PunchTime != null)
+                if (patrolPointList[i].StaffCode != null)
                 {
-                    DateTime punchTime = (DateTime)sm.PunchTime;
-                    ts[1].text = punchTime.ToString("yyyy/MM/dd HH:mm");
+
+                    ts[1].text = patrolPointList[i].StaffCode.ToString();
                 }
                 else
                 {
                     ts[1].text = "";
                 }
+            }
+             if (ts.Length > 2)
+            {
+          
             }
         }
     }

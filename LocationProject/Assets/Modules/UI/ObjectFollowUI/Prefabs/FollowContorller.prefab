@@ -62,3 +62,5 @@ MonoBehaviour:
     type: 2}
   FireDevUIPrefab: {fileID: 1915165607981304, guid: 63801bcaae46f1b4c87c3b05cd22d687,
     type: 2}
+  ArchorDevUIPrefab: {fileID: 1240963239834386, guid: bfe6bd4bfddecb84685b17b7ae617549,
+    type: 2}

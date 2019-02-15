@@ -1,10 +1,13 @@
 ﻿using Location.WCFServiceReferences.LocationServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MobileInspectionHistoryGrid : MonoBehaviour {
+public class MobileInspectionHistoryGrid : MonoBehaviour
+{
+    public static MobileInspectionHistoryGrid Instance;
     public VerticalLayoutGroup grid;//列表
     public MobileInspectionHistoryItem itemPrefab;
 
@@ -14,14 +17,25 @@ public class MobileInspectionHistoryGrid : MonoBehaviour {
     public Text txtPageCount;//总页数Text
                              //private List<HistoryPersonsSearchUIItem> selectPersonnelList;//当前显示的列表集合
     private int currentPageNum;//当前所在页
-    private int pageCount;//总页数
+    private int pageCount = 1;//总页数
     private int showCount = 10;//每页显示人员的个数
 
-    private List<PersonnelMobileInspectionHistory> searchList;//当前搜索出来的工作票历史记录
+    public List<InspectionTrackHistory> searchList;
+    public List<InspectionTrackHistory> InspectionTrackHistoryList;
+    bool IsSearch;
+    bool IsStartTime;
+    bool IsEndTime;
+    public Text StartTimeText;//开始时间
+    public Text EndTimeText;//结束时间
+    public Sprite Singleline;
+    public Sprite DoubleLine;
+    // private List<PersonnelMobileInspectionHistory> searchList;//当前搜索出来的工作票历史记录
 
     // Use this for initialization
     void Start()
     {
+        Instance = this;
+        InspectionTrackHistoryList = new List<InspectionTrackHistory>();
         previousPageBtn.onClick.AddListener(PreviousPageBtn_OnClick);
         nextPageBtn.onClick.AddListener(NextPageBtn_OnClick);
         InputFieldPage.onEndEdit.AddListener(InputFieldPage_OnEndEdit);
@@ -32,82 +46,308 @@ public class MobileInspectionHistoryGrid : MonoBehaviour {
     {
 
     }
+    public void TotaiLine(List<InspectionTrackHistory> date)
+    {
+        if (date.Count != 0)
+        {
+            if (date.Count % showCount == 0)
+            {
+                txtPageCount.text = (date.Count / showCount).ToString();
+            }
+            else
+            {
+                txtPageCount.text = Convert.ToString(Math.Ceiling((double)date.Count / (double)showCount));
+            }
+        }
+        else
+        {
+            txtPageCount.text = "1";
 
+        }
+
+    }
+    public void StartShowMobilenspectionHistory()
+    {
+        InspectionTrackHistoryList = MobileInspectionHistory_N.Instance.mobileInspectionHistoryList;
+        currentPageNum = 0;
+        IsSearch = false;
+        IsStartTime = false;
+        IsEndTime = false;
+        InputFieldPage.text = pageCount.ToString();
+
+        TotaiLine(InspectionTrackHistoryList);
+        CreateGrid(InspectionTrackHistoryList);
+    }
     /// <summary>
     /// 搜索
     /// </summary>
     public void Search()
     {
-        currentPageNum = 0;
-        if (MobileInspectionHistory_N.Instance.searchInput.text == "")
+
+        IsSearch = true;
+        if (searchList.Count != 0)
         {
-            searchList = MobileInspectionHistory_N.Instance.mobileInspectionHistoryList;
+            searchList.Clear();
         }
-        else
+        string key = MobileInspectionHistory_N.Instance.searchInput.text.ToString().ToLower();
+        string StartTime = StartTimeText.text;
+        string EndTime = EndTimeText.text;
+        for (int i = 0; i < InspectionTrackHistoryList.Count; i++)
         {
-            searchList = MobileInspectionHistory_N.Instance.mobileInspectionHistoryList.FindAll((item) => WorkTicketContains(item));
+            DateTime starttime = InspectionTrackHistoryList[i].dtStartTime;
+            DateTime endtime = InspectionTrackHistoryList[i].dtEndTime;
+            DateTime NewStartTime = Convert.ToDateTime(StartTime);
+            DateTime CurrentEndTime = Convert.ToDateTime(EndTime);
+            DateTime NewEndTime = CurrentEndTime.AddHours(24);
+
+            bool isTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+            bool ScreenStartTime = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+            bool ScreenEndTime = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+
+            string Num = InspectionTrackHistoryList[i].Id.ToString().ToLower();
+            string InspectionTrackNum = InspectionTrackHistoryList[i].Code.ToLower();
+            string RouteName = InspectionTrackHistoryList[i].Name.ToLower();
+            if (isTime)
+            {
+                if (MobileInspectionHistory_N.Instance.searchInput.text == "" && ScreenStartTime && ScreenEndTime)
+                {
+                    searchList.Add(InspectionTrackHistoryList[i]);
+                }
+                else if (Num != null && InspectionTrackNum != null && RouteName != null)
+                {
+                    if (Num.ToLower().Contains(key) || InspectionTrackNum.ToLower().Contains(key) || RouteName.ToLower().Contains(key))
+                    {
+                        if (ScreenStartTime && ScreenEndTime)
+                        {
+                            searchList.Add(InspectionTrackHistoryList[i]);
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                DateTime time1 = NewStartTime.AddHours(24);
+                NewEndTime = time1;
+                bool Time2 = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                bool Time3 = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+                if (MobileInspectionHistory_N.Instance.searchInput.text == "" && ScreenStartTime && ScreenEndTime)
+                {
+                    searchList.Add(InspectionTrackHistoryList[i]);
+                }
+                else if (Num != null && InspectionTrackNum != null && RouteName != null)
+                {
+                    if (Num.ToLower().Contains(key) || InspectionTrackNum.ToLower().Contains(key) || RouteName.ToLower().Contains(key))
+                    {
+                        if (ScreenStartTime && ScreenEndTime)
+                        {
+                            searchList.Add(InspectionTrackHistoryList[i]);
+                        }
+                    }
+
+                }
+
+                Invoke("ChangeEndTime", 0.1f);
+            }
         }
 
-        //if (workTicketHistoryList == null) return;
-        pageCount = searchList.Count / showCount;
-        if (searchList.Count % showCount > 0)
-        {
-            pageCount += 1;
-        }
+        TotaiLine(searchList);
 
-        txtPageCount.text = pageCount.ToString();
-        CreateGrid();
+        CreateGrid(searchList);
     }
+    public void ScreeningStartTime(DateTime datetime)
+    {
+        IsStartTime = true;
+        if (searchList.Count != 0)
+        {
+            searchList.Clear();
+        }
+        string key = MobileInspectionHistory_N.Instance.searchInput.text.ToString().ToLower();
+        string EndTime = EndTimeText.text;
+        for (int i = 0; i < InspectionTrackHistoryList.Count; i++)
+        {
+            DateTime starttime = InspectionTrackHistoryList[i].dtStartTime;
+            DateTime endtime = InspectionTrackHistoryList[i].dtEndTime;
+            DateTime NewStartTime = Convert.ToDateTime(datetime);
+            DateTime CurrentEndTime = Convert.ToDateTime(EndTime);
+            DateTime NewEndTime = CurrentEndTime.AddHours(24);
 
+
+            bool isTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+            bool ScreenStartTime = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+            bool ScreenEndTime = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+
+            string Num = InspectionTrackHistoryList[i].Id.ToString().ToLower();
+            string InspectionTrackNum = InspectionTrackHistoryList[i].Code.ToLower();
+            string RouteName = InspectionTrackHistoryList[i].Name.ToLower();
+            if (isTime)
+            {
+                if (MobileInspectionHistory_N.Instance.searchInput.text == "" && ScreenStartTime && ScreenEndTime)
+                {
+                    searchList.Add(InspectionTrackHistoryList[i]);
+                }
+                else if (Num != null && InspectionTrackNum != null && RouteName != null)
+                {
+                    if (Num.ToLower().Contains(key) || InspectionTrackNum.ToLower().Contains(key) || RouteName.ToLower().Contains(key))
+                    {
+                        if (ScreenStartTime && ScreenEndTime)
+                        {
+                            searchList.Add(InspectionTrackHistoryList[i]);
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                DateTime time1 = NewStartTime.AddHours(24);
+                NewEndTime = time1;
+                bool Time2 = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                bool Time3 = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+                if (MobileInspectionHistory_N.Instance.searchInput.text == "" && ScreenStartTime && ScreenEndTime)
+                {
+                    searchList.Add(InspectionTrackHistoryList[i]);
+                }
+                else if (Num != null && InspectionTrackNum != null && RouteName != null)
+                {
+                    if (Num.ToLower().Contains(key) || InspectionTrackNum.ToLower().Contains(key) || RouteName.ToLower().Contains(key))
+                    {
+                        if (ScreenStartTime && ScreenEndTime)
+                        {
+                            searchList.Add(InspectionTrackHistoryList[i]);
+                        }
+                    }
+
+                }
+
+                Invoke("ChangeEndTime", 0.1f);
+            }
+        }
+
+        TotaiLine(searchList);
+
+        CreateGrid(searchList);
+    }
+    public void ScreeningSecondTime(DateTime datetime)
+    {
+        IsEndTime = true;
+        if (searchList.Count != 0)
+        {
+            searchList.Clear();
+        }
+        string key = MobileInspectionHistory_N.Instance.searchInput.text.ToString().ToLower();
+        string StartTime = StartTimeText.text;
+        for (int i = 0; i < InspectionTrackHistoryList.Count; i++)
+        {
+            DateTime starttime = InspectionTrackHistoryList[i].dtStartTime;
+            DateTime endtime = InspectionTrackHistoryList[i].dtEndTime;
+            DateTime NewStartTime = Convert.ToDateTime(StartTime);
+            DateTime CurrentEndTime = Convert.ToDateTime(datetime);
+            DateTime NewEndTime = CurrentEndTime.AddHours(24);
+
+            bool isTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
+            bool ScreenStartTime = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+            bool ScreenEndTime = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+
+            string Num = InspectionTrackHistoryList[i].Id.ToString().ToLower();
+            string InspectionTrackNum = InspectionTrackHistoryList[i].Code.ToLower();
+            string RouteName = InspectionTrackHistoryList[i].Name.ToLower();
+            if (isTime)
+            {
+                if (MobileInspectionHistory_N.Instance.searchInput.text == "" && ScreenStartTime && ScreenEndTime)
+                {
+                    searchList.Add(InspectionTrackHistoryList[i]);
+                }
+                else if (Num != null && InspectionTrackNum != null && RouteName != null)
+                {
+                    if (Num.ToLower().Contains(key) || InspectionTrackNum.ToLower().Contains(key) || RouteName.ToLower().Contains(key))
+                    {
+                        if (ScreenStartTime && ScreenEndTime)
+                        {
+                            searchList.Add(InspectionTrackHistoryList[i]);
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                DateTime time1 = NewStartTime.AddHours(24);
+                NewEndTime = time1;
+                bool Time2 = DateTime.Compare(NewStartTime, starttime) <= 0 && DateTime.Compare(NewEndTime, starttime) >= 0;
+                bool Time3 = DateTime.Compare(NewStartTime, endtime) < 0 && DateTime.Compare(NewEndTime, endtime) >= 0;
+                if (MobileInspectionHistory_N.Instance.searchInput.text == "" && ScreenStartTime && ScreenEndTime)
+                {
+                    searchList.Add(InspectionTrackHistoryList[i]);
+                }
+                else if (Num != null && InspectionTrackNum != null && RouteName != null)
+                {
+                    if (Num.ToLower().Contains(key) || InspectionTrackNum.ToLower().Contains(key) || RouteName.ToLower().Contains(key))
+                    {
+                        if (ScreenStartTime && ScreenEndTime)
+                        {
+                            searchList.Add(InspectionTrackHistoryList[i]);
+                        }
+                    }
+
+                }
+
+                Invoke("ChangeEndTime", 0.1f);
+            }
+        }
+
+        TotaiLine(searchList);
+
+        CreateGrid(searchList);
+
+    }
+    int i = 0;
     /// <summary>
     /// 创建人员列表
     /// </summary>
-    public void CreateGrid()
+    public void CreateGrid(List<InspectionTrackHistory> date)
     {
         ClearItems();
-        InputFieldPage.text = (currentPageNum + 1).ToString();
+
         int startIndex = currentPageNum * showCount;
         int num = showCount;
         if (startIndex + num > searchList.Count)
         {
             num = searchList.Count - startIndex;
         }
-        if (searchList.Count == 0) return;
-        List<PersonnelMobileInspectionHistory> historyList = searchList.GetRange(startIndex, num);
+        if (date.Count == 0) return;
+        List<InspectionTrackHistory> historyList = searchList.GetRange(startIndex, num);
 
-        foreach (PersonnelMobileInspectionHistory w in historyList)
+        foreach (InspectionTrackHistory w in historyList)
         {
-            ////HistoryPersonsSearchUIItem item = selectPersonnelList.Find((i) => i.personnel == p);
-            //if (item != null)
-            //{
-            //    item.gameObject.SetActive(true);
-            //    item.transform.SetAsLastSibling();
-            //    continue;
-            //}
+            i = i + 1;
             MobileInspectionHistoryItem item = CreatePersonItem(w);
-            //if (currentSelectPersonnels.Contains(p))
-            //{
-            //    item.SetToggle(true);
-            //}
-
             item.gameObject.SetActive(true);
-            //personItemList.Add(item);
-
+            if (i % 2 == 0)
+            {
+                item.transform.gameObject.GetComponent<Image>().sprite = DoubleLine;
+            }
+            else
+            {
+                item.transform.gameObject.GetComponent<Image>().sprite = Singleline;
+            }
         }
 
-        SetPreviousAndNextPageBtn();
+        //   SetPreviousAndNextPageBtn();
     }
-
+    public string titleHistory;
     /// <summary>
     /// 创建人员列表项
     /// </summary>
-    public MobileInspectionHistoryItem CreatePersonItem(PersonnelMobileInspectionHistory w)
+    public MobileInspectionHistoryItem CreatePersonItem(InspectionTrackHistory w)
     {
+        titleHistory = w.Code + "-" + w.Name;
         MobileInspectionHistoryItem item = Instantiate(itemPrefab);
         item.Init(w);
         item.transform.SetParent(grid.transform);
         item.transform.localScale = Vector3.one;
         item.transform.localPosition = Vector3.zero;
+
         //item.gameObject.SetActive(true);
         return item;
     }
@@ -115,7 +355,7 @@ public class MobileInspectionHistoryGrid : MonoBehaviour {
     /// <summary>
     /// 工作票筛选筛选
     /// </summary>
-    public bool WorkTicketContains(PersonnelMobileInspectionHistory workTicketT)
+    public bool WorkTicketContains(InspectionTrackHistory workTicketT)
     {
         if (WorkTicketContainsNO(workTicketT)) return true;
         if (WorkTicketContainsPerson(workTicketT)) return true;
@@ -123,11 +363,11 @@ public class MobileInspectionHistoryGrid : MonoBehaviour {
     }
 
     /// <summary>
-    /// 筛选根据工作票编号
+    /// 筛选根据巡检路线序号
     /// </summary>
-    public bool WorkTicketContainsNO(PersonnelMobileInspectionHistory workTicketT)
+    public bool WorkTicketContainsNO(InspectionTrackHistory workTicketT)
     {
-        if (workTicketT.MobileInspectionId.ToString().ToLower().Contains(MobileInspectionHistory_N.Instance.searchInput.text.ToLower()))
+        if (workTicketT.Id.ToString().ToLower().Contains(MobileInspectionHistory_N.Instance.searchInput.text.ToLower()))
         {
             return true;
         }
@@ -140,12 +380,12 @@ public class MobileInspectionHistoryGrid : MonoBehaviour {
     /// <summary>
     /// 筛选根据工作票负责人
     /// </summary>
-    public bool WorkTicketContainsPerson(PersonnelMobileInspectionHistory workTicketT)
+    public bool WorkTicketContainsPerson(InspectionTrackHistory workTicketT)
     {
         string nameT = "";
-        if (workTicketT.PersonnelName != null)
+        if (workTicketT.Code != null)
         {
-            nameT = workTicketT.PersonnelName;
+            nameT = workTicketT.Code;
         }
         if (nameT.ToLower().Contains(MobileInspectionHistory_N.Instance.searchInput.text.ToLower()))
         {
@@ -181,11 +421,20 @@ public class MobileInspectionHistoryGrid : MonoBehaviour {
     /// </summary>
     public void PreviousPageBtn_OnClick()
     {
-        Debug.Log("PreviousPageBtn_OnClick!");
-        currentPageNum = currentPageNum - 1;
-        //int currentPageNumT = currentPageNum;
-        //SetPreviousAndNextPageBtn();
-        CreateGrid();
+        if (currentPageNum > 0 && pageCount > 0)
+        {
+            currentPageNum = currentPageNum - 1;
+            pageCount = pageCount - 1;
+            InputFieldPage.text = pageCount.ToString();
+            if (IsSearch || IsStartTime || IsEndTime)
+            {
+                CreateGrid(searchList);
+            }
+        }
+        else
+        {
+            CreateGrid(InspectionTrackHistoryList);
+        }
     }
 
     /// <summary>
@@ -193,44 +442,95 @@ public class MobileInspectionHistoryGrid : MonoBehaviour {
     /// </summary>
     public void NextPageBtn_OnClick()
     {
-        Debug.Log("NextPageBtn_OnClick!");
-        currentPageNum = currentPageNum + 1;
-        //SetPreviousAndNextPageBtn();
-        CreateGrid();
+        if (IsSearch || IsStartTime || IsEndTime)
+        {
+            double a = Math.Ceiling((double)searchList.Count / (double)showCount);
+            int m = (int)a;
+            if (currentPageNum < m && pageCount < m)
+            {
+                currentPageNum = currentPageNum + 1;
+                pageCount = pageCount + 1;
+                InputFieldPage.text = pageCount.ToString();
+
+            }
+            else if (currentPageNum == m)
+            {
+                pageCount = m;
+                InputFieldPage.text = pageCount.ToString();
+
+            }
+            CreateGrid(searchList);
+        }
+        else
+        {
+            double a = Math.Ceiling((double)InspectionTrackHistoryList.Count / (double)showCount);
+            int m = (int)a;
+            if (currentPageNum < m && pageCount < m)
+            {
+                currentPageNum = currentPageNum + 1;
+                pageCount = pageCount + 1;
+                InputFieldPage.text = pageCount.ToString();
+                CreateGrid(InspectionTrackHistoryList);
+            }
+            else if (currentPageNum == m)
+            {
+                pageCount = m;
+                InputFieldPage.text = pageCount.ToString();
+                CreateGrid(searchList);
+            }
+        }
     }
 
-    /// <summary>
-    /// 设置前一页和后一页是否开启交互，即interactable
-    /// </summary>
-    public void SetPreviousAndNextPageBtn()
+
+    public void ChangeEndTime()
     {
-        if (currentPageNum <= 0)
-        {
-            currentPageNum = 0;
-            previousPageBtn.interactable = false;
-        }
-        else
-        {
-            previousPageBtn.interactable = true;
-        }
-
-        if (currentPageNum >= pageCount - 1)
-        {
-            currentPageNum = pageCount - 1;
-            nextPageBtn.interactable = false;
-        }
-        else
-        {
-            nextPageBtn.interactable = true;
-        }
+        string startTime = StartTimeText.text;
+        DateTime NewStartTime = Convert.ToDateTime(startTime);
+        string CurrentTime = NewStartTime.ToString("yyyy年MM月dd日");
+        EndTimeText.text = CurrentTime.ToString();
     }
-
     /// <summary>
     /// 输入页数文本框编辑结束触发事件
     /// </summary>
     /// <param name="txt"></param>
     public void InputFieldPage_OnEndEdit(string txt)
     {
-        Debug.Log("InputFieldPage_OnEndEdit!");
+        int currentPage = int.Parse(InputFieldPage.text);
+        if (IsSearch || IsStartTime || IsEndTime)
+        {
+            int MaxPage = (int)Math.Ceiling((double)searchList.Count / (double)showCount);
+            if (currentPage > MaxPage)
+            {
+                currentPage = MaxPage;
+                InputFieldPage.text = currentPage.ToString();
+
+            }
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+                InputFieldPage.text = currentPage.ToString();
+            }
+            currentPageNum = int.Parse(InputFieldPage.text) - 1;
+            pageCount = int.Parse(InputFieldPage.text);
+            CreateGrid(searchList);
+        }
+        else
+        {
+            int MaxPage = (int)Math.Ceiling((double)InspectionTrackHistoryList.Count / (double)showCount);
+            if (currentPage > MaxPage)
+            {
+                currentPage = MaxPage;
+                InputFieldPage.text = currentPage.ToString();
+
+            }
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+                InputFieldPage.text = currentPage.ToString();
+            }
+            pageCount = int.Parse(InputFieldPage.text);
+            currentPageNum = int.Parse(InputFieldPage.text) - 1;
+            CreateGrid(InspectionTrackHistoryList);
+        }
     }
 }

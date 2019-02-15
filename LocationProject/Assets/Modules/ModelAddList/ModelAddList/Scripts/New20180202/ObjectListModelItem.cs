@@ -615,6 +615,21 @@ public class ObjectListModelItem : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        HideTipUI();
+    }
+    private void OnDestroy()
+    {
+        HideTipUI();
+    }
+    private void OnDisable()
+    {
+        HideTipUI();
+    }
+    /// <summary>
+    /// 隐藏提示UI
+    /// </summary>
+    private void HideTipUI()
+    {
         IsCanInstantiateModel = true;
         if (tipUI != null)
         {

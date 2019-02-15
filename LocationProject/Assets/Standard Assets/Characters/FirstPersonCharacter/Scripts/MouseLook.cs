@@ -16,22 +16,62 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float smoothTime = 5f;
         public bool lockCursor = true;
 
+        public bool onlyLockCursor;//远程（不锁鼠标，只隐藏鼠标）
 
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
         private bool m_cursorIsLocked = true;
-
+        private Vector3 mousePositionOri;//用于远程，处理Axis为0的情况
+        private float mouseSensitity = 0.1f;//与projectSetting->Input-Mouse X/Y 的Sensitity相同
+        private float moveOffset=5;//靠近屏幕边缘，往回移动一定距离
         public void Init(Transform character, Transform camera)
         {
             m_CharacterTargetRot = character.localRotation;
             m_CameraTargetRot = camera.localRotation;
         }
-
+        /// <summary>
+        /// 设置鼠标初始位置
+        /// </summary>
+        /// <param name="inputPos"></param>
+        public void SetMouseOrginalPos(Vector3 inputPos)
+        {
+            mousePositionOri = inputPos;
+        }
+        /// <summary>
+        /// 获取鼠标移动的距离，Input.GetAxis("Mouse X")在远程桌面和TeamViewer中都是0，不能移动
+        /// </summary>
+        /// <returns></returns>
+        private Vector2 GetMouseOffset()
+        {
+            Vector3 inputPos = Input.mousePosition;
+            Vector3 offset = inputPos - mousePositionOri;
+            //if(mousePos.x <= 0 || mousePos.y < 0 || mousePos.x > Screen.width || mousePos.y > Screen.height)
+            if (inputPos.x <= 0) inputPos.x += moveOffset;
+            else if (inputPos.x >= Screen.width) inputPos.x -= moveOffset;
+            if (inputPos.y <= 0) inputPos.y += moveOffset;
+            else if (inputPos.y >= Screen.height) inputPos.y -= moveOffset;
+            mousePositionOri = inputPos;
+            
+            Vector2 rot = new Vector2(offset.x, offset.y) * mouseSensitity;
+            //Debug.Log(string.Format("InputMosuePos:{0} ScreenSize:({1},{2})",mousePositionOri,Screen.width,Screen.height));
+            return rot;
+        }
 
         public void LookRotation(Transform character, Transform camera)
         {
-            float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
-            float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            float yRot;
+            float xRot;
+            if(onlyLockCursor)
+            {
+                Vector2 rot = GetMouseOffset();
+                yRot = rot.x * XSensitivity;
+                xRot = rot.y * YSensitivity;
+            }
+            else
+            {
+                yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
+                xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            }           
 
             m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
             m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
@@ -85,11 +125,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (m_cursorIsLocked)
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                if (!onlyLockCursor) Cursor.lockState = CursorLockMode.Locked;
+                else Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = false;
             }
             else if (!m_cursorIsLocked)
             {
+                //if(!onlyLockCursor) Cursor.lockState = CursorLockMode.None;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }

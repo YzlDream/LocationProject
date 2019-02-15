@@ -7,65 +7,50 @@ using UnityEngine.UI;
 
 public class MobileInspectionHistoryItem : MonoBehaviour {
 
-    public PersonnelMobileInspectionHistory info;//信息
-
-    public Text txtNumber;//编号
-    public Text txtRoutingInspectionPersonName;//巡检人员
-    public Text txtRoutingInspectionLineName;//签发人
-    public Text txtStartTime;//巡检开始时间
-    public Text txtEndTime;//巡检结束时间
-    public Text txtState;//状态
-    //public Text txtWorkPermitPerson;//工作许可人
-                                    //public Text txtDetails;//详情
+    public InspectionTrackHistory info;//信息
+    public Text NumText;//巡检序号
+    public Text NumberInspectionText;//巡检编号
+    public Text RoutingNameText;//路线名称  
+    public Text StartTimeText;//巡检开始时间
+    public Text EndTimeText;//巡检结束时间
     public Button detailBtn;//详情按钮
-
+    public Text StateText;
+    
     // Use this for initialization
     void Start()
     {
         detailBtn.onClick.AddListener(DetailBtn_OnClick);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /// <summary>
     /// 初始化数据
     /// </summary>
-    public void Init(PersonnelMobileInspectionHistory infoT)
+    public void Init(InspectionTrackHistory infoT)
     {
         info = infoT;
-
-        txtNumber.text = info.MobileInspectionId.ToString();
-        txtRoutingInspectionPersonName.text = info.PersonnelName;
-        txtRoutingInspectionLineName.text = info.MobileInspectionName;
-        if (info.StartTime != null)
+        NumText.text = info.Id .ToString();
+        NumberInspectionText.text = info.Code.ToString();
+        RoutingNameText.text = info.Name;
+        if (info.dtStartTime != null)
         {
-            DateTime timeN = (DateTime)info.StartTime;
-            txtStartTime.text = timeN.ToString("yyyy/MM/dd HH:mm");
+            DateTime timeN = (DateTime)info.dtStartTime ;
+            StartTimeText.text = timeN.ToString("yyyy年MM月dd日 HH:mm");
         }
         else
         {
-            txtStartTime.text = "";
+            StartTimeText.text = "";
         }
-        if (info.EndTime != null)
+        if (info.dtEndTime != null)
         {
-            DateTime timeN = (DateTime)info.EndTime;
-            txtEndTime.text = timeN.ToString("yyyy/MM/dd HH:mm");
-            txtState.text = "完成";
-            txtState.color = Color.white;
+            DateTime timeN = (DateTime)info.dtEndTime;
+            EndTimeText.text = timeN.ToString("yyyy年MM月dd日 HH:mm");        
+         
         }
         else
         {
-            txtEndTime.text = "";
-            txtState.text = "<color=#FFA1ED>未完成</color>";
+            EndTimeText.text = "";        
         }
-        //txtEndTime.text = info.EndTime.ToString("yyyy/MM/dd HH:mm");
-        //txtState.text = info.WorkCondition;
-        //txtWorkPermitPerson.text = info.Licensor;
-        //txtDetails.text = info.No;
+        StateText.text = info.State;
+     
     }
 
     /// <summary>
@@ -73,7 +58,7 @@ public class MobileInspectionHistoryItem : MonoBehaviour {
     /// </summary>
     public void DetailBtn_OnClick()
     {
-        Debug.Log("DetailBtn_OnClick!");
-        MobileInspectionHistory_N.Instance.ShowOperationTicketHistoryDetailsUI(info);
+        MobileInspectionHistoryDetailInfo.Instance.DateUpdate(info );
+        MobileInspectionHistory_N.Instance.CloseBtn_OnClick();
     }
 }

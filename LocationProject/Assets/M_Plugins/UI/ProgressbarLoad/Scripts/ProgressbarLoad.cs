@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 加载条，在Loading场景和主场景都有一个，方便主场景调试，
+/// 因为在开发阶段每次都要通过Loading场景加载主场景，影响工作效率，
+/// 虽然存在两个实例，但是不影响正常使用，
+/// </summary>
 public class ProgressbarLoad : MonoBehaviour {
     public static ProgressbarLoad Instance;
     public GameObject window;//窗口
@@ -77,6 +82,9 @@ public class ProgressbarLoad : MonoBehaviour {
     /// <param name="isActive"></param>
     public void SetWindow(bool isActive)
     {
-        window.SetActive(isActive);
+        if (window)
+        {
+            window.SetActive(isActive);
+        }
     }
 }

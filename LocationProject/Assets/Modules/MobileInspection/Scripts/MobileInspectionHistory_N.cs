@@ -5,52 +5,57 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MobileInspectionHistory_N : MonoBehaviour {
+public class MobileInspectionHistory_N : MonoBehaviour
+{
 
-    //enum State
-    //{
-    //    工作票,
-    //    操作票,
-    //}
-    //State curentState = State.工作票;
+   
 
     public static MobileInspectionHistory_N Instance;
 
     public GameObject window;
-    //public Dropdown titleDropdown;//标题选择下拉列表框
+
     public Text txtTitle;//标题文本
 
     public CalendarChange calendarStart;//开始时间
     public CalendarChange calendarEnd;//开始时间
-    private DateTime startTime;//起始时间
-    private DateTime endTime;//结束时间
+   
 
     public Button closeBtn;//关闭Button
 
     [HideInInspector]
-    public List<PersonnelMobileInspectionHistory> mobileInspectionHistoryList;//工作票历史记录
-    //[HideInInspector]
-    //public List<OperationTicketHistory> operationTicketHistoryList;//操作票历史记录
+    public List < InspectionTrackHistory> mobileInspectionHistoryList;//巡检轨迹历史纪录
 
-    public MobileInspectionHistoryGrid mobileInspectionHistoryGrid;//工作票历史列表
-    //public OperationTicketHistoryGrid operationTicketHistoryGrid;//操作票历史列表
+    public InspectionTrackHistory InspectionTrackHistoryItem;
 
-    public MobileInspectionHistoryDetailsUI mobileInspectionHistoryDetailsUI;//工作票历史项详情界面
-    //public OperationTicketHistoryDetailsUI operationTicketHistoryDetailsUI;//操作票历史项详情界面
+    public MobileInspectionHistoryGrid mobileInspectionHistoryGrid;//巡检路线历史列表
+    public InspectionTrack InspectionTrackItems;
 
+    public  DateTime dtBeginTime;
+    public  DateTime dtEndTime;
+    bool bFlag = true;
+    private string zeroTime;
+
+    public InputField searchInput;//搜索关键字输入框   
+    public Button searchBtn;//搜索按钮
+
+    public ChangeTimeStyle StartTime;
+    public ChangeTimeStyle EndTime;
     // Use this for initialization
     void Start()
     {
         Instance = this;
+       
+        DateTime dtBeginTime = DateTime.Today.Date;
+        dtEndTime = DateTime.Now;
         //titleDropdown.onValueChanged.AddListener(TitleDropdown_OnValueChanged);
-        searchInput.onEndEdit.AddListener(SearchInput_OnEndEdit);
+       // searchInput.onEndEdit.AddListener(SearchInput_OnEndEdit);
         searchInput.onValueChanged.AddListener(SearchInput_OnValueChanged);
         searchBtn.onClick.AddListener(SearchBtn_OnClick);
         calendarStart.onDayClick.AddListener(CalendarStart_onDayClick);
         calendarEnd.onDayClick.AddListener(CalendarEnd_onDayClick);
         closeBtn.onClick.AddListener(CloseBtn_OnClick);
 
-        SetCalendarOpenAndClose();
+     //   SetCalendarOpenAndClose();
     }
 
     /// <summary>
@@ -95,15 +100,11 @@ public class MobileInspectionHistory_N : MonoBehaviour {
     /// </summary>
     public void TitleDropdown_OnValueChanged(int i)
     {
-        //txtTitle.text = titleDropdown.options[i].text;
-        //ChangeState((State)i);
         Show();
     }
 
-    public InputField searchInput;//搜索关键字输入框   
-    public Button searchBtn;//搜索按钮
-    private List<WorkTicketHistory> workTicketHistorySearchList;//当前搜索出来的工作票历史记录
-    private List<OperationItemHistory> operationItemHistorySearchList;//当前搜索出来的操作票历史记录
+   
+
 
     /// <summary>
     /// 显示
@@ -114,88 +115,47 @@ public class MobileInspectionHistory_N : MonoBehaviour {
         searchInput.text = "";
         Loom.StartSingleThread((System.Threading.ThreadStart)(() =>
         {
-            //if (curentState == State.工作票)
-            //{
-                GetWorkTicketHistoryData();
-                Loom.DispatchToMainThread((Frankfort.Threading.ThreadDispatchDelegate)(() =>
-                {
-                    CreateWorkTicketGrid();
-                }));
-            //}
-            //else if (curentState == State.操作票)
-            //{
-            //    GetOperationTicketHistoryData();
-            //    Loom.DispatchToMainThread(() =>
-            //    {
-            //        CreateOperationTicketGrid();
-            //    });
-            //}
-
+            GetMobileInspectionHistoryData();
+            Loom.DispatchToMainThread((Frankfort.Threading.ThreadDispatchDelegate)(() =>
+            {
+                CreateGetMobileInspectionHistoryGrid();
+            }));
         }));
     }
 
-    ///// <summary>
-    ///// 改变状态
-    ///// </summary>
-    //private void ChangeState(State stateT)
-    //{
-    //    curentState = stateT;
-    //}
+    
 
     /// <summary>
-    /// 加载工作票历史数据
+    /// 加载移动巡检票历史数据
     /// </summary>
-    public void GetWorkTicketHistoryData()
+    public void GetMobileInspectionHistoryData()
     {
         //后期获取数据加上时间
-        mobileInspectionHistoryList = CommunicationObject.Instance.GetPersonnelMobileInspectionHistoryList();
+          mobileInspectionHistoryList = CommunicationObject.Instance.Getinspectionhistorylist(dtBeginTime, dtEndTime, bFlag);
     }
 
-    ///// <summary>
-    ///// 加载工作票历史数据
-    ///// </summary>
-    //public void GetOperationTicketHistoryData()
-    //{
-    //    //后期获取数据加上时间
-    //    operationTicketHistoryList = CommunicationObject.Instance.GetOperationTicketHistoryList();
-    //}
+
 
     /// <summary>
-    /// 创建工作票列表
+    /// 创建移动巡检票列表
     /// </summary>
-    public void CreateWorkTicketGrid()
+    public void CreateGetMobileInspectionHistoryGrid()
     {
+        MobileInspectionHistoryGrid.Instance.StartShowMobilenspectionHistory();
         //operationTicketHistoryGrid.gameObject.SetActive(false);
         mobileInspectionHistoryGrid.gameObject.SetActive(true);
-        mobileInspectionHistoryGrid.Search();
+        
     }
 
-    ///// <summary>
-    ///// 创建操作票列表
-    ///// </summary>
-    //public void CreateOperationTicketGrid()
-    //{
-    //    mobileInspectionHistoryGrid.gameObject.SetActive(false);
-    //    operationTicketHistoryGrid.gameObject.SetActive(true);
-    //    operationTicketHistoryGrid.gameObject.SetActive(true);
-    //    operationTicketHistoryGrid.Search();
-    //}
 
     /// <summary>
     /// 搜索
     /// </summary>
     public void Search()
     {
-        //if (curentState == State.工作票)
-        //{
-            //WorkTicketHistorySearch();
-            CreateWorkTicketGrid();
-        //}
-        //else if (curentState == State.操作票)
-        //{
-        //    //OperationItemHistorySearch();
-        //    CreateOperationTicketGrid();
-        //}
+
+        CreateGetMobileInspectionHistoryGrid();
+
     }
 
     /// <summary>
@@ -228,20 +188,18 @@ public class MobileInspectionHistory_N : MonoBehaviour {
     public void SearchBtn_OnClick()
     {
         Debug.Log("SearchBtn_OnClick!");
-        Search();
+        MobileInspectionHistoryGrid.Instance.Search();
     }
 
 
     public void CalendarStart_onDayClick(DateTime dateTimeT)
     {
-        //DateTime endtime = Convert.ToDateTime("2018年8月10日");//8/10/2018 12:00:00 AM,就是10日早上0点
-        startTime = dateTimeT;
-        Search();
+
+        MobileInspectionHistoryGrid.Instance.ScreeningStartTime(dateTimeT);
     }
     public void CalendarEnd_onDayClick(DateTime dateTimeT)
     {
-        endTime = dateTimeT.AddHours(24);
-        Search();
+        MobileInspectionHistoryGrid.Instance.ScreeningSecondTime(dateTimeT);
     }
 
     /// <summary>
@@ -251,25 +209,17 @@ public class MobileInspectionHistory_N : MonoBehaviour {
     {
         //SetContentActive(false);
         MobileInspectionSubBar.Instance.SetHistoryToggle(false);
+        DateTime startTime = DateTime.Today.Date;
+        
+        string newStartTime = startTime.ToString ("yyyy年MM月dd日");
+        StartTime.StartTimeText.text = newStartTime;
+
+        DateTime endTime = DateTime.Now;
+        string newEndTime = endTime.ToString("yyyy年MM月dd日");
+        EndTime.StartTimeText.text = newEndTime;
     }
 
-    ///// <summary>
-    ///// 展示工作票历史项详情
-    ///// </summary>
-    //public void ShowWorkTicketHistoryDetailsUI(WorkTicketHistory workTicketHistoryT)
-    //{
-    //    SetContentActive(false);
-    //    //workTicketHistoryDetailsUI.Show(workTicketHistoryT);
-    //}
 
-    /// <summary>
-    /// 展示操作票历史项详情
-    /// </summary>
-    public void ShowOperationTicketHistoryDetailsUI(PersonnelMobileInspectionHistory personnelMobileInspectionHistoryT)
-    {
-        SetContentActive(false);
-        //operationTicketHistoryDetailsUI.Show(operationTicketHistoryT);
-        mobileInspectionHistoryDetailsUI.Show(personnelMobileInspectionHistoryT);
-    }
+ 
 }
 

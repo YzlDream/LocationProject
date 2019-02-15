@@ -378,38 +378,38 @@ namespace RTEditor
 
             if (Camera.orthographic)
             {
-                Camera.nearClipPlane = 0.000001f;
+                //Camera.nearClipPlane = 0.000001f;
 
-                // Adjust the near plane such that it doesn't intersect the grid. Otherwise, it cuts
-                // away from it and it looks painfully ugly :)
-                CameraViewVolume viewVolume = Camera.GetViewVolume();
-                var nearPlanePoints = new List<Vector3>();
-                nearPlanePoints.Add(viewVolume.TopLeftPointOnNearPlane);
-                nearPlanePoints.Add(viewVolume.TopRightPointOnNearPlane);
-                nearPlanePoints.Add(viewVolume.BottomLeftPointOnNearPlane);
-                nearPlanePoints.Add(viewVolume.BottomRightPointOnNearPlane);
+                //// Adjust the near plane such that it doesn't intersect the grid. Otherwise, it cuts
+                //// away from it and it looks painfully ugly :)
+                //CameraViewVolume viewVolume = Camera.GetViewVolume();
+                //var nearPlanePoints = new List<Vector3>();
+                //nearPlanePoints.Add(viewVolume.TopLeftPointOnNearPlane);
+                //nearPlanePoints.Add(viewVolume.TopRightPointOnNearPlane);
+                //nearPlanePoints.Add(viewVolume.BottomLeftPointOnNearPlane);
+                //nearPlanePoints.Add(viewVolume.BottomRightPointOnNearPlane);
 
-                Plane xzGridPlane = RuntimeEditorApplication.Instance.XZGrid.Plane;
-                if(!xzGridPlane.AreAllPointsInFrontOrBehindPlane(nearPlanePoints))
-                {
-                    Vector3 pivotPoint = Vector3.zero;
-                    float dot = Vector3.Dot(xzGridPlane.normal, Camera.transform.forward);
-                    if(dot > 0.0f) xzGridPlane.GetFurthestPointInFront(nearPlanePoints, out pivotPoint);
-                    else
-                    if (dot < 0.0f) xzGridPlane.GetFurthestPointBehind(nearPlanePoints, out pivotPoint);
+                //Plane xzGridPlane = RuntimeEditorApplication.Instance.XZGrid.Plane;
+                //if(!xzGridPlane.AreAllPointsInFrontOrBehindPlane(nearPlanePoints))
+                //{
+                //    Vector3 pivotPoint = Vector3.zero;
+                //    float dot = Vector3.Dot(xzGridPlane.normal, Camera.transform.forward);
+                //    if(dot > 0.0f) xzGridPlane.GetFurthestPointInFront(nearPlanePoints, out pivotPoint);
+                //    else
+                //    if (dot < 0.0f) xzGridPlane.GetFurthestPointBehind(nearPlanePoints, out pivotPoint);
 
-                    if(dot != 0.0f)
-                    {
-                        Ray ray = new Ray(pivotPoint, -Camera.transform.forward);
-                        float t;
-                        if(xzGridPlane.Raycast(ray, out t))
-                        {
-                            Vector3 intersectPt = ray.GetPoint(t);
-                            float distance = (intersectPt - pivotPoint).magnitude;
-                            Camera.nearClipPlane -= distance;
-                        }
-                    }
-                }
+                //    if(dot != 0.0f)
+                //    {
+                //        Ray ray = new Ray(pivotPoint, -Camera.transform.forward);
+                //        float t;
+                //        if(xzGridPlane.Raycast(ray, out t))
+                //        {
+                //            Vector3 intersectPt = ray.GetPoint(t);
+                //            float distance = (intersectPt - pivotPoint).magnitude;
+                //            Camera.nearClipPlane -= distance;
+                //        }
+                //    }
+                //}
             }
             else Camera.nearClipPlane = _initialNearClipPlane;
 

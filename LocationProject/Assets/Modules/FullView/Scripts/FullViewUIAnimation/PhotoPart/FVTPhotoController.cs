@@ -66,8 +66,8 @@ public class FVTPhotoController : MonoBehaviour {
         Tween leftToRight = UIPart.LeftToRightLine.transform.DOScaleX(1,0.3f);
         Tween photoTopToBottom = UIPart.TopToBottomLine.transform.DOScaleY(1,0.3f);
         //三个按钮的文字效果
-        Tween posText = UIPart.PosBtnText.DOText(GetTextString(UIPart.PosBtnText),0.5f);
-        Tween projectScaleText = UIPart.projectSacelBtnText.DOText(GetTextString(UIPart.projectSacelBtnText), 0.5f);
+        //Tween posText = UIPart.PosBtnText.DOText(GetTextString(UIPart.PosBtnText),0.5f);
+        //Tween projectScaleText = UIPart.projectSacelBtnText.DOText(GetTextString(UIPart.projectSacelBtnText), 0.5f);
         Tween enterFactoryText = UIPart.enterFactoryBtnText.DOText(GetTextString(UIPart.enterFactoryBtnText), 0.5f);
 
         BtnGroupSequence.AppendInterval(0.3f);
@@ -75,8 +75,8 @@ public class FVTPhotoController : MonoBehaviour {
         BtnGroupSequence.Join(ThreeDBottomLine);
         BtnGroupSequence.Join(PhotoAreaBG);
         //按钮文本部分
-        BtnGroupSequence.Join(posText);
-        BtnGroupSequence.Join(projectScaleText);
+        //BtnGroupSequence.Join(posText);
+        //BtnGroupSequence.Join(projectScaleText);
         BtnGroupSequence.Join(enterFactoryText);
 
         //标题栏文本
@@ -105,8 +105,7 @@ public class FVTPhotoController : MonoBehaviour {
         TwinkleObj(UIPart.photoTopDecration, waitTime, gapTime);
         TwinkleObj(UIPart.circleLeftDecration, waitTime, gapTime);
 
-        TwinkleObj(UIPart.PosBtn, waitTime, gapTime);
-        TwinkleObj(UIPart.projectjScaleBtn, waitTime, gapTime);
+        TwinkleObj(UIPart.AreaInfo, waitTime, gapTime);
         TwinkleObj(UIPart.enterFacotoryBtn, waitTime, gapTime);
         TwinkleObj(UIPart.appExitButton,waitTime,gapTime);
 
@@ -136,8 +135,7 @@ public class FVTPhotoController : MonoBehaviour {
         if (!UIPart.photoTopDecration.activeInHierarchy) UIPart.photoTopDecration.SetActive(true);
         if (!UIPart.circleLeftDecration.activeInHierarchy) UIPart.circleLeftDecration.SetActive(true);
 
-        if (!UIPart.PosBtn.activeInHierarchy) UIPart.PosBtn.SetActive(true);
-        if (!UIPart.projectjScaleBtn.activeInHierarchy) UIPart.projectjScaleBtn.SetActive(true);
+        if (!UIPart.AreaInfo.activeInHierarchy) UIPart.AreaInfo.SetActive(true);
         if (!UIPart.enterFacotoryBtn.activeInHierarchy) UIPart.enterFacotoryBtn.SetActive(true);
         if (!UIPart.appExitButton.activeInHierarchy) UIPart.appExitButton.SetActive(true);
         if (!UIPart.PhotoControlPart.activeInHierarchy) UIPart.PhotoControlPart.SetActive(true);

@@ -7,7 +7,7 @@ public class DevAlarmdropdownItem : MonoBehaviour {
     public static DevAlarmdropdownItem instance;
     public Dropdown devAlarmLeveldropdown;
 
-    List<string> tempNames;
+  public   List<string> tempNames;
     void Start()
     {
         instance = this;
@@ -34,10 +34,7 @@ public class DevAlarmdropdownItem : MonoBehaviour {
         }
         devAlarmLeveldropdown.captionText.text = showName[0];
     }
-    public void ShowFirstDropdowData()
-    {
-        devAlarmLeveldropdown.captionText.text = "全部告警";
-    }
+
     /// <summary>
     /// 添加名字
     /// </summary>

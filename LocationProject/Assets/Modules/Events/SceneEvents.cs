@@ -32,6 +32,10 @@ public static class SceneEvents
 
     #region 区域类型事件
     /// <summary>
+    /// 区域开始切换时（在摄像头移动视角之前）
+    /// </summary>
+    public static event Action<DepNode, DepNode> DepNodeChangeStart;
+    /// <summary>
     /// 当前区域节点发生变化，一般是拓扑树点击或者导航栏按钮点击触发
     /// </summary>
     public static event Action<DepNode, DepNode> DepNodeChanged;
@@ -69,6 +73,18 @@ public static class SceneEvents
         if(OnDepCreateComplete!= null)
         {
             OnDepCreateComplete(dep);
+        }
+    }
+    /// <summary>
+    /// 区域开始切换
+    /// </summary>
+    /// <param name="argOld"></param>
+    /// <param name="argNew"></param>
+    public static void OnDepNodeChangeStart(DepNode argOld,DepNode argNew)
+    {
+        if(DepNodeChangeStart!=null)
+        {
+            DepNodeChangeStart(argOld,argNew);
         }
     }
     /// <summary>

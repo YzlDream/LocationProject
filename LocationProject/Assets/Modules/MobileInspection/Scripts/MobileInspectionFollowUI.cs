@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Location.WCFServiceReferences.LocationServices;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,30 +15,32 @@ public class MobileInspectionFollowUI : MonoBehaviour
     public Color unfinishedColor;//未完成颜色
     public Color finishedColor;//已完成颜色
 
-    public Sprite unfinished_normal;
-    public Sprite unfinished_hovel;
-    public Sprite finished_normal;
-    public Sprite finished_hovel;
+   // public Sprite unfinished_normal;
+   // public Sprite unfinished_hovel;
+  //  public Sprite finished_normal;
+  //  public Sprite finished_hovel;
 
     public GameObject Content;
     public Text txtContent;//详细内容
 
     private UGUIFollowTarget uguiFollowTarget;//跟随脚本
 
+    public Button RouteBut;
+    public PatrolPoint patrolPointItem;
     // Use this for initialization
     void Start()
     {
-        EventTriggerListener lis = EventTriggerListener.Get(flagBtn.gameObject);
+        EventTriggerListener lis = EventTriggerListener.Get(RouteBut.gameObject);
         lis.onEnter = FlagBtn_OnEnter;
         lis.onExit = FlagBtn_OnExit;
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
 
     }
-
+    
     /// <summary>
     /// 初始化
     /// </summary>
@@ -51,25 +54,28 @@ public class MobileInspectionFollowUI : MonoBehaviour
         uguiFollowTarget = GetComponent<UGUIFollowTarget>();
     }
 
+    public void MobileInspectionPathFollowUI( string txtFlagNumT, PatrolPoint date)
+    {
+        patrolPointItem = date;
+      
+        SetFlagNum(txtFlagNumT);
+        uguiFollowTarget = GetComponent<UGUIFollowTarget>();
+       RouteBut.onClick.AddListener(ShowRouteInfo);
+    }
+   
+   
+    public void ShowRouteInfo()
+    {
+        MobileInspectionHistoryDetailsUI.Instance.Show(patrolPointItem);
+    }
     /// <summary>
     /// 初始化Flag按钮的Sprite
     /// </summary>
     public void InitButtonSprite()
     {
-        //if (isFinished)
-        //{
-        //    //flagBtn.image.sprite = finished_normal;
-        //    SetFlagBtnImage(finished_normal);
-        //    //flagBtn.spriteState = ChangeButtonSprite(finished_hovel);
-        //}
-        //else
-        //{
-        //    //flagBtn.image.sprite = unfinished_normal;
-        //    SetFlagBtnImage(unfinished_normal);
-        //    //flagBtn.spriteState = ChangeButtonSprite(unfinished_hovel);
-        //}
+     
 
-        SetIsFinishednormalBackImage();
+      //  SetIsFinishednormalBackImage();
     }
 
     /// <summary>
@@ -79,15 +85,15 @@ public class MobileInspectionFollowUI : MonoBehaviour
     {
         if (isFinished)
         {
-            //flagBtn.image.sprite = finished_normal;
-            flagBtn.image.sprite = finished_normal;
-            //flagBtn.spriteState = ChangeButtonSprite(finished_hovel);
+          
+          //  flagBtn.image.sprite = finished_normal;
+           
         }
         else
         {
-            //flagBtn.image.sprite = unfinished_normal;
-            flagBtn.image.sprite = unfinished_normal;
-            //flagBtn.spriteState = ChangeButtonSprite(unfinished_hovel);
+         
+          //  flagBtn.image.sprite = unfinished_normal;
+       
         }
     }
 
@@ -114,17 +120,19 @@ public class MobileInspectionFollowUI : MonoBehaviour
     /// </summary>
     public void FlagBtn_OnEnter(GameObject o)
     {
-        uguiFollowTarget.SetIsUp(true);
-        SetFlagNumActive(false);
-        if (isFinished)
-        {
-            SetButtonSprite(finished_hovel);
-        }
-        else
-        {
-            SetButtonSprite(unfinished_hovel);
-        }
-        ShowContent();
+        o .transform .GetChild(0).GetComponent<Text>().color = unfinishedColor;
+        
+        //uguiFollowTarget.SetIsUp(true);
+        //SetFlagNumActive(false);
+        //if (isFinished)
+        //{
+        //    SetButtonSprite(finished_hovel);
+        //}
+        //else
+        //{
+        //    SetButtonSprite(unfinished_hovel);
+        //}
+        //ShowContent();
     }
 
     /// <summary>
@@ -132,17 +140,18 @@ public class MobileInspectionFollowUI : MonoBehaviour
     /// </summary>
     public void FlagBtn_OnExit(GameObject o)
     {
-        SetFlagNumActive(true);
-        HideContent();
-        if (isFinished)
-        {
-            SetButtonSprite(finished_normal);
-        }
-        else
-        {
-            SetButtonSprite(unfinished_normal);
-        }
-        uguiFollowTarget.SetIsUp(false);
+        o.transform.GetChild(0).GetComponent<Text>().color = finishedColor;
+        //SetFlagNumActive(true);
+        //HideContent();
+        //if (isFinished)
+        //{
+        //   // SetButtonSprite(finished_normal);
+        //}
+        //else
+        //{
+        //   // SetButtonSprite(unfinished_normal);
+        //}
+        //uguiFollowTarget.SetIsUp(false);
     }
 
     /// <summary>
@@ -150,7 +159,7 @@ public class MobileInspectionFollowUI : MonoBehaviour
     /// </summary>
     public void ShowContent()
     {
-        SetContentActive(true);
+      //  SetContentActive(true);
     }
 
     /// <summary>
@@ -158,7 +167,7 @@ public class MobileInspectionFollowUI : MonoBehaviour
     /// </summary>
     public void HideContent()
     {
-        SetContentActive(false);
+      //  SetContentActive(false);
     }
 
     /// <summary>
@@ -166,7 +175,7 @@ public class MobileInspectionFollowUI : MonoBehaviour
     /// </summary>
     public void SetContentActive(bool isActive)
     {
-        Content.SetActive(isActive);
+       // Content.SetActive(isActive);
     }
 
     /// <summary>
@@ -174,7 +183,7 @@ public class MobileInspectionFollowUI : MonoBehaviour
     /// </summary>
     public void SetTxtContent(string txt)
     {
-        txtContent.text = txt;
+       // txtContent.text = txt;
     }
 
     /// <summary>
@@ -183,7 +192,7 @@ public class MobileInspectionFollowUI : MonoBehaviour
     /// <param name="txt"></param>
     public void SetFlagNumActive(bool isActive)
     {
-        txtFlagNum.gameObject.SetActive(isActive);
+      //  txtFlagNum.gameObject.SetActive(isActive);
     }
 
     /// <summary>
@@ -202,11 +211,11 @@ public class MobileInspectionFollowUI : MonoBehaviour
     {
         if (isFinished)
         {
-            txtFlagNum.color = finishedColor;
+          //  txtFlagNum.color = finishedColor;
         }
         else
         {
-            txtFlagNum.color = unfinishedColor;
+           // txtFlagNum.color = unfinishedColor;
         }
     }
 }

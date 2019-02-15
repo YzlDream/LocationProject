@@ -19,8 +19,8 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.BaseData" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
     </xsd:schema>
   </wsdl:types>
@@ -378,6 +378,12 @@
   <wsdl:message name="ILocationService_GetDevClassByDevModel_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDevClassByDevModelResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevMonitorInfoByKKS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevMonitorInfoByKKS" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevMonitorInfoByKKS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevMonitorInfoByKKSResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetKKSInfoByNodeId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKKSInfoByNodeId" />
   </wsdl:message>
@@ -636,6 +642,12 @@
   <wsdl:message name="ILocationService_GetTicketDetial_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTicketDetialResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_Getinspectionhistorylist_InputMessage">
+    <wsdl:part name="parameters" element="tns:Getinspectionhistorylist" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_Getinspectionhistorylist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetinspectionhistorylistResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetOperationTicketList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOperationTicketList" />
   </wsdl:message>
@@ -684,6 +696,12 @@
   <wsdl:message name="ILocationService_GetPersonnelMobileInspectionHistoryList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPersonnelMobileInspectionHistoryListResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetInspectionTrack_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInspectionTrack" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetInspectionTrack_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInspectionTrackResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
@@ -695,6 +713,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_Logout_OutputMessage">
     <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetVersionInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVersionInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetVersionInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVersionInfoResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_EditBusAnchor_InputMessage">
     <wsdl:part name="parameters" element="tns:EditBusAnchor" />
@@ -725,6 +749,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetAreaStatistics_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAreaStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAreaById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAreaById" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAreaById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAreaByIdResponse" />
   </wsdl:message>
   <wsdl:portType name="ILocationService">
     <wsdl:operation name="Hello">
@@ -963,6 +993,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevClassByDevModel" message="tns:ILocationService_GetDevClassByDevModel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevClassByDevModelResponse" message="tns:ILocationService_GetDevClassByDevModel_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetDevMonitorInfoByKKS">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevMonitorInfoByKKS" message="tns:ILocationService_GetDevMonitorInfoByKKS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevMonitorInfoByKKSResponse" message="tns:ILocationService_GetDevMonitorInfoByKKS_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetKKSInfoByNodeId">
       <wsdl:input wsaw:Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId" message="tns:ILocationService_GetKKSInfoByNodeId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse" message="tns:ILocationService_GetKKSInfoByNodeId_OutputMessage" />
@@ -1135,6 +1169,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetTicketDetial" message="tns:ILocationService_GetTicketDetial_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetTicketDetialResponse" message="tns:ILocationService_GetTicketDetial_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="Getinspectionhistorylist">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/Getinspectionhistorylist" message="tns:ILocationService_Getinspectionhistorylist_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetinspectionhistorylistResponse" message="tns:ILocationService_Getinspectionhistorylist_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetOperationTicketList">
       <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketList" message="tns:ILocationService_GetOperationTicketList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketListResponse" message="tns:ILocationService_GetOperationTicketList_OutputMessage" />
@@ -1167,6 +1205,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryList" message="tns:ILocationService_GetPersonnelMobileInspectionHistoryList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryListResponse" message="tns:ILocationService_GetPersonnelMobileInspectionHistoryList_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetInspectionTrack">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetInspectionTrack" message="tns:ILocationService_GetInspectionTrack_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetInspectionTrackResponse" message="tns:ILocationService_GetInspectionTrack_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/Login" message="tns:ILocationService_Login_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserService/LoginResponse" message="tns:ILocationService_Login_OutputMessage" />
@@ -1174,6 +1216,10 @@
     <wsdl:operation name="Logout">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/Logout" message="tns:ILocationService_Logout_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserService/LogoutResponse" message="tns:ILocationService_Logout_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersionInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GetVersionInfo" message="tns:ILocationService_GetVersionInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserService/GetVersionInfoResponse" message="tns:ILocationService_GetVersionInfo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EditBusAnchor">
       <wsdl:input wsaw:Action="http://tempuri.org/Ibus_anchor/EditBusAnchor" message="tns:ILocationService_EditBusAnchor_InputMessage" />
@@ -1194,6 +1240,10 @@
     <wsdl:operation name="GetAreaStatistics">
       <wsdl:input wsaw:Action="http://tempuri.org/IAreaService/GetAreaStatistics" message="tns:ILocationService_GetAreaStatistics_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAreaService/GetAreaStatisticsResponse" message="tns:ILocationService_GetAreaStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAreaService/GetAreaById" message="tns:ILocationService_GetAreaById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAreaService/GetAreaByIdResponse" message="tns:ILocationService_GetAreaById_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ILocationService" type="tns:ILocationService">
@@ -1729,6 +1779,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDevMonitorInfoByKKS">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevMonitorInfoByKKS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetKKSInfoByNodeId">
       <soap:operation soapAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeId" style="document" />
       <wsdl:input>
@@ -2116,6 +2175,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getinspectionhistorylist">
+      <soap:operation soapAction="http://tempuri.org/IBaseDataService/Getinspectionhistorylist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOperationTicketList">
       <soap:operation soapAction="http://tempuri.org/IWorkService/GetOperationTicketList" style="document" />
       <wsdl:input>
@@ -2188,6 +2256,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetInspectionTrack">
+      <soap:operation soapAction="http://tempuri.org/IWorkService/GetInspectionTrack" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap:operation soapAction="http://tempuri.org/IUserService/Login" style="document" />
       <wsdl:input>
@@ -2199,6 +2276,15 @@
     </wsdl:operation>
     <wsdl:operation name="Logout">
       <soap:operation soapAction="http://tempuri.org/IUserService/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersionInfo">
+      <soap:operation soapAction="http://tempuri.org/IUserService/GetVersionInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2244,6 +2330,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAreaStatistics">
       <soap:operation soapAction="http://tempuri.org/IAreaService/GetAreaStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaById">
+      <soap:operation soapAction="http://tempuri.org/IAreaService/GetAreaById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -251,15 +251,17 @@ namespace TwoTicketSystem
 
             });
         }
-
+        public int WorkNum = 0;
 
         public void CreateWorkTicketGrid()
         {
             ClearItems();
+            WorkNum = 0;
             List<WorkTicket> searchWorkTicket = workTicketList.FindAll((item) => WorkTicketContains(item));
 
             foreach (WorkTicket w in searchWorkTicket)
             {
+                WorkNum = WorkNum + 1;
                 WorkTicketItem_N itemT = CreateWorkTicketItem();
                 itemT.Init(w);
             }
@@ -347,17 +349,19 @@ namespace TwoTicketSystem
 
             });
         }
-
+        public int OperationNum = 0;
         /// <summary>
         /// 创建操作票列表
         /// </summary>
         public void CreateOperationTicketGrid()
         {
             ClearItems();
+            OperationNum = 0;
             List<OperationTicket> searchOperationTicket = operationTicketList.FindAll((item) => OperationTicketContains(item));
 
             foreach (OperationTicket w in searchOperationTicket)
             {
+                OperationNum = OperationNum + 1;
                 OperationTicketItem_N itemT = CreateOperationTicketItem();
                 itemT.Init(w);
             }

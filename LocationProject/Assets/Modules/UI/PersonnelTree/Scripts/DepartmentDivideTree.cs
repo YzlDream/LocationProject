@@ -31,8 +31,11 @@ public class DepartmentDivideTree : MonoBehaviour
     /// 部门人员树数据
     /// </summary>
     Department topoRoot;
-
-    //public Toggle DepartmentDivideToggle;
+    /// <summary>
+    /// 部门人员节点
+    /// </summary>
+    Dictionary<int, TreeNode<TreeViewItem>> DepartmentPersonDic = new Dictionary<int, TreeNode<TreeViewItem>>();
+    Dictionary<int, TreeNode<TreeViewItem>> DepartmentDic = new Dictionary<int, TreeNode<TreeViewItem>>();
 
     void Start()
     {
@@ -53,7 +56,10 @@ public class DepartmentDivideTree : MonoBehaviour
                 Tree.Start();
                 Tree.Nodes = nodes;
                 SetListeners();
-                InvokeRepeating("RefleshDataThread", 1, 1);
+
+                //注释：用于崩溃测试；
+                InvokeRepeating("RefleshDataThread", 1, 60);
+                //Invoke("RefleshDataThread", 1);
             });
         });
 
@@ -101,12 +107,14 @@ public class DepartmentDivideTree : MonoBehaviour
         personnels = CommunicationObject.GetPersonnels(topoRoot);
         //return topoRoot;
     }
-
+    bool isRefresh;
     /// <summary>
     /// 刷新树数据
     /// </summary>
     private void RefleshDataThread()
     {
+        if (isRefresh) return;
+        isRefresh = true;
         Loom.StartSingleThread(() =>
         {
 
@@ -124,15 +132,74 @@ public class DepartmentDivideTree : MonoBehaviour
                 personnels = new List<Personnel>();
             }
             personnels = CommunicationObject.GetPersonnels(topoRoot);
-            //return topoRoot;
+          
             Loom.DispatchToMainThread(() =>
             {
-                //Debug.Log("RefleshDataThread:personnels");
+                TreeNode<TreeViewItem> node = Tree.SelectedNode;
+                foreach (var person in personnels)
+                {
+                    if (DepartmentPersonDic.ContainsKey (person .Id))
+                    {
+                        TreeNode<TreeViewItem> personP = DepartmentPersonDic[person.Id];
+
+                        //Personnel personNode = (Personnel)personP.Item.Tag;
+
+                        int num = (int)personP.Item.Tag;
+                        Personnel personNode = personnels.Find((item) => item.TagId == num);
+     
+                        if (personNode == null) continue;
+
+                        if (person .ParentId !=personNode .ParentId)
+                        {
+                            if (DepartmentDic.ContainsKey ((int)person.ParentId))
+                            {
+                                SetMinusParentNodepersonnelNum(personP.Parent);
+                                personP.Parent = DepartmentDic[(int)person.ParentId];
+                                personNode.ParentId = person.ParentId;
+                                SetAddParentNodepersonnelNum(personP.Parent);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        TreeNode<TreeViewItem> newperson = CreatePersonnalNode(person);
+                        if (DepartmentDic [(int )person .ParentId ]!=null)
+                        {
+                            newperson.Parent = DepartmentDic[(int)person.ParentId];
+                            SetAddParentNodepersonnelNum(newperson.Parent);
+                        }
+                    }
+                }
+                RomvePersonnelNode(DepartmentPersonDic, personnels);
             });
+            isRefresh = false;
         });
 
     }
-
+    List<Personnel> romveNode = new List<Personnel>();
+    /// <summary>
+    /// 删除电场中消失的人
+    /// </summary>
+    /// <param name="perDic"></param>
+    /// <param name="perList"></param>
+    public void RomvePersonnelNode(Dictionary <int ,TreeNode <TreeViewItem >>perDic,List <Personnel> perList)
+    {
+        romveNode.Clear();
+        foreach (var item in perDic .Keys)
+        {
+            Personnel perNode = perList.Find(i => i.Id == item);
+            if (perNode ==null)
+            {
+                romveNode.Add(perNode);
+            }
+        }
+        foreach (var per in romveNode)
+        {
+            TreeNode<TreeViewItem> personnelsP = DepartmentPersonDic[per.Id];
+            DepartmentDic.Remove(per.Id);
+            personnelsP.Dispose();
+        }
+    }
     /// <summary>
     /// 添加子节点
     /// </summary>
@@ -156,6 +223,146 @@ public class DepartmentDivideTree : MonoBehaviour
                 var node = CreatePersonnalNode(child);
                 treeNode.Nodes.Add(node);
             }
+        if (topoNode.LeafNodes != null)
+        {
+            SetParentNodepersonnelNum(treeNode.Parent , topoNode.LeafNodes .Length);
+        }
+    }
+    /// <summary>
+    /// 设置父节点的数量
+    /// </summary>
+    /// <param name="parentNode"></param>
+    /// <param name="num"></param>
+    public void SetParentNodepersonnelNum(TreeNode<TreeViewItem> parentNode, int num)
+    {
+        if (parentNode != null)
+        {
+            int currentNum = 0;
+            var nodeNum = parentNode.Item.Name;
+            var array = nodeNum.Split(new char[2] { '(', ')' });
+            if (array != null)
+            {
+                try
+                {
+                    string parentName = array[array.Length - 2];
+                    currentNum = int.Parse(parentName);
+                }
+                catch
+                {
+
+                }
+                if (parentNode.Item.Tag is Department)
+                {
+                    Department anode = parentNode.Item.Tag as Department;//取出区域的名称
+                    parentNode.Item.Name = string.Format("{0} ({1})", anode.Name, currentNum + num);
+
+                }
+            }
+            if (parentNode.Parent != null)
+            {
+                try
+                {
+                    SetParentNodepersonnelNum(parentNode.Parent, num);
+                }
+                catch
+                {
+                    int i = 1;
+                }
+            }
+        }
+
+    }
+    /// <summary>
+    /// 移除一个人员后，父节点数量减少
+    /// </summary>
+    /// <param name="perNode"></param>
+    public void SetMinusParentNodepersonnelNum(TreeNode<TreeViewItem> parentNode)
+    {
+        if (parentNode != null)
+        {
+            int currentNum = 0;
+            var nodeNum = parentNode.Item.Name;
+            var array = nodeNum.Split(new char[2] { '(', ')' });
+            if (array != null)
+            {
+                try
+                {
+                    string parentName = array[array.Length - 2];
+                    currentNum = int.Parse(parentName);
+                }
+                catch
+                {
+
+                }
+                if (parentNode.Item.Tag is Department)
+                {
+                    Department anode = parentNode.Item.Tag as Department;//取出区域的名称
+                    if (currentNum - 1 > 0)
+                    {
+                        parentNode.Item.Name = string.Format("{0} ({1})", anode.Name, currentNum - 1);
+                    }
+                    else
+                    {
+                        parentNode.Item.Name = string.Format("{0} ", anode.Name);
+                    }
+
+                }
+            }
+            if (parentNode.Parent != null)
+            {
+                try
+                {
+                    SetMinusParentNodepersonnelNum(parentNode.Parent);
+                }
+                catch
+                {
+                    int i = 1;
+                }
+            }
+        }
+
+    }
+    /// <summary>
+    /// 添加一个人员后，父节点数量增加
+    /// </summary>
+    /// <param name="perNode"></param>
+    public void SetAddParentNodepersonnelNum(TreeNode<TreeViewItem> parentNode)
+    {
+        if (parentNode != null)
+        {
+            int currentNum = 0;
+            var nodeNum = parentNode.Item.Name;
+            var array = nodeNum.Split(new char[2] { '(', ')' });
+            if (array != null)
+            {
+                try
+                {
+                    string parentName = array[array.Length - 2];
+                    currentNum = int.Parse(parentName);
+                }
+                catch
+                {
+
+                }
+                if (parentNode.Item.Tag is Department)
+                {
+                    Department anode = parentNode.Item.Tag as Department;//取出区域的名称
+                    parentNode.Item.Name = string.Format("{0} ({1})", anode.Name, currentNum + 1);
+                }
+            }
+            if (parentNode.Parent != null)
+            {
+                try
+                {
+                    SetAddParentNodepersonnelNum(parentNode.Parent);
+                }
+                catch
+                {
+                    int i = 1;
+                }
+            }
+        }
+
     }
     private TreeNode<TreeViewItem> CreatePersonnalNode(Personnel personnal)
     {
@@ -163,6 +370,10 @@ public class DepartmentDivideTree : MonoBehaviour
         var item = new TreeViewItem(personnal.Name, icon);
         item.Tag = personnal.Id;
         var node = new TreeNode<TreeViewItem>(item);
+        if (!DepartmentPersonDic.ContainsKey(personnal.Id))
+        {
+            DepartmentPersonDic.Add(personnal.Id, node);
+        }
         return node;
     }
     /// <summary>
@@ -181,6 +392,13 @@ public class DepartmentDivideTree : MonoBehaviour
         var item = new TreeViewItem(title);
         item.Tag = topoNode;
         var node = new TreeNode<TreeViewItem>(item);
+        if (DepartmentDic .ContainsKey (topoNode .Id))
+        {
+            Debug.LogError(topoNode.Name);
+        }else
+        {
+            DepartmentDic.Add(topoNode.Id, node);
+        }
         return node;
     }
 
@@ -262,6 +480,8 @@ public class DepartmentDivideTree : MonoBehaviour
     /// <param name="root"></param>
     private void ShowFirstLayerNodes(Department root)
     {
+      
+      
         foreach (Department child in root.Children)
         {
             var rootNode = CreateTopoNode(child);
@@ -316,61 +536,5 @@ public class DepartmentDivideTree : MonoBehaviour
         DepartmentText.color = new Color(109 / 255f, 236 / 255f, 254 / 255f, 100 / 255f);
     }
 
-    ///// <summary>
-    ///// 选中某个人员节点，根据Personnel
-    ///// </summary>
-    //public void SelectNodeByPersonnel(Personnel personnelT)
-    //{
-    //    //TreeNode<TreeViewItem> nodeT = nodes.Find((item) => item.Item.Tag == personnelT);
-    //    TreeNode<TreeViewItem> nodeT = FindNodeByPersonnel(personnelT, new List<TreeNode<TreeViewItem>>(nodes));
-    //    if (nodeT != null)
-    //    {
-    //        //Image image= nodeT.Item.
-    //        Tree.SelectedNodes = new List<TreeNode<TreeViewItem>>() { nodeT };
-    //        Tree.Refresh();
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("异常：该人员在拓扑树中找不到！");
-    //    }
-    //}
-
-    //public TreeNode<TreeViewItem> FindNodeByPersonnel(Personnel personnelT, List<TreeNode<TreeViewItem>> nodesT)
-    //{
-    //    TreeNode<TreeViewItem> node = null;
-    //    if (nodesT != null)
-    //    {
-    //        foreach (TreeNode<TreeViewItem> nodeT in nodesT)
-    //        {
-    //            if (nodeT == null) continue;
-    //            if (nodeT.Item.Tag == personnelT)
-    //            {
-    //                node = nodeT;
-    //                break;
-    //            }
-    //            else
-    //            {
-    //                if (nodeT.Nodes == null)
-    //                {
-    //                    //List<TreeNode<TreeViewItem>> nodesTT = new List<TreeNode<TreeViewItem>>();
-    //                    //return FindNodeByPersonnel(personnelT, nodesTT);
-    //                }
-    //                else
-    //                {
-    //                    try
-    //                    {
-    //                        node = FindNodeByPersonnel(personnelT, new List<TreeNode<TreeViewItem>>(nodeT.Nodes));
-    //                    }
-    //                    catch
-    //                    {
-    //                        int I = 0;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-
-    //    return node;
-
-    //}
+    
 }

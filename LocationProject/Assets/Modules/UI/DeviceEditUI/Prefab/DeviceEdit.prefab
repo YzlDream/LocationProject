@@ -4973,7 +4973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditPart: {fileID: 114932086113125344}
   MonitorRangePart: {fileID: 114793023536801314}
-  FollowPrefab: {fileID: 1856967863744728, guid: bc988878bbb80e241b0d0c4e157567d4,
+  FollowPrefab: {fileID: 1899553446676994, guid: bc988878bbb80e241b0d0c4e157567d4,
     type: 2}
   Window: {fileID: 1041122678664002}
 --- !u!114 &114472014423006942

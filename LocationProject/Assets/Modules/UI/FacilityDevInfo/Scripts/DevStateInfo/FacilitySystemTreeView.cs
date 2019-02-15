@@ -24,8 +24,42 @@ public class FacilitySystemTreeView : TreeView
     protected override void SetData(TreeViewComponent component, ListNode<TreeViewItem> item)
     {
         base.SetData(component, item);
-        ChangeItemValue(component,item);
+        if(item.Node.Item.Tag is FacilitySystem)
+        {
+            ChangeItemValue(component, item);
+        }
+        else
+        {
+            ChangeFactoryDevValue(component,item);
+        }
     }
+    /// <summary>
+    /// 实际对接设备信息用
+    /// </summary>
+    /// <param name="component"></param>
+    /// <param name="item"></param>
+    private void ChangeFactoryDevValue(TreeViewComponent component, ListNode<TreeViewItem> item)
+    {
+        FacilityDevTreeItem DevItem = component.GetComponent<FacilityDevTreeItem>();
+        if (DevItem) DevItem.Init(item.Node.Item.Tag, component.Text);
+        float offset = item.Depth * component.PaddingPerLevel;
+        LayoutElement element = component.Text.GetComponent<LayoutElement>();
+        if (item.Node.Nodes != null && item.Node.Nodes.Count != 0)
+        {
+            element.preferredWidth = NormalTextWidth - offset;
+        }
+        else
+        {
+            float toggleSize = 0;
+            if(item.Depth!=0) toggleSize = component.Toggle.GetComponent<LayoutElement>().preferredWidth;
+            element.preferredWidth = NormalTextWidth - offset + toggleSize;
+        }
+    }
+    /// <summary>
+    /// 模拟数据用
+    /// </summary>
+    /// <param name="component"></param>
+    /// <param name="item"></param>
     private void ChangeItemValue(TreeViewComponent component, ListNode<TreeViewItem> item)
     {
         FacilityDevTreeItem DevItem = component.GetComponent<FacilityDevTreeItem>();

@@ -17,9 +17,23 @@ public class RoamDevInfoUI : MonoBehaviour {
     /// 温度列表
     /// </summary>
     public List<DeviceTemperatureItem> ItemList;
+
+    public RoamRaycastCheck RoamDevRaycastCheck;//漫游射线检测
 	// Use this for initialization
 	void Start () {
         Instance = this;
+    }
+    /// <summary>
+    /// 是否打开设备射线检测（以前鼠标固定中间，直接用OnMouseEnter）
+    /// </summary>
+    /// <param name="isOn"></param>
+    public void SetDevInfoCheckState(bool isOn)
+    {
+        if(RoamDevRaycastCheck!=null) RoamDevRaycastCheck.gameObject.SetActive(isOn);
+        if(!isOn)
+        {
+            RoamDevRaycastCheck.Clear();
+        }
     }
 
     /// <summary>

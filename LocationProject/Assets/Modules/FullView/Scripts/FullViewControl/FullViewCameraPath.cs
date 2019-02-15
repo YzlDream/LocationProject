@@ -136,7 +136,6 @@ public class FullViewCameraPath : MonoBehaviour
         CameraControl.AlignVeiwToTarget(MouseTranslate.transform, DefaultAngles, DefaultDistance);
         CameraControl.gameObject.SetActive(false);
         FullViewCanvas.SetActive(false);
-        //MainCamera.gameObject.SetActive(true);
         FactoryDepManager dep = FactoryDepManager.Instance;
         if(dep)
         {           

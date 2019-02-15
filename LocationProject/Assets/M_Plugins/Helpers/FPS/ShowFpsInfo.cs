@@ -15,6 +15,18 @@ public class ShowFpsInfo : MonoBehaviour
     private int count = 0;
     private float deltaTime = 0f;
 
+    void Start()
+    {
+        if (SystemSettingHelper.systemSetting.IsDebug)
+        {
+            ShowFps();
+        }
+        else
+        {
+            HideFps();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -30,5 +42,16 @@ public class ShowFpsInfo : MonoBehaviour
             count = 0;
             deltaTime = 0f;
         }
+    }
+
+    public void ShowFps()
+    {
+        tvFpsInfo.gameObject.SetActive(true);
+    }
+
+
+    public void HideFps()
+    {
+        tvFpsInfo.gameObject.SetActive(false);
     }
 }

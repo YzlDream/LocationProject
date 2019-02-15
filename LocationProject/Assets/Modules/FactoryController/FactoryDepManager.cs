@@ -41,6 +41,14 @@ public class FactoryDepManager : DepNode {
     /// </summary>
     public static DepNode currentDep;
     /// <summary>
+    /// CAD图纸
+    /// </summary>
+    public GameObject planeCAD;
+    /// <summary>
+    /// CAD图纸
+    /// </summary>
+    public GameObject terrain;
+    /// <summary>
     /// 厂区设备存放处
     /// </summary>
     public GameObject FactoryDevContainer;
@@ -68,6 +76,10 @@ public class FactoryDepManager : DepNode {
     /// 所有建筑的Collider
     /// </summary>
     private List<Collider> colliders;
+    /// <summary>
+    /// 更改Collider时，提前缓存Collider的layer
+    /// </summary>
+    private Dictionary<GameObject, int> layerDic=new Dictionary<GameObject, int>();
 
     // Use this for initialization
     void Awake()
@@ -323,16 +335,62 @@ public class FactoryDepManager : DepNode {
             foreach (Collider collider in colliders)
             {
                 if (collider.gameObject.layer == LayerMask.NameToLayer("Floor")) continue;
-                collider.gameObject.layer = LayerMask.NameToLayer(Layers.IgnoreRaycast);
+                //collider.gameObject.layer = LayerMask.NameToLayer(Layers.IgnoreRaycast);
+                if(!layerDic.ContainsKey(collider.gameObject))
+                {
+                    layerDic.Add(collider.gameObject,collider.gameObject.layer);
+                    collider.gameObject.layer = LayerMask.NameToLayer(Layers.IgnoreRaycast);
+                }
             }
         }
         else
         {
-            foreach (Collider collider in colliders)
+            if (layerDic == null) return;
+            foreach(KeyValuePair<GameObject,int>value in layerDic)
             {
-                if (collider.gameObject.layer == LayerMask.NameToLayer("Floor")) continue;
-                collider.gameObject.layer = LayerMask.NameToLayer(Layers.Default);
+                if (value.Key == null) continue;
+                value.Key.layer = value.Value;
             }
+            layerDic.Clear();
+            //foreach (Collider collider in colliders)
+            //{
+            //    if (collider.gameObject.layer == LayerMask.NameToLayer("Floor")) continue;
+            //    collider.gameObject.layer = LayerMask.NameToLayer(Layers.Default);
+            //}
         }
+    }
+
+    /// <summary>
+    /// 显示CAD图纸
+    /// </summary>
+    public void ShowCAD()
+    {
+        SetCAD_Active(true);
+        SetTerrain_Active(false);
+    }
+
+    /// <summary>
+    /// 隐藏CAD图纸
+    /// </summary>
+    public void HideCAD()
+    {
+        SetCAD_Active(false);
+        SetTerrain_Active(true);
+    }
+
+    /// <summary>
+    /// CAD图纸是否启用
+    /// </summary>
+    public void SetCAD_Active(bool isActive)
+    {
+        planeCAD.gameObject.SetActive(isActive);
+    }
+
+    /// <summary>
+    /// CAD图纸是否启用
+    /// </summary>
+    public void SetTerrain_Active(bool isActive)
+    {
+        terrain.gameObject.SetActive(isActive);
     }
 }

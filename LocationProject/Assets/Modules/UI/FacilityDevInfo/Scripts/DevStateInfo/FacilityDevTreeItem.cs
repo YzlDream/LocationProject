@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Location.WCFServiceReferences.LocationServices;
+using System.Collections;
 using System.Collections.Generic;
 using UIWidgets;
 using UnityEngine;
@@ -28,5 +29,34 @@ public class FacilityDevTreeItem : MonoBehaviour {
             ValueText.text = SystemInfo.Value;
         }
         StatusText.text = SystemInfo.Status;
+    }
+
+    public void Init(object treeNodeTag,Text describe)
+    {
+        //Todo:确定数据中是否有告警状态
+        if(treeNodeTag is Dev_Monitor)
+        {
+            Dev_Monitor dev = treeNodeTag as Dev_Monitor;
+            ValueText.text = "/";
+            StatusText.text = "";
+        }else if(treeNodeTag is DevMonitorNode)
+        {
+            describe.text = string.Format("<color=#6DECFEFF>{0}</color>", describe.text);
+            DevMonitorNode node = treeNodeTag as DevMonitorNode;
+            if (string.IsNullOrEmpty(node.Value))
+            {
+                ValueText.text = "<color=#6DECFEFF>/</color>";
+            }
+            else
+            {
+                ValueText.text = string.Format("<color=#6DECFEFF>{0}{1}</color>",node.Value,node.Unit);
+            }
+            StatusText.text ="";
+        }
+        else
+        {
+            ValueText.text = "";
+            StatusText.text = "";
+        }
     }
 }

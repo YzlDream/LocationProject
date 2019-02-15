@@ -39,8 +39,8 @@
     <MetadataFile FileName="Location.TModel.FuncArgs11.xsd" MetadataType="Schema" ID="298355bc-2766-4ca6-bb30-bbb29162cf9e" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="Location.TModel.Location.Alarm11.xsd" MetadataType="Schema" ID="b36535bf-9b34-4efa-8d1d-748c0997a112" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.BaseData1.xsd" MetadataType="Schema" ID="9b9a42d2-065d-4a6d-b858-8b6114443dae" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.Work1.xsd" MetadataType="Schema" ID="ec54454c-a9ea-4d3e-87a8-d3a7238a99af" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.LocationHistory.Work1.xsd" MetadataType="Schema" ID="6829d580-478d-4357-9dc6-a5f5a49a9b59" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.Work1.xsd" MetadataType="Schema" ID="ec54454c-a9ea-4d3e-87a8-d3a7238a99af" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.Location.Manage11.xsd" MetadataType="Schema" ID="73c3eba0-0bde-47b0-b12a-0fe9d837e376" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
   </Metadata>
   <Extensions>

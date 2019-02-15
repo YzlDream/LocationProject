@@ -19,6 +19,15 @@ public class LocationManager : MonoBehaviour
     /// 显示离开状态人员实时位置
     /// </summary>
     public bool isShowLeavePerson;
+    /// <summary>
+    /// 显示定位真实高度，不以楼层地板高度来设置
+    /// </summary>
+    public bool isShowRealLocationHeight;
+    /// <summary>
+    /// 是否开启人员打射线，来设置人员的高度，因为可能存在像主厂房二楼一样，地板平面高低不齐
+    /// </summary>
+    public bool isSetPersonHeightByRay;
+
     public Vector3 LocationOffsetScale = new Vector3(1.3125f, 0.9622f, 1.3607f);//new Vector3(1.27f, 0.9622f, 1.27f)
     /// <summary>
     /// 位置偏移量,就是计算出来的三维坐标原点位置
@@ -71,7 +80,9 @@ public class LocationManager : MonoBehaviour
     //public List<LocationHistoryPath> historyPaths;
 
     private bool isShowLocation;
-
+    /// <summary>
+    /// 是否显示定位模式下
+    /// </summary>
     public bool IsShowLocation
     {
         get
@@ -92,6 +103,45 @@ public class LocationManager : MonoBehaviour
     public string RootNodeName = "四会热电厂";
 
     public List<Archor> archors;
+    /// <summary>
+    /// 是否创建人员结束
+    /// </summary>
+    private bool isCreatePersonComplete;
+    /// <summary>
+    /// 是否创建人员结束
+    /// </summary>
+    public bool IsCreatePersonComplete
+    {
+        get
+        {
+            return isCreatePersonComplete;
+        }
+
+        set
+        {
+            isCreatePersonComplete = value;
+        }
+    }
+
+    /// <summary>
+    /// 是否创建人员结束
+    /// </summary>
+    private bool isInitLocationAlarms;
+    /// <summary>
+    /// 是否创建人员结束
+    /// </summary>
+    public bool IsInitLocationAlarms
+    {
+        get
+        {
+            return isInitLocationAlarms;
+        }
+
+        set
+        {
+            isInitLocationAlarms = value;
+        }
+    }
 
     private void Awake()
     {
@@ -318,7 +368,11 @@ public class LocationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (IsCreatePersonComplete && MonitorRangeManager.Instance.IsCreateAreaComplete&& IsInitLocationAlarms==false)
+        {
+            IsInitLocationAlarms = true;
+            InitLocationAlarms();
+        }
     }
 
     List<Tag> tags;
@@ -360,22 +414,64 @@ public class LocationManager : MonoBehaviour
 
     }
 
+    //private void RefleshTagsPosition(List<TagPosition> tagsPosT)
+    //{
+    //    if (tagsPosT.Count == 0) return;
+    //    if (IsShowLocation == false) return;
+    //    if (tags == null) return;
+    //    TagPosition tagp = tagsPosT.Find((item) => item.Tag == "0009");
+    //    //Debug.LogErrorFormat("名称:{0},Code:{1}", tagp.Tag, tagp.X);
+    //    //Debug.LogError("RefleshTagsPosition");
+    //    List<string> keyslist = code_character.Keys.ToList();
+    //    foreach (Tag tag in tags)
+    //    {
+    //        if (code_character.ContainsKey(tag.Code))
+    //        {
+    //            LocationObject locationObject = code_character[tag.Code];
+    //            locationObject.InitPersonnel();
+    //            SetTagPostion(locationObject, tag, tagsPosT);
+    //            //code_character[tag.Code].gameObject.SetActive(true);
+    //            keyslist.Remove(tag.Code);
+    //        }
+    //        else
+    //        {
+    //            Transform tran = CreateCharacter(tag);
+    //            LocationObject locationObject = tran.gameObject.AddComponent<LocationObject>();//这里就会脚本中的
+    //            locationObject.Init(tag);
+    //            code_character.Add(tag.Code, locationObject);
+    //            SetTagPostion(locationObject, tag, tagsPosT);
+    //        }
+    //    }
+
+    //    foreach (string key in keyslist)
+    //    {
+    //        if (key == "55555") continue;
+    //        DestroyImmediate(code_character[key].gameObject);
+    //        code_character.Remove(key);
+    //    }
+    //}
+
     private void RefleshTagsPosition(List<TagPosition> tagsPosT)
     {
         if (tagsPosT.Count == 0) return;
         if (IsShowLocation == false) return;
         if (tags == null) return;
-        TagPosition tagp = tagsPosT.Find((item) => item.Tag == "0009");
+        //TagPosition tagp = tagsPosT.Find((item) => item.Tag == "0009");
         //Debug.LogErrorFormat("名称:{0},Code:{1}", tagp.Tag, tagp.X);
         //Debug.LogError("RefleshTagsPosition");
         List<string> keyslist = code_character.Keys.ToList();
         foreach (Tag tag in tags)
         {
+            if (tag.IsActive == false) continue;
+            if (tag.Person == null) continue;
+            TagPosition tagp = tagsPos.Find((item) => item.Tag == tag.Code);
+            if (tagp == null) continue;
             if (code_character.ContainsKey(tag.Code))
             {
                 LocationObject locationObject = code_character[tag.Code];
                 locationObject.InitPersonnel();
-                SetTagPostion(locationObject, tag, tagsPosT);
+                //SetTagPostion(locationObject, tag, tagsPosT);
+                SetTagPostion(locationObject, tagp);
                 //code_character[tag.Code].gameObject.SetActive(true);
                 keyslist.Remove(tag.Code);
             }
@@ -385,7 +481,8 @@ public class LocationManager : MonoBehaviour
                 LocationObject locationObject = tran.gameObject.AddComponent<LocationObject>();//这里就会脚本中的
                 locationObject.Init(tag);
                 code_character.Add(tag.Code, locationObject);
-                SetTagPostion(locationObject, tag, tagsPosT);
+                //SetTagPostion(locationObject, tag, tagsPosT);
+                SetTagPostion(locationObject, tagp);
             }
         }
 
@@ -395,6 +492,8 @@ public class LocationManager : MonoBehaviour
             DestroyImmediate(code_character[key].gameObject);
             code_character.Remove(key);
         }
+
+        IsCreatePersonComplete = true;
     }
 
     bool isBusy;
@@ -405,23 +504,23 @@ public class LocationManager : MonoBehaviour
     [ContextMenu("AddTagTest")]
     public void AddTagTest()
     {
-        Tag t = new Tag();
-        t.Code = "55555";
-        Transform tran = CreateCharacter(t);
-        LocationObject locationObject = tran.gameObject.AddComponent<LocationObject>();//这里就会脚本中的
-        locationObject.Init(t);
-        code_character.Add(t.Code, locationObject);
-        List<TagPosition> tagsPosT = new List<TagPosition>();
-        TagPosition TAGP = new TagPosition();
-        TAGP.AreaId = 2;
-        TAGP.Tag = "55555";
-        //locationObject.transform.position = new Vector3(0, 2, 0);
-        Vector3 p = GetDisRealVector(new Vector3(0, 2, 0));
-        TAGP.X = p.x;
-        TAGP.Y = 2;
-        TAGP.Z = p.z;
-        tagsPosT.Add(TAGP);
-        SetTagPostion(locationObject, t, tagsPosT);
+        //Tag t = new Tag();
+        //t.Code = "55555";
+        //Transform tran = CreateCharacter(t);
+        //LocationObject locationObject = tran.gameObject.AddComponent<LocationObject>();//这里就会脚本中的
+        //locationObject.Init(t);
+        //code_character.Add(t.Code, locationObject);
+        //List<TagPosition> tagsPosT = new List<TagPosition>();
+        //TagPosition TAGP = new TagPosition();
+        //TAGP.AreaId = 2;
+        //TAGP.Tag = "55555";
+        ////locationObject.transform.position = new Vector3(0, 2, 0);
+        //Vector3 p = GetDisRealVector(new Vector3(0, 2, 0));
+        //TAGP.X = p.x;
+        //TAGP.Y = 2;
+        //TAGP.Z = p.z;
+        //tagsPosT.Add(TAGP);
+        //SetTagPostion(locationObject, t, tagsPosT);
     }
 
     //public IEnumerator ShowTagsPosition_Coroutine()
@@ -489,6 +588,24 @@ public class LocationManager : MonoBehaviour
             locationObject.gameObject.SetActive(false);
         }
     }
+
+    /// <summary>
+    /// 设置定位卡的位置信息
+    /// </summary>
+    private void SetTagPostion(LocationObject locationObject, TagPosition tagp)
+    {
+
+        if (tagp != null)
+        {
+            locationObject.SetPositionInfo(tagp);
+            locationObject.gameObject.SetActive(true);
+        }
+        else
+        {
+            locationObject.gameObject.SetActive(false);
+        }
+    }
+
 
     /// <summary>
     /// 清除人物
@@ -871,6 +988,7 @@ public class LocationManager : MonoBehaviour
     /// Current focus state.
     /// </summary>
     public bool IsFocus { protected set; get; }
+
     /// <summary>
     /// 转换聚焦,一个人员切到另一个人员
     /// </summary>
@@ -920,6 +1038,11 @@ public class LocationManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 是否执行了聚焦操作（是否执行了FocusPersonAndShowInfo()方法）
+    /// </summary>
+    public bool isFocusPersonAndShowInfo;
+
+    /// <summary>
     /// 聚焦人员,根据tagId
     /// </summary>
     public void FocusPersonAndShowInfo(int tagId)
@@ -943,6 +1066,8 @@ public class LocationManager : MonoBehaviour
         //    PersonnelTreeManage.Instance.departmentDivideTree.Tree.DeselectNodeByData(tagId);
         //    return;
         //}
+        Debug.LogError("locationObjectT:" + locationObjectT.name);
+        isFocusPersonAndShowInfo = true;
         if (currentLocationFocusObj != null && currentLocationFocusObj != locationObjectT)
         {
             IsSwitchFocus = true;
@@ -953,6 +1078,8 @@ public class LocationManager : MonoBehaviour
             IsSwitchFocus = false;
             if (currentLocationFocusObj == locationObjectT) return;
         }
+
+        isFocusPersonAndShowInfo = false;
         //Debug.LogError("FocusPersonAndShowInfo:" + tagId);
         SetCurrentLocationFocusObj(locationObjectT);
         if (!IsFocus)
@@ -968,7 +1095,7 @@ public class LocationManager : MonoBehaviour
             {
                 locationObjectT.personInfoUI.SetOpenOrClose(true);
             }
-        });
+        }, false);
 
 
         //if (currentLocationFocusObj != null && currentLocationFocusObj != locationObjectT)
@@ -1078,12 +1205,13 @@ public class LocationManager : MonoBehaviour
     {
         RecoverFocus(() =>
         {
-            if (PersonSubsystemManage.Instance.IsHistorical == false)
-            {
-                DepNode dep = FactoryDepManager.Instance;
-                ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
-                ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
-            }
+            //if (PersonSubsystemManage.Instance.IsHistorical == false)
+            //{
+            //    //DepNode dep = FactoryDepManager.Instance;
+            //    //ParkInformationManage.Instance.TitleText.text = dep.NodeName.ToString();
+            //    //ParkInformationManage.Instance.RefreshParkInfo(dep.NodeID);
+            //    ParkInformationManage.Instance.ShowParkInfoUI(true);
+            //}
 
 
             if (onComplete != null)
@@ -1095,50 +1223,66 @@ public class LocationManager : MonoBehaviour
 
     private void RecoverFocus(Action onComplete = null)
     {
-        if (IsFocus && !IsSwitchFocus)
+        if (isFocusPersonAndShowInfo)
         {
-            StartOutManage.Instance.HideBackButton();
-            if (RoomFactory.Instance.IsFocusingDep)
+            if (IsFocus && !IsSwitchFocus)
             {
-                IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+                RecoverFocusOP();
             }
-            else
-            {
-                //CameraSceneManager.Instance.FocusTarget(beforeFocusAlign, () =>
-                //{
-                //    IsClickUGUIorNGUI.Instance.SetIsCheck(true);
-                //    if (onComplete != null)
-                //    {
-                //        onComplete();
-                //    }
-                //});
-                DepNode depnodeT = currentLocationFocusObj.currentDepNode;
-                if (depnodeT.TopoNode.Type == AreaTypes.机房 || depnodeT.TopoNode.Type == AreaTypes.范围)
-                {
-                    depnodeT = depnodeT.ParentNode;
-                }
-                RoomFactory.Instance.FocusNode(depnodeT);
-            }
-            PersonnelTreeManage.Instance.departmentDivideTree.Tree.DeselectNodeByData(currentLocationFocusObj.personInfoUI.personnel.TagId);
-            //PersonNode nodeT = PersonnelTreeManage.Instance.PersonnelToPersonNode(currentLocationFocusObj.personInfoUI.personnel.Id);
-            PersonnelTreeManage.Instance.areaDivideTree.Tree.AreaDeselectNodeByData(currentLocationFocusObj.personInfoUI.personnel.Id);
-            //IsFocus = false;
-            SetIsIsFocus(false);
-            SetExitFocusbtn(false);
-
-            currentLocationFocusObj.personInfoUI.SetOpenOrClose(false);
-
-            SetCurrentLocationFocusObj(null);
-
-            if (PersonSubsystemManage.Instance.SearchToggle.isOn == true)//人员搜索定位，返回时的操作
-            {
-                //PersonnelSearchTweener.Instance.ShowMinWindow(false);
-                DataPaging.Instance.ClosepersonnelSearchWindow();
-            }
-
-            SetFollowuiIsCheckCollider(false);
-            //FactoryDepManager.Instance.SetAllColliderIgnoreRaycast(false);
         }
+        else
+        {
+            RecoverFocusOP();
+        }
+    }
+
+    private void RecoverFocusOP()
+    {
+
+        StartOutManage.Instance.HideBackButton();
+        IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+        if (RoomFactory.Instance.IsFocusingDep)
+        {
+            //IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+        }
+        else
+        {
+            //CameraSceneManager.Instance.FocusTarget(beforeFocusAlign, () =>
+            //{
+            //    IsClickUGUIorNGUI.Instance.SetIsCheck(true);
+            //    if (onComplete != null)
+            //    {
+            //        onComplete();
+            //    }
+            //});
+            if (currentLocationFocusObj == null) return;
+            DepNode depnodeT = currentLocationFocusObj.currentDepNode;
+            if (depnodeT.TopoNode.Type == AreaTypes.机房 || depnodeT.TopoNode.Type == AreaTypes.范围)
+            {
+                depnodeT = depnodeT.ParentNode;
+            }
+            RoomFactory.Instance.FocusNode(depnodeT);
+        }
+        if (currentLocationFocusObj == null) return;
+        PersonnelTreeManage.Instance.departmentDivideTree.Tree.DeselectNodeByData(currentLocationFocusObj.personInfoUI.personnel.TagId);
+        //PersonNode nodeT = PersonnelTreeManage.Instance.PersonnelToPersonNode(currentLocationFocusObj.personInfoUI.personnel.Id);
+        PersonnelTreeManage.Instance.areaDivideTree.Tree.AreaDeselectNodeByData(currentLocationFocusObj.personInfoUI.personnel.Id);
+        //IsFocus = false;
+        SetIsIsFocus(false);
+        SetExitFocusbtn(false);
+
+        currentLocationFocusObj.personInfoUI.SetOpenOrClose(false);
+
+        SetCurrentLocationFocusObj(null);
+
+        if (PersonSubsystemManage.Instance.SearchToggle.isOn == true)//人员搜索定位，返回时的操作
+        {
+            //PersonnelSearchTweener.Instance.ShowMinWindow(false);
+            DataPaging.Instance.ClosepersonnelSearchWindow();
+        }
+
+        SetFollowuiIsCheckCollider(false);
+        //FactoryDepManager.Instance.SetAllColliderIgnoreRaycast(false);
     }
 
     /// <summary>
@@ -1224,7 +1368,7 @@ public class LocationManager : MonoBehaviour
     /// <summary>
     /// 透明的颜色
     /// </summary>
-    public Color TransparentColor;
+    public Color TransparentColor; //= new Color32(107, 161, 193, 90);
 
     /// <summary>
     /// 透明园区
@@ -1282,6 +1426,7 @@ public class LocationManager : MonoBehaviour
     {
         foreach (LocationObject obj in code_character.Values)
         {
+            if (obj.personInfoUI == null) continue;
             UGUIFollowTarget follow = obj.personInfoUI.GetComponent<UGUIFollowTarget>();
             if (IsCheck)
             {
@@ -1341,6 +1486,11 @@ public class LocationManager : MonoBehaviour
         //throw new NotImplementedException();
         Debug.Log("AlarmHub_OnLocationAlarmRecieved:" + objs.Count);
 
+        ShowLocationAlarms(objs);
+    }
+
+    private void ShowLocationAlarms(List<LocationAlarm> objs)
+    {
         foreach (LocationAlarm locationAlarm in objs)
         {
             ////处理人员告警
@@ -1370,5 +1520,49 @@ public class LocationManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 初始化园区告警状态
+    /// </summary>
+    private void InitLocationAlarms()
+    {
+        AlarmSearchArg alarmSearchArg = new AlarmSearchArg();
+        LocationAlarm[] personnelAlarms;
+        //personnelAlarms = CommunicationObject.Instance.GetLocationAlarms(alarmSearchArg);
+        //if (personnelAlarms != null)
+        //{
+        //    List<LocationAlarm> personnelAlarmList = new List<LocationAlarm>();
+        //    ShowLocationAlarms(personnelAlarmList);
+        //}
+        Loom.StartSingleThread(() =>
+        {
+            personnelAlarms = CommunicationObject.Instance.GetLocationAlarms(alarmSearchArg);
+            Loom.DispatchToMainThread(() =>
+            {
+                if (personnelAlarms != null)
+                {
+                    List<LocationAlarm> personnelAlarmList = new List<LocationAlarm>(personnelAlarms);
+                    ShowLocationAlarms(personnelAlarmList);
+                }
+            });
+
+        });
+        //if (personnelAlarm != null)
+        //{
+        //    PerAlarmList = new List<LocationAlarm>(personnelAlarm);
+        //    foreach (var devAlarm in PerAlarmList)
+        //    {
+        //        if (devAlarm.AlarmLevel != LocationAlarmLevel.正常)
+        //        {
+        //            AlarmItem.Add(devAlarm);
+        //        }
+
+        //    }
+        //}
+
+    }
+
     #endregion
+
+
+
 }

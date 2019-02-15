@@ -61,6 +61,7 @@ public class ChangeTreeView : TreeView
         TreeNode<TreeViewItem> nodeT = FindNodeById(Data, Nodes);
         FindSelectNode(nodeT);
     }
+  
     /// <summary>
     /// 找到选中节点
     /// </summary>
@@ -68,6 +69,7 @@ public class ChangeTreeView : TreeView
     /// <param name="isExpandLastNode">是否展开当前节点</param>
     public void FindSelectNode(TreeNode<TreeViewItem> nodeT,bool isExpandLastNode=true)
     {
+       
         if (nodeT != null)
         {
             SelectedNodes = new List<TreeNode<TreeViewItem>>() { nodeT };
@@ -107,7 +109,7 @@ public class ChangeTreeView : TreeView
     }
    
     /// <summary>
-    /// 区域划分，选中节点
+    /// 人员区域划分，选中节点
     /// </summary>
     /// <param name="personnelT"></param>
     /// <param name="nodesT"></param>
@@ -131,11 +133,73 @@ public class ChangeTreeView : TreeView
                             break;
                         }
                     }
+                 
+                    
                     if (nodeT.Nodes != null)
                     {
                         try
                         {
                             node = FindNodeById(personnelT, nodeT.Nodes);
+                            if (node != null) break;
+                        }
+                        catch
+                        {
+                            int i = 0;
+                        }
+                    }
+                }
+                catch
+                {
+                    int It = 0;
+                    return null;
+                }
+            }
+        }
+        return node;
+    }
+    /// <summary>
+    /// 选中节点，根据数据,区域划分
+    /// </summary>
+    public void AreaSelectNodeByType(object Data)
+    {
+        TreeNode<TreeViewItem> nodeT = AreaFindNodeById(Data, Nodes);
+        FindSelectNode(nodeT);
+    }
+    /// <summary>
+    /// 区域划分，选中节点
+    /// </summary>
+    /// <param name="personnelT"></param>
+    /// <param name="nodesT"></param>
+    /// <returns></returns>
+    public TreeNode<TreeViewItem> AreaFindNodeById(object AreaT, IObservableList<TreeNode<TreeViewItem>> nodesT)
+    {
+        TreeNode<TreeViewItem> node = null;
+        if (nodesT != null)
+        {
+            foreach (TreeNode<TreeViewItem> nodeT in nodesT)
+            {
+                try
+                { 
+                    if (nodeT.Item.Tag is AreaNode)
+                    {
+                        AreaNode tagp = (AreaNode)nodeT.Item.Tag;
+                        int tagId = tagp.Id;
+                        if(tagp .Name == "锅炉补给水处理车间0层")
+                        {
+                            string name = tagp.Name;
+                        }
+                        if (tagId.ToString() == AreaT.ToString())
+                        {
+                            node = nodeT;
+                            break;
+                        }
+
+                    }
+                    if (nodeT.Nodes != null)
+                    {
+                        try
+                        {
+                            node = AreaFindNodeById(AreaT, nodeT.Nodes);
                             if (node != null) break;
                         }
                         catch

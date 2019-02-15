@@ -12,6 +12,12 @@ public class SystemSettingHelper : MonoBehaviour
     [HideInInspector]
     public static CinemachineSetting cinemachineSetting;
     public static CommunicationSetting communicationSetting;//通信相关设置
+    public static VersionSetting versionSetting;//版本号设置
+    /// <summary>
+    /// 版本号
+    /// </summary>
+    [HideInInspector]
+    public static string versionNum = "1.0.20";
 
     public static SystemSettingHelper instance;
 
@@ -50,7 +56,7 @@ public class SystemSettingHelper : MonoBehaviour
 
         cinemachineSetting = systemSetting.cinemachineSetting;
         communicationSetting = systemSetting.communicationSetting;
-
+        versionSetting = systemSetting.versionSetting;
     }
 
     /// <summary>
@@ -67,6 +73,7 @@ public class SystemSettingHelper : MonoBehaviour
     public static void CreateSystemSettingXml()
     {
         systemSetting = new SystemSetting();
+        systemSetting.versionSetting.VersionNumber = versionNum;
         SaveSystemSetting();
     }
 

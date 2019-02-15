@@ -281,7 +281,8 @@ public class RangeController : DepNode
 
     public Vector2 angleFocus = new Vector2(40, 270);
     public float camDistance = 10;
-    public Range angleRange = new Range(5, 90);
+    [HideInInspector]
+    public Range angleRange = new Range(0, 90);
     public Range disRange = new Range(2, 30);
     //拖动区域大小
     public Vector2 AreaSize = new Vector2(2, 2);

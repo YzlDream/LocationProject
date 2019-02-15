@@ -38,8 +38,8 @@ public class HistoryPath : MonoBehaviour {
     /// <summary>
     /// 实际点位置
     /// </summary>
-    protected List<Vector3> splinePoints;
-    protected List<DateTime> timelist;//点的时间集合
+    protected List<Vector3> splinePoints;//所有点的集合
+    public List<DateTime> timelist;//所有点的时间集合
     protected List<List<Vector3>> splinePointsList;
     protected List<List<DateTime>> timelistLsit;
 
@@ -85,6 +85,8 @@ public class HistoryPath : MonoBehaviour {
     /// <summary>
     /// 创建历史轨迹
     /// </summary>
+    /// <param name="splinePointsT">点集合</param>
+    /// <param name="segmentsT">多少段，比点数量少1</param>
     protected void CreateHistoryPath(List<Vector3> splinePointsT, int segmentsT)
     {
 
@@ -105,13 +107,37 @@ public class HistoryPath : MonoBehaviour {
     }
 
     /// <summary>
+    /// 创建轨迹间连接线
+    /// </summary>
+    /// <param name="splinePointsT">点集合</param>
+    /// <param name="segmentsT">多少段，比点数量少1</param>
+    protected void CreatePathLink(List<Vector3> splinePointsT, int segmentsT)
+    {
+
+        //VectorLine: exceeded maximum vertex count of 65534 for ""...use fewer points (maximum is 16383 points for continuous lines and points, and 32767 points for discrete lines)
+        VectorLine line = new VectorLine("Spline", new List<Vector3>(segmentsT + 1), 1.5f, LineType.Continuous);
+        //lines.Add(line);
+        line.name = "LineLink";
+        line.color = color;        line.MakeSpline(splinePointsT.ToArray(), segmentsT, pathLoop);
+        line.Draw3D();
+        //line.Draw3DAuto();
+        GameObject lineObjT = line.rectTransform.gameObject;
+        lineObjT.transform.SetParent(pathParent);
+        Renderer r = lineObjT.GetComponent<Renderer>();
+        color = new Color(color.r, color.g, color.b, 0.7f);
+        r.material.SetColor("_TintColor", color);//默认透明度是0.5,这里改为0.7；
+        r.material.SetFloat("_InvFade", 0.15f);//原本是1，改为0.2，让线绘制的更加柔和，不会出现断裂
+        r.material.renderQueue = 4000;//默认透明度是3000,这里改为4000；让透明物体先渲染，该轨迹后渲染，效果会更好
+    }
+
+    /// <summary>
     /// 创建历史轨迹中检测不到的虚线轨迹
     /// </summary>
     protected void CreateHistoryPathDottedline(List<Vector3> splinePointsT, int segmentsT)
     {
 
         //VectorLine: exceeded maximum vertex count of 65534 for ""...use fewer points (maximum is 16383 points for continuous lines and points, and 32767 points for discrete lines)
-        VectorLine line = new VectorLine("Spline", new List<Vector3>(segmentsT + 1), 3.5f, LineType.Points);
+        VectorLine line = new VectorLine("Spline", new List<Vector3>(segmentsT + 1), 3f, LineType.Points);
         dottedlines.Add(line);
         //line.lineColors
         line.color = color;        line.MakeSpline(splinePointsT.ToArray(), segmentsT, pathLoop);
@@ -135,6 +161,9 @@ public class HistoryPath : MonoBehaviour {
 
     protected virtual void Update()    {
         RefleshDrawLine();
+    }
+
+    protected virtual void FixedUpdate()    {
     }
 
     protected virtual void LateUpdate()
@@ -168,7 +197,7 @@ public class HistoryPath : MonoBehaviour {
         }
     }
 
-    protected IEnumerator RefleshDrawLineOP()
+    public IEnumerator RefleshDrawLineOP()
     {
         foreach (VectorLine line in lines)
         {
@@ -255,10 +284,9 @@ public class HistoryPath : MonoBehaviour {
                         List<Vector3> ps = new List<Vector3>();
                         int n = i / segmentsMax;
                         int nf = i % segmentsMax;
-                        if (nf == segmentsMax && i != 0)//考虑两条线的分界点的情况
+                        if (nf == segmentsMax - 1 && lines.Count - 1 > n)//考虑两条线的分界点的情况
                         {
-                            //lines[n-1].SetColor(new Color32(0, 0, 0, 0), nf, nf + 1);
-                            //lines[n].SetColor(new Color32(0, 0, 0, 0), nf, nf + 1);
+                            //lines[n+1].SetColor(new Color32(0, 0, 0, 0), nf);
                             //ps.Add(splinePoints[i]);
                             //ps.Add(splinePoints[i + 1]);
                         }
@@ -268,7 +296,7 @@ public class HistoryPath : MonoBehaviour {
                             //colorT = new Color32(colorT.r, colorT.g, colorT.b, (byte)80);
                             //CCOLOR = colorT;
                             //lines[n].SetColor(colorT, nf, nf + 1);
-                            lines[n].SetColor(new Color32(0, 0, 0, 0), nf, nf + 1);
+                            lines[n].SetColor(new Color32(0, 0, 0, 0), nf);
                             ps.Add(splinePoints[i]);
                             ps.Add(splinePoints[i + 1]);
                         }
@@ -278,6 +306,18 @@ public class HistoryPath : MonoBehaviour {
                     catch
                     {
                         int m = 0;
+                    }
+                }
+                else
+                {
+                    int n = i / segmentsMax;
+                    int nf = i % segmentsMax;
+                    if (nf == segmentsMax - 1 && lines.Count - 1 > n)//考虑两条线的分界点的情况
+                    {
+                        List<Vector3> ls = new List<Vector3>();
+                        ls.Add(splinePoints[i]);
+                        ls.Add(splinePoints[i + 1]);
+                        CreatePathLink(ls, 1);
                     }
                 }
             }

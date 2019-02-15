@@ -8,7 +8,7 @@ public class PersonnelAlarmType : MonoBehaviour
     public static PersonnelAlarmType instance;
     public Dropdown PerTypedropdownItem;
 
-    List<string> tempNames;
+    public   List<string> tempNames;
     void Start()
     {
         instance = this;
@@ -45,7 +45,7 @@ public class PersonnelAlarmType : MonoBehaviour
     /// </summary>
 	public void AddName()
     {
-        string n0 = "告警类型";
+        string n0 = "全部告警";
         string n1 = "区域告警";
         string n2 = "消失告警";
         string n3 = "低电告警";

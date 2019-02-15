@@ -71,6 +71,42 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="NearbyDev" nillable="true" type="tns:NearbyDev" />
+  <xs:complexType name="Dev_Monitor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChildrenList" nillable="true" type="tns:ArrayOfDev_Monitor" />
+      <xs:element minOccurs="0" name="KKSCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MonitorNodeList" nillable="true" type="tns:ArrayOfDevMonitorNode" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Dev_Monitor" nillable="true" type="tns:Dev_Monitor" />
+  <xs:complexType name="ArrayOfDev_Monitor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Dev_Monitor" nillable="true" type="tns:Dev_Monitor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDev_Monitor" nillable="true" type="tns:ArrayOfDev_Monitor" />
+  <xs:complexType name="ArrayOfDevMonitorNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DevMonitorNode" nillable="true" type="tns:DevMonitorNode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDevMonitorNode" nillable="true" type="tns:ArrayOfDevMonitorNode" />
+  <xs:complexType name="DevMonitorNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataBaseName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataBaseTagName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Describe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TagName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TagType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DevMonitorNode" nillable="true" type="tns:DevMonitorNode" />
   <xs:complexType name="Picture">
     <xs:sequence>
       <xs:element minOccurs="0" name="Info" nillable="true" type="xs:base64Binary" />

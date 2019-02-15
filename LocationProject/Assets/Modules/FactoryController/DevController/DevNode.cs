@@ -47,13 +47,16 @@ public class DevNode : MonoBehaviour {
         if (Info != null && ParentDepNode != null)
         {
             string typeCode = Info.TypeCode.ToString();
-            if (TypeCodeHelper.IsDoorAccess(Info.ModelName)||TypeCodeHelper.IsLocationDev(typeCode)) return;
+            if (TypeCodeHelper.IsDoorAccess(Info.ModelName)) return;
             if (TypeCodeHelper.IsCamera(typeCode))
             {
                 FollowTargetManage.Instance.CreateCameraUI(gameObject,ParentDepNode, this);
             }else if(TypeCodeHelper.IsStaticDev(typeCode))
             {
                 FollowTargetManage.Instance.CreateDevFollowUI(gameObject,ParentDepNode, this);
+            }else if(TypeCodeHelper.IsLocationDev(typeCode))
+            {
+                FollowTargetManage.Instance.CreateArchorFollowUI(gameObject,ParentDepNode,this);
             }
         }
     }

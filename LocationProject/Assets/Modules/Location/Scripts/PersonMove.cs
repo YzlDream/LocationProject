@@ -31,7 +31,7 @@ public class PersonMove : MonoBehaviour {
 
 
         //SetPosition(targetTransform.position);
-        UpdatePosition();
+        //UpdatePosition();
     }
 
     /// <summary>
@@ -40,6 +40,7 @@ public class PersonMove : MonoBehaviour {
     public void SetPosition(Vector3 pos)
     {
         moveDirection = pos - transform.position;
+        UpdatePosition();
     }
 
     /// <summary>
@@ -48,12 +49,14 @@ public class PersonMove : MonoBehaviour {
     public void UpdatePosition()
     {
 
-        if (controller.isGrounded)
-        {
-            moveDirection *= speed;
+        //if (controller.isGrounded)
+        //{
+        //    moveDirection *= speed;
 
-        }
+        //}
+        moveDirection *= speed;
         //moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
+        //controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection);
     }
 }

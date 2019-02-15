@@ -23,8 +23,8 @@ public class MakeSpline : MonoBehaviour {
 			dotLine.Draw();
 		}
 		else {
-			var spline = new VectorLine("Spline", new List<Vector3>(segments+1), 2.0f, LineType.Continuous);
-			spline.MakeSpline (splinePoints.ToArray(), segments, loop);
+            var spline = new VectorLine("Spline", new List<Vector3>(segments+1), 2.0f, LineType.Continuous);
+            spline.MakeSpline (splinePoints.ToArray(), segments, loop);
 			spline.Draw3D();
 		}
 	}

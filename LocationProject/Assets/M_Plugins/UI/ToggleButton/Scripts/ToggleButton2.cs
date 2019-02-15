@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ToggleButton2 : MonoBehaviour {
@@ -61,6 +62,13 @@ public class ToggleButton2 : MonoBehaviour {
         {
             OnValueChanged(ison);
         }
+    }
+
+    //代码触发点击
+    public void CodeToClick()
+    {
+        //如果在播放就让它暂停
+        ExecuteEvents.Execute<IPointerClickHandler>(btn.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
     }
 
     /// <summary>

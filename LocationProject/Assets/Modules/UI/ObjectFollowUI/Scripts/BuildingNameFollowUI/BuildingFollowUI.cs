@@ -25,14 +25,14 @@ public class BuildingFollowUI : MonoBehaviour {
     /// <summary>
     /// 建筑信息Button
     /// </summary>
-    public Button UIButton;
+    public Toggle UIToggle;
     /// <summary>
     /// 界面是否显示
     /// </summary>
     private bool isShow;
 	// Use this for initialization
 	void Start () {
-        UIButton.onClick.AddListener(OnUIClick);
+        UIToggle.onValueChanged.AddListener(OnUIClick);
     }
 	
     /// <summary>
@@ -48,15 +48,15 @@ public class BuildingFollowUI : MonoBehaviour {
         this.Name.text = Name;
         this.Info.text = BuildingInfo;   
     }
-    private void OnUIClick()
+    private void OnUIClick(bool isOn)
     {
-        if(isShow)
+        if(isOn)
         {
-            Hide();
+            Show();
         }
         else
         {
-            Show();
+            Hide();
         }
     }
     /// <summary>
@@ -64,7 +64,7 @@ public class BuildingFollowUI : MonoBehaviour {
     /// </summary>
     public void Show()
     {
-        if (CurrentMonitor != null && CurrentMonitor != this) CurrentMonitor.Hide();
+        if (CurrentMonitor != null && CurrentMonitor != this) CurrentMonitor.UIToggle.isOn=false;
         CurrentMonitor = this;
         isShow = true;
         Content.SetActive(true);

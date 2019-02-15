@@ -50,6 +50,23 @@ public class TopoTreeManager : MonoBehaviour
         //scrollRect.horizontal = true;
 
     }
+    /// <summary>
+    /// 通过区域ID，获取区域节点
+    /// </summary>
+    /// <param name="depId"></param>
+    /// <returns></returns>
+    public TreeNode<TreeViewItem> TryGetAreaNode(int depId)
+    {
+        foreach(var item in AreaList)
+        {
+            PhysicalTopology topoTemp = item.Item.Tag as PhysicalTopology;
+            if(topoTemp!=null&&topoTemp.Id==depId)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
     #region 窗体收缩动画部分
     /// <summary>
     /// 初始化动画
@@ -343,8 +360,4 @@ public class TopoTreeManager : MonoBehaviour
         if (!Window.activeInHierarchy)
             Window.SetActive(true);
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

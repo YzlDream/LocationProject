@@ -91,8 +91,9 @@ public class DataPaging : MonoBehaviour
     {
         Instance = this;
         NewpagingData = new List<Personnel>();
+       
         //personnels = CommunicationObject.Instance.GetPersonnels();
-      
+
         // StartPerSearchUI();
         AddPageBut. onClick.AddListener(AddPersonnelPage);
         MinusPageBut.onClick.AddListener(MinusPersonnelPage);
@@ -199,7 +200,16 @@ public class DataPaging : MonoBehaviour
             {
                 area = "";
             }
-            phone = NewpagingData[i].PhoneNumber.ToString();
+
+            if (NewpagingData[i].PhoneNumber == null)
+            {
+                phone = "";
+            }
+            else
+            {
+                phone = NewpagingData[i].PhoneNumber.ToString();
+            }
+
             SetInstantiateLine(i );
             SetPersonnelData(i, nameT, sex, workNumber, department, area, tagNum, tagName, phone);
         }
@@ -275,8 +285,16 @@ public class DataPaging : MonoBehaviour
     /// <param name="value"></param>
     public void InputPersonnelPage(string value)
     {
-
-        int currentPage = int.Parse(pegeNumText.text);
+        int currentPage;
+        if (string.IsNullOrEmpty(pegeNumText.text))
+        {
+            currentPage = 1;
+        }
+        else
+        {
+            currentPage = int.Parse(pegeNumText.text);
+        }
+       
         int maxPage = (int)Math.Ceiling((double)(selectedItem.Count) / (double)pageSize);
         if (currentPage>maxPage)
         {
@@ -304,13 +322,13 @@ public class DataPaging : MonoBehaviour
         pegeNumText.text = "1";
         selectedItem.Clear();
         SaveSelection();
-        string key = PerSelected.text.ToString();
+        string key = PerSelected.text.ToString().ToLower();
        
         for (int i = 0; i < peraonnelData.Count; i++)
         {
             string personnelName = peraonnelData[i].Name;
             string personnelWorkNum = peraonnelData[i].WorkNumber.ToString();
-            if (personnelName.Contains(key)|| personnelWorkNum.Contains(key ))
+            if (personnelName.ToLower().Contains(key)|| personnelWorkNum.ToLower().Contains(key ))
             {   
                 selectedItem.Add(peraonnelData[i]);
             }

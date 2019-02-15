@@ -7,31 +7,32 @@ using UnityEngine.UI;
 
 public class MobileInspectionHistoryDetailsUI : MonoBehaviour {
 
+    public static MobileInspectionHistoryDetailsUI Instance;
     /// <summary>
     /// 窗体
     /// </summary>
     public GameObject window;
 
-    public PersonnelMobileInspectionHistory info;//工作票信息
+    public PatrolPoint info;//工作票信息
+    public List<PatrolPointItem> PatrolPointItemList;
+    public PatrolPointItem PatrolPointItems;
 
-    public Text TxtNumber;//编号
-                          //T1
-    public Text TxtEstimatedStartingTime;//操作任务
-    public Text TxtEstimatedEndingTime;//计划时间
-    public Text TxtRealStartTime;//计划时间
-                               //T2
-    public Text TxtRealEndTime;//监护人
-    public Text TxtPerson;//操作人
+    public Text TxtPersonnelNum;//巡检人工号
+    public Text TxtPerson;//巡检人
+    public Text devText;//巡检设备名称
 
-
+    public Text Title;
     public GameObject ItemPrefab;//措施单项
     public VerticalLayoutGroup Grid;//措施列表
 
     public Button closeBtn;//关闭
 
+    public Sprite Singleline;
+    public Sprite DoubleLine;
     // Use this for initialization
     void Start()
     {
+        Instance = this;
         closeBtn.onClick.AddListener(CloseBtn_OnClick);
     }
 
@@ -41,12 +42,19 @@ public class MobileInspectionHistoryDetailsUI : MonoBehaviour {
 
     }
 
-    public void Show(PersonnelMobileInspectionHistory infoT)
+    public void Show(PatrolPoint infoT)
     {
+        PatrolPointItemList.Clear();
         info = infoT;
+        PatrolPointItemList.AddRange (info.Checks);
         UpdateData();
         CreateMeasuresItems();
         SetWindowActive(true);
+        if (MobileInspectionInfoManage.Instance.window.activeInHierarchy)
+        {
+            MobileInspectionInfoManage.Instance.CloseWindow();
+        }
+   
     }
 
     /// <summary>
@@ -54,79 +62,77 @@ public class MobileInspectionHistoryDetailsUI : MonoBehaviour {
     /// </summary>
     public void UpdateData()
     {
-        //TxtNumber.text = info.MobileInspectionId;
-        //TxtOperationTask.text = info.OperationTask;
-        //TxtPlanTimeStart.text = info.OperationStartTime.ToString("yyyy/MM/dd HH:mm");
-        //TxtPlanTimeEnd.text = info.OperationEndTime.ToString("yyyy/MM/dd HH:mm");
-        //TxtGuardian.text = info.Guardian;
-        //TxtOperator.text = info.Operator;
-        //TxtDutyOfficer.text = info.DutyOfficer;
-        //TxtDispatchingOfficer.text = info.Dispatch;
-
-        TxtNumber.text = info.MobileInspectionId.ToString() ;
-        TxtEstimatedStartingTime.text = info.PlanStartTime.ToString("yyyy/MM/dd HH:mm");
-        TxtEstimatedEndingTime.text = info.PlanEndTime.ToString("yyyy/MM/dd HH:mm");
-
-        if (info.StartTime != null)
+        if (PatrolPointItems.StaffCode==null)
         {
-            DateTime startTime = (DateTime)info.StartTime;
-            TxtRealStartTime.text = startTime.ToString("yyyy/MM/dd HH:mm");
+            TxtPersonnelNum.text = "";
         }
         else
         {
-            TxtRealStartTime.text = "";
+            TxtPersonnelNum.text = PatrolPointItems.StaffCode.ToString();
         }
-
-        if (info.EndTime != null)
+        if (MobileInspectionInfoManage.Instance .DevName ==null)
         {
-            DateTime endtime = (DateTime)info.EndTime;
-            TxtRealEndTime.text = endtime.ToString("yyyy/MM/dd HH:mm");
+            devText.text  = "";
         }
         else
         {
-            TxtRealEndTime.text = "";
+            devText.text = MobileInspectionInfoManage.Instance.DevName.ToString();
         }
+        if (MobileInspectionInfoManage.Instance.PersonnelName ==null)
+        {
+            TxtPerson.text = "";
+        }
+        else
+        {
+            TxtPerson.text = MobileInspectionInfoManage.Instance.PersonnelName.ToString();
+        }
+            Title.text = MobileInspectionDetailsUI.Instance.TitleText + PatrolPointItems.Id.ToString();
 
-        //DateTime startTime = (DateTime)info.StartTime;
-        //TxtRealStartTime.text = startTime.ToString("yyyy/MM/dd HH:mm");
-        //TxtRealEndTime.text = "";
     }
-
+    int i = 0;
     /// <summary>
     /// 创建措施列表
     /// </summary>
     public void CreateMeasuresItems()
     {
         ClearMeasuresItems();
-        if (info.list == null || info.list.Length == 0) return;
-        foreach (PersonnelMobileInspectionItemHistory sm in info.list)
+        if (PatrolPointItemList == null || PatrolPointItemList.Count  == 0) return;
+        foreach (PatrolPointItem sm in PatrolPointItemList)
         {
+            i = i + 1;
             GameObject itemT = CreateMeasuresItem();
             Text[] ts = itemT.GetComponentsInChildren<Text>();
             if (ts.Length > 0)
             {
-                ts[0].text = sm.nOrder.ToString();
+                ts[0].text = sm.CheckId .ToString();
             }
             if (ts.Length > 1)
             {
-                ts[1].text = sm.ItemName;
+                ts[1].text = sm.CheckItem;
             }
             if (ts.Length > 2)
             {
-                ts[2].text = sm.DevName;
+               
+                    if (sm.dtCheckTime == null)
+                {
+                    ts[2].text = "";
+                }
+                    else
+                {
+                    DateTime timeT = Convert.ToDateTime(sm.dtCheckTime);
+                    ts[2].text = timeT.ToString("yyyy/MM/dd HH:mm");
+                }
+  
             }
-            if (ts.Length > 3)
+            if (i % 2 == 0)
             {
-                if (sm.PunchTime != null)
-                {
-                    DateTime t = (DateTime)sm.PunchTime;
-                    ts[3].text = t.ToString();
-                }
-                else
-                {
-                    ts[3].text = "";
-                }
+                itemT.transform.gameObject.GetComponent<Image>().sprite = DoubleLine;
             }
+            else
+            {
+                itemT.transform.gameObject.GetComponent<Image>().sprite = Singleline;
+            }
+
         }
     }
 
@@ -139,8 +145,8 @@ public class MobileInspectionHistoryDetailsUI : MonoBehaviour {
         itemT.transform.SetParent(Grid.transform);
         itemT.transform.localPosition = Vector3.zero;
         itemT.transform.localScale = Vector3.one;
-        LayoutElement layoutElement = itemT.GetComponent<LayoutElement>();
-        layoutElement.ignoreLayout = false;
+     //   LayoutElement layoutElement = itemT.GetComponent<LayoutElement>();
+      //  layoutElement.ignoreLayout = false;
         itemT.SetActive(true);
         return itemT;
     }
@@ -171,6 +177,6 @@ public class MobileInspectionHistoryDetailsUI : MonoBehaviour {
     public void CloseBtn_OnClick()
     {
         SetWindowActive(false);
-        MobileInspectionHistory_N.Instance.SetContentActive(true);
+      //  MobileInspectionHistory_N.Instance.SetContentActive(true);
     }
 }

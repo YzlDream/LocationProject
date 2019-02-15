@@ -41,6 +41,9 @@ public class FollowTargetManage : MonoBehaviour
     public GameObject FireDevUIPrefab;//消防告警预设
     private string AlarmDevUIName="AlarmDevUI";  //告警设备(边界、消防等)
 
+    public GameObject ArchorDevUIPrefab;//基站设备
+    private string ArchorDevUIName = "ArchorDevUI";
+
     /// <summary>
     /// UI跟随管理脚本
     /// </summary>
@@ -75,15 +78,11 @@ public class FollowTargetManage : MonoBehaviour
         SetAlarmDevUIState(isFullView);
         if (isFullView)
         {
-            HideBuildingUI();
-            HideDevInfoUI();
-            HideCameraUI();
+            HideAllFollowUI();
         }
         else
         {
-            ShowBuidingUI();
-            ShowDevInfoUI();
-            ShowCameraUI();
+            ShowAllFollowUI();
         }
     }
     private void OnDepTypeChange(DepNode oldDep, DepNode currentDep)
@@ -97,25 +96,40 @@ public class FollowTargetManage : MonoBehaviour
                 return;
             }
         }
-        if (currentDep as FactoryDepManager && !FullViewController.Instance.IsFullView)
+        HideAllFollowUI(oldDep);
+        ShowAllFollowUI(currentDep);
+        bool isSameFloor = (oldDep is RoomController && oldDep.ParentNode == currentDep) || (currentDep is RoomController && currentDep.ParentNode == oldDep);
+        if (isSameFloor)
         {
-            ShowBuidingUI();
+            SetAlarmDevUIState(true,currentDep);
         }
-        else
-        {
-            HideBuildingUI();
-        }
-        HideCameraUI(oldDep);
-        ShowCameraUI(currentDep);
-        
-        HideDevInfoUI(oldDep);
-        ShowDevInfoUI(currentDep);
-
-        if ((oldDep is RoomController&&oldDep.ParentNode==currentDep)||(currentDep is RoomController&&currentDep.ParentNode==oldDep)) return;
-        SetAlarmDevUIState(false,oldDep);
-        SetAlarmDevUIState(true,currentDep);
+        //SetAlarmDevUIState(false,oldDep);
+        //SetAlarmDevUIState(true,currentDep);
     }
-
+    /// <summary>
+    /// 关闭所有漂浮UI （告警除外）
+    /// </summary>
+    /// <param name="dep"></param>
+    public void HideAllFollowUI(DepNode dep=null)
+    {
+        HideBuildingUI();
+        HideCameraUI(dep);
+        HideDevInfoUI(dep);
+        HideArchorInfoUI(dep);
+        SetAlarmDevUIState(false, dep);
+    }
+    /// <summary>
+    /// 显示所有漂浮UI 
+    /// </summary>
+    /// <param name="dep"></param>
+    public void ShowAllFollowUI(DepNode dep=null)
+    {
+        ShowBuidingUI();
+        ShowCameraUI(dep);
+        ShowDevInfoUI(dep);
+        ShowArchorInfoUI(dep);
+        SetAlarmDevUIState(true, dep);
+    }
     /// <summary>
     /// 获取主相机
     /// </summary>
@@ -140,7 +154,9 @@ public class FollowTargetManage : MonoBehaviour
     public void ShowBuidingUI()
     {
         DepNode node = FactoryDepManager.currentDep;
-        if (!FunctionSwitchBarManage.Instance.BuildingToggle.ison|| node==null||node as BuildingController||node as FloorController||node as RoomController) return;
+        bool isRoomState = node == null || node as BuildingController || node as FloorController || node as RoomController;
+        if (FunctionSwitchBarManage.Instance == null) return;
+        if (FullViewController.Instance.IsFullView||!FunctionSwitchBarManage.Instance.BuildingToggle.ison|| isRoomState||ObjectAddListManage.IsEditMode) return;
         UIFollowManager.SetGroupUIbyName(BuildingListName, true);
     }
     /// <summary>
@@ -182,7 +198,8 @@ public class FollowTargetManage : MonoBehaviour
     /// </summary>
     public void HideCameraUI(DepNode dep=null)
     {
-        if (FactoryDepManager.currentDep == null) return;
+        if (FactoryDepManager.currentDep == null|| FunctionSwitchBarManage.Instance == null) return;
+        if (FunctionSwitchBarManage.Instance.CameraToggle.ison) return;
         DepNode depToShow = dep == null ? FactoryDepManager.currentDep : dep;
         string cameraDepName = GetDepNodeId(depToShow) + CameraListName;
         UGUIFollowManage.Instance.SetGroupUIbyName(cameraDepName, false);
@@ -192,7 +209,8 @@ public class FollowTargetManage : MonoBehaviour
     /// </summary>
     public void ShowCameraUI(DepNode dep = null)
     {
-        if (!FunctionSwitchBarManage.Instance.CameraToggle.ison||FactoryDepManager.currentDep==null) return;
+        if (FunctionSwitchBarManage.Instance == null) return;
+        if (!FunctionSwitchBarManage.Instance.CameraToggle.ison||FactoryDepManager.currentDep==null||ObjectAddListManage.IsEditMode) return;
         DepNode depToShow = dep == null ? FactoryDepManager.currentDep : dep;
         string cameraDepName = GetDepNodeId(depToShow) + CameraListName;
         UGUIFollowManage.Instance.SetGroupUIbyName(cameraDepName, true);
@@ -246,7 +264,8 @@ public class FollowTargetManage : MonoBehaviour
     /// </summary>
     public void ShowDevInfoUI(DepNode dep=null)
     {
-        if (!FunctionSwitchBarManage.Instance.DevInfoToggle.ison|| FactoryDepManager.currentDep == null) return;
+        if (FunctionSwitchBarManage.Instance == null) return;
+        if (!FunctionSwitchBarManage.Instance.DevInfoToggle.ison|| FactoryDepManager.currentDep == null || ObjectAddListManage.IsEditMode) return;
         DepNode depToShow = dep == null ? FactoryDepManager.currentDep : dep;
         string devDepName = GetDepNodeId(depToShow) + DevListName;
         UGUIFollowManage.Instance.SetGroupUIbyName(devDepName, true);
@@ -309,7 +328,8 @@ public class FollowTargetManage : MonoBehaviour
         DepNode depToShow = dep == null ? FactoryDepManager.currentDep : dep;
         string groupName = string.Format("{0}{1}", AlarmDevUIName, depToShow.NodeID);
         if (isShow)
-        {           
+        {
+            if (ObjectAddListManage.IsEditMode) return;
             UGUIFollowManage.Instance.SetGroupUIbyName(groupName, true);
         }
         else
@@ -318,6 +338,61 @@ public class FollowTargetManage : MonoBehaviour
         }
     }
     #endregion
+    #region 创建基站漂浮UI
+
+    /// <summary>
+    /// 创建设备漂浮UI
+    /// </summary>
+    /// <param name="sisDev"></param>
+    /// <param name="info"></param>
+    /// <param name="isShow">是否显示</param>
+    public void CreateArchorFollowUI(GameObject archorDev, DepNode devDep, DevNode info)
+    {
+        GameObject targetTagObj = UGUIFollowTarget.CreateTitleTag(archorDev, Vector3.zero);
+        if (UGUIFollowManage.Instance == null)
+        {
+            Debug.LogError("UGUIFollowManage.Instance==null");
+            return;
+        }
+        Camera mainCamera = GetMainCamera();
+        if (mainCamera == null) return;
+        string devDepName = GetDepNodeId(devDep) + ArchorDevUIName;
+        //if (!DevDepNameList.Contains(devDepName)) DevDepNameList.Add(devDepName);
+        GameObject name = UGUIFollowManage.Instance.CreateItem(ArchorDevUIPrefab, targetTagObj, devDepName, mainCamera);
+        UGUIFollowTarget followTarget = name.GetComponent<UGUIFollowTarget>();
+        BaseStationFollowUI archorFollow = name.GetComponent<BaseStationFollowUI>();
+        if (archorFollow != null)
+        {
+            archorFollow.InitInfo(info);
+        }
+        if (DevSubsystemManage.IsRoamState || !FunctionSwitchBarManage.Instance.ArchorInfoToggle.ison)
+        {
+            UGUIFollowManage.Instance.SetGroupUIbyName(devDepName, false);
+        }
+    }
+    /// <summary>
+    /// 隐藏设备漂浮UI
+    /// </summary>
+    public void HideArchorInfoUI(DepNode dep = null)
+    {
+        if (FactoryDepManager.currentDep == null) return;
+        DepNode depToShow = dep == null ? FactoryDepManager.currentDep : dep;
+        string devDepName = GetDepNodeId(depToShow) + ArchorDevUIName;
+        UGUIFollowManage.Instance.SetGroupUIbyName(devDepName, false);
+    }
+    /// <summary>
+    /// 显示设备漂浮UI
+    /// </summary>
+    public void ShowArchorInfoUI(DepNode dep = null)
+    {
+        if (FunctionSwitchBarManage.Instance == null) return;
+        if (!FunctionSwitchBarManage.Instance.ArchorInfoToggle.ison || FactoryDepManager.currentDep == null || ObjectAddListManage.IsEditMode) return;
+        DepNode depToShow = dep == null ? FactoryDepManager.currentDep : dep;
+        string devDepName = GetDepNodeId(depToShow) + ArchorDevUIName;
+        UGUIFollowManage.Instance.SetGroupUIbyName(devDepName, true);
+    }
+    #endregion
+
     /// <summary>
     /// 创建漂浮物体
     /// </summary>

@@ -36,6 +36,7 @@ public class DevSubsystemManage : MonoBehaviour {
     /// 漫游时，进入的建筑
     /// </summary>
     private List<BuildingController> triggerBuildings = new List<BuildingController>();
+
     /// <summary>
     /// 鼠标聚焦的设备
     /// </summary>
@@ -116,13 +117,15 @@ public class DevSubsystemManage : MonoBehaviour {
                EntranceManage.instance.ShowWindow(isOn);
             }            
             OnRoamStateChange(isOn);
+            if (RoamDevInfoUI.Instance) RoamDevInfoUI.Instance.SetDevInfoCheckState(isOn);
             if (isOn)
             {
-
+                
             }
             else
             {
                 roamManager.ExitRoam();
+                if (BuildingTopColliderManage.Instance) BuildingTopColliderManage.Instance.Clear();
                 SmallMapController.Instance.ShowMapByDepNode(FactoryDepManager.Instance);
             }
         });            
@@ -192,6 +195,7 @@ public class DevSubsystemManage : MonoBehaviour {
             DeviceEditUIManager.Instacne.SetEmptValue();
             ActionBarManage.Instance.Hide();
             UGUITooltip.Instance.Hide();
+            FollowTargetManage.Instance.HideAllFollowUI(FactoryDepManager.currentDep);
         }
         else
         {
@@ -203,6 +207,7 @@ public class DevSubsystemManage : MonoBehaviour {
             DeviceEditUIManager.Instacne.Close();
             FunctionSwitchBarManage.Instance.SetWindow(true);
             SetGizmoTypeState(true);
+            FollowTargetManage.Instance.ShowAllFollowUI(FactoryDepManager.currentDep);
         }
     }
     /// <summary>
@@ -387,6 +392,15 @@ public class DevSubsystemManage : MonoBehaviour {
                 triggerBuildings.Remove(building);
             }
         }
+    }
+    /// <summary>
+    /// 漫游人物，是否在建筑内
+    /// </summary>
+    /// <returns></returns>
+    public bool IsFPSInBuilding()
+    {
+        if (triggerBuildings != null && triggerBuildings.Count > 0) return true;
+        else return false;
     }
     /// <summary>
     /// 关闭建筑内，所有设备

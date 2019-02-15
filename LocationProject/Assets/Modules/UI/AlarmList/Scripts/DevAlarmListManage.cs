@@ -55,7 +55,7 @@ public class DevAlarmListManage : MonoBehaviour
     private string title;
     private string AlarmTime;
     private string content;
- 
+
     private string devId;
     private int depId;
     public DeviceAlarm[] deviceAlarm;
@@ -78,12 +78,14 @@ public class DevAlarmListManage : MonoBehaviour
         StartcalendarDay.onDayClick.AddListener(ScreeningStartTimeAlaim);
         EndcalendarDay.onDayClick.AddListener(ScreeningSecondTimeAlarm);
         pegeNumText.onValueChanged.AddListener(InputDevPage);
+        
     }
     /// <summary>
     /// 刚打开设备告警时的界面
     /// </summary>
     public void StartDevAlarm()
     {
+       
         var devAlarms = CommunicationObject.Instance.GetDeviceAlarms(DevAlarmlist);
         devAlarmData = new List<DeviceAlarm>(devAlarms);
         PageNum = 1;
@@ -95,9 +97,13 @@ public class DevAlarmListManage : MonoBehaviour
         string currenttime = CurrentTime.ToString("yyyy年MM月dd日");
         StartTimeText.text = currenttime;
         EndTimeText.text = currenttime;
-        devAlarmdropdownItem.ShowFirstDropdowData();
-        devAlarmType.ShowDropdownFirstData();
+       // devAlarmdropdownItem.ShowFirstDropdowData();
+       // devAlarmType.ShowDropdownFirstData();
         showStartTime.ShowStartTime();
+        IsScreen = false;
+        IsTime1 = false;
+        IsTIme2 = false;
+        IsDevType = false;
     }
     /// <summary>
     /// zongye
@@ -116,7 +122,7 @@ public class DevAlarmListManage : MonoBehaviour
                 pegeTotalText.text = Convert.ToString(Math.Ceiling((double)data.Count / (double)pageLine));
             }
         }
-       else
+        else
         {
             pegeTotalText.text = "1";
         }
@@ -126,10 +132,10 @@ public class DevAlarmListManage : MonoBehaviour
     /// </summary>
     public void AddDevAlarmPage()
     {
-      
+
 
         StartPageNum += 1;
-        if (IsTIme2|| IsTime1 || IsScreen|| IsDevType)
+        if (IsTIme2 || IsTime1 || IsScreen || IsDevType)
         {
             Double a = Math.Ceiling((double)ScreenItem.Count / (double)pageLine);
             int m = (int)a;
@@ -140,7 +146,8 @@ public class DevAlarmListManage : MonoBehaviour
                 pegeNumText.text = PageNum.ToString();
                 GetDevAlarmPageData(ScreenItem);
             }
-        }else
+        }
+        else
         {
             Double a = Math.Ceiling((double)devAlarmData.Count / (double)pageLine);
             int m = (int)a;
@@ -152,11 +159,11 @@ public class DevAlarmListManage : MonoBehaviour
                 GetDevAlarmPageData(devAlarmData);
             }
         }
-       
+
     }
     public void MinDevAlarmPage()
     {
-        if (IsTIme2 || IsTime1 || IsScreen|| IsDevType)
+        if (IsTIme2 || IsTime1 || IsScreen || IsDevType)
         {
             if (StartPageNum > 0)
             {
@@ -172,7 +179,8 @@ public class DevAlarmListManage : MonoBehaviour
                 }
                 GetDevAlarmPageData(ScreenItem);
             }
-        }else
+        }
+        else
         {
             if (StartPageNum > 0)
             {
@@ -189,7 +197,7 @@ public class DevAlarmListManage : MonoBehaviour
                 GetDevAlarmPageData(devAlarmData);
             }
         }
-       
+
     }
     /// <summary>
     /// 搜索选中页
@@ -197,9 +205,18 @@ public class DevAlarmListManage : MonoBehaviour
     /// <param name="value"></param>
     public void InputDevPage(string value)
     {
-        if (IsTIme2 || IsTime1 || IsScreen|| IsDevType)
+        int currentPage;
+        if (string.IsNullOrEmpty(pegeNumText.text))
         {
-            int currentPage = int.Parse(pegeNumText.text);
+            currentPage = 1;
+        }
+        else
+        {
+            currentPage = int.Parse(pegeNumText.text);
+        }
+        if (IsTIme2 || IsTime1 || IsScreen || IsDevType)
+        {
+            
             int maxPage = (int)Math.Ceiling((double)ScreenItem.Count / (double)pageLine);
             if (currentPage > maxPage)
             {
@@ -217,7 +234,7 @@ public class DevAlarmListManage : MonoBehaviour
         }
         else
         {
-            int currentPage = int.Parse(pegeNumText.text);
+            
             int maxPage = (int)Math.Ceiling((double)devAlarmData.Count / (double)pageLine);
             if (currentPage > maxPage)
             {
@@ -233,7 +250,7 @@ public class DevAlarmListManage : MonoBehaviour
             PageNum = currentPage;
             GetDevAlarmPageData(devAlarmData);
         }
-       
+
     }
     /// <summary>
     /// 获取几页数据
@@ -252,17 +269,17 @@ public class DevAlarmListManage : MonoBehaviour
         }
         TotaiLine(AlarmData);
     }
-  
+
 
     /// <summary>
     /// 得到设备告警搜索的数据
     /// </summary>
     public void GetDevAlarmData(List<DeviceAlarm> newDevList)
     {
-   
+
         for (int i = 0; i < newDevList.Count; i++)
         {
-            type = newDevList[i].Dev.TypeName;          
+            type = newDevList[i].Dev.TypeName;
             num = newDevList[i].Id.ToString();
             title = newDevList[i].Title;
             string time = newDevList[i].CreateTime.ToString();
@@ -286,17 +303,17 @@ public class DevAlarmListManage : MonoBehaviour
             {
 
                 line.GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(250 / 255f, 57 / 255f, 114 / 255f, 255 / 255f);
-               
+
             }
             else if (newDevList[i].Level == Abutment_DevAlarmLevel.中)
             {
                 line.GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(250 / 255f, 146 / 255f, 55 / 255f, 255 / 255f);
-               
+
             }
             else if (newDevList[i].Level == Abutment_DevAlarmLevel.低)
             {
                 line.GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(249 / 255f, 250 / 255f, 55 / 255f, 255 / 255f);
-                
+
             }
 
             SetDevAlarmData(i, type, num, title, AlarmTime, content, devId, depId);
@@ -366,19 +383,23 @@ public class DevAlarmListManage : MonoBehaviour
     {
         DevAlarmWindow.SetActive(true);
         StartDevAlarm();
-
+       
     }
     /// <summary>
     /// 关闭设备告警界面
     /// </summary>
     public void CloseDevAlarmWindow()
     {
+        devAlarmdropdownItem.devAlarmLeveldropdown.captionText.text = devAlarmdropdownItem.tempNames[0];
+        devAlarmdropdownItem.devAlarmLeveldropdown.transform.GetComponent<Dropdown>().value = 0;
 
+        devAlarmType.DevTypedropdownItem.captionText.text = devAlarmType.tempNames[0];
+        devAlarmType.DevTypedropdownItem.transform.GetComponent<Dropdown>().value = 0;
         DevAlarmWindow.SetActive(false);
         DevSubsystemManage.Instance.ChangeImage(false, DevSubsystemManage.Instance.DevAlarmToggle);
         DevSubsystemManage.Instance.DevAlarmToggle.isOn = false;
     }
-   
+
     List<DeviceAlarm> ScreenAlarmTime = new List<DeviceAlarm>();
     /// <summary>
     /// 第二个筛选时间
@@ -391,7 +412,11 @@ public class DevAlarmListManage : MonoBehaviour
         ScreenItem.Clear();
         string StartTime = StartTimeText.GetComponent<Text>().text;
         DateTime NewStartTime = Convert.ToDateTime(StartTime);
-        DateTime NewEndTime = Convert.ToDateTime(dateTime);
+
+        DateTime CurrentEndTime = Convert.ToDateTime(dateTime);
+        DateTime NewEndTime = CurrentEndTime.AddHours(24);
+
+
         for (int i = 0; i < devAlarmData.Count; i++)
         {
             DateTime AlarmTime = devAlarmData[i].CreateTime;
@@ -408,15 +433,15 @@ public class DevAlarmListManage : MonoBehaviour
             }
             else
             {
-                
+
                 DateTime time1 = NewStartTime.AddHours(24);
                 NewEndTime = time1;
                 bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
                 if (Time2 && DevTypes(devAlarmData[i]) && ScreenDevType(devAlarmData[i]))
                 {
-                   
-                      ScreenItem.Add(devAlarmData[i]);
-                    
+
+                    ScreenItem.Add(devAlarmData[i]);
+
                 }
                 Invoke("ChangeEndTime", 0.1f);
             }
@@ -433,7 +458,7 @@ public class DevAlarmListManage : MonoBehaviour
             TotaiLine(ScreenItem);
             GetDevAlarmPageData(ScreenItem);
         }
-       
+
 
     }
     /// <summary>
@@ -446,7 +471,10 @@ public class DevAlarmListManage : MonoBehaviour
         ScreenItem.Clear();
         string EndTime = EndTimeText.GetComponent<Text>().text;
         DateTime NewStartTime = Convert.ToDateTime(dateTime);
-        DateTime NewEndTime = Convert.ToDateTime(EndTime);
+
+        DateTime CurrentEndTime = Convert.ToDateTime(EndTime);
+        DateTime NewEndTime = CurrentEndTime.AddHours(24);
+
         for (int i = 0; i < devAlarmData.Count; i++)
         {
             DateTime AlarmTime = devAlarmData[i].CreateTime;
@@ -492,9 +520,9 @@ public class DevAlarmListManage : MonoBehaviour
 
     }
     List<DeviceAlarm> ScreenItem = new List<DeviceAlarm>();
-    bool IsScreen=false;
-    bool IsTime1=false ;
-    bool IsTIme2=false ;
+    bool IsScreen = false;
+    bool IsTime1 = false;
+    bool IsTIme2 = false;
     bool IsDevType = false;
     public void GetScreenDevAlarmItems(int level)
     {
@@ -513,7 +541,7 @@ public class DevAlarmListManage : MonoBehaviour
 
             if (IsTime)
             {
-                if (ScreenTime && DevTypes(devAlarmData[i])&&ScreenDevType(devAlarmData[i]))
+                if (ScreenTime && DevTypes(devAlarmData[i]) && ScreenDevType(devAlarmData[i]))
                 {
                     ScreenItem.Add(devAlarmData[i]);
                 }
@@ -648,7 +676,7 @@ public class DevAlarmListManage : MonoBehaviour
         if (level == 0) return true;
         else
         {
-            if (type .Dev .TypeName == GetDevType())
+            if (type.Dev.TypeName == GetDevType())
             {
                 return true;
             }
@@ -662,7 +690,7 @@ public class DevAlarmListManage : MonoBehaviour
     /// 设备类型
     /// </summary>
     /// <returns></returns>
-    public string  GetDevType()
+    public string GetDevType()
     {
         int level = DevAlarmType.instance.DevTypedropdownItem.value;
         if (level == 1) return "基站";
@@ -672,7 +700,7 @@ public class DevAlarmListManage : MonoBehaviour
             return "生产设备";
         }
     }
-   
+
     public void ChangeEndTime()
     {
         string StartTime = StartTimeText.GetComponent<Text>().text;
@@ -702,5 +730,5 @@ public class DevAlarmListManage : MonoBehaviour
         CloseDevAlarmWindow();
 
     }
-   
+
 }

@@ -367,7 +367,7 @@ public class BuildingController : DepNode {
         {
             foreach (var floor in FloorTween.FloorList)
             {
-                BoxCollider collider = floor.GetComponent<BoxCollider>();
+                Collider collider = floor.GetComponent<Collider>();
                 if (collider) collider.enabled = isShowCollider;
             }
         }   
@@ -402,6 +402,25 @@ public class BuildingController : DepNode {
         HideFacotory();
         RoomCreate(depNode, isFocusRoom, onComplete);
     }
+
+    ///// <summary>
+    ///// 载入机房
+    ///// </summary>
+    ///// <param name="depNode"></param>
+    ///// <param name="isFocusRoom"></param>
+    ///// <param name="onComplete"></param>
+    //public IEnumerator LoadRoomStartCoroutine(DepNode depNode, bool isFocusRoom = false, Action<FloorController> onComplete = null)
+    //{
+    //    if (depNode == null)
+    //    {
+    //        Debug.Log("RoomID is null...");
+    //        yield break;
+    //    }
+    //    //SceneBackButton.Instance.Show(BackToBuilding);
+    //    HideFacotory();
+    //    RoomCreate(depNode, isFocusRoom, onComplete);
+    //}
+
     /// <summary>
     /// 隐藏当前建筑
     /// </summary>
@@ -514,11 +533,12 @@ public class BuildingController : DepNode {
     {
         if(other.transform.GetComponent<CharacterController>()!=null)
         {
-            //Debug.LogError("Fps enter:"+NodeName);
+            if (BuildingTopColliderManage.IsInBuildingRoof) return;//处于楼顶，不算楼内
+            DevSubsystemManage fpsManager = DevSubsystemManage.Instance;
+            if (fpsManager) fpsManager.SetTriggerBuilding(this, true);
             RoamManage.Instance.EntranceIndoor(true);
             ShowBuildingDev(true);
             IsFPSEnter = true;
-            //DoorAccessItem.cs
         }
     }
 
@@ -526,18 +546,20 @@ public class BuildingController : DepNode {
     {
         if (other.transform.GetComponent<CharacterController>() != null)
         {
-            //Debug.LogError("Fps exit:" + NodeName);
-            RoamManage.Instance.EntranceIndoor(false);
             IsFPSEnter = false;
-            DevSubsystemManage.Instance.SetTriggerBuilding(this, false);
-            ShowBuildingDev(false);
-            RoamManage.Instance.SetLight(false);
+            DevSubsystemManage fpsManager = DevSubsystemManage.Instance;
+            if (fpsManager) fpsManager.SetTriggerBuilding(this, false);
+            RoamManage.Instance.EntranceIndoor(false);
+            //ShowBuildingDev(false);
+            if (fpsManager && !fpsManager.IsFPSInBuilding()) RoamManage.Instance.SetLight(false); //人不在建筑中，才关闭灯光     
         }
     }
+   
     #region 摄像头移动模块
     public Vector2 angleFocus = new Vector2(40, 270);
     public float camDistance = 10;
-    public Range angleRange = new Range(5, 90);
+    [HideInInspector]
+    public Range angleRange = new Range(0, 90);
     public Range disRange = new Range(2, 30);
     //拖动区域大小
     public Vector2 AreaSize = new Vector2(2, 2);
@@ -546,7 +568,7 @@ public class BuildingController : DepNode {
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    private AlignTarget GetTargetInfo(GameObject obj)
+    public AlignTarget GetTargetInfo(GameObject obj)
     {
         AlignTarget alignTargetTemp = new AlignTarget(obj.transform, angleFocus,
                                camDistance, angleRange, disRange);

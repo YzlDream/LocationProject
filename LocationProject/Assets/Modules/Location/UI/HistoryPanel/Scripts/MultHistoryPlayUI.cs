@@ -16,6 +16,10 @@ public class MultHistoryPlayUI : MonoBehaviour
     /// 窗体
     /// </summary>
     public GameObject window;
+    ///// <summary>
+    ///// 新的人员执行历史轨迹的方法，目前处于测试阶段
+    ///// </summary>
+    //public bool isNewWalkPath;
     //日期
     public Text dayTxt;
     //关闭按钮
@@ -292,7 +296,7 @@ public class MultHistoryPlayUI : MonoBehaviour
         {
             foreach (Personnel p in currentPersonnels)
             {
-                List<Position> ps = GetHistoryData(p.Id, topoNodeIds, start, end);
+                List<Position> ps = GetHistoryData(p.Id, topoNodeIds, start, end,1440f);
                 psList.Add(ps);
                 if (personnel_Points.ContainsKey(p))
                 {
@@ -322,8 +326,8 @@ public class MultHistoryPlayUI : MonoBehaviour
                         Vector3 tempVector3 = new Vector3((float)pointT.X, (float)pointT.Y, (float)pointT.Z);
                         tempVector3 = LocationManager.GetRealVector(tempVector3);
                         pointlist.Add(tempVector3);
-                        //DateTime t = LocationManager.GetTimestampToDateTime(pointT.Time);
-                        DateTime t = pointT.DateTime;
+                        DateTime t = LocationManager.GetTimestampToDateTime(pointT.Time);
+                        //DateTime t = pointT.DateTime;
                         timelist.Add(t);
                     }
 
@@ -337,7 +341,8 @@ public class MultHistoryPlayUI : MonoBehaviour
                     LocationHistoryPath_M histoyObj = LocationHistoryManager.Instance.ShowLocationHistoryPath_M(p, pointlist, pointlist.Count, colorT);
                     histoyObj.InitData(timeLength, timelist);
                     HistoryManController historyManController = histoyObj.gameObject.AddComponent<HistoryManController>();
-                    historyManController.Init(colorT);
+                    histoyObj.historyManController = historyManController;
+                    historyManController.Init(colorT, histoyObj);
                     PersonAnimationController personAnimationController = histoyObj.gameObject.GetComponent<PersonAnimationController>();
                     personAnimationController.DoMove();
                     Debug.Log("StartSingleThread2");
@@ -588,7 +593,9 @@ public class MultHistoryPlayUI : MonoBehaviour
     /// </summary>
     public void SetProcessSliderValue(float v)
     {
+        print("processSlider前:" + v);
         processSlider.value = v;
+        print("processSlider后:" + processSlider.value);
     }
 
     public void ProcessSlider_ValueChanged(float v)

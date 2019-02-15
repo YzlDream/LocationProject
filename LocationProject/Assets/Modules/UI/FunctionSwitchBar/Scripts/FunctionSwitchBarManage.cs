@@ -29,9 +29,17 @@ public class FunctionSwitchBarManage : MonoBehaviour
     /// </summary>
     public ToggleButton3 DevInfoToggle;
     /// <summary>
+    /// 基站设备信息
+    /// </summary>
+    public ToggleButton3 ArchorInfoToggle;
+    /// <summary>
     /// 灯光
     /// </summary>
     public ToggleButton3 lightToggle;
+    /// <summary>
+    /// CADToggle
+    /// </summary>
+    public ToggleButton3 CADToggle;
 
     /// <summary>
     /// 显示人员定位
@@ -104,9 +112,11 @@ public class FunctionSwitchBarManage : MonoBehaviour
         TransparentToggle.OnValueChanged += TransparentToggle_OnValueChanged;
         CameraToggle.OnValueChanged += CameraToggle_OnValueChanged;
         DevInfoToggle.OnValueChanged += DevInfoToggle_OnValueChanged;
+        ArchorInfoToggle.OnValueChanged += ArchorToggle_OnValueChanged;
         BuildingToggle.OnValueChanged += BuildingToggle_OnValueChanged;
         AlarmAreaToggle.OnValueChanged += AlarmAreaToggle_OnValueChanged;
         lightToggle.OnValueChanged += LightToggle_OnValueChanged;
+        CADToggle.OnValueChanged += CADToggle_OnValueChanged;
     }
 
     /// <summary>
@@ -372,7 +382,21 @@ public class FunctionSwitchBarManage : MonoBehaviour
             FollowTargetManage.Instance.HideDevInfoUI();
         }
     }
-
+    /// <summary>
+    /// 是否基站信息
+    /// </summary>
+    /// <param name="isOn"></param>
+    public void ArchorToggle_OnValueChanged(bool isOn)
+    {
+        if (isOn)
+        {
+            FollowTargetManage.Instance.ShowArchorInfoUI();
+        }
+        else
+        {
+            FollowTargetManage.Instance.HideArchorInfoUI();
+        }
+    }
     /// <summary>
     /// 是否开启灯光
     /// </summary>
@@ -386,6 +410,51 @@ public class FunctionSwitchBarManage : MonoBehaviour
         else
         {
             LightManage.Instance.SetMainlight(false);
+        }
+    }
+    /// <summary>
+    /// 是否开启灯光
+    /// </summary>
+    /// <param name="isOn"></param>
+    public void CADToggle_OnValueChanged(bool isOn)
+    {
+        if (isOn)
+        {
+            FactoryDepManager.Instance.ShowCAD();
+        }
+        else
+        {
+            FactoryDepManager.Instance.HideCAD();
+        }
+    }
+
+    /// <summary>
+    /// 设置AlarmAreaToggle的Active
+    /// </summary>
+    /// <param name="isActive"></param>
+    public void SetCADToggleActive(bool isActive)
+    {
+        if (isActive)
+        {
+
+        }
+        else
+        {
+            SetCADToggle(isActive);
+        }
+        CADToggle.gameObject.SetActive(isActive);
+    }
+
+    /// <summary>
+    /// 设置TransparentToggle
+    /// </summary>
+    /// <param name="ison"></param>
+    public void SetCADToggle(bool ison)
+    {
+        if (CADToggle.ison != ison)
+        {
+            CADToggle.ison = ison;
+            CADToggle.SetToggle(ison);
         }
     }
 

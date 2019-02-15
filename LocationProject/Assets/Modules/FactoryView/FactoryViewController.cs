@@ -48,6 +48,10 @@ public class FactoryViewController : MonoBehaviour
         {
             ActionBarManage.Instance.Hide();
         }
+        if (FunctionSwitchBarManage.Instance)
+        {
+            FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
+        }
     }
     /// <summary>
     /// 区域切换响应事件

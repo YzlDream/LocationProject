@@ -736,6 +736,9 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -821,6 +824,19 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
                 }
             }
         }
@@ -2703,6 +2719,9 @@ namespace Location.WCFServiceReferences.LocationCallbackServices {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         CAD = 9,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SwitchArea = 10,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

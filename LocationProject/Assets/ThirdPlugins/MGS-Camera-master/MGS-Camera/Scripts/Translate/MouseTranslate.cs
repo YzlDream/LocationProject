@@ -51,6 +51,11 @@ namespace Mogoson.CameraExtension
         /// Target offset base area center.
         /// </summary>
         protected Vector3 targetOffset;
+
+        /// <summary>
+        /// 鼠标原始位置（Input.GetAxis("Mouse X")在远程桌面和TeamViewer中都是0，不能移动）
+        /// </summary>
+        private Vector3 mousePositionOri;
         #endregion
 
         #region Protected Method
@@ -69,11 +74,19 @@ namespace Mogoson.CameraExtension
         /// </summary>
         protected void TranslateByMouseInput()
         {
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+            {
+                mousePositionOri = Input.mousePosition;
+            }
             if (Input.GetMouseButton(mouseSettings.mouseButtonID))
             {
+                Vector2 mouseOffset = GetMouseOffset();
+                var mouseX = mouseOffset.x * mouseSettings.pointerSensitivity;
+                var mouseY = mouseOffset.y * mouseSettings.pointerSensitivity;
+
                 //Mouse pointer.
-                var mouseX = Input.GetAxis("Mouse X") * mouseSettings.pointerSensitivity;
-                var mouseY = Input.GetAxis("Mouse Y") * mouseSettings.pointerSensitivity;
+                //var mouseX = Input.GetAxis("Mouse X") * mouseSettings.pointerSensitivity;
+                //var mouseY = Input.GetAxis("Mouse Y") * mouseSettings.pointerSensitivity;
 
                 //Deal with offset base direction of target camera.
                 targetOffset -= targetCamera.right * mouseX;
@@ -87,6 +100,27 @@ namespace Mogoson.CameraExtension
             //Lerp and update transform position.
             CurrentOffset = Vector3.Lerp(CurrentOffset, targetOffset, damper * Time.deltaTime);
             transform.position = areaSettings.center.position + CurrentOffset;
+        }
+
+        /// <summary>
+        /// 获取鼠标移动的距离，Input.GetAxis("Mouse X")在远程桌面和TeamViewer中都是0，不能移动
+        /// </summary>
+        /// <returns></returns>
+        private Vector2 GetMouseOffset()
+        {
+            //float x = Input.GetAxis("Mouse X");
+            //float y = Input.GetAxis("Mouse Y");
+            //Vector2 lastPos = new Vector2(x,y);
+            Vector3 mouseOffset = Input.mousePosition - mousePositionOri;
+            //Debug.Log("MouseOffset:(" + mouseOffset.x + "," + mouseOffset.y + ")");
+            mousePositionOri = Input.mousePosition;
+            float x = mouseOffset.x / 30f;
+            float y = mouseOffset.y / 30f;   //12
+            //if (x != 0 && y != 0)
+            //{
+            //    Debug.Log(string.Format("Around GetAxis,system:({0},{1}) caculate:({2},{3})", lastPos.x, lastPos.y, x, y));
+            //}
+            return new Vector2(x, y);
         }
         #endregion
     }

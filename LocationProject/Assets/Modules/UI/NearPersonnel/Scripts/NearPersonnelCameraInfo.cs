@@ -11,14 +11,18 @@ public class NearPersonnelCameraInfo : MonoBehaviour {
     public Text cameraId;
     public Text Distance;
     public Toggle camTog;
+    int num;
+    int m;
     public NearPerCameraRotation nearPerCameraRotation;
     void Start () {
         camTog.onValueChanged.AddListener(Click_Toggle);
 
     }
-    public void showNearPersonnelCamInfo(NearbyDev devList)
+    public void showNearPersonnelCamInfo(NearbyDev devList ,int total,int i)
     {
-       if (devList.TypeName==null)
+        num = total;
+        m = i + 1;
+        if (devList.TypeName==null)
         {
             cameraName.text = "";
         }
@@ -39,12 +43,23 @@ public class NearPersonnelCameraInfo : MonoBehaviour {
         {
             nearPerCameraRotation.CameraPiontClick();
             nearPerCameraRotation.CaneraPoint.isOn = true;
+            ChangeScrollbarValue();
         }
         else
         {
             nearPerCameraRotation.CameraPointExit();
             nearPerCameraRotation.CaneraPoint.isOn = false;
         }
+    }
+    /// <summary>
+    /// 改便滑动条的数值
+    /// </summary>
+    public void ChangeScrollbarValue()
+    {
+        float n = (float )m/num;
+           
+        NearPersonnelCameraManage.Instance.vertical.value = 1-n;
+
     }
     void Update () {
 		

@@ -184,14 +184,16 @@ public class PersonSubsystemManage : MonoBehaviour {
     /// <param name="isOn"></param>
     private void OnHistoricalToggleChange(bool isOn)
     {
-        ParkInformationManage.Instance.ShowParkInfoUI(false );
+        IsHistorical = true;
+        ParkInformationManage.Instance.ShowParkInfoUI(!isOn );
         ChangeImage(isOn, HistoricalToggle);
         Debug.Log("OnHistoricalToggleChange:" + isOn);
         if (isOn)
         {
+
             ToggleChangedBefore();
             MultHistoryPlayUI.Instance.ShowT();
-            IsHistorical = true;
+           
         }
         else
         {

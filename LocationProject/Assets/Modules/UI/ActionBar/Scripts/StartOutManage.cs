@@ -44,6 +44,34 @@ public class StartOutManage : MonoBehaviour {
         ExitDevEditButton.onClick.AddListener(HideDevEditButton);
         SceneEvents.DepNodeChanged+=OnDepNodeChanged;
 	}
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            //Debug.LogError("Escape click...");
+            EscToBack();
+        }
+    }
+
+    private void EscToBack()
+    {
+        if(CameraSceneManager.Instance.alignCamera.IsAligning)
+        {
+            Debug.Log("AlignCamera.IsAligning,wait for next input...");
+            return;
+        }
+        if(ExitDevEditButton.gameObject.activeInHierarchy&&ObjectAddListManage.IsEditMode)
+        {
+            HideDevEditButton();
+        }
+        else if(BackButtonCall!=null&&BackButton.gameObject.activeInHierarchy)
+        {
+            OnBackButtonClick();
+        }else if(UpperStoryButton.gameObject.activeInHierarchy)
+        {
+            OnUpperStoryButtonClick();
+        }
+    }
     /// <summary>
     /// 区域切换事件
     /// </summary>
@@ -79,7 +107,14 @@ public class StartOutManage : MonoBehaviour {
     /// </summary>
     private  void OnExitButtonClick()
     {
-        Application.Quit();
+        UGUIMessageBox.Show("是否确定退出软件？", () =>
+         {
+             Application.Quit();
+         }, () =>
+         {
+
+         });
+        //Application.Quit();
     }
     /// <summary>
     /// 返回首页

@@ -86,7 +86,8 @@ public class FPSMode : MonoBehaviour {
             foreach (Collider item in colliders)
             {
                 if (item.GetComponent<MeshCollider>() || item.GetComponent<DepNode>()) continue;
-                if (PlaneCollider == item || item.GetComponent<DoorAccessItem>() || item.GetComponent<SingleDoorTrigger>()) continue;
+                if (PlaneCollider == item || item.GetComponent<DoorAccessItem>() || item.GetComponent<SingleDoorTrigger>()||item.GetComponent<RoamBuildingCollider>()
+                    ||item.GetComponent<BuildingTopCollider>()||item.GetComponentInParent<BuildingTopCollider>()) continue;
                 if (item.enabled == true)
                 {
                     colliderList.Add(item);

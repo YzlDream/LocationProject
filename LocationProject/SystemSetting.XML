@@ -3,4 +3,5 @@
   <IsDebug>true</IsDebug>
   <cinemachineSetting CMvcamFollow_X="0" CMvcamFollow_Y="20" CMvcamFollow_Z="-10" />
   <communicationSetting Ip1="127.0.0.1" Port1="8733" Ip2="localhost" Port2="8735" />
+  <versionSetting VersionNumber="1.0.21" />
 </SystemSetting>

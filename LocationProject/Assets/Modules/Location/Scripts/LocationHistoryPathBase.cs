@@ -16,7 +16,7 @@ public class LocationHistoryPathBase : HistoryPath
     /// <summary>
     /// 人员信息
     /// </summary>
-    protected Personnel personnel;
+    public Personnel personnel;
     ///// <summary>
     ///// 路径点数，这里的点数跟传入的点无关
     ///// </summary>
@@ -37,7 +37,7 @@ public class LocationHistoryPathBase : HistoryPath
     /// <summary>
     /// 路径演变速度
     /// </summary>
-    public float speed = 0.25f;
+    public float speed = 0.8f;
     ///// <summary>
     ///// 路径颜色
     ///// </summary>
@@ -73,11 +73,12 @@ public class LocationHistoryPathBase : HistoryPath
     //public Transform pathParent;//该历史路径的父物体
 
     //protected bool isCreatePathComplete;//创建历史轨迹是否完成
-    protected int currentPointIndex = 0;
+    public int currentPointIndex = 0;
 
     protected Renderer[] renders;
 
     protected Quaternion targetQuaternion;//目标转向
+
 
     protected override void Start()    {
         StartInit();
@@ -89,12 +90,46 @@ public class LocationHistoryPathBase : HistoryPath
         //}
         foreach (List<Vector3> splinePointsT in splinePointsList)
         {
-            CreateHistoryPath(splinePointsT, splinePointsT.Count);
+            CreateHistoryPath(splinePointsT, splinePointsT.Count - 1);
+        }
+        isCreatePathComplete = true;
+        //if (MultHistoryPlayUI.Instance.isNewWalkPath)
+        //{
+        //    //CreatePathSphere();
+        //}
+    }
+
+    /// <summary>
+    /// 创建路径球，用于测试轨迹画的对不对
+    /// </summary>
+    public void CreatePathSphere()
+    {
+        GameObject op = new GameObject("PathSpheresw");
+        op.transform.SetParent(transform.parent);
+        op.transform.position = Vector3.zero;
+
+        GameObject ot = Instantiate(LocationHistoryManager.Instance.ArrowPrefab);
+        Renderer r = ot.GetComponentInChildren<Renderer>();
+        color = new Color(color.r, color.g, color.b, 0.7f);
+        r.material.SetColor("_TintColor", color);
+
+        int i = 0;
+        foreach (Vector3 p in splinePoints)
+        {
+            //GameObject o = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GameObject o = Instantiate(ot);
+
+            o.transform.SetParent(op.transform);
+            o.transform.position = new Vector3(p.x, p.y, p.z);
+            //o.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            if (i < splinePoints.Count - 1)
+            {
+                o.transform.forward = splinePoints[i + 1] - splinePoints[i];
+            }
+            i++;
         }
 
-
-
-        isCreatePathComplete = true;
+        GameObject.DestroyImmediate(ot);
     }
 
     ///// <summary>
@@ -162,7 +197,9 @@ public class LocationHistoryPathBase : HistoryPath
         base.Update();
         //RefleshDrawLine();
     }
-
+    protected override void FixedUpdate()    {
+        base.FixedUpdate();
+    }
     protected override void LateUpdate()
     {
         base.LateUpdate();
@@ -214,10 +251,80 @@ public class LocationHistoryPathBase : HistoryPath
     //    }
     //}
 
+    private int previousCurrentPointIndex = -1;
+    Vector3 previousPos;
+    int count = 0;
+    float timesum = 0;
+    float timesub = 0;
     /// <summary>
     /// 执行轨迹演变
     /// </summary>
-    protected void ExcuteHistoryPath(int currentPointIndexT, bool isLerp = true)
+    protected void ExcuteHistoryPath(int currentPointIndexT, float rateT = 1f, bool isLerp = true)
+    {
+        //if (!MultHistoryPlayUI.Instance.isNewWalkPath)
+        //{
+        #region 用画线插件来设置人员在轨迹上的位置
+        //ExcuteHistoryPathOP(currentPointIndexT, isLerp);
+        #endregion
+        //}
+        //else
+        //{
+        #region 自己计算设置人员在轨迹上的位置
+
+        if (previousCurrentPointIndex != currentPointIndexT)
+        {
+            count = 0;
+            timesum = 0;
+            previousCurrentPointIndex = currentPointIndexT;
+            if (currentPointIndexT - 1 >= 0 && currentPointIndexT - 1 < splinePoints.Count)
+            {
+                previousPos = splinePoints[currentPointIndexT - 1];
+                timesub = (float)(timelist[currentPointIndexT] - timelist[currentPointIndexT - 1]).TotalSeconds;
+            }
+        }
+        count++;
+        timesum += Time.deltaTime;
+        Vector3 targetPos = splinePoints[currentPointIndexT];
+        Vector3 showPos = targetPos;
+        if (isLerp)
+        {
+            //showPos = Vector3.Lerp(previousPos, targetPos, count * speed * rateT * Time.fixedDeltaTime);//speed小的话会导致计算出来的演变点比实际要演变的点慢很多（两个位置点差距比较大）
+            if (timesub == 0)
+            {
+                showPos = Vector3.Lerp(transform.position, targetPos, count * speed * rateT * Time.deltaTime);
+                Debug.LogError("timesub == 0!!!！！");
+            }
+            else
+            {
+                showPos = Vector3.Lerp(previousPos, targetPos, timesum * rateT / timesub);
+            }
+        }
+        else
+        {
+            showPos = targetPos;
+        }
+
+        Debug.LogError("显示位置：" + showPos + ",索引：" + currentPointIndexT + "，起始点：" + previousPos + ",计数：" + count + ",系数：" + count * speed * rateT * Time.deltaTime + ",speed:" + speed + ",Time.fixedDeltaTime" + Time.fixedDeltaTime);
+        //Debug.LogError("timesum / timesub:" + timesum / timesub);
+
+        //Vector3 dir = showPos - transform.position;
+        Vector3 dir = targetPos - transform.position;
+
+        dir = new Vector3(dir.x, 0, dir.z);
+        if (dir != Vector3.zero)
+        {
+            //将方向转换为四元数
+            targetQuaternion = Quaternion.LookRotation(dir, Vector3.up);
+            //缓慢转动到目标点
+            //transform.rotation = Quaternion.Lerp(transform.rotation, quaDir, Time.fixedDeltaTime * 10);
+        }
+        //transform.position = showPos;
+        transform.position = new Vector3(showPos.x, showPos.y - 0.4f, showPos.z);//减去0.4是为了让人员高度贴近地面，通常为人的一半高度
+        #endregion
+        //}
+    }
+
+    private void ExcuteHistoryPathOP(int currentPointIndexT, bool isLerp)
     {
         Vector3 targetPos;
         //Debug.Log("currentPointIndex:" + currentPointIndex);
@@ -243,10 +350,7 @@ public class LocationHistoryPathBase : HistoryPath
             //缓慢转动到目标点
             //transform.rotation = Quaternion.Lerp(transform.rotation, quaDir, Time.fixedDeltaTime * 10);
         }
-
         transform.position = targetPos;
-
-        //Debug.Log(string.Format("线{0}，progressValue：{1}，progressTargetValue：{2}", n, progressValue, progressTargetValue));
     }
 
     /// <summary>
@@ -378,7 +482,7 @@ public class LocationHistoryPathBase : HistoryPath
                 //Debug.Log("currentPointIndex:" + currentPointIndex);
                 if (currentPointIndex >= 0)
                 {
-                    ExcuteHistoryPath(currentPointIndex, false);
+                    ExcuteHistoryPath(currentPointIndex, 1f, false);
                 }
                 else
                 {
@@ -404,7 +508,7 @@ public class LocationHistoryPathBase : HistoryPath
         SetFollowUI(true);
     }
 
-    public void Hide()
+    public virtual void Hide()
     {
         if (collider.enabled != false)
         {
@@ -602,6 +706,8 @@ public class LocationHistoryPathBase : HistoryPath
             IsShowRenderer = isEnable;
         }
     }
+
+
 
     #region 计算历史轨迹人员的所在区域
 

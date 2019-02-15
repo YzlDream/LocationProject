@@ -179,6 +179,9 @@
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Archor.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Area.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.AreaNode.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -209,7 +212,16 @@
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Dev_DoorAccess.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Dev_Monitor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.EntranceGuardActionInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.InspectionTrack.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.InspectionTrackHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.KKSCode.datasource">
@@ -276,6 +288,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.U3DPosition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.VersionInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.WorkTicket.datasource">

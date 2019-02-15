@@ -121,7 +121,8 @@ public class MapItemInit : MonoBehaviour {
     {
         for(int i=NavigationContent.childCount-1;i>=0;i--)
         {
-            DestroyImmediate(NavigationContent.GetChild(i).gameObject);
+            //DestroyImmediate(NavigationContent.GetChild(i).gameObject);
+            Destroy(NavigationContent.GetChild(i).gameObject);
         }
     }
 

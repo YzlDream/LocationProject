@@ -154,6 +154,7 @@ public class ObjectAddListManage : MonoBehaviour {
             {
                 if(DeviceEditUIManager.Instacne)DeviceEditUIManager.Instacne.HideMultiDev();
                 objectEditor.ClearSelection(false);
+                DeviceEditUIManager.Instacne.Close();
             }
             SetDepBorderDevEnable(FactoryDepManager.currentDep, false);
         }

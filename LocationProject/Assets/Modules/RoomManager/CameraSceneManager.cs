@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
 public class CameraSceneManager : MonoBehaviour {
 
     #region Field and Property
@@ -98,7 +99,7 @@ public class CameraSceneManager : MonoBehaviour {
         //defaultAlign = new AlignTarget(alignCamera.target, new Vector2(40,0),
         //                        230, new Range(5,90), new Range(1,250));
         defaultAlign = new AlignTarget(mouseTranslate.areaSettings.center, new Vector2(40, 0),
-                                230, new Range(5, 90), new Range(1, 250));
+                                230, new Range(0, 90), new Range(1, 250));
         defaultTranslatePro = new MouseTranslatePro();
         defaultTranslatePro.areaSettings = mouseTranslate.areaSettings;
         defaultTranslatePro.mouseSettings = mouseTranslate.mouseSettings;
@@ -114,6 +115,7 @@ public class CameraSceneManager : MonoBehaviour {
         OnBreakAction = onBreakAction;
         IsFocus = false;
         IsMouseTranslateSet = true;
+        mouseTranslate.ResetTranslateOffset();
         AreaSize = new Vector2(defaultTranslatePro.areaSettings.length, defaultTranslatePro.areaSettings.width);
         mouseTranslate.areaSettings = defaultTranslatePro.areaSettings;
         mouseTranslate.mouseSettings = defaultTranslatePro.mouseSettings;
@@ -157,6 +159,56 @@ public class CameraSceneManager : MonoBehaviour {
         alignCamera.AlignVeiwToTarget(targetObj);
     }
 
+    private float minDistanceOrg = -50f; //正交最远距离
+    /// <summary>
+    /// 更换当前聚焦角度和距离
+    /// </summary>
+    /// <param name="angle">角度</param>
+    /// <param name="distance">距离</param>
+    /// <param name="onFocusComplete">聚焦完成回调</param>
+    /// <param name="onBreakAction">被其他聚焦中断的回调</param>
+    public void ChangeFocusAngle(Vector2 angle, Action onFocusComplete = null, Action onBreakAction = null)
+    {
+        OnAlignEndAction = onFocusComplete;
+        if (OnBreakAction != null) OnBreakAction();
+        OnBreakAction = onBreakAction;
+        AlignTarget target = new AlignTarget();
+        target.center = alignCamera.target;
+        target.angleRange =new Range(0,90);
+
+        target.distanceRange = alignCamera.distanceRange;
+        target.distance = alignCamera.CurrentDistance;
+        target.angles = angle;
+        alignCamera.AlignVeiwToTarget(target);
+    }
+    /// <summary>
+    /// 更换当前聚焦角度和距离
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="onFocusComplete"></param>
+    /// <param name="onBreakAction"></param>
+    public void ChangeFocusAngle(AlignTarget target, Action onFocusComplete = null, Action onBreakAction = null)
+    {
+        OnAlignEndAction = onFocusComplete;
+        if (OnBreakAction != null) OnBreakAction();
+        OnBreakAction = onBreakAction;
+        alignCamera.AlignVeiwToTarget(target);
+    }
+
+    /// <summary>
+    /// 获取当前默认参数
+    /// </summary>
+    /// <returns></returns>
+    public AlignTarget GetCurrentAlign()
+    {
+        AlignTarget target = new AlignTarget();
+        target.center = alignCamera.target;
+        target.angleRange = alignCamera.angleRange;
+        target.distanceRange = alignCamera.distanceRange;
+        target.distance = alignCamera.CurrentDistance;
+        target.angles = alignCamera.CurrentAngles;
+        return target;
+    }
     /// <summary>
     /// 聚焦设备，可以拖拽
     /// </summary>
@@ -170,6 +222,7 @@ public class CameraSceneManager : MonoBehaviour {
         OnBreakAction = onBreakAction;
         IsMouseTranslateSet = true;
         AreaSize = size;
+        mouseTranslate.ResetTranslateOffset();
         //mouseTranslate.areaSettings.length = size.x;
         //mouseTranslate.areaSettings.width = size.y;
         //Transform targetCenter = targetObj.center;

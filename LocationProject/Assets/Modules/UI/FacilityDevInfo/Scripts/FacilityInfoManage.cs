@@ -30,10 +30,6 @@ public class FacilityInfoManage : MonoBehaviour
     /// 当前生产设备信息
     /// </summary>
     private FacilitySystemList CurrentList;
-    /// <summary>
-    /// KKS编码
-    /// </summary>
-    private string KKSCode;
     // Use this for initialization
     void Start ()
 	{
@@ -112,20 +108,25 @@ public class FacilityInfoManage : MonoBehaviour
     public void Show(DevInfo devInfo)
     {
         string kksCode = devInfo.KKSCode;
+        if(string.IsNullOrEmpty(kksCode))
+        {
+            UGUIMessageBox.Show("KKS编码为空，请录入设备KKS编码!");
+            return;
+        }
+        kksCode = "J0GCQ41";
+        Dev_Monitor monitorInfo = GetDevMonitor(kksCode);
+        if(monitorInfo==null)
+        {
+            UGUIMessageBox.Show("设备监控数据为空...");
+            return;
+        }
         Bg.SetActive(true);
-        if (!string.IsNullOrEmpty(kksCode)&&kksCode == KKSCode)
+        TitleText.text = string.Format("{0}监控信息", devInfo.Name);
+        if (SubSystemItem.CurrentSelectItem != null)
         {
-            Debug.Log("The same dev...");
+            SubSystemItem.CurrentSelectItem.DeselectItem();
         }
-        else
-        {
-            TitleText.text = string.Format("{0}监控信息",devInfo.Name);
-            if (SubSystemItem.CurrentSelectItem != null)
-            {
-                SubSystemItem.CurrentSelectItem.DeselectItem();
-            }
-            ShowSubSystemInfo(kksCode);
-        }
+        ShowSubSystemInfo(kksCode);
         //ShowSubSystemInfo(kksCode);
     }
     /// <summary>
@@ -138,6 +139,24 @@ public class FacilityInfoManage : MonoBehaviour
         //{
         //    SubSystemItem.CurrentSelectItem.DeselectItem();
         //}
+    }
+    /// <summary>
+    /// 获取设备监控信息
+    /// </summary>
+    /// <param name="kksCode"></param>
+    /// <returns></returns>
+    private Dev_Monitor GetDevMonitor(string kksCode)
+    {
+        CommunicationObject service = CommunicationObject.Instance;
+        if(service)
+        {
+            Dev_Monitor monitorInfo = service.GetMonitorInfoByKKS(kksCode,true);
+            return monitorInfo;
+        }
+        else
+        {
+            return null;
+        }
     }
     /// <summary>
     /// 显示子系统信息

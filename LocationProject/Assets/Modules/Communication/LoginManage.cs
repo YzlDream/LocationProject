@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 /// <summary>
@@ -97,9 +98,56 @@ public class LoginManage : MonoBehaviour {
         {
             if (isLoginSucceed)
             {
-                //AfterLoginSuccessfully();
-                OpenSignalR(IP,Port);
-                Invoke("AfterLoginSuccessfully", 2f);//延迟两秒可以使（正在登录...）动画更流畅一点。
+                //OpenSignalR(IP, Port);
+                //Invoke("AfterLoginSuccessfully", 2f);//延迟两秒可以使（正在登录...）动画更流畅一点。
+                CheckVersion((value,isVersionLower, info) =>
+                {
+                    if (value)
+                    {
+                        LoginSuccess();
+                    }
+                    else
+                    {
+                        DianChangLogin.Instance.CloseLoginProcess();
+                        if (info != null)
+                        {
+                            string msg = GetVersionMsg(isVersionLower,info.Version, SystemSettingHelper.versionSetting.VersionNumber);
+                            string sureBtnName =isVersionLower? "下载安装":"继续登录";
+                            string cancelBtnName = isVersionLower ? "直接登录" : "取消登录";
+                            UGUIMessageBox.Show(msg, sureBtnName, cancelBtnName, () =>
+                             {
+                                 if(isVersionLower)
+                                 {
+                                     FileDownLoad downLoad = FileDownLoad.Instance;
+                                     if (downLoad)
+                                     {
+                                         downLoad.Download(info.LocationURL);
+                                     }
+                                 }
+                                 else
+                                 {
+                                     DianChangLogin.Instance.LoginProcess();
+                                     LoginSuccess();
+                                 }
+                               
+                             }, () =>
+                             {
+                                 if(isVersionLower)
+                                 {
+                                     DianChangLogin.Instance.LoginProcess();
+                                     LoginSuccess();
+                                 }                               
+                             },()=> 
+                             {
+                                 Debug.Log("Cancel update...");
+                             });
+                        }
+                        else
+                        {
+                            UGUIMessageBox.Show("版本号获取失败！");
+                        }
+                    }
+                });
             }
             else
             {
@@ -107,6 +155,127 @@ public class LoginManage : MonoBehaviour {
             }
             isAfterLoginInit = false;
         }
+    }
+    /// <summary>
+    /// 获取版本比较信息
+    /// </summary>
+    /// <param name="isVersionLower"></param>
+    /// <param name="sysVersion"></param>
+    /// <param name="clientVersion"></param>
+    /// <returns></returns>
+    private string GetVersionMsg(bool isVersionLower,string sysVersion,string clientVersion)
+    {
+        string value = "";
+        if(isVersionLower)
+        {
+            value = string.Format("检测到新版本:{0} 当前版本:{1} 是否下载并安装?", sysVersion, clientVersion);
+        }
+        else
+        {
+            value = string.Format("服务器版本过低，请升级服务器!\n服务器版本号：{0} 客户端版本号：{1}",sysVersion,clientVersion);
+        }
+        return value;
+    }
+
+    /// <summary>
+    /// 登录成功
+    /// </summary>
+    private void LoginSuccess()
+    {
+        OpenSignalR(IP, Port);
+        Invoke("AfterLoginSuccessfully", 2f);//延迟两秒可以使（正在登录...）动画更流畅一点。
+    }
+    /// <summary>
+    /// 检查版本号 
+    /// </summary>
+    /// <param name="onComplete"></param>
+    private void CheckVersion(Action<bool,bool, VersionInfo> onComplete)
+    {
+        VersionInfo info = null;
+        ThreadManager.Run(()=> 
+        {
+             info = communicationObject.GetVersionInfo();
+        },()=> 
+        {
+            string systemVersion = "";
+            if (SystemSettingHelper.versionSetting != null&&!string.IsNullOrEmpty(SystemSettingHelper.versionSetting.VersionNumber))
+            {
+                systemVersion = SystemSettingHelper.versionSetting.VersionNumber;
+            }
+            else
+            {
+                SystemSettingHelper.GetSystemSetting();
+                if (SystemSettingHelper.versionSetting != null) systemVersion = SystemSettingHelper.versionSetting.VersionNumber;
+                else Debug.LogError("SystemSettingHelper.GetSystemSetting() failed...");
+            }
+            if (info!=null&&info.Version.ToLower() == systemVersion)
+            {
+                if (onComplete != null) onComplete(true,true,info);//版本一致
+            }
+            else
+            {
+                bool isLower = IsVersionLower(info.Version,systemVersion);
+                if (onComplete != null) onComplete(false,isLower,info);//版本号不一致
+            }
+        },"Check Version");       
+    }
+    /// <summary>
+    /// 客户端版本是否过低（低/高）
+    /// </summary>
+    /// <returns></returns>
+    private bool IsVersionLower(string systemVersion,string clientVersion)
+    {
+        systemVersion = systemVersion.Trim();
+        clientVersion = clientVersion.Trim();
+
+        string[] sysGroup = systemVersion.Split('.');
+        string[] clientGroup = clientVersion.Split('.');
+
+        if(sysGroup.Length== clientGroup.Length)
+        {
+            for(int i=0;i< sysGroup.Length;i++)
+            {
+                int? sys = TryParseInt(sysGroup[i]);
+                int? client = TryParseInt(clientGroup[i]);
+                if (sys == null || client == null||sys==client) continue;
+                return sys > client ? true : false;
+            }
+        }
+        Debug.LogError("Split version error...");
+        return false;
+    }
+    public int? TryParseInt(string item)
+    {
+        try
+        {
+            int value = int.Parse(item);
+            return value;
+        }catch(Exception e)
+        {
+            return null;
+        }
+    }
+    /// <summary>
+    /// 获取字符串中的数字
+    /// </summary>
+    /// <param name="str">字符串</param>
+    /// <returns>数字</returns>
+    public static int GetNumberInt(string str)
+    {
+        int result = 0;
+        try
+        {
+            if (str != null && str != string.Empty)
+            {
+                str = Regex.Replace(str, @"[^0-9]+", "");
+                result = int.Parse(str);
+            }
+        }
+        catch(Exception e)
+        {
+            result = 0;
+        }       
+        return result;
     }
     /// <summary>
     /// 连接SignalR服务端

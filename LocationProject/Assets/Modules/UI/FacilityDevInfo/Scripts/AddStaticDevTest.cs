@@ -22,6 +22,7 @@ public class AddStaticDevTest : MonoBehaviour {
         for(int i=0;i<childCount;i++)
         {
             GameObject obj = transform.GetChild(i).gameObject;
+            if (obj.name.Contains("Invalid")) continue;
             obj.AddMissingComponent<FacilityDevController>();
             MeshRenderer render = obj.transform.GetComponent<MeshRenderer>();
             if(render != null)
@@ -86,14 +87,7 @@ public class AddStaticDevTest : MonoBehaviour {
         dev.ModelName = model.name;
         dev.Status = 0;
         dev.ParentId = GetPID(model);
-        try
-        {
-            dev.TypeCode = int.Parse(TypeCodeHelper.StaticDevTypeCode);
-        }
-        catch (Exception e)
-        {
-            dev.TypeCode = 0;
-        }
+        dev.TypeCode = 20181008;
         dev.UserName = "admin";
         return dev;
     }

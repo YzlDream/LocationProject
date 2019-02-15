@@ -24,6 +24,21 @@ public class ShowModelInfo : MonoBehaviour {
     public void ShowVertexs()
     {
         Vertexs = 0;
+        MeshFilter[] mrs = gameObject.GetComponentsInChildren<MeshFilter>(true);
+        for (int i = 0; i < mrs.Length; i++)
+        {
+            Vertexs += mrs[i].sharedMesh.vertexCount;
+        }
+        Debug.Log("Vertexs:" + Vertexs);
+    }
+
+    /// <summary>
+    /// 显示激活了的模型顶点数
+    /// </summary>
+    [ContextMenu("ShowActiveVertexs")]
+    public void ShowActiveVertexs()
+    {
+        Vertexs = 0;
         MeshFilter[] mrs = gameObject.GetComponentsInChildren<MeshFilter>();
         for (int i = 0; i < mrs.Length; i++)
         {

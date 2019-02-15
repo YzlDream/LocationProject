@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using UnityEngine;
 using UnityEngine.UI;
+using Types = Location.WCFServiceReferences.LocationServices.AreaTypes;
 
 public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
 {
@@ -260,14 +261,22 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
         List<GameObject> gs = new List<GameObject>(EditorObjectSelection.Instance.SelectedGameObjects);
         if (gs.Contains(gameObject))
         {
-            UpdateSize();
-            UpdatePos();
-            UpdateAngle();
-            SaveInfo();
+            DoSaveInfo();
             RangeEditWindow.Instance.Show(this);
         }
     }
 
+    /// <summary>
+    /// 保存相关修改
+    /// </summary>
+    [ContextMenu("DoSaveInfo")]
+    public void DoSaveInfo()
+    {
+        UpdateSize();
+        UpdatePos();
+        UpdateAngle();
+        SaveInfo();
+    }
 
     private void ScaleGizmo_GizmoDragUpdate(Gizmo gizmo)
     {
@@ -478,62 +487,31 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
         //p.
         if (tranM.IsCreateAreaByData) //利用数据创建区域范围
         {
-            Vector3 pos = new Vector3((float)tranM.X, (float)tranM.Y, (float)tranM.Z);
-            Vector3 angles = new Vector3((float)tranM.RX, (float)tranM.RY, (float)tranM.RZ);
-            Vector3 size = new Vector3((float)tranM.SX, (float)tranM.SY, (float)tranM.SZ);
-
-            targetPos = LocationManager.GetRealSizeVector(pos);
-            Vector3 realsize = LocationManager.GetRealSizeVector(size);
-            targetScale = new Vector3(Mathf.Abs(realsize.x / oriSize.x), Mathf.Abs(realsize.y / oriSize.y), Mathf.Abs(realsize.z / oriSize.z));
-            if (!info.Transfrom.IsRelative)
-            {
-                targetPos += LocationManager.Instance.axisZero;
-            }
-            else
-            {
-                if (rangeNode.parentNode != null)
-                {
-                    PhysicalTopology buldingNode = rangeNode.parentNode.info;
-                    TransformM tm = buldingNode.Transfrom;
-                    Vector3 buildPos = Vector3.zero;
-                    if (tm != null && tm.IsCreateAreaByData)
-                    {
-                        Vector3 pos2D = new Vector3((float)(tm.SX / 2f), (float)(tm.SY / 2), (float)(tm.SZ / 2));//建筑物的左下角坐标
-                                                                                                                 //Log.Info("建筑物的右下角坐标:" + pos2D);
-
-                        buildPos = -LocationManager.GetRealSizeVector(pos2D);
-                        buildPos += rangeNode.parentNode.thisRange.transform.position;
-
-                    }
-                    else
-                    {
-                        Vector3 pSize = rangeNode.parentNode.thisRange.gameObject.GetGlobalSize();
-                        buildPos += rangeNode.parentNode.thisRange.transform.position;
-                        buildPos += new Vector3((float)(pSize.x / 2f), (float)(-(pSize.y + rangeNode.parentNode.thisRange.yOffset) / 2), (float)(pSize.z / 2));//建筑物的左下角坐标
-                    }
-
-                    targetPos += buildPos;
-                }
-            }
-
-            targetAngles = new Vector3((float)tranM.RX, (float)tranM.RY, (float)tranM.RZ);
+            UpdatePosSizeInfoOP(tranM);
         }
         else//利用自身大小创建区域范围
         {
-            Vector3 pos = Vector3.zero;
-            Vector3 angles = Vector3.zero;
-            pos = followTarget.transform.position;//获取相对父区域范围的坐标
-            angles = followTarget.transform.eulerAngles;//获取相对父区域范围的角度
-
-            targetPos = pos;
-            Vector3 size = followTarget.GetGlobalSize();
-            if (size.y > yOffset)//为了处理楼层的区域范围计算不用太高，以至于超出楼层高度
+            if (followTarget != null)
             {
-                size = new Vector3(size.x, size.y - yOffset, size.z);
-                //targetPos = new Vector3(targetPos.x, targetPos.y - (1f / 2), targetPos.z);
+                Vector3 pos = Vector3.zero;
+                Vector3 angles = Vector3.zero;
+                pos = followTarget.transform.position;//获取相对父区域范围的坐标
+                angles = followTarget.transform.eulerAngles;//获取相对父区域范围的角度
+
+                targetPos = pos;
+                Vector3 size = followTarget.GetGlobalSize();
+                if (size.y > yOffset)//为了处理楼层的区域范围计算不用太高，以至于超出楼层高度
+                {
+                    size = new Vector3(size.x, size.y - yOffset, size.z);
+                    //targetPos = new Vector3(targetPos.x, targetPos.y - (1f / 2), targetPos.z);
+                }
+                targetScale = new Vector3(Mathf.Abs(size.x / oriSize.x), Mathf.Abs(size.y / oriSize.y), Mathf.Abs(size.z / oriSize.z)); ;//就跟BoxCollider一样大
+                targetAngles = angles;
             }
-            targetScale = new Vector3(Mathf.Abs(size.x / oriSize.x), Mathf.Abs(size.y / oriSize.y), Mathf.Abs(size.z / oriSize.z)); ;//就跟BoxCollider一样大
-            targetAngles = angles;
+            else
+            {
+                UpdatePosSizeInfoOP(tranM);
+            }
         }
 
         if (transform.parent != null)
@@ -542,6 +520,59 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
 
         }
 
+    }
+
+    private void UpdatePosSizeInfoOP(TransformM tranM)
+    {
+        Vector3 pos = new Vector3((float)tranM.X, (float)tranM.Y, (float)tranM.Z);
+        Vector3 angles = new Vector3((float)tranM.RX, (float)tranM.RY, (float)tranM.RZ);
+        Vector3 size = new Vector3((float)tranM.SX, (float)tranM.SY, (float)tranM.SZ);
+
+        targetPos = LocationManager.GetRealSizeVector(pos);
+        Vector3 realsize = LocationManager.GetRealSizeVector(size);
+        targetScale = new Vector3(Mathf.Abs(realsize.x / oriSize.x), Mathf.Abs(realsize.y / oriSize.y), Mathf.Abs(realsize.z / oriSize.z));
+        if (!info.Transfrom.IsRelative)
+        {
+            targetPos += LocationManager.Instance.axisZero;
+        }
+        else
+        {
+            if (rangeNode.parentNode != null)
+            {
+                PhysicalTopology buldingNode = rangeNode.parentNode.info;
+                TransformM tm = buldingNode.Transfrom;
+                Vector3 buildPos = Vector3.zero;
+                if (tm != null && tm.IsCreateAreaByData)
+                {
+                    Vector3 pos2D = new Vector3((float)(tm.SX / 2f), (float)(tm.SY / 2), (float)(tm.SZ / 2));//建筑物的左下角坐标
+                                                                                                             //Log.Info("建筑物的右下角坐标:" + pos2D);
+
+                    buildPos = -LocationManager.GetRealSizeVector(pos2D);
+                    buildPos += rangeNode.parentNode.thisRange.transform.position;
+
+                }
+                else
+                {
+                    if (rangeNode.parentNode.thisRange)
+                    {
+                        Vector3 pSize = rangeNode.parentNode.thisRange.gameObject.GetGlobalSize();
+                        buildPos += rangeNode.parentNode.thisRange.transform.position;
+                        buildPos += new Vector3((float)(pSize.x / 2f), (float)(-(pSize.y + rangeNode.parentNode.thisRange.yOffset) / 2), (float)(pSize.z / 2));//建筑物的左下角坐标
+                    }
+                    else
+                    {
+                        if (rangeNode.parentNode.info.Type == Types.范围)
+                        {
+                            targetPos += LocationManager.Instance.axisZero;
+                        }
+                    }
+                }
+
+                targetPos += buildPos;
+            }
+        }
+
+        targetAngles = new Vector3((float)tranM.RX, (float)tranM.RY, (float)tranM.RZ);
     }
 
     ///// <summary>
@@ -735,7 +766,7 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
         {
             Vector3 pSize = Vector3.zero;
             Vector3 pPos = Vector3.zero;
-            if (depNode.ParentNode != null && depNode.ParentNode.monitorRangeObject != null)
+            if (depNode != null && depNode.ParentNode != null && depNode.ParentNode.monitorRangeObject != null)
             {
                 pSize = depNode.ParentNode.monitorRangeObject.gameObject.GetGlobalSize();
                 pPos = depNode.ParentNode.monitorRangeObject.transform.position;
@@ -934,7 +965,12 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
         //CommunicationObject.Instance.EditArea(info);
         Log.Info("EditMonitorRange", TransformMToString(info.Transfrom));
         InitXZpointList();
-        CommunicationObject.Instance.EditMonitorRange(info);
+        //CommunicationObject.Instance.EditMonitorRange(info);
+        PhysicalTopology p = new PhysicalTopology();
+        p.Id = info.Id;
+        p.Transfrom = info.Transfrom;
+        p.InitBound = info.InitBound;
+        CommunicationObject.Instance.EditMonitorRange(p);
     }
 
     public static string TransformMToString(TransformM t)
@@ -1132,10 +1168,10 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
     {
         if (!alarmPersons.Contains(locationObject))
         {
-            Debug.LogErrorFormat("区域：{0},告警了！", depNode.TopoNode.Name);
+            Debug.LogErrorFormat("区域：{0},告警了！", info.Name);
+            alarmPersons.Add(locationObject);
             if (isAlarming) return;
             isAlarming = true;
-            alarmPersons.Add(locationObject);
             AlarmOn();          
         }
     }
@@ -1149,7 +1185,7 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
         alarmPersons.Remove(locationObject);
         if (alarmPersons.Count == 0)
         {
-            Debug.LogErrorFormat("区域：{0},消警了！", depNode.TopoNode.Name);
+            Debug.LogErrorFormat("区域：{0},消警了！", info.Name);
             if (isAlarming==false) return;
             AlarmOff();
             isAlarming = false;
@@ -1282,7 +1318,7 @@ public class MonitorRangeObject : MonoBehaviour, IRTEditorEventListener
     }
 
     /// <summary>
-    /// 计算区域在XZ平面到点最短距离的点的位置坐标
+    /// 计算区域在XZ平面,到位置点最短距离的点的坐标
     /// </summary>
     /// <param name="point">位置点</param>
     /// <param name="verts">区域底面顶点集合（顺，逆时针都可以）</param>

@@ -14,7 +14,8 @@ namespace TwoTicketSystem
         public Text txtPerson;//负责人
 
         public WorkTicket info;//工作票信息
-
+        public Text PersonnelNumText;
+        public   ChangeTextColor changeTextColor;
         // Use this for initialization
         void Start()
         {
@@ -39,8 +40,10 @@ namespace TwoTicketSystem
         /// <param name="personStr"></param>
         public void Init(WorkTicket infoT)
         {
+            PersonnelNumText.text = TwoTicketSystemUI_N.Instance.WorkNum.ToString();
             info = infoT;
             UpdateData(info.No, info.PersonInCharge);
+
         }
 
         /// <summary>
@@ -66,9 +69,11 @@ namespace TwoTicketSystem
                 TwoTicketSystemManage.Instance.ShowWorkTicketPath(info);
                 ToggleGroup toggleGroup = TwoTicketSystemUI_N.Instance.toggleGroup;
                 FunctionSwitchBarManage.Instance.SetTransparentToggle(true);
+                changeTextColor.ClickTextColor();
             }
             else
             {
+                changeTextColor.NormalTextColor();
                 TwoTicketSystemManage.Instance.Hide();
                 FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
                 WorkTicketDetailsUI_N.Instance.SetWindowActive(false);

@@ -91,6 +91,10 @@ public class IsClickUGUIorNGUI : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {
+            //EventSystem.current.UpdateModules();
+            //EventSystem.current.currentInputModule.UpdateModule();
+            //EventSystem.current.currentInputModule.Process();
+            //PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 isClickUGUI = true;

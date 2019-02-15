@@ -61,6 +61,13 @@ public class ObjectsEditManage : MonoBehaviour
         if (ObjectAddListManage.IsEditMode)
         {
             ClearSelection();
+            DeviceEditUIManager manager = DeviceEditUIManager.Instacne;
+            if(manager)
+            {
+                manager.Close();
+                manager.HideMultiDev();
+                manager.SetEmptValue();
+            }
             EditorCamera.Instance.SetObjectVisibilityDirty();
         }
     }

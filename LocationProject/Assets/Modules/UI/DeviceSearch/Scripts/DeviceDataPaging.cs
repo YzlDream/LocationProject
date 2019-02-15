@@ -82,9 +82,9 @@ public class DeviceDataPaging : MonoBehaviour {
     void Start () {
         Instance = this;
         //devSearch = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
-        SeachDevName = devSearch;
-        TotaiLine(devSearch);
-        GetPageDevData(devSearch);
+     //   SeachDevName = devSearch;
+     //   TotaiLine(devSearch);
+      //  GetPageDevData(devSearch);
         AddPageBut.onClick.AddListener(AddDevPage);
         MinusPageBut.onClick.AddListener( MinusDevPage );
         pageNumText.onValueChanged.AddListener(InputDevPage);
@@ -111,15 +111,18 @@ public class DeviceDataPaging : MonoBehaviour {
 
         Loom.StartSingleThread(() =>
         {
-            SeachDevName = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
+            devSearch = new List<DevInfo>(CommunicationObject.Instance.GetAllDevInfos());
+          
             Loom.DispatchToMainThread(() =>
             {
-                TotaiLine(devSearch);
+                SeachDevName.AddRange(devSearch);
+               //  SeachDevName = devSearch;
                 pageNumText.text = "1";
                 PageNum = 1;
                 StartPageNum = 0;
                 InputDev.text = "";
                 GetPageDevData(devSearch);
+                TotaiLine(devSearch);
                 ShowTotalPage(true);
                 //  SearchDevInfo.Instance.SearchPageing.SetActive(false);
                 promptText.gameObject.SetActive(false);
@@ -274,7 +277,16 @@ public class DeviceDataPaging : MonoBehaviour {
     /// <param name="value"></param>
     public void InputDevPage(string value)
     {
-        int currentPage = int.Parse(pageNumText.text);
+        int currentPage;
+        if (string.IsNullOrEmpty( pageNumText.text))
+        {
+            currentPage = 1;
+        }else
+        {
+            currentPage = int.Parse(pageNumText.text);
+        }
+        
+     
         int  maxPage = (int )Math.Ceiling((double)SeachDevName.Count / (double)pageSize);
 
         if (currentPage >maxPage)
@@ -302,12 +314,12 @@ public class DeviceDataPaging : MonoBehaviour {
         pageNumText.text = "1";
         SeachDevName.Clear();
         SaveSelection();
-        string key = InputDev.text.ToString();
+        string key = InputDev.text.ToString().ToLower();
         for (int i=0;i< devSearch.Count; i++)
         {
-            string devName = devSearch[i].Name;
-            string devIP = devSearch[i].IP;
-            if (devName.Contains (key )|| devIP.Contains (key ))
+            string devName = devSearch[i].Name.ToLower();
+            string devIP = devSearch[i].IP.ToLower();
+            if (devName.ToLower().Contains (key )|| devIP.ToLower().Contains (key ))
             {
               
                 SeachDevName.Add(devSearch[i]);
@@ -380,8 +392,9 @@ public class DeviceDataPaging : MonoBehaviour {
         devSearchUI.SetActive(false);
         DevSubsystemManage.Instance.ChangeImage(false, DevSubsystemManage.Instance.QueryToggle);
         DevSubsystemManage.Instance.QueryToggle.isOn = false;
+        SeachDevName.Clear();
        // SearchDevInfo.Instance.SaveSelection();
-      //  SearchDevInfo.Instance.ExitSearchUI();
+       //  SearchDevInfo.Instance.ExitSearchUI();
        // DeviceSearchTween.instance.ShowMinWindow(false);
     }
     /// <summary>

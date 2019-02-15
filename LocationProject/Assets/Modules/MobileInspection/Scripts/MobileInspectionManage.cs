@@ -52,16 +52,7 @@ public class MobileInspectionManage : MonoBehaviour
     public void ShowDemo()
     {
         HideDemo();
-        //GameObject targetTagObj1 = UGUIFollowTarget.CreateTitleTag(item1.gameObject, Vector3.zero);
-        //GameObject uiObj1 = UGUIFollowManage.Instance.CreateItem(followUI.gameObject, targetTagObj1, "MobileInspectionUI", null, false, false);
-        //MobileInspectionFollowUI follow1 = uiObj1.GetComponent<MobileInspectionFollowUI>();
-        //follow1.Init(true, "1", "巡检点1");
-
-        //GameObject targetTagObj2 = UGUIFollowTarget.CreateTitleTag(item2.gameObject, Vector3.zero);
-        //GameObject uiObj2 = UGUIFollowManage.Instance.CreateItem(followUI.gameObject, targetTagObj2, "MobileInspectionUI", null, false, false);
-        //MobileInspectionFollowUI follow2 = uiObj2.GetComponent<MobileInspectionFollowUI>();
-        //follow2.Init(false, "2", "巡检点2");
-
+       
         NewMethod(item1, true, "1", "巡检点1");
         NewMethod(item2, true, "2", "巡检点2");
         NewMethod(item3, true, "3", "巡检点3");
@@ -91,7 +82,7 @@ public class MobileInspectionManage : MonoBehaviour
     }
 
 
-    //public List<OperationTicketHistoryPath> operationTicketHistoryPaths;
+
 
     /// <summary>
     /// 显示工作票路线
@@ -115,6 +106,7 @@ public class MobileInspectionManage : MonoBehaviour
                     GameObject targetTagObj1 = UGUIFollowTarget.CreateTitleTag(devNodeT.gameObject, Vector3.zero);
                     GameObject uiObj1 = UGUIFollowManage.Instance.CreateItem(followUI.gameObject, targetTagObj1, "MobileInspectionUI", null, false, false);
                     MobileInspectionFollowUI follow1 = uiObj1.GetComponent<MobileInspectionFollowUI>();
+
                     List<PersonnelMobileInspectionItem> listT = personnelMobileInspectionT.list.ToList();
                     PersonnelMobileInspectionItem operationItemT = listT.Find((itemt) => itemt.DevId == devNodeT.Info.Id);
                     try
@@ -132,63 +124,7 @@ public class MobileInspectionManage : MonoBehaviour
 
     }
 
-    ///// <summary>
-    ///// 创建操作票历史路径
-    ///// </summary>
-    //public void CreateOperationTicketHistoryPath(OperationTicket operationTicketT)
-    //{
-    //    Personnel personnel = personnels.Find((item) => item.Id == operationTicketT.OperatorPersonelId);
-    //    if (personnel != null)
-    //    {
-
-
-    //        DateTime start = new DateTime(2018, 9, 30, 10, 0, 0);
-    //        DateTime end = new DateTime(2018, 9, 30, 11, 0, 0);
-    //        List<int> topoNodeIds = RoomFactory.Instance.GetCurrentDepNodeChildNodeIds(SceneEvents.DepNode);
-    //        List<Position> ps = new List<Position>();
-    //        List<Vector3> list = new List<Vector3>();
-    //        List<DateTime> timelist = new List<DateTime>();
-
-    //        Loom.StartSingleThread(() =>
-    //        {
-    //            ps = GetHistoryData(personnel.Id, topoNodeIds, start, end);
-
-    //            Loom.DispatchToMainThread(() =>
-    //            {
-    //                Debug.LogError("点数：" + ps.Count);
-    //                if (ps.Count < 2) return;
-
-    //                for (int i = 0; i < ps.Count; i++)
-    //                {
-    //                    Position p = ps[i];
-    //                    Vector3 tempVector3 = new Vector3((float)p.X, (float)p.Y, (float)p.Z);
-    //                    tempVector3 = LocationManager.GetRealVector(tempVector3);
-    //                    list.Add(tempVector3);
-    //                    DateTime t = LocationManager.GetTimestampToDateTime(p.Time);
-    //                    timelist.Add(t);
-    //                }
-    //                GameObject o = new GameObject(operationTicketT.Operator + "工作票");
-    //                OperationTicketHistoryPath path = o.AddComponent<OperationTicketHistoryPath>();
-    //                path.Init(personnel, Color.green, list, timelist, list.Count, false);
-    //                operationTicketHistoryPaths.Add(path);
-    //            });
-    //        });
-    //    }
-    //}
-
-    ///// <summary>
-    ///// 清除操作票历史轨迹
-    ///// </summary>
-    //[ContextMenu("ClearOperationTicketHistoryPaths")]
-    //public void ClearOperationTicketHistoryPaths()
-    //{
-    //    foreach (OperationTicketHistoryPath path in operationTicketHistoryPaths)
-    //    {
-    //        DestroyImmediate(path.transform.parent.gameObject);//
-    //    }
-    //    operationTicketHistoryPaths.Clear();
-
-    //}
+ 
     public void Hide()
     {
         UGUIFollowManage.Instance.RemoveGroupUIbyName("MobileInspectionUI");

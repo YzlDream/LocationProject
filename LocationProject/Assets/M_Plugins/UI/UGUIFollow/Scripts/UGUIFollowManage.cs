@@ -338,6 +338,7 @@ public class UGUIFollowManage : MonoBehaviour
 
             for (int i = 0; i < uiList.Count; i++)
             {
+                if (!uiList[i].gameObject.activeInHierarchy) continue;
                 uiList[i].transform.SetAsFirstSibling();
             }
             //print("Sort");

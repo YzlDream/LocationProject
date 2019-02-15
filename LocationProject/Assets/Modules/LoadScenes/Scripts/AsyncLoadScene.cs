@@ -29,6 +29,8 @@ public class AsyncLoadScene : MonoBehaviour
 
     public bool isLoadStart = false;//是否在Start里面开始加载
 
+    public Image backImage;//背景图
+
     void Awake()
     {
         Instance = this;
@@ -50,6 +52,7 @@ public class AsyncLoadScene : MonoBehaviour
             {
                 //启动协程
                 StartCoroutine(AsyncLoading());
+                //StartCoroutine(AsyncLoadingAdd());
             }
         }
     }
@@ -66,6 +69,7 @@ public class AsyncLoadScene : MonoBehaviour
     }
     IEnumerator AsyncLoadingAdd()
     {
+        yield return new WaitForEndOfFrame();//加上这么一句就可以先显示加载画面然后再进行加载
         operation = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
         //阻止当加载完成自动切换
         operation.allowSceneActivation = false;
@@ -77,6 +81,10 @@ public class AsyncLoadScene : MonoBehaviour
     {
         operation = null;
         GC.Collect();
+        if (backImage)
+        {
+            backImage.gameObject.SetActive(false);
+        }
         ProgressbarLoad.Instance.Hide();
         Debug.LogError("加载场景：" + nextSceneName + "完成");
 

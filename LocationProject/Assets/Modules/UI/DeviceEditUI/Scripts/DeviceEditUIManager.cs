@@ -175,7 +175,7 @@ public class DeviceEditUIManager : MonoBehaviour
                 {
                     service.DeleteDevInfo(currentDev.Info);
                 }
-                DeleteDevInfo(currentDev,service);
+                RemoveDevCache(currentDev);
                 Close();
                 //RemoveFollowObject(currentDev.gameObject);
                 RemoveObjectFromSelection(currentDev.gameObject);
@@ -197,7 +197,7 @@ public class DeviceEditUIManager : MonoBehaviour
     /// 删除设备信息
     /// </summary>
     /// <param name="dev"></param>
-    private void DeleteDevInfo(DevNode dev,CommunicationObject service)
+    private void RemoveDevCache(DevNode dev)
     {
         if(RoomFactory.Instance)
         {
@@ -215,12 +215,7 @@ public class DeviceEditUIManager : MonoBehaviour
                 //FactoryDepManager.currentDep.FocusOn();
                 dev.FocusOff();
             }
-        }
-        if(TypeCodeHelper.IsLocationDev(dev.Info.TypeCode.ToString()))
-        {
-            Archor archor = service.GetArchorByDevId(dev.Info.Id);
-            if(archor!=null)service.DeleteArchor(archor.Id);
-        }
+        }       
     }
     /// <summary>
     /// 删除子设备（门禁、基站等）
@@ -235,6 +230,11 @@ public class DeviceEditUIManager : MonoBehaviour
             List<Dev_DoorAccess> doorAccessList = new List<Dev_DoorAccess>();
             doorAccessList.Add(controller.DoorAccessInfo);
             bool value = CommunicationObject.Instance.DeleteDoorAccess(doorAccessList);
+            return true;
+        }else if (TypeCodeHelper.IsLocationDev(dev.Info.TypeCode.ToString()))
+        {
+            bool value = CommunicationObject.Instance.DeleteArchor(dev.Info.Id);
+            //print("DeleteArchor:"+value);
             return true;
         }
         else
@@ -358,7 +358,7 @@ public class DeviceEditUIManager : MonoBehaviour
         GameObject targetTagObj = GetTitleObj(dev);
         Camera mainCamera = GetMainCamera();
         if (mainCamera == null) return null;
-        GameObject followItem = UGUIFollowManage.Instance.CreateItem(FollowPrefab, targetTagObj, followName, null, false, true);
+        GameObject followItem = UGUIFollowManage.Instance.CreateItem(FollowPrefab, targetTagObj, followName, null, false);
         return followItem;
     }
     /// <summary>

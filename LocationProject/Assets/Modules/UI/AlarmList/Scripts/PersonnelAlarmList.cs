@@ -67,16 +67,19 @@ public class PersonnelAlarmList : MonoBehaviour
     public AlarmSearchArg perAlarmData;
     public LocationAlarm[] perAlarmInfo;
     public List<LocationAlarm> PerAlarmList;
-   
+
     List<LocationAlarm> ScreenAlarmItem;
     public StartTime showStartTime;
     public PersonnelAlarmType perAlarmType;
-
+    List<LocationAlarm> AlarmItem;
     void Start()
     {
+        AlarmItem = new List<LocationAlarm>();
+        ScreenAlarmItem = new List<LocationAlarm>();
         Instance = this;
         perAlarmData = new AlarmSearchArg();
-      
+        pegeTotalText.text = "1";
+        pegeNumText.text = "1";
         //LoadData();
         //StartPerAlarmUI();
         AddPageBut.onClick.AddListener(AddPerAlarmPage);
@@ -92,13 +95,19 @@ public class PersonnelAlarmList : MonoBehaviour
     private void LoadData()
     {
         var personnelAlarm = CommunicationObject.Instance.GetLocationAlarms(perAlarmData);
-        if (personnelAlarm!=null)
+        if (personnelAlarm != null)
         {
             PerAlarmList = new List<LocationAlarm>(personnelAlarm);
-            ScreenAlarmItem = new List<LocationAlarm>(personnelAlarm); ;
+            foreach (var devAlarm in PerAlarmList)
+            {
+                if (devAlarm.AlarmLevel != LocationAlarmLevel.正常)
+                {
+                    AlarmItem.Add(devAlarm);
+                }
+
+            }
         }
-       
-       
+
     }
 
     /// <summary>
@@ -127,19 +136,28 @@ public class PersonnelAlarmList : MonoBehaviour
             LoadData();
             Loom.DispatchToMainThread(() =>
             {
-                StartPageNum = 0;
-                PageNum = 1;
-                GetPersonnelAlarmPage(PerAlarmList);
-                pegeNumText.text = "1";
-                InputPerAlarm.text = "";
-                TotaiLine(PerAlarmList);
-                DateTime CurrentTime = System.DateTime.Now;
-                string currenttime = CurrentTime.ToString("yyyy年MM月dd日");
-                StartTimeText.text = currenttime;
-                DealTimeText.text = currenttime;
-                promptText.gameObject.SetActive(false);
-                showStartTime.ShowStartTime();
-                perAlarmType.ShowDropdownFirstData();
+                if (PerAlarmList == null)
+                {
+                    pegeTotalText.text = "1";
+                    pegeNumText.text = "1";
+                }
+                else
+                {
+                    StartPageNum = 0;
+                    PageNum = 1;
+                    GetPersonnelAlarmPage(AlarmItem);
+                    pegeNumText.text = "1";
+                    InputPerAlarm.text = "";
+                    TotaiLine(AlarmItem);
+                    DateTime CurrentTime = System.DateTime.Now;
+                    string currenttime = CurrentTime.ToString("yyyy年MM月dd日");
+                    StartTimeText.text = currenttime;
+                    DealTimeText.text = currenttime;
+                    promptText.gameObject.SetActive(false);
+                    showStartTime.ShowStartTime();
+                  //  perAlarmType.ShowDropdownFirstData();
+                }
+
             });
         });
     }
@@ -162,22 +180,22 @@ public class PersonnelAlarmList : MonoBehaviour
         else
         {
             pegeTotalText.text = "1";
-           
+
         }
-      
+
     }
-     bool IsScreen=false;
-    bool IsTime1=false ;
-    bool IsTIme2=false ;
+    bool IsScreen = false;
+    bool IsTime1 = false;
+    bool IsTIme2 = false;
     /// <summary>
     /// 上一页信息
     /// </summary>
     public void AddPerAlarmPage()
     {
         StartPageNum += 1;
-        if (IsScreen ||IsTIme2 || IsTime1)
+        if (IsScreen || IsTIme2 || IsTime1)
         {
-                    
+
             double a = Math.Ceiling((double)SeachPerItems.Count / (double)pageLine);
             int m = (int)a;
             if (StartPageNum <= m)
@@ -199,8 +217,8 @@ public class PersonnelAlarmList : MonoBehaviour
                 GetPersonnelAlarmPage(ScreenAlarmItem);
             }
         }
-       
-       
+
+
     }
     public void MinPerAlarmPage()
     {
@@ -238,16 +256,27 @@ public class PersonnelAlarmList : MonoBehaviour
                 GetPersonnelAlarmPage(ScreenAlarmItem);
             }
         }
-      
+
     }
-   
+    bool ispage=false ;
     /// <summary>
     /// 输入搜索页
     /// </summary>
     /// <param name="value"></param>
     public void InputPersonnelPage(string value)
     {
-        int currentPage = int.Parse(pegeNumText.text);
+        if (ispage == true) return;
+        ispage = true;
+        int currentPage;
+        if (string.IsNullOrEmpty(pegeNumText.text))
+        {
+            currentPage = 1;
+        }
+        else
+        {
+            currentPage = int.Parse(pegeNumText.text);
+        }
+       
         if (IsScreen || IsTIme2 || IsTime1)
         {
             int MaxPage = (int)Math.Ceiling((double)SeachPerItems.Count / (double)pageLine);
@@ -265,7 +294,7 @@ public class PersonnelAlarmList : MonoBehaviour
             PageNum = currentPage;
             GetPersonnelAlarmPage(SeachPerItems);
         }
-      else
+        else
         {
             int MaxPage = (int)Math.Ceiling((double)ScreenAlarmItem.Count / (double)pageLine);
             if (currentPage > MaxPage)
@@ -281,14 +310,16 @@ public class PersonnelAlarmList : MonoBehaviour
             StartPageNum = currentPage - 1;
             PageNum = currentPage;
             GetPersonnelAlarmPage(ScreenAlarmItem);
+            ispage = false;
         }
-       
+
     }
     /// <summary>
     /// 得到人员告警数据
     /// </summary>
     public void GetPersonnelAlarmData()
     {
+
         for (int i = 0; i < newPerAlarmList.Count; i++)
         {
             if (newPerAlarmList[i].Personnel == null)
@@ -301,7 +332,15 @@ public class PersonnelAlarmList : MonoBehaviour
             {
                 num = newPerAlarmList[i].Personnel.WorkNumber.ToString();
                 nameT = newPerAlarmList[i].Personnel.Name.ToString();
-                job = newPerAlarmList[i].Personnel.Pst.ToString();
+                if (newPerAlarmList[i].Personnel.Pst == null)
+                {
+                    job = "";
+                }
+                else
+                {
+                    job = newPerAlarmList[i].Personnel.Pst.ToString();
+                }
+
             }
             content = newPerAlarmList[i].Content;
             string startTime1 = newPerAlarmList[i].CreateTime.ToString();
@@ -316,7 +355,7 @@ public class PersonnelAlarmList : MonoBehaviour
             }
 
             string endTime1 = newPerAlarmList[i].HandleTime.ToString();
-           
+
             if (endTime1 == "1/1/2000 12:00:00 AM")
             {
                 endTime = "<color=#C66BABFF>未消除</color>"; ;
@@ -324,7 +363,7 @@ public class PersonnelAlarmList : MonoBehaviour
             else
             {
                 DateTime NewTime = Convert.ToDateTime(endTime1);
-                endTime = "<color=#FFFFFFFF>已消除</color>"+" "+ NewTime.ToString("yyyy年MM月dd日 HH:mm:ss");
+                endTime = "<color=#FFFFFFFF>已消除</color>" + " " + NewTime.ToString("yyyy年MM月dd日 HH:mm:ss");
             }
             AlarmType = newPerAlarmList[i].AlarmType.ToString();
             PerID = newPerAlarmList[i].TagId.ToString();
@@ -337,19 +376,24 @@ public class PersonnelAlarmList : MonoBehaviour
     /// </summary>
     public void GetPersonnelAlarmPage(List<LocationAlarm> data)
     {
+
         newPerAlarmList.Clear();
         if (StartPageNum * pageLine < data.Count)
         {
             var QueryData = data.Skip(pageLine * StartPageNum).Take(pageLine);
             foreach (var devAlarm in QueryData)
             {
-                newPerAlarmList.Add(devAlarm);
+                //if (devAlarm.AlarmLevel != LocationAlarmLevel.正常)
+                //{
+                    newPerAlarmList.Add(devAlarm);
+                //}
+
             }
             TotaiLine(data);
             GetPersonnelAlarmData();
         }
     }
-    public void SetPersonnelAlarmData(int i, string num, string name, string job,string AlarmType, string content, string startTime, string endTime, string PerID)
+    public void SetPersonnelAlarmData(int i, string num, string name, string job, string AlarmType, string content, string startTime, string endTime, string PerID)
     {
         Transform line = grid.transform.GetChild(i);
         line.GetChild(0).GetComponent<Text>().text = num;
@@ -385,7 +429,7 @@ public class PersonnelAlarmList : MonoBehaviour
         LocationManager.Instance.FocusPersonAndShowInfo(tagID);
         PersonSubsystemManage.Instance.ChangeImage(false, PersonSubsystemManage.Instance.PersonnelAlamToggle);
         PersonSubsystemManage.Instance.PersonnelAlamToggle.isOn = false;
-        personAlarmUI.SetActive(false);
+        Close_PersonnelAlarm();
 
     }
     /// <summary>
@@ -432,9 +476,19 @@ public class PersonnelAlarmList : MonoBehaviour
     /// </summary>
     public void ClosePersonAlarmUI()
     {
-        personAlarmUI.SetActive(false);
+        Close_PersonnelAlarm();
         PersonSubsystemManage.Instance.ChangeImage(false, PersonSubsystemManage.Instance.PersonnelAlamToggle);
         PersonSubsystemManage.Instance.PersonnelAlamToggle.isOn = false;
+    }
+
+    public void Close_PersonnelAlarm()
+    {
+        perAlarmType.PerTypedropdownItem.captionText.text = perAlarmType.tempNames[0];
+        perAlarmType.PerTypedropdownItem.transform.GetComponent<Dropdown>().value = 0;
+        PerAlarmList.Clear();
+        AlarmItem.Clear();
+        ScreenAlarmItem.Clear();
+        personAlarmUI.SetActive(false);
     }
     //List<LocationAlarm> ScreenAlarmTime = new List<LocationAlarm>();
     /// <summary>
@@ -446,51 +500,53 @@ public class PersonnelAlarmList : MonoBehaviour
         SaveSelection();
         SeachPerItems.Clear();
         string StartTime = StartTimeText.GetComponent<Text>().text;
-      
-        DateTime NewStartTime = Convert.ToDateTime(StartTime);
-        DateTime NewDealTime = Convert.ToDateTime(dateTime);
 
-        string key = InputPerAlarm.text.ToString();
-        for (int i = 0; i < PerAlarmList.Count; i++)
+        DateTime NewStartTime = Convert.ToDateTime(StartTime);
+
+
+        DateTime CurrentEndTime = Convert.ToDateTime(dateTime);
+        DateTime NewDealTime = CurrentEndTime.AddHours(24);
+        string key = InputPerAlarm.text.ToString().ToLower();
+        for (int i = 0; i < AlarmItem.Count; i++)
         {
-            DateTime AlarmTime = PerAlarmList[i].CreateTime;
+            DateTime AlarmTime = AlarmItem[i].CreateTime;
             bool IsTime = DateTime.Compare(NewStartTime, NewDealTime) < 0;
             bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewDealTime, AlarmTime) >= 0;
             if (IsTime)
             {
-                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
+                if (key == "" && ScreenTime && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                else if (key == AlarmItem[i].Id.ToString().ToLower() || key == AlarmItem[i].TypeName.ToLower())
                 {
-                    if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                    if (ScreenTime && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                   
+
                 }
             }
             else
             {
                 DateTime time1 = NewStartTime.AddHours(24);
-                
+
                 bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewDealTime, AlarmTime) >= 0;
-                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
+                if (key == "" && Time2 && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                else if (key == AlarmItem[i].Id.ToString().ToLower() || key == AlarmItem[i].TypeName.ToLower())
                 {
-                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    if (Time2 && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                    
+
                 }
                 Invoke("ChangeEndTime", 0.1f);
             }
-    }
+        }
         if (SeachPerItems.Count == 0)
         {
             promptText.gameObject.SetActive(true);
@@ -513,28 +569,31 @@ public class PersonnelAlarmList : MonoBehaviour
     {
         SaveSelection();
         SeachPerItems.Clear();
-        string key = InputPerAlarm.text.ToString();
+        string key = InputPerAlarm.text.ToString().ToLower();
         string DealTime = DealTimeText.GetComponent<Text>().text;
+
         DateTime NewStartTime = Convert.ToDateTime(dateTime);
-        DateTime NewEndTime = Convert.ToDateTime(DealTime);
-        for (int i = 0; i < PerAlarmList.Count; i++)
+
+        DateTime CurrentEndTime = Convert.ToDateTime(DealTime);
+        DateTime NewEndTime = CurrentEndTime.AddHours(24);
+        for (int i = 0; i < AlarmItem.Count; i++)
         {
-            DateTime AlarmTime = PerAlarmList[i].CreateTime;
+            DateTime AlarmTime = AlarmItem[i].CreateTime;
             bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
             bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
             if (IsTime)
             {
-                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
+                if (key == "" && ScreenTime && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                else if (key == AlarmItem[i].Id.ToString().ToLower() || key == AlarmItem[i].TypeName.ToLower())
                 {
-                    if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                    if (ScreenTime && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                   
+
                 }
             }
             else
@@ -542,17 +601,17 @@ public class PersonnelAlarmList : MonoBehaviour
                 DateTime time1 = NewStartTime.AddHours(24);
 
                 bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
-                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
+                if (key == "" && Time2 && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                else if (key == AlarmItem[i].Id.ToString().ToLower() || key == AlarmItem[i].TypeName.ToLower())
                 {
-                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    if (Time2 && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                    
+
                 }
                 Invoke("ChangeEndTime", 0.1f);
             }
@@ -583,7 +642,7 @@ public class PersonnelAlarmList : MonoBehaviour
         }
     }
 
-   
+
     List<LocationAlarm> SeachPerItems = new List<LocationAlarm>();
     /// <summary>
     /// 搜索人员
@@ -592,29 +651,30 @@ public class PersonnelAlarmList : MonoBehaviour
     {
         SaveSelection();
         SeachPerItems.Clear();
-        string key = InputPerAlarm.text.ToString();
+        string key = InputPerAlarm.text.ToString().ToLower();
         string StartTime = StartTimeText.GetComponent<Text>().text;
         string DealTime = DealTimeText.GetComponent<Text>().text;
-        for (int i = 0; i < PerAlarmList.Count; i++)
+        for (int i = 0; i < AlarmItem.Count; i++)
         {
-            DateTime AlarmTime = PerAlarmList[i].CreateTime;
+            DateTime AlarmTime = AlarmItem[i].CreateTime;
             DateTime NewStartTime = Convert.ToDateTime(StartTime);
             DateTime NewEndTime = Convert.ToDateTime(DealTime);
-           
+
             bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
             bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
             if (IsTime)
             {
-                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
+                if (key == "" && ScreenTime && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
-                {if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                else if (AlarmItem[i].Id.ToString().ToLower().Contains(key) || AlarmItem[i].TypeName.ToLower().Contains(key))
+                {
+                    if (ScreenTime && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                   
+
                 }
             }
             else
@@ -622,17 +682,17 @@ public class PersonnelAlarmList : MonoBehaviour
                 DateTime time1 = NewStartTime.AddHours(24);
                 NewEndTime = time1;
                 bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
-                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
+                if (key == "" && Time2 && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                else if (AlarmItem[i].Id.ToString().ToLower().Contains(key) || AlarmItem[i].TypeName.ToLower().Contains(key))
                 {
-                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    if (Time2 && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                   
+
                 }
                 Invoke("ChangeEndTime", 0.1f);
             }
@@ -649,7 +709,7 @@ public class PersonnelAlarmList : MonoBehaviour
             TotaiLine(SeachPerItems);
             GetPersonnelAlarmPage(SeachPerItems);
         }
-      
+
     }
     public LocationAlarmType GetPersonnelAlarmType()
     {
@@ -690,28 +750,28 @@ public class PersonnelAlarmList : MonoBehaviour
         SeachPerItems.Clear();
         string StartTime = StartTimeText.GetComponent<Text>().text;
         string DealTime = DealTimeText.GetComponent<Text>().text;
-        for (int i = 0; i < PerAlarmList.Count; i++)
+        for (int i = 0; i < AlarmItem.Count; i++)
         {
-            DateTime AlarmTime = PerAlarmList[i].CreateTime;
+            DateTime AlarmTime = AlarmItem[i].CreateTime;
             DateTime NewStartTime = Convert.ToDateTime(StartTime);
             DateTime NewEndTime = Convert.ToDateTime(DealTime);
-            string key = InputPerAlarm.text.ToString();
+            string key = InputPerAlarm.text.ToString().ToLower();
             bool IsTime = DateTime.Compare(NewStartTime, NewEndTime) < 0;
             bool ScreenTime = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
             if (IsTime)
             {
-                
-                if (key == "" && ScreenTime && PersonnelType(PerAlarmList[i]))
+
+                if (key == "" && ScreenTime && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName)
+                else if (key == AlarmItem[i].Id.ToString().ToLower() || key == AlarmItem[i].TypeName.ToLower())
                 {
-                    if ( ScreenTime && PersonnelType(PerAlarmList[i]))
+                    if (ScreenTime && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                   
+
                 }
             }
             else
@@ -719,17 +779,17 @@ public class PersonnelAlarmList : MonoBehaviour
                 DateTime time1 = NewStartTime.AddHours(24);
                 NewEndTime = time1;
                 bool Time2 = DateTime.Compare(NewStartTime, AlarmTime) <= 0 && DateTime.Compare(NewEndTime, AlarmTime) >= 0;
-                if (key == "" && Time2 && PersonnelType(PerAlarmList[i]))
+                if (key == "" && Time2 && PersonnelType(AlarmItem[i]))
                 {
-                    SeachPerItems.Add(PerAlarmList[i]);
+                    SeachPerItems.Add(AlarmItem[i]);
                 }
-                else if (key == PerAlarmList[i].Id.ToString() || key == PerAlarmList[i].TypeName )
+                else if (key == AlarmItem[i].Id.ToString().ToLower() || key == AlarmItem[i].TypeName.ToLower())
                 {
-                    if ( Time2 && PersonnelType(PerAlarmList[i]))
+                    if (Time2 && PersonnelType(AlarmItem[i]))
                     {
-                        SeachPerItems.Add(PerAlarmList[i]);
+                        SeachPerItems.Add(AlarmItem[i]);
                     }
-                   
+
                 }
                 Invoke("ChangeEndTime", 0.1f);
             }

@@ -31,22 +31,12 @@ public class FVTPhotoUI : MonoBehaviour {
     /// 照片按钮控制区域
     /// </summary>
     public GameObject PhotoControlPart;
+
     /// <summary>
-    /// 地理位置按钮
+    /// 园区统计信息
     /// </summary>
-    public GameObject PosBtn;
-    /// <summary>
-    /// 地理位置文本框
-    /// </summary>
-    public Text PosBtnText;
-    /// <summary>
-    /// 项目规模按钮
-    /// </summary>
-    public GameObject projectjScaleBtn;
-    /// <summary>
-    /// 项目规模按钮文本框
-    /// </summary>
-    public Text projectSacelBtnText;
+    public GameObject AreaInfo;
+
     /// <summary>
     /// 进入电厂按钮
     /// </summary>
@@ -102,9 +92,9 @@ public class FVTPhotoUI : MonoBehaviour {
         AddState(circleLeftDecration);
         AddState(photoTopDecration);
         AddState(PhotoControlPart);
-        AddState(PosBtn);
+        //AddState(PosBtn);
         AddState(enterFacotoryBtn);
-        AddState(projectjScaleBtn);
+        AddState(AreaInfo);
         AddState(PhotoControlPart);
         AddState(introduceTitleText.gameObject);
         AddState(introduceContentText.gameObject);

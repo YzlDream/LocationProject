@@ -909,6 +909,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -994,6 +997,19 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
                 }
             }
         }
@@ -2326,6 +2342,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         CAD = 9,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SwitchArea = 10,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2764,6 +2783,9 @@ namespace Location.WCFServiceReferences.LocationServices {
         private string[] ArchorsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchorsTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int AreaStateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2827,6 +2849,19 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((object.ReferenceEquals(this.ArchorsField, value) != true)) {
                     this.ArchorsField = value;
                     this.RaisePropertyChanged("Archors");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchorsText {
+            get {
+                return this.ArchorsTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchorsTextField, value) != true)) {
+                    this.ArchorsTextField = value;
+                    this.RaisePropertyChanged("ArchorsText");
                 }
             }
         }
@@ -4454,6 +4489,288 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((object.ReferenceEquals(this.NameField, value) != true)) {
                     this.NameField = value;
                     this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Dev_Monitor", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class Dev_Monitor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.Dev_Monitor[] ChildrenListField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KKSCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.DevMonitorNode[] MonitorNodeListField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.Dev_Monitor[] ChildrenList {
+            get {
+                return this.ChildrenListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChildrenListField, value) != true)) {
+                    this.ChildrenListField = value;
+                    this.RaisePropertyChanged("ChildrenList");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KKSCode {
+            get {
+                return this.KKSCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KKSCodeField, value) != true)) {
+                    this.KKSCodeField = value;
+                    this.RaisePropertyChanged("KKSCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.DevMonitorNode[] MonitorNodeList {
+            get {
+                return this.MonitorNodeListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MonitorNodeListField, value) != true)) {
+                    this.MonitorNodeListField = value;
+                    this.RaisePropertyChanged("MonitorNodeList");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DevMonitorNode", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class DevMonitorNode : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DataBaseNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DataBaseTagNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DataTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescribeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KKSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TagNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TagTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValueField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DataBaseName {
+            get {
+                return this.DataBaseNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DataBaseNameField, value) != true)) {
+                    this.DataBaseNameField = value;
+                    this.RaisePropertyChanged("DataBaseName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DataBaseTagName {
+            get {
+                return this.DataBaseTagNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DataBaseTagNameField, value) != true)) {
+                    this.DataBaseTagNameField = value;
+                    this.RaisePropertyChanged("DataBaseTagName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DataType {
+            get {
+                return this.DataTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DataTypeField, value) != true)) {
+                    this.DataTypeField = value;
+                    this.RaisePropertyChanged("DataType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Describe {
+            get {
+                return this.DescribeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescribeField, value) != true)) {
+                    this.DescribeField = value;
+                    this.RaisePropertyChanged("Describe");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KKS {
+            get {
+                return this.KKSField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KKSField, value) != true)) {
+                    this.KKSField = value;
+                    this.RaisePropertyChanged("KKS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TagName {
+            get {
+                return this.TagNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TagNameField, value) != true)) {
+                    this.TagNameField = value;
+                    this.RaisePropertyChanged("TagName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TagType {
+            get {
+                return this.TagTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TagTypeField, value) != true)) {
+                    this.TagTypeField = value;
+                    this.RaisePropertyChanged("TagType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Unit {
+            get {
+                return this.UnitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitField, value) != true)) {
+                    this.UnitField = value;
+                    this.RaisePropertyChanged("Unit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Value {
+            get {
+                return this.ValueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValueField, value) != true)) {
+                    this.ValueField = value;
+                    this.RaisePropertyChanged("Value");
                 }
             }
         }
@@ -6486,6 +6803,589 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((object.ReferenceEquals(this.ZoneIdsField, value) != true)) {
                     this.ZoneIdsField = value;
                     this.RaisePropertyChanged("ZoneIds");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InspectionTrackHistory", Namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work")]
+    [System.SerializableAttribute()]
+    public partial class InspectionTrackHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Abutment_IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long CreateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long EndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.PatrolPointHistory[] RouteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long StartTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dtCreateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dtEndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dtStartTimeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Abutment_Id {
+            get {
+                return this.Abutment_IdField;
+            }
+            set {
+                if ((this.Abutment_IdField.Equals(value) != true)) {
+                    this.Abutment_IdField = value;
+                    this.RaisePropertyChanged("Abutment_Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long CreateTime {
+            get {
+                return this.CreateTimeField;
+            }
+            set {
+                if ((this.CreateTimeField.Equals(value) != true)) {
+                    this.CreateTimeField = value;
+                    this.RaisePropertyChanged("CreateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long EndTime {
+            get {
+                return this.EndTimeField;
+            }
+            set {
+                if ((this.EndTimeField.Equals(value) != true)) {
+                    this.EndTimeField = value;
+                    this.RaisePropertyChanged("EndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.PatrolPointHistory[] Route {
+            get {
+                return this.RouteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RouteField, value) != true)) {
+                    this.RouteField = value;
+                    this.RaisePropertyChanged("Route");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long StartTime {
+            get {
+                return this.StartTimeField;
+            }
+            set {
+                if ((this.StartTimeField.Equals(value) != true)) {
+                    this.StartTimeField = value;
+                    this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string State {
+            get {
+                return this.StateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                    this.StateField = value;
+                    this.RaisePropertyChanged("State");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dtCreateTime {
+            get {
+                return this.dtCreateTimeField;
+            }
+            set {
+                if ((this.dtCreateTimeField.Equals(value) != true)) {
+                    this.dtCreateTimeField = value;
+                    this.RaisePropertyChanged("dtCreateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dtEndTime {
+            get {
+                return this.dtEndTimeField;
+            }
+            set {
+                if ((this.dtEndTimeField.Equals(value) != true)) {
+                    this.dtEndTimeField = value;
+                    this.RaisePropertyChanged("dtEndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dtStartTime {
+            get {
+                return this.dtStartTimeField;
+            }
+            set {
+                if ((this.dtStartTimeField.Equals(value) != true)) {
+                    this.dtStartTimeField = value;
+                    this.RaisePropertyChanged("dtStartTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PatrolPointHistory", Namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work")]
+    [System.SerializableAttribute()]
+    public partial class PatrolPointHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.PatrolPointItemHistory[] ChecksField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> DevIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DevNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DeviceCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DeviceIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KksCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ParentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StaffCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StaffNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.PatrolPointItemHistory[] Checks {
+            get {
+                return this.ChecksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChecksField, value) != true)) {
+                    this.ChecksField = value;
+                    this.RaisePropertyChanged("Checks");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> DevId {
+            get {
+                return this.DevIdField;
+            }
+            set {
+                if ((this.DevIdField.Equals(value) != true)) {
+                    this.DevIdField = value;
+                    this.RaisePropertyChanged("DevId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DevName {
+            get {
+                return this.DevNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DevNameField, value) != true)) {
+                    this.DevNameField = value;
+                    this.RaisePropertyChanged("DevName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DeviceCode {
+            get {
+                return this.DeviceCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeviceCodeField, value) != true)) {
+                    this.DeviceCodeField = value;
+                    this.RaisePropertyChanged("DeviceCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DeviceId {
+            get {
+                return this.DeviceIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeviceIdField, value) != true)) {
+                    this.DeviceIdField = value;
+                    this.RaisePropertyChanged("DeviceId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KksCode {
+            get {
+                return this.KksCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KksCodeField, value) != true)) {
+                    this.KksCodeField = value;
+                    this.RaisePropertyChanged("KksCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ParentId {
+            get {
+                return this.ParentIdField;
+            }
+            set {
+                if ((this.ParentIdField.Equals(value) != true)) {
+                    this.ParentIdField = value;
+                    this.RaisePropertyChanged("ParentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StaffCode {
+            get {
+                return this.StaffCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StaffCodeField, value) != true)) {
+                    this.StaffCodeField = value;
+                    this.RaisePropertyChanged("StaffCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StaffName {
+            get {
+                return this.StaffNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StaffNameField, value) != true)) {
+                    this.StaffNameField = value;
+                    this.RaisePropertyChanged("StaffName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PatrolPointItemHistory", Namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work")]
+    [System.SerializableAttribute()]
+    public partial class PatrolPointItemHistory : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckItemField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<long> CheckTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KksCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ParentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StaffCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> dtCheckTimeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckId {
+            get {
+                return this.CheckIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckIdField, value) != true)) {
+                    this.CheckIdField = value;
+                    this.RaisePropertyChanged("CheckId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckItem {
+            get {
+                return this.CheckItemField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckItemField, value) != true)) {
+                    this.CheckItemField = value;
+                    this.RaisePropertyChanged("CheckItem");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckResult {
+            get {
+                return this.CheckResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckResultField, value) != true)) {
+                    this.CheckResultField = value;
+                    this.RaisePropertyChanged("CheckResult");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<long> CheckTime {
+            get {
+                return this.CheckTimeField;
+            }
+            set {
+                if ((this.CheckTimeField.Equals(value) != true)) {
+                    this.CheckTimeField = value;
+                    this.RaisePropertyChanged("CheckTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KksCode {
+            get {
+                return this.KksCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KksCodeField, value) != true)) {
+                    this.KksCodeField = value;
+                    this.RaisePropertyChanged("KksCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ParentId {
+            get {
+                return this.ParentIdField;
+            }
+            set {
+                if ((this.ParentIdField.Equals(value) != true)) {
+                    this.ParentIdField = value;
+                    this.RaisePropertyChanged("ParentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StaffCode {
+            get {
+                return this.StaffCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StaffCodeField, value) != true)) {
+                    this.StaffCodeField = value;
+                    this.RaisePropertyChanged("StaffCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> dtCheckTime {
+            get {
+                return this.dtCheckTimeField;
+            }
+            set {
+                if ((this.dtCheckTimeField.Equals(value) != true)) {
+                    this.dtCheckTimeField = value;
+                    this.RaisePropertyChanged("dtCheckTime");
                 }
             }
         }
@@ -9110,6 +10010,589 @@ namespace Location.WCFServiceReferences.LocationServices {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="InspectionTrack", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work")]
+    [System.SerializableAttribute()]
+    public partial class InspectionTrack : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Abutment_IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long CreateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long EndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.PatrolPoint[] RouteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long StartTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dtCreateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dtEndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime dtStartTimeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Abutment_Id {
+            get {
+                return this.Abutment_IdField;
+            }
+            set {
+                if ((this.Abutment_IdField.Equals(value) != true)) {
+                    this.Abutment_IdField = value;
+                    this.RaisePropertyChanged("Abutment_Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long CreateTime {
+            get {
+                return this.CreateTimeField;
+            }
+            set {
+                if ((this.CreateTimeField.Equals(value) != true)) {
+                    this.CreateTimeField = value;
+                    this.RaisePropertyChanged("CreateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long EndTime {
+            get {
+                return this.EndTimeField;
+            }
+            set {
+                if ((this.EndTimeField.Equals(value) != true)) {
+                    this.EndTimeField = value;
+                    this.RaisePropertyChanged("EndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.PatrolPoint[] Route {
+            get {
+                return this.RouteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RouteField, value) != true)) {
+                    this.RouteField = value;
+                    this.RaisePropertyChanged("Route");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long StartTime {
+            get {
+                return this.StartTimeField;
+            }
+            set {
+                if ((this.StartTimeField.Equals(value) != true)) {
+                    this.StartTimeField = value;
+                    this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string State {
+            get {
+                return this.StateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                    this.StateField = value;
+                    this.RaisePropertyChanged("State");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dtCreateTime {
+            get {
+                return this.dtCreateTimeField;
+            }
+            set {
+                if ((this.dtCreateTimeField.Equals(value) != true)) {
+                    this.dtCreateTimeField = value;
+                    this.RaisePropertyChanged("dtCreateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dtEndTime {
+            get {
+                return this.dtEndTimeField;
+            }
+            set {
+                if ((this.dtEndTimeField.Equals(value) != true)) {
+                    this.dtEndTimeField = value;
+                    this.RaisePropertyChanged("dtEndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime dtStartTime {
+            get {
+                return this.dtStartTimeField;
+            }
+            set {
+                if ((this.dtStartTimeField.Equals(value) != true)) {
+                    this.dtStartTimeField = value;
+                    this.RaisePropertyChanged("dtStartTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PatrolPoint", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work")]
+    [System.SerializableAttribute()]
+    public partial class PatrolPoint : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.PatrolPointItem[] ChecksField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> DevIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DevNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DeviceCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DeviceIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KksCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ParentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StaffCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StaffNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.PatrolPointItem[] Checks {
+            get {
+                return this.ChecksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChecksField, value) != true)) {
+                    this.ChecksField = value;
+                    this.RaisePropertyChanged("Checks");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> DevId {
+            get {
+                return this.DevIdField;
+            }
+            set {
+                if ((this.DevIdField.Equals(value) != true)) {
+                    this.DevIdField = value;
+                    this.RaisePropertyChanged("DevId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DevName {
+            get {
+                return this.DevNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DevNameField, value) != true)) {
+                    this.DevNameField = value;
+                    this.RaisePropertyChanged("DevName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DeviceCode {
+            get {
+                return this.DeviceCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeviceCodeField, value) != true)) {
+                    this.DeviceCodeField = value;
+                    this.RaisePropertyChanged("DeviceCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DeviceId {
+            get {
+                return this.DeviceIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeviceIdField, value) != true)) {
+                    this.DeviceIdField = value;
+                    this.RaisePropertyChanged("DeviceId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KksCode {
+            get {
+                return this.KksCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KksCodeField, value) != true)) {
+                    this.KksCodeField = value;
+                    this.RaisePropertyChanged("KksCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ParentId {
+            get {
+                return this.ParentIdField;
+            }
+            set {
+                if ((this.ParentIdField.Equals(value) != true)) {
+                    this.ParentIdField = value;
+                    this.RaisePropertyChanged("ParentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StaffCode {
+            get {
+                return this.StaffCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StaffCodeField, value) != true)) {
+                    this.StaffCodeField = value;
+                    this.RaisePropertyChanged("StaffCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StaffName {
+            get {
+                return this.StaffNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StaffNameField, value) != true)) {
+                    this.StaffNameField = value;
+                    this.RaisePropertyChanged("StaffName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PatrolPointItem", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work")]
+    [System.SerializableAttribute()]
+    public partial class PatrolPointItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckItemField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<long> CheckTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KksCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ParentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StaffCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> dtCheckTimeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckId {
+            get {
+                return this.CheckIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckIdField, value) != true)) {
+                    this.CheckIdField = value;
+                    this.RaisePropertyChanged("CheckId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckItem {
+            get {
+                return this.CheckItemField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckItemField, value) != true)) {
+                    this.CheckItemField = value;
+                    this.RaisePropertyChanged("CheckItem");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckResult {
+            get {
+                return this.CheckResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckResultField, value) != true)) {
+                    this.CheckResultField = value;
+                    this.RaisePropertyChanged("CheckResult");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<long> CheckTime {
+            get {
+                return this.CheckTimeField;
+            }
+            set {
+                if ((this.CheckTimeField.Equals(value) != true)) {
+                    this.CheckTimeField = value;
+                    this.RaisePropertyChanged("CheckTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KksCode {
+            get {
+                return this.KksCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KksCodeField, value) != true)) {
+                    this.KksCodeField = value;
+                    this.RaisePropertyChanged("KksCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ParentId {
+            get {
+                return this.ParentIdField;
+            }
+            set {
+                if ((this.ParentIdField.Equals(value) != true)) {
+                    this.ParentIdField = value;
+                    this.RaisePropertyChanged("ParentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StaffCode {
+            get {
+                return this.StaffCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StaffCodeField, value) != true)) {
+                    this.StaffCodeField = value;
+                    this.RaisePropertyChanged("StaffCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> dtCheckTime {
+            get {
+                return this.dtCheckTimeField;
+            }
+            set {
+                if ((this.dtCheckTimeField.Equals(value) != true)) {
+                    this.dtCheckTimeField = value;
+                    this.RaisePropertyChanged("dtCheckTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LoginInfo", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage")]
     [System.SerializableAttribute()]
     public partial class LoginInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -9187,6 +10670,67 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
                     this.UserNameField = value;
                     this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="VersionInfo", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage")]
+    [System.SerializableAttribute()]
+    public partial class VersionInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LocationURLField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VersionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LocationURL {
+            get {
+                return this.LocationURLField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LocationURLField, value) != true)) {
+                    this.LocationURLField = value;
+                    this.RaisePropertyChanged("LocationURL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Version {
+            get {
+                return this.VersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionField, value) != true)) {
+                    this.VersionField = value;
+                    this.RaisePropertyChanged("Version");
                 }
             }
         }
@@ -9341,6 +10885,1325 @@ namespace Location.WCFServiceReferences.LocationServices {
                 if ((this.PersonNumField.Equals(value) != true)) {
                     this.PersonNumField = value;
                     this.RaisePropertyChanged("PersonNum");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Area", Namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class Area : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private Location.WCFServiceReferences.LocationServices.Bound1 _editBoundField;
+        
+        private Location.WCFServiceReferences.LocationServices.Bound1 _initBoundField;
+        
+        private System.Nullable<int> Abutment_Idk__BackingFieldField;
+        
+        private System.Nullable<int> Abutment_ParentIdk__BackingFieldField;
+        
+        private Location.WCFServiceReferences.LocationServices.Area[] Childrenk__BackingFieldField;
+        
+        private string Describek__BackingFieldField;
+        
+        private System.Nullable<int> EditBoundIdk__BackingFieldField;
+        
+        private int Idk__BackingFieldField;
+        
+        private System.Nullable<int> InitBoundIdk__BackingFieldField;
+        
+        private bool IsCreateAreaByDatak__BackingFieldField;
+        
+        private bool IsOnAlarmAreak__BackingFieldField;
+        
+        private bool IsOnLocationAreak__BackingFieldField;
+        
+        private bool IsRelativek__BackingFieldField;
+        
+        private string KKSk__BackingFieldField;
+        
+        private Location.WCFServiceReferences.LocationServices.DevInfo1[] LeafNodesk__BackingFieldField;
+        
+        private string Namek__BackingFieldField;
+        
+        private System.Nullable<int> Numberk__BackingFieldField;
+        
+        private System.Nullable<int> ParentIdk__BackingFieldField;
+        
+        private Location.WCFServiceReferences.LocationServices.Area Parentk__BackingFieldField;
+        
+        private System.Nullable<float> RXk__BackingFieldField;
+        
+        private System.Nullable<float> RYk__BackingFieldField;
+        
+        private System.Nullable<float> RZk__BackingFieldField;
+        
+        private System.Nullable<float> SXk__BackingFieldField;
+        
+        private System.Nullable<float> SYk__BackingFieldField;
+        
+        private System.Nullable<float> SZk__BackingFieldField;
+        
+        private Location.WCFServiceReferences.LocationServices.AreaTypes Typek__BackingFieldField;
+        
+        private System.Nullable<float> Xk__BackingFieldField;
+        
+        private System.Nullable<float> Yk__BackingFieldField;
+        
+        private System.Nullable<float> Zk__BackingFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public Location.WCFServiceReferences.LocationServices.Bound1 _editBound {
+            get {
+                return this._editBoundField;
+            }
+            set {
+                if ((object.ReferenceEquals(this._editBoundField, value) != true)) {
+                    this._editBoundField = value;
+                    this.RaisePropertyChanged("_editBound");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public Location.WCFServiceReferences.LocationServices.Bound1 _initBound {
+            get {
+                return this._initBoundField;
+            }
+            set {
+                if ((object.ReferenceEquals(this._initBoundField, value) != true)) {
+                    this._initBoundField = value;
+                    this.RaisePropertyChanged("_initBound");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Abutment_Id>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> Abutment_Idk__BackingField {
+            get {
+                return this.Abutment_Idk__BackingFieldField;
+            }
+            set {
+                if ((this.Abutment_Idk__BackingFieldField.Equals(value) != true)) {
+                    this.Abutment_Idk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Abutment_Idk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Abutment_ParentId>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> Abutment_ParentIdk__BackingField {
+            get {
+                return this.Abutment_ParentIdk__BackingFieldField;
+            }
+            set {
+                if ((this.Abutment_ParentIdk__BackingFieldField.Equals(value) != true)) {
+                    this.Abutment_ParentIdk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Abutment_ParentIdk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Children>k__BackingField", IsRequired=true)]
+        public Location.WCFServiceReferences.LocationServices.Area[] Childrenk__BackingField {
+            get {
+                return this.Childrenk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Childrenk__BackingFieldField, value) != true)) {
+                    this.Childrenk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Childrenk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Describe>k__BackingField", IsRequired=true)]
+        public string Describek__BackingField {
+            get {
+                return this.Describek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Describek__BackingFieldField, value) != true)) {
+                    this.Describek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Describek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<EditBoundId>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> EditBoundIdk__BackingField {
+            get {
+                return this.EditBoundIdk__BackingFieldField;
+            }
+            set {
+                if ((this.EditBoundIdk__BackingFieldField.Equals(value) != true)) {
+                    this.EditBoundIdk__BackingFieldField = value;
+                    this.RaisePropertyChanged("EditBoundIdk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Id>k__BackingField", IsRequired=true)]
+        public int Idk__BackingField {
+            get {
+                return this.Idk__BackingFieldField;
+            }
+            set {
+                if ((this.Idk__BackingFieldField.Equals(value) != true)) {
+                    this.Idk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Idk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<InitBoundId>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> InitBoundIdk__BackingField {
+            get {
+                return this.InitBoundIdk__BackingFieldField;
+            }
+            set {
+                if ((this.InitBoundIdk__BackingFieldField.Equals(value) != true)) {
+                    this.InitBoundIdk__BackingFieldField = value;
+                    this.RaisePropertyChanged("InitBoundIdk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsCreateAreaByData>k__BackingField", IsRequired=true)]
+        public bool IsCreateAreaByDatak__BackingField {
+            get {
+                return this.IsCreateAreaByDatak__BackingFieldField;
+            }
+            set {
+                if ((this.IsCreateAreaByDatak__BackingFieldField.Equals(value) != true)) {
+                    this.IsCreateAreaByDatak__BackingFieldField = value;
+                    this.RaisePropertyChanged("IsCreateAreaByDatak__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsOnAlarmArea>k__BackingField", IsRequired=true)]
+        public bool IsOnAlarmAreak__BackingField {
+            get {
+                return this.IsOnAlarmAreak__BackingFieldField;
+            }
+            set {
+                if ((this.IsOnAlarmAreak__BackingFieldField.Equals(value) != true)) {
+                    this.IsOnAlarmAreak__BackingFieldField = value;
+                    this.RaisePropertyChanged("IsOnAlarmAreak__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsOnLocationArea>k__BackingField", IsRequired=true)]
+        public bool IsOnLocationAreak__BackingField {
+            get {
+                return this.IsOnLocationAreak__BackingFieldField;
+            }
+            set {
+                if ((this.IsOnLocationAreak__BackingFieldField.Equals(value) != true)) {
+                    this.IsOnLocationAreak__BackingFieldField = value;
+                    this.RaisePropertyChanged("IsOnLocationAreak__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsRelative>k__BackingField", IsRequired=true)]
+        public bool IsRelativek__BackingField {
+            get {
+                return this.IsRelativek__BackingFieldField;
+            }
+            set {
+                if ((this.IsRelativek__BackingFieldField.Equals(value) != true)) {
+                    this.IsRelativek__BackingFieldField = value;
+                    this.RaisePropertyChanged("IsRelativek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<KKS>k__BackingField", IsRequired=true)]
+        public string KKSk__BackingField {
+            get {
+                return this.KKSk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KKSk__BackingFieldField, value) != true)) {
+                    this.KKSk__BackingFieldField = value;
+                    this.RaisePropertyChanged("KKSk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<LeafNodes>k__BackingField", IsRequired=true)]
+        public Location.WCFServiceReferences.LocationServices.DevInfo1[] LeafNodesk__BackingField {
+            get {
+                return this.LeafNodesk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LeafNodesk__BackingFieldField, value) != true)) {
+                    this.LeafNodesk__BackingFieldField = value;
+                    this.RaisePropertyChanged("LeafNodesk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Name>k__BackingField", IsRequired=true)]
+        public string Namek__BackingField {
+            get {
+                return this.Namek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Namek__BackingFieldField, value) != true)) {
+                    this.Namek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Namek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Number>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> Numberk__BackingField {
+            get {
+                return this.Numberk__BackingFieldField;
+            }
+            set {
+                if ((this.Numberk__BackingFieldField.Equals(value) != true)) {
+                    this.Numberk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Numberk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ParentId>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> ParentIdk__BackingField {
+            get {
+                return this.ParentIdk__BackingFieldField;
+            }
+            set {
+                if ((this.ParentIdk__BackingFieldField.Equals(value) != true)) {
+                    this.ParentIdk__BackingFieldField = value;
+                    this.RaisePropertyChanged("ParentIdk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Parent>k__BackingField", IsRequired=true)]
+        public Location.WCFServiceReferences.LocationServices.Area Parentk__BackingField {
+            get {
+                return this.Parentk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Parentk__BackingFieldField, value) != true)) {
+                    this.Parentk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Parentk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<RX>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> RXk__BackingField {
+            get {
+                return this.RXk__BackingFieldField;
+            }
+            set {
+                if ((this.RXk__BackingFieldField.Equals(value) != true)) {
+                    this.RXk__BackingFieldField = value;
+                    this.RaisePropertyChanged("RXk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<RY>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> RYk__BackingField {
+            get {
+                return this.RYk__BackingFieldField;
+            }
+            set {
+                if ((this.RYk__BackingFieldField.Equals(value) != true)) {
+                    this.RYk__BackingFieldField = value;
+                    this.RaisePropertyChanged("RYk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<RZ>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> RZk__BackingField {
+            get {
+                return this.RZk__BackingFieldField;
+            }
+            set {
+                if ((this.RZk__BackingFieldField.Equals(value) != true)) {
+                    this.RZk__BackingFieldField = value;
+                    this.RaisePropertyChanged("RZk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<SX>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> SXk__BackingField {
+            get {
+                return this.SXk__BackingFieldField;
+            }
+            set {
+                if ((this.SXk__BackingFieldField.Equals(value) != true)) {
+                    this.SXk__BackingFieldField = value;
+                    this.RaisePropertyChanged("SXk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<SY>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> SYk__BackingField {
+            get {
+                return this.SYk__BackingFieldField;
+            }
+            set {
+                if ((this.SYk__BackingFieldField.Equals(value) != true)) {
+                    this.SYk__BackingFieldField = value;
+                    this.RaisePropertyChanged("SYk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<SZ>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> SZk__BackingField {
+            get {
+                return this.SZk__BackingFieldField;
+            }
+            set {
+                if ((this.SZk__BackingFieldField.Equals(value) != true)) {
+                    this.SZk__BackingFieldField = value;
+                    this.RaisePropertyChanged("SZk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Type>k__BackingField", IsRequired=true)]
+        public Location.WCFServiceReferences.LocationServices.AreaTypes Typek__BackingField {
+            get {
+                return this.Typek__BackingFieldField;
+            }
+            set {
+                if ((this.Typek__BackingFieldField.Equals(value) != true)) {
+                    this.Typek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Typek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<X>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> Xk__BackingField {
+            get {
+                return this.Xk__BackingFieldField;
+            }
+            set {
+                if ((this.Xk__BackingFieldField.Equals(value) != true)) {
+                    this.Xk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Xk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Y>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> Yk__BackingField {
+            get {
+                return this.Yk__BackingFieldField;
+            }
+            set {
+                if ((this.Yk__BackingFieldField.Equals(value) != true)) {
+                    this.Yk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Yk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Z>k__BackingField", IsRequired=true)]
+        public System.Nullable<float> Zk__BackingField {
+            get {
+                return this.Zk__BackingFieldField;
+            }
+            set {
+                if ((this.Zk__BackingFieldField.Equals(value) != true)) {
+                    this.Zk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Zk__BackingField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Bound", Namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class Bound1 : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsRelativeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float MaxXField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float MaxYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float MaxZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float MinXField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float MinYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float MinZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.Point1[] PointsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ShapeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsRelative {
+            get {
+                return this.IsRelativeField;
+            }
+            set {
+                if ((this.IsRelativeField.Equals(value) != true)) {
+                    this.IsRelativeField = value;
+                    this.RaisePropertyChanged("IsRelative");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float MaxX {
+            get {
+                return this.MaxXField;
+            }
+            set {
+                if ((this.MaxXField.Equals(value) != true)) {
+                    this.MaxXField = value;
+                    this.RaisePropertyChanged("MaxX");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float MaxY {
+            get {
+                return this.MaxYField;
+            }
+            set {
+                if ((this.MaxYField.Equals(value) != true)) {
+                    this.MaxYField = value;
+                    this.RaisePropertyChanged("MaxY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float MaxZ {
+            get {
+                return this.MaxZField;
+            }
+            set {
+                if ((this.MaxZField.Equals(value) != true)) {
+                    this.MaxZField = value;
+                    this.RaisePropertyChanged("MaxZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float MinX {
+            get {
+                return this.MinXField;
+            }
+            set {
+                if ((this.MinXField.Equals(value) != true)) {
+                    this.MinXField = value;
+                    this.RaisePropertyChanged("MinX");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float MinY {
+            get {
+                return this.MinYField;
+            }
+            set {
+                if ((this.MinYField.Equals(value) != true)) {
+                    this.MinYField = value;
+                    this.RaisePropertyChanged("MinY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float MinZ {
+            get {
+                return this.MinZField;
+            }
+            set {
+                if ((this.MinZField.Equals(value) != true)) {
+                    this.MinZField = value;
+                    this.RaisePropertyChanged("MinZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.Point1[] Points {
+            get {
+                return this.PointsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PointsField, value) != true)) {
+                    this.PointsField = value;
+                    this.RaisePropertyChanged("Points");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Shape {
+            get {
+                return this.ShapeField;
+            }
+            set {
+                if ((this.ShapeField.Equals(value) != true)) {
+                    this.ShapeField = value;
+                    this.RaisePropertyChanged("Shape");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DevInfo", Namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class DevInfo1 : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Abutment_DevIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Abutment_IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.Abutment_DevTypes Abutment_TypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime CreateTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long CreateTimeStampField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KKSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Local_CabinetIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Local_DevIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Local_TypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModelNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ModifyTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ModifyTimeStampField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.Area ParentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ParentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> PlacedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float PosXField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float PosYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float PosZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float RotationXField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float RotationYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float RotationZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.Abutment_RunStatus RunStatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float ScaleXField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float ScaleYField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float ScaleZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.Abutment_Status StatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Abutment_DevID {
+            get {
+                return this.Abutment_DevIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Abutment_DevIDField, value) != true)) {
+                    this.Abutment_DevIDField = value;
+                    this.RaisePropertyChanged("Abutment_DevID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Abutment_Id {
+            get {
+                return this.Abutment_IdField;
+            }
+            set {
+                if ((this.Abutment_IdField.Equals(value) != true)) {
+                    this.Abutment_IdField = value;
+                    this.RaisePropertyChanged("Abutment_Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.Abutment_DevTypes Abutment_Type {
+            get {
+                return this.Abutment_TypeField;
+            }
+            set {
+                if ((this.Abutment_TypeField.Equals(value) != true)) {
+                    this.Abutment_TypeField = value;
+                    this.RaisePropertyChanged("Abutment_Type");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreateTime {
+            get {
+                return this.CreateTimeField;
+            }
+            set {
+                if ((this.CreateTimeField.Equals(value) != true)) {
+                    this.CreateTimeField = value;
+                    this.RaisePropertyChanged("CreateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long CreateTimeStamp {
+            get {
+                return this.CreateTimeStampField;
+            }
+            set {
+                if ((this.CreateTimeStampField.Equals(value) != true)) {
+                    this.CreateTimeStampField = value;
+                    this.RaisePropertyChanged("CreateTimeStamp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IP {
+            get {
+                return this.IPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IPField, value) != true)) {
+                    this.IPField = value;
+                    this.RaisePropertyChanged("IP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KKS {
+            get {
+                return this.KKSField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KKSField, value) != true)) {
+                    this.KKSField = value;
+                    this.RaisePropertyChanged("KKS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Local_CabinetID {
+            get {
+                return this.Local_CabinetIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Local_CabinetIDField, value) != true)) {
+                    this.Local_CabinetIDField = value;
+                    this.RaisePropertyChanged("Local_CabinetID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Local_DevID {
+            get {
+                return this.Local_DevIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Local_DevIDField, value) != true)) {
+                    this.Local_DevIDField = value;
+                    this.RaisePropertyChanged("Local_DevID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Local_TypeCode {
+            get {
+                return this.Local_TypeCodeField;
+            }
+            set {
+                if ((this.Local_TypeCodeField.Equals(value) != true)) {
+                    this.Local_TypeCodeField = value;
+                    this.RaisePropertyChanged("Local_TypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ModelName {
+            get {
+                return this.ModelNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelNameField, value) != true)) {
+                    this.ModelNameField = value;
+                    this.RaisePropertyChanged("ModelName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime ModifyTime {
+            get {
+                return this.ModifyTimeField;
+            }
+            set {
+                if ((this.ModifyTimeField.Equals(value) != true)) {
+                    this.ModifyTimeField = value;
+                    this.RaisePropertyChanged("ModifyTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ModifyTimeStamp {
+            get {
+                return this.ModifyTimeStampField;
+            }
+            set {
+                if ((this.ModifyTimeStampField.Equals(value) != true)) {
+                    this.ModifyTimeStampField = value;
+                    this.RaisePropertyChanged("ModifyTimeStamp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.Area Parent {
+            get {
+                return this.ParentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ParentField, value) != true)) {
+                    this.ParentField = value;
+                    this.RaisePropertyChanged("Parent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ParentId {
+            get {
+                return this.ParentIdField;
+            }
+            set {
+                if ((this.ParentIdField.Equals(value) != true)) {
+                    this.ParentIdField = value;
+                    this.RaisePropertyChanged("ParentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> Placed {
+            get {
+                return this.PlacedField;
+            }
+            set {
+                if ((this.PlacedField.Equals(value) != true)) {
+                    this.PlacedField = value;
+                    this.RaisePropertyChanged("Placed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float PosX {
+            get {
+                return this.PosXField;
+            }
+            set {
+                if ((this.PosXField.Equals(value) != true)) {
+                    this.PosXField = value;
+                    this.RaisePropertyChanged("PosX");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float PosY {
+            get {
+                return this.PosYField;
+            }
+            set {
+                if ((this.PosYField.Equals(value) != true)) {
+                    this.PosYField = value;
+                    this.RaisePropertyChanged("PosY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float PosZ {
+            get {
+                return this.PosZField;
+            }
+            set {
+                if ((this.PosZField.Equals(value) != true)) {
+                    this.PosZField = value;
+                    this.RaisePropertyChanged("PosZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float RotationX {
+            get {
+                return this.RotationXField;
+            }
+            set {
+                if ((this.RotationXField.Equals(value) != true)) {
+                    this.RotationXField = value;
+                    this.RaisePropertyChanged("RotationX");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float RotationY {
+            get {
+                return this.RotationYField;
+            }
+            set {
+                if ((this.RotationYField.Equals(value) != true)) {
+                    this.RotationYField = value;
+                    this.RaisePropertyChanged("RotationY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float RotationZ {
+            get {
+                return this.RotationZField;
+            }
+            set {
+                if ((this.RotationZField.Equals(value) != true)) {
+                    this.RotationZField = value;
+                    this.RaisePropertyChanged("RotationZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.Abutment_RunStatus RunStatus {
+            get {
+                return this.RunStatusField;
+            }
+            set {
+                if ((this.RunStatusField.Equals(value) != true)) {
+                    this.RunStatusField = value;
+                    this.RaisePropertyChanged("RunStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float ScaleX {
+            get {
+                return this.ScaleXField;
+            }
+            set {
+                if ((this.ScaleXField.Equals(value) != true)) {
+                    this.ScaleXField = value;
+                    this.RaisePropertyChanged("ScaleX");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float ScaleY {
+            get {
+                return this.ScaleYField;
+            }
+            set {
+                if ((this.ScaleYField.Equals(value) != true)) {
+                    this.ScaleYField = value;
+                    this.RaisePropertyChanged("ScaleY");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float ScaleZ {
+            get {
+                return this.ScaleZField;
+            }
+            set {
+                if ((this.ScaleZField.Equals(value) != true)) {
+                    this.ScaleZField = value;
+                    this.RaisePropertyChanged("ScaleZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.Abutment_Status Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((this.StatusField.Equals(value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Point", Namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev")]
+    [System.SerializableAttribute()]
+    public partial class Point1 : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Location.WCFServiceReferences.LocationServices.Bound1 BoundField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BoundIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float XField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float YField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float ZField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Location.WCFServiceReferences.LocationServices.Bound1 Bound {
+            get {
+                return this.BoundField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BoundField, value) != true)) {
+                    this.BoundField = value;
+                    this.RaisePropertyChanged("Bound");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BoundId {
+            get {
+                return this.BoundIdField;
+            }
+            set {
+                if ((this.BoundIdField.Equals(value) != true)) {
+                    this.BoundIdField = value;
+                    this.RaisePropertyChanged("BoundId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Index {
+            get {
+                return this.IndexField;
+            }
+            set {
+                if ((this.IndexField.Equals(value) != true)) {
+                    this.IndexField = value;
+                    this.RaisePropertyChanged("Index");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float X {
+            get {
+                return this.XField;
+            }
+            set {
+                if ((this.XField.Equals(value) != true)) {
+                    this.XField = value;
+                    this.RaisePropertyChanged("X");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Y {
+            get {
+                return this.YField;
+            }
+            set {
+                if ((this.YField.Equals(value) != true)) {
+                    this.YField = value;
+                    this.RaisePropertyChanged("Y");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Z {
+            get {
+                return this.ZField;
+            }
+            set {
+                if ((this.ZField.Equals(value) != true)) {
+                    this.ZField = value;
+                    this.RaisePropertyChanged("Z");
                 }
             }
         }
@@ -9794,12 +12657,12 @@ namespace Location.WCFServiceReferences.LocationServices {
         bool EndAddArchor(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteArchor", ReplyAction="http://tempuri.org/IDevService/DeleteArchorResponse")]
-        void DeleteArchor(int archorId);
+        bool DeleteArchor(int archorId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/DeleteArchor", ReplyAction="http://tempuri.org/IDevService/DeleteArchorResponse")]
         System.IAsyncResult BeginDeleteArchor(int archorId, System.AsyncCallback callback, object asyncState);
         
-        void EndDeleteArchor(System.IAsyncResult result);
+        bool EndDeleteArchor(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyDev_Currency", ReplyAction="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse")]
         Location.WCFServiceReferences.LocationServices.NearbyDev[] GetNearbyDev_Currency(int id, float fDis, int nFlag);
@@ -9832,6 +12695,14 @@ namespace Location.WCFServiceReferences.LocationServices {
         System.IAsyncResult BeginGetDevClassByDevModel(string devModelName, System.AsyncCallback callback, object asyncState);
         
         Location.WCFServiceReferences.LocationServices.DevModel EndGetDevClassByDevModel(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevMonitorInfoByKKS", ReplyAction="http://tempuri.org/IDevService/GetDevMonitorInfoByKKSResponse")]
+        Location.WCFServiceReferences.LocationServices.Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IDevService/GetDevMonitorInfoByKKS", ReplyAction="http://tempuri.org/IDevService/GetDevMonitorInfoByKKSResponse")]
+        System.IAsyncResult BeginGetDevMonitorInfoByKKS(string KKS, bool bFlag, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Dev_Monitor EndGetDevMonitorInfoByKKS(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse")]
         Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByNodeId(int id);
@@ -10179,6 +13050,14 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         Location.WCFServiceReferences.LocationServices.Ticket EndGetTicketDetial(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getinspectionhistorylist", ReplyAction="http://tempuri.org/IBaseDataService/GetinspectionhistorylistResponse")]
+        Location.WCFServiceReferences.LocationServices.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IBaseDataService/Getinspectionhistorylist", ReplyAction="http://tempuri.org/IBaseDataService/GetinspectionhistorylistResponse")]
+        System.IAsyncResult BeginGetinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.InspectionTrackHistory[] EndGetinspectionhistorylist(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetOperationTicketList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketListResponse")]
         Location.WCFServiceReferences.LocationServices.OperationTicket[] GetOperationTicketList();
         
@@ -10243,6 +13122,14 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] EndGetPersonnelMobileInspectionHistoryList(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetInspectionTrack", ReplyAction="http://tempuri.org/IWorkService/GetInspectionTrackResponse")]
+        Location.WCFServiceReferences.LocationServices.InspectionTrack GetInspectionTrack();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IWorkService/GetInspectionTrack", ReplyAction="http://tempuri.org/IWorkService/GetInspectionTrackResponse")]
+        System.IAsyncResult BeginGetInspectionTrack(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.InspectionTrack EndGetInspectionTrack(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
         Location.WCFServiceReferences.LocationServices.LoginInfo Login(Location.WCFServiceReferences.LocationServices.LoginInfo info);
         
@@ -10258,6 +13145,14 @@ namespace Location.WCFServiceReferences.LocationServices {
         System.IAsyncResult BeginLogout(Location.WCFServiceReferences.LocationServices.LoginInfo info, System.AsyncCallback callback, object asyncState);
         
         Location.WCFServiceReferences.LocationServices.LoginInfo EndLogout(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetVersionInfo", ReplyAction="http://tempuri.org/IUserService/GetVersionInfoResponse")]
+        Location.WCFServiceReferences.LocationServices.VersionInfo GetVersionInfo();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IUserService/GetVersionInfo", ReplyAction="http://tempuri.org/IUserService/GetVersionInfoResponse")]
+        System.IAsyncResult BeginGetVersionInfo(System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.VersionInfo EndGetVersionInfo(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ibus_anchor/EditBusAnchor", ReplyAction="http://tempuri.org/Ibus_anchor/EditBusAnchorResponse")]
         bool EditBusAnchor(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId);
@@ -10298,6 +13193,14 @@ namespace Location.WCFServiceReferences.LocationServices {
         System.IAsyncResult BeginGetAreaStatistics(int id, System.AsyncCallback callback, object asyncState);
         
         Location.WCFServiceReferences.LocationServices.AreaStatistics EndGetAreaStatistics(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAreaService/GetAreaById", ReplyAction="http://tempuri.org/IAreaService/GetAreaByIdResponse")]
+        Location.WCFServiceReferences.LocationServices.Area GetAreaById(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IAreaService/GetAreaById", ReplyAction="http://tempuri.org/IAreaService/GetAreaByIdResponse")]
+        System.IAsyncResult BeginGetAreaById(int id, System.AsyncCallback callback, object asyncState);
+        
+        Location.WCFServiceReferences.LocationServices.Area EndGetAreaById(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -11294,6 +14197,25 @@ namespace Location.WCFServiceReferences.LocationServices {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DeleteArchorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public DeleteArchorCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetNearbyDev_CurrencyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -11364,6 +14286,25 @@ namespace Location.WCFServiceReferences.LocationServices {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((Location.WCFServiceReferences.LocationServices.DevModel)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDevMonitorInfoByKKSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDevMonitorInfoByKKSCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_Monitor Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Dev_Monitor)(this.results[0]));
             }
         }
     }
@@ -12187,6 +15128,25 @@ namespace Location.WCFServiceReferences.LocationServices {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetinspectionhistorylistCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetinspectionhistorylistCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.InspectionTrackHistory[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.InspectionTrackHistory[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetOperationTicketListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -12339,6 +15299,25 @@ namespace Location.WCFServiceReferences.LocationServices {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetInspectionTrackCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetInspectionTrackCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.InspectionTrack Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.InspectionTrack)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class LoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -12371,6 +15350,25 @@ namespace Location.WCFServiceReferences.LocationServices {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((Location.WCFServiceReferences.LocationServices.LoginInfo)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetVersionInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetVersionInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.VersionInfo Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.VersionInfo)(this.results[0]));
             }
         }
     }
@@ -12466,6 +15464,25 @@ namespace Location.WCFServiceReferences.LocationServices {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((Location.WCFServiceReferences.LocationServices.AreaStatistics)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAreaByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAreaByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Area Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Location.WCFServiceReferences.LocationServices.Area)(this.results[0]));
             }
         }
     }
@@ -12828,6 +15845,12 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         private System.Threading.SendOrPostCallback onGetDevClassByDevModelCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetDevMonitorInfoByKKSDelegate;
+        
+        private EndOperationDelegate onEndGetDevMonitorInfoByKKSDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDevMonitorInfoByKKSCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetKKSInfoByNodeIdDelegate;
         
         private EndOperationDelegate onEndGetKKSInfoByNodeIdDelegate;
@@ -13086,6 +16109,12 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         private System.Threading.SendOrPostCallback onGetTicketDetialCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetinspectionhistorylistDelegate;
+        
+        private EndOperationDelegate onEndGetinspectionhistorylistDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetinspectionhistorylistCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetOperationTicketListDelegate;
         
         private EndOperationDelegate onEndGetOperationTicketListDelegate;
@@ -13134,6 +16163,12 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         private System.Threading.SendOrPostCallback onGetPersonnelMobileInspectionHistoryListCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetInspectionTrackDelegate;
+        
+        private EndOperationDelegate onEndGetInspectionTrackDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetInspectionTrackCompletedDelegate;
+        
         private BeginOperationDelegate onBeginLoginDelegate;
         
         private EndOperationDelegate onEndLoginDelegate;
@@ -13145,6 +16180,12 @@ namespace Location.WCFServiceReferences.LocationServices {
         private EndOperationDelegate onEndLogoutDelegate;
         
         private System.Threading.SendOrPostCallback onLogoutCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetVersionInfoDelegate;
+        
+        private EndOperationDelegate onEndGetVersionInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetVersionInfoCompletedDelegate;
         
         private BeginOperationDelegate onBeginEditBusAnchorDelegate;
         
@@ -13175,6 +16216,12 @@ namespace Location.WCFServiceReferences.LocationServices {
         private EndOperationDelegate onEndGetAreaStatisticsDelegate;
         
         private System.Threading.SendOrPostCallback onGetAreaStatisticsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetAreaByIdDelegate;
+        
+        private EndOperationDelegate onEndGetAreaByIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAreaByIdCompletedDelegate;
         
         public LocationServiceClient() {
         }
@@ -13303,7 +16350,7 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         public event System.EventHandler<AddArchorCompletedEventArgs> AddArchorCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DeleteArchorCompleted;
+        public event System.EventHandler<DeleteArchorCompletedEventArgs> DeleteArchorCompleted;
         
         public event System.EventHandler<GetNearbyDev_CurrencyCompletedEventArgs> GetNearbyDev_CurrencyCompleted;
         
@@ -13312,6 +16359,8 @@ namespace Location.WCFServiceReferences.LocationServices {
         public event System.EventHandler<GetEntranceActionInfoByPerson24HoursCompletedEventArgs> GetEntranceActionInfoByPerson24HoursCompleted;
         
         public event System.EventHandler<GetDevClassByDevModelCompletedEventArgs> GetDevClassByDevModelCompleted;
+        
+        public event System.EventHandler<GetDevMonitorInfoByKKSCompletedEventArgs> GetDevMonitorInfoByKKSCompleted;
         
         public event System.EventHandler<GetKKSInfoByNodeIdCompletedEventArgs> GetKKSInfoByNodeIdCompleted;
         
@@ -13399,6 +16448,8 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         public event System.EventHandler<GetTicketDetialCompletedEventArgs> GetTicketDetialCompleted;
         
+        public event System.EventHandler<GetinspectionhistorylistCompletedEventArgs> GetinspectionhistorylistCompleted;
+        
         public event System.EventHandler<GetOperationTicketListCompletedEventArgs> GetOperationTicketListCompleted;
         
         public event System.EventHandler<GetWorkTicketListCompletedEventArgs> GetWorkTicketListCompleted;
@@ -13415,9 +16466,13 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         public event System.EventHandler<GetPersonnelMobileInspectionHistoryListCompletedEventArgs> GetPersonnelMobileInspectionHistoryListCompleted;
         
+        public event System.EventHandler<GetInspectionTrackCompletedEventArgs> GetInspectionTrackCompleted;
+        
         public event System.EventHandler<LoginCompletedEventArgs> LoginCompleted;
         
         public event System.EventHandler<LogoutCompletedEventArgs> LogoutCompleted;
+        
+        public event System.EventHandler<GetVersionInfoCompletedEventArgs> GetVersionInfoCompleted;
         
         public event System.EventHandler<EditBusAnchorCompletedEventArgs> EditBusAnchorCompleted;
         
@@ -13428,6 +16483,8 @@ namespace Location.WCFServiceReferences.LocationServices {
         public event System.EventHandler<GetPictureInfoCompletedEventArgs> GetPictureInfoCompleted;
         
         public event System.EventHandler<GetAreaStatisticsCompletedEventArgs> GetAreaStatisticsCompleted;
+        
+        public event System.EventHandler<GetAreaByIdCompletedEventArgs> GetAreaByIdCompleted;
         
         public string Hello(string msg) {
             return base.Channel.Hello(msg);
@@ -16125,8 +19182,8 @@ namespace Location.WCFServiceReferences.LocationServices {
                         archor}, this.onEndAddArchorDelegate, this.onAddArchorCompletedDelegate, userState);
         }
         
-        public void DeleteArchor(int archorId) {
-            base.Channel.DeleteArchor(archorId);
+        public bool DeleteArchor(int archorId) {
+            return base.Channel.DeleteArchor(archorId);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -16135,8 +19192,8 @@ namespace Location.WCFServiceReferences.LocationServices {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void EndDeleteArchor(System.IAsyncResult result) {
-            base.Channel.EndDeleteArchor(result);
+        public bool EndDeleteArchor(System.IAsyncResult result) {
+            return base.Channel.EndDeleteArchor(result);
         }
         
         private System.IAsyncResult OnBeginDeleteArchor(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -16145,14 +19202,15 @@ namespace Location.WCFServiceReferences.LocationServices {
         }
         
         private object[] OnEndDeleteArchor(System.IAsyncResult result) {
-            this.EndDeleteArchor(result);
-            return null;
+            bool retVal = this.EndDeleteArchor(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnDeleteArchorCompleted(object state) {
             if ((this.DeleteArchorCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.DeleteArchorCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.DeleteArchorCompleted(this, new DeleteArchorCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
@@ -16378,6 +19436,58 @@ namespace Location.WCFServiceReferences.LocationServices {
             }
             base.InvokeAsync(this.onBeginGetDevClassByDevModelDelegate, new object[] {
                         devModelName}, this.onEndGetDevClassByDevModelDelegate, this.onGetDevClassByDevModelCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag) {
+            return base.Channel.GetDevMonitorInfoByKKS(KKS, bFlag);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDevMonitorInfoByKKS(string KKS, bool bFlag, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDevMonitorInfoByKKS(KKS, bFlag, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Dev_Monitor EndGetDevMonitorInfoByKKS(System.IAsyncResult result) {
+            return base.Channel.EndGetDevMonitorInfoByKKS(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDevMonitorInfoByKKS(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string KKS = ((string)(inValues[0]));
+            bool bFlag = ((bool)(inValues[1]));
+            return this.BeginGetDevMonitorInfoByKKS(KKS, bFlag, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDevMonitorInfoByKKS(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Dev_Monitor retVal = this.EndGetDevMonitorInfoByKKS(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDevMonitorInfoByKKSCompleted(object state) {
+            if ((this.GetDevMonitorInfoByKKSCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDevMonitorInfoByKKSCompleted(this, new GetDevMonitorInfoByKKSCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDevMonitorInfoByKKSAsync(string KKS, bool bFlag) {
+            this.GetDevMonitorInfoByKKSAsync(KKS, bFlag, null);
+        }
+        
+        public void GetDevMonitorInfoByKKSAsync(string KKS, bool bFlag, object userState) {
+            if ((this.onBeginGetDevMonitorInfoByKKSDelegate == null)) {
+                this.onBeginGetDevMonitorInfoByKKSDelegate = new BeginOperationDelegate(this.OnBeginGetDevMonitorInfoByKKS);
+            }
+            if ((this.onEndGetDevMonitorInfoByKKSDelegate == null)) {
+                this.onEndGetDevMonitorInfoByKKSDelegate = new EndOperationDelegate(this.OnEndGetDevMonitorInfoByKKS);
+            }
+            if ((this.onGetDevMonitorInfoByKKSCompletedDelegate == null)) {
+                this.onGetDevMonitorInfoByKKSCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDevMonitorInfoByKKSCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDevMonitorInfoByKKSDelegate, new object[] {
+                        KKS,
+                        bFlag}, this.onEndGetDevMonitorInfoByKKSDelegate, this.onGetDevMonitorInfoByKKSCompletedDelegate, userState);
         }
         
         public Location.WCFServiceReferences.LocationServices.KKSCode GetKKSInfoByNodeId(int id) {
@@ -18526,6 +21636,60 @@ namespace Location.WCFServiceReferences.LocationServices {
                         id}, this.onEndGetTicketDetialDelegate, this.onGetTicketDetialCompletedDelegate, userState);
         }
         
+        public Location.WCFServiceReferences.LocationServices.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag) {
+            return base.Channel.Getinspectionhistorylist(dtBeginTime, dtEndTime, bFlag);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetinspectionhistorylist(dtBeginTime, dtEndTime, bFlag, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.InspectionTrackHistory[] EndGetinspectionhistorylist(System.IAsyncResult result) {
+            return base.Channel.EndGetinspectionhistorylist(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetinspectionhistorylist(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            System.DateTime dtBeginTime = ((System.DateTime)(inValues[0]));
+            System.DateTime dtEndTime = ((System.DateTime)(inValues[1]));
+            bool bFlag = ((bool)(inValues[2]));
+            return this.BeginGetinspectionhistorylist(dtBeginTime, dtEndTime, bFlag, callback, asyncState);
+        }
+        
+        private object[] OnEndGetinspectionhistorylist(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.InspectionTrackHistory[] retVal = this.EndGetinspectionhistorylist(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetinspectionhistorylistCompleted(object state) {
+            if ((this.GetinspectionhistorylistCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetinspectionhistorylistCompleted(this, new GetinspectionhistorylistCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetinspectionhistorylistAsync(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag) {
+            this.GetinspectionhistorylistAsync(dtBeginTime, dtEndTime, bFlag, null);
+        }
+        
+        public void GetinspectionhistorylistAsync(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag, object userState) {
+            if ((this.onBeginGetinspectionhistorylistDelegate == null)) {
+                this.onBeginGetinspectionhistorylistDelegate = new BeginOperationDelegate(this.OnBeginGetinspectionhistorylist);
+            }
+            if ((this.onEndGetinspectionhistorylistDelegate == null)) {
+                this.onEndGetinspectionhistorylistDelegate = new EndOperationDelegate(this.OnEndGetinspectionhistorylist);
+            }
+            if ((this.onGetinspectionhistorylistCompletedDelegate == null)) {
+                this.onGetinspectionhistorylistCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetinspectionhistorylistCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetinspectionhistorylistDelegate, new object[] {
+                        dtBeginTime,
+                        dtEndTime,
+                        bFlag}, this.onEndGetinspectionhistorylistDelegate, this.onGetinspectionhistorylistCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.OperationTicket[] GetOperationTicketList() {
             return base.Channel.GetOperationTicketList();
         }
@@ -18910,6 +22074,54 @@ namespace Location.WCFServiceReferences.LocationServices {
             base.InvokeAsync(this.onBeginGetPersonnelMobileInspectionHistoryListDelegate, null, this.onEndGetPersonnelMobileInspectionHistoryListDelegate, this.onGetPersonnelMobileInspectionHistoryListCompletedDelegate, userState);
         }
         
+        public Location.WCFServiceReferences.LocationServices.InspectionTrack GetInspectionTrack() {
+            return base.Channel.GetInspectionTrack();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetInspectionTrack(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetInspectionTrack(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.InspectionTrack EndGetInspectionTrack(System.IAsyncResult result) {
+            return base.Channel.EndGetInspectionTrack(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetInspectionTrack(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetInspectionTrack(callback, asyncState);
+        }
+        
+        private object[] OnEndGetInspectionTrack(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.InspectionTrack retVal = this.EndGetInspectionTrack(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetInspectionTrackCompleted(object state) {
+            if ((this.GetInspectionTrackCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetInspectionTrackCompleted(this, new GetInspectionTrackCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetInspectionTrackAsync() {
+            this.GetInspectionTrackAsync(null);
+        }
+        
+        public void GetInspectionTrackAsync(object userState) {
+            if ((this.onBeginGetInspectionTrackDelegate == null)) {
+                this.onBeginGetInspectionTrackDelegate = new BeginOperationDelegate(this.OnBeginGetInspectionTrack);
+            }
+            if ((this.onEndGetInspectionTrackDelegate == null)) {
+                this.onEndGetInspectionTrackDelegate = new EndOperationDelegate(this.OnEndGetInspectionTrack);
+            }
+            if ((this.onGetInspectionTrackCompletedDelegate == null)) {
+                this.onGetInspectionTrackCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetInspectionTrackCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetInspectionTrackDelegate, null, this.onEndGetInspectionTrackDelegate, this.onGetInspectionTrackCompletedDelegate, userState);
+        }
+        
         public Location.WCFServiceReferences.LocationServices.LoginInfo Login(Location.WCFServiceReferences.LocationServices.LoginInfo info) {
             return base.Channel.Login(info);
         }
@@ -19008,6 +22220,54 @@ namespace Location.WCFServiceReferences.LocationServices {
             }
             base.InvokeAsync(this.onBeginLogoutDelegate, new object[] {
                         info}, this.onEndLogoutDelegate, this.onLogoutCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.VersionInfo GetVersionInfo() {
+            return base.Channel.GetVersionInfo();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetVersionInfo(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetVersionInfo(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.VersionInfo EndGetVersionInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetVersionInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetVersionInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetVersionInfo(callback, asyncState);
+        }
+        
+        private object[] OnEndGetVersionInfo(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.VersionInfo retVal = this.EndGetVersionInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetVersionInfoCompleted(object state) {
+            if ((this.GetVersionInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetVersionInfoCompleted(this, new GetVersionInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetVersionInfoAsync() {
+            this.GetVersionInfoAsync(null);
+        }
+        
+        public void GetVersionInfoAsync(object userState) {
+            if ((this.onBeginGetVersionInfoDelegate == null)) {
+                this.onBeginGetVersionInfoDelegate = new BeginOperationDelegate(this.OnBeginGetVersionInfo);
+            }
+            if ((this.onEndGetVersionInfoDelegate == null)) {
+                this.onEndGetVersionInfoDelegate = new EndOperationDelegate(this.OnEndGetVersionInfo);
+            }
+            if ((this.onGetVersionInfoCompletedDelegate == null)) {
+                this.onGetVersionInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetVersionInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetVersionInfoDelegate, null, this.onEndGetVersionInfoDelegate, this.onGetVersionInfoCompletedDelegate, userState);
         }
         
         public bool EditBusAnchor(Location.WCFServiceReferences.LocationServices.Archor archor, int parentId) {
@@ -19260,6 +22520,56 @@ namespace Location.WCFServiceReferences.LocationServices {
             }
             base.InvokeAsync(this.onBeginGetAreaStatisticsDelegate, new object[] {
                         id}, this.onEndGetAreaStatisticsDelegate, this.onGetAreaStatisticsCompletedDelegate, userState);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.Area GetAreaById(int id) {
+            return base.Channel.GetAreaById(id);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAreaById(int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAreaById(id, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Location.WCFServiceReferences.LocationServices.Area EndGetAreaById(System.IAsyncResult result) {
+            return base.Channel.EndGetAreaById(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAreaById(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int id = ((int)(inValues[0]));
+            return this.BeginGetAreaById(id, callback, asyncState);
+        }
+        
+        private object[] OnEndGetAreaById(System.IAsyncResult result) {
+            Location.WCFServiceReferences.LocationServices.Area retVal = this.EndGetAreaById(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAreaByIdCompleted(object state) {
+            if ((this.GetAreaByIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAreaByIdCompleted(this, new GetAreaByIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAreaByIdAsync(int id) {
+            this.GetAreaByIdAsync(id, null);
+        }
+        
+        public void GetAreaByIdAsync(int id, object userState) {
+            if ((this.onBeginGetAreaByIdDelegate == null)) {
+                this.onBeginGetAreaByIdDelegate = new BeginOperationDelegate(this.OnBeginGetAreaById);
+            }
+            if ((this.onEndGetAreaByIdDelegate == null)) {
+                this.onEndGetAreaByIdDelegate = new EndOperationDelegate(this.OnEndGetAreaById);
+            }
+            if ((this.onGetAreaByIdCompletedDelegate == null)) {
+                this.onGetAreaByIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAreaByIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAreaByIdDelegate, new object[] {
+                        id}, this.onEndGetAreaByIdDelegate, this.onGetAreaByIdCompletedDelegate, userState);
         }
     }
 }

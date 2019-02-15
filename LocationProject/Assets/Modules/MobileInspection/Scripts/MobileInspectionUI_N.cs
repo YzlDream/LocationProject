@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MobileInspectionUI_N : MonoBehaviour {
+public class MobileInspectionUI_N : MonoBehaviour
+{
 
     public static MobileInspectionUI_N Instance;
 
@@ -13,6 +14,8 @@ public class MobileInspectionUI_N : MonoBehaviour {
     /// </summary>
     public GameObject window;
     public Text txtLineNum;//线路的数量
+
+    public List<InspectionTrack> InspectionTrackList;
 
     public MobileInspectionItemUI mobileInspectionItemPrafeb;//列表单项
     public VerticalLayoutGroup grid;//列表
@@ -25,10 +28,14 @@ public class MobileInspectionUI_N : MonoBehaviour {
     void Start()
     {
         Instance = this;
+        InspectionTrackList = new List<InspectionTrack>();
+        CommunicationCallbackClient.Instance.inspectionTrackHub.OnInspectionTrackRecieved += OnInspectionRecieved;
         personnelMobileInspectionList = new List<PersonnelMobileInspection>();
 
         toggleGroup = grid.GetComponent<ToggleGroup>();
 
+       
+    
         //WorkTicketBtn.onClick.AddListener(WorkTicketBtn_OnClick);
         //OperationTicketBtn.onClick.AddListener(OperationTicketBtn_OnClick);
         searchInput.onEndEdit.AddListener(SearchInput_OnEndEdit);
@@ -44,20 +51,14 @@ public class MobileInspectionUI_N : MonoBehaviour {
 
     }
 
-    //private void OnDisable()
-    //{
-    //    WorkTicketToggle.isOn = false;
-    //    OperationTicketToggle.isOn = false;
-    //    State = TwoTicketState.None;
-    //}
 
     /// <summary>
     /// 显示
     /// </summary>
     public void Show()
     {
-        //ShowWorkTicket();
-        //WorkTicketToggle.isOn = true;
+        mobileInspectionNum = 0;
+      
         SetWindowActive(true);
         ShowMobileInspection();
     }
@@ -68,52 +69,15 @@ public class MobileInspectionUI_N : MonoBehaviour {
     public void Hide()
     {
         SetWindowActive(false);
-        //WorkTicketToggle.isOn = false;
-        //OperationTicketToggle.isOn = false;
-        //State = TwoTicketState.None;
-        MobileInspectionManage.Instance.Hide();
+
+        // MobileInspectionManage.Instance.Hide();
+        MobileInspectionInfoFollow.Instance.Hide();
         MobileInspectionDetailsUI.Instance.SetWindowActive(false);
-        //OperationTicketDetailsUI_N.Instance.SetWindowActive(false);
+        
         FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
     }
 
-    //public void WorkTicketToggle_ValueChanged(bool isOn)
-    //{
-    //    if (isOn)
-    //    {
-    //        ShowWorkTicket();
-    //        SetToggleTextColor(WorkTicketToggle, true);
-    //    }
-    //    else
-    //    {
-    //        SetToggleTextColor(WorkTicketToggle, false);
-    //        WorkTicketDetailsUI_N.Instance.SetWindowActive(false);
-    //    }
-    //}
 
-    //public void OperationTicketToggle_ValueChanged(bool isOn)
-    //{
-    //    if (isOn)
-    //    {
-    //        ShowOperationTicket();
-    //        SetToggleTextColor(OperationTicketToggle, true);
-    //    }
-    //    else
-    //    {
-    //        SetToggleTextColor(OperationTicketToggle, false);
-    //        OperationTicketDetailsUI_N.Instance.SetWindowActive(false);
-    //    }
-    //}
-
-    //public void ChangState(TwoTicketState stateT)
-    //{
-    //    if (State != stateT)
-    //    {
-    //        State = stateT;
-    //        searchInput.text = "";
-    //        FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
-    //    }
-    //}
 
     /// <summary>
     /// 是否显示传统
@@ -121,11 +85,7 @@ public class MobileInspectionUI_N : MonoBehaviour {
     public void SetWindowActive(bool isActive)
     {
         window.SetActive(isActive);
-        //if (isActive == false)
-        //{
-        //    WorkTicketDetailsUI.Instance.SetWindowActive(false);
-        //    OperationTicketDetailsUI.Instance.SetWindowActive(false);
-        //}
+   
     }
 
 
@@ -134,30 +94,14 @@ public class MobileInspectionUI_N : MonoBehaviour {
     /// </summary>
     public void ShowMobileInspection()
     {
-        //if (State != TwoTicketState.工作票)
-        //{
-            TwoTicketSystemManage.Instance.Hide();
-            //ChangState(TwoTicketState.工作票);
-            searchInput.transform.Find("Placeholder").GetComponent<Text>().text = "请巡检编号或巡检人名称";
-            //TwoTicketSystemManage.Instance.HideDemo();
-            Search();
-        //}
+     
+        TwoTicketSystemManage.Instance.Hide();
+       
+        searchInput.transform.Find("Placeholder").GetComponent<Text>().text = "请巡检编号或巡检人名称";
+      
+        Search();
+      
     }
-
-    ///// <summary>
-    ///// 操作票按钮
-    ///// </summary>
-    //public void ShowOperationTicket()
-    //{
-    //    if (State != TwoTicketState.操作票)
-    //    {
-    //        TwoTicketSystemManage.Instance.Hide();
-    //        ChangState(TwoTicketState.操作票);
-    //        searchInput.transform.Find("Placeholder").GetComponent<Text>().text = "请输入编号或监护人名称";
-    //        //TwoTicketSystemManage.Instance.HideDemo();
-    //        Search();
-    //    }
-    //}
 
 
 
@@ -203,21 +147,12 @@ public class MobileInspectionUI_N : MonoBehaviour {
     public void Search()
     {
 
-        //if (State == TwoTicketState.工作票)
-        //{
-            //searchPersonnels = personnels.FindAll((item) => Contains(item));
-            ShowWorkTicketGrid();
-        //}
-        //else if (State == TwoTicketState.操作票)
-        //{
-        //    ShowOperationTicketGrid();
-        //}
-
-
-        //ShowPersonsGrid();
+       
+        ShowWorkTicketGrid();
+      
     }
 
-    #region 工作票相关
+   
 
     List<PersonnelMobileInspection> personnelMobileInspectionList;
 
@@ -226,26 +161,24 @@ public class MobileInspectionUI_N : MonoBehaviour {
     /// </summary>
     public void ShowWorkTicketGrid()
     {
-        Loom.StartSingleThread(() =>
-        {
-            GetPersonnelMobileInspectionList();
-            Loom.DispatchToMainThread(() =>
-            {
-                txtLineNum.text = personnelMobileInspectionList.Count.ToString();
-                CreateWorkTicketGrid();
-            });
 
-        });
+        // GetPersonnelMobileInspectionList();
+
+        txtLineNum.text = InspectionTrackList.Count.ToString();
+        CreateWorkTicketGrid();
+
     }
-
+    public int mobileInspectionNum = 0;
 
     public void CreateWorkTicketGrid()
     {
+       
         ClearItems();
-        List<PersonnelMobileInspection> listT = personnelMobileInspectionList.FindAll((item) => WorkTicketContains(item));
+        List<InspectionTrack> listT = InspectionTrackList.FindAll((item) => WorkTicketContains(item));
 
-        foreach (PersonnelMobileInspection w in listT)
+        foreach (InspectionTrack w in listT)
         {
+            mobileInspectionNum = mobileInspectionNum + 1;
             MobileInspectionItemUI itemT = CreateWorkTicketItem();
             itemT.Init(w);
         }
@@ -255,11 +188,18 @@ public class MobileInspectionUI_N : MonoBehaviour {
     /// <summary>
     /// 获取工作票数据
     /// </summary>
-    public void GetPersonnelMobileInspectionList()
+  
+    public void OnInspectionRecieved(List<InspectionTrack> info)
     {
-        personnelMobileInspectionList = CommunicationObject.Instance.GetPersonnelMobileInspectionList();
+        for (int i = 0; i < info.Count; i++)
+        {
+            InspectionTrackList.Add(info[i]);
+        }
+        
+           
+        
+ 
     }
-
     /// <summary>
     /// 创建工作票列表项
     /// </summary>
@@ -276,7 +216,7 @@ public class MobileInspectionUI_N : MonoBehaviour {
     /// <summary>
     /// 工作票筛选筛选
     /// </summary>
-    public bool WorkTicketContains(PersonnelMobileInspection personnelMobileInspectionT)
+    public bool WorkTicketContains(InspectionTrack personnelMobileInspectionT)
     {
         if (WorkTicketContainsNO(personnelMobileInspectionT)) return true;
         if (WorkTicketContainsPerson(personnelMobileInspectionT)) return true;
@@ -286,9 +226,9 @@ public class MobileInspectionUI_N : MonoBehaviour {
     /// <summary>
     /// 筛选根据工作票编号
     /// </summary>
-    public bool WorkTicketContainsNO(PersonnelMobileInspection personnelMobileInspectionT)
+    public bool WorkTicketContainsNO(InspectionTrack personnelMobileInspectionT)
     {
-        if (personnelMobileInspectionT.MobileInspectionName.ToLower().Contains(searchInput.text.ToLower()))
+        if (personnelMobileInspectionT.Code.ToLower().Contains(searchInput.text.ToLower()))
         {
             return true;
         }
@@ -301,9 +241,9 @@ public class MobileInspectionUI_N : MonoBehaviour {
     /// <summary>
     /// 筛选根据工作票负责人
     /// </summary>
-    public bool WorkTicketContainsPerson(PersonnelMobileInspection personnelMobileInspectionT)
+    public bool WorkTicketContainsPerson(InspectionTrack personnelMobileInspectionT)
     {
-        if (personnelMobileInspectionT.PersonnelName.ToLower().Contains(searchInput.text.ToLower()))
+        if (personnelMobileInspectionT.Name.ToLower().Contains(searchInput.text.ToLower()))
         {
             return true;
         }
@@ -312,107 +252,7 @@ public class MobileInspectionUI_N : MonoBehaviour {
             return false;
         }
     }
-    #endregion
-
-    //#region 操作票相关
-
-    //List<OperationTicket> operationTicketList;
-
-    ///// <summary>
-    ///// 创建显示工作票列表
-    ///// </summary>
-    //public void ShowOperationTicketGrid()
-    //{
-    //    Loom.StartSingleThread(() =>
-    //    {
-    //        GetOperationTicketData();
-    //        Loom.DispatchToMainThread(() =>
-    //        {
-    //            CreateOperationTicketGrid();
-    //        });
-
-    //    });
-    //}
-
-    ///// <summary>
-    ///// 创建操作票列表
-    ///// </summary>
-    //public void CreateOperationTicketGrid()
-    //{
-    //    ClearItems();
-    //    List<OperationTicket> searchOperationTicket = operationTicketList.FindAll((item) => OperationTicketContains(item));
-
-    //    foreach (OperationTicket w in searchOperationTicket)
-    //    {
-    //        MobileInspectionItemUI itemT = CreateOperationTicketItem();
-    //        itemT.Init(w);
-    //    }
-
-    //}
-
-    ///// <summary>
-    ///// 获取工作票数据
-    ///// </summary>
-    //public void GetOperationTicketData()
-    //{
-    //    operationTicketList = CommunicationObject.Instance.GetOperationTicketList();
-    //}
-
-
-
-    ///// <summary>
-    ///// 创建操作票列表项
-    ///// </summary>
-    //public MobileInspectionItemUI CreateOperationTicketItem()
-    //{
-    //    MobileInspectionItemUI itemT = Instantiate(mobileInspectionItemPrafeb);
-    //    itemT.transform.SetParent(grid.transform);
-    //    itemT.transform.localPosition = Vector3.zero;
-    //    itemT.transform.localScale = Vector3.one;
-    //    itemT.gameObject.SetActive(true);
-    //    return itemT;
-    //}
-
-    ///// <summary>
-    ///// 操作票筛选筛选
-    ///// </summary>
-    //public bool OperationTicketContains(OperationTicket operationTicketT)
-    //{
-    //    if (OperationTicketContainsNO(operationTicketT)) return true;
-    //    if (OperationTicketContainsPerson(operationTicketT)) return true;
-    //    return false;
-    //}
-
-    ///// <summary>
-    ///// 筛选根据操作票编号
-    ///// </summary>
-    //public bool OperationTicketContainsNO(OperationTicket operationTicketT)
-    //{
-    //    if (operationTicketT.No.ToLower().Contains(searchInput.text.ToLower()))
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-
-    ///// <summary>
-    ///// 筛选根据操作票监护人
-    ///// </summary>
-    //public bool OperationTicketContainsPerson(OperationTicket operationTicketT)
-    //{
-    //    if (operationTicketT.Guardian.ToLower().Contains(searchInput.text.ToLower()))
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-    //#endregion
+  
 
     /// <summary>
     /// 设置字体颜色

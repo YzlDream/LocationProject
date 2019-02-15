@@ -26,7 +26,7 @@ public class CameraMonitorFollowUI : MonoBehaviour
     /// <summary>
     /// 打开界面按钮
     /// </summary>
-    public Button BgButton;
+    public Toggle BgToggle;
 
     /// <summary>
     /// 弹窗
@@ -44,32 +44,28 @@ public class CameraMonitorFollowUI : MonoBehaviour
     /// 摄像头信息
     /// </summary>
     private DevNode CameraDev;
-    /// <summary>
-    /// 是否显示
-    /// </summary>
-    private bool isShow;
+
 	// Use this for initialization
 	void Start ()
 	{
 	    VideoMonitorButton.onClick.AddListener(ShowMonitor);
-	    BgButton.onClick.AddListener(ShowBg);
+        BgToggle.onValueChanged.AddListener(ShowBg);
 	}
     /// <summary>
     /// 显示/关闭 窗体
     /// </summary>
-    private void ShowBg()
+    private void ShowBg(bool isOn)
     {
-        if (isShow) Hide();
-        else Show();
+        if (isOn) Show();
+        else Hide();
     }
     /// <summary>
     /// 显示背景
     /// </summary>
     public void Show()
     {
-        if (CurrentMonitor != null&&CurrentMonitor!=this) CurrentMonitor.Hide();
+        if (CurrentMonitor != null&&CurrentMonitor!=this) CurrentMonitor.BgToggle.isOn=false;
         CurrentMonitor = this;
-        isShow = true;
         CameraDev.HighlightOn();
         InfoBg.SetActive(true);
     }
@@ -78,7 +74,6 @@ public class CameraMonitorFollowUI : MonoBehaviour
     /// </summary>
     public void Hide()
     {
-        isShow = false;
         CurrentMonitor = null;
         InfoBg.SetActive(false);
     }

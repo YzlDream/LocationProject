@@ -45,6 +45,11 @@ public class CommunicationCallbackClient : MonoSingletonBase<CommunicationCallba
     /// 门禁信息Hub
     /// </summary>
     public DoorAccessHub doorAccessHub = new DoorAccessHub();
+
+    /// <summary>
+    /// 移动巡检Hub
+    /// </summary>
+    public InspectionTrackHub inspectionTrackHub = new InspectionTrackHub();
     // Use this for initialization
     void Start () {
                
@@ -72,7 +77,7 @@ public class CommunicationCallbackClient : MonoSingletonBase<CommunicationCallba
         InitIpArgs(IpTemp,portTemp);
         URI = new Uri(string.Format("http://{0}:{1}/realtime", IpTemp, portTemp));
         // Create the SignalR connection, passing all the three hubs to it
-        signalRConnection = new Connection(URI, alarmHub, echoHub, doorAccessHub);
+        signalRConnection = new Connection(URI, alarmHub, echoHub, doorAccessHub,inspectionTrackHub);
         signalRConnection.JsonEncoder = new LitJsonEncoder();
         signalRConnection.OnStateChanged += signalRConnection_OnStateChanged;
         signalRConnection.OnError += signalRConnection_OnError;

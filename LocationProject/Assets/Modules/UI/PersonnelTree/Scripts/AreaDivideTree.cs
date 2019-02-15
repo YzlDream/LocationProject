@@ -75,7 +75,7 @@ public class AreaDivideTree : MonoBehaviour
     {
         if (isRefresh) return;
         isRefresh = true;
-        TreeNode<TreeViewItem> node = Tree.SelectedNode;
+        //TreeNode<TreeViewItem> node = Tree.SelectedNode;
         ThreadManager.Run(() =>
        {
            AreaNode topoRoot = CommunicationObject.Instance.GetPersonTree();
@@ -86,6 +86,7 @@ public class AreaDivideTree : MonoBehaviour
            PersonList = GetPersonNode(topoRoot);//获取数据库里面的数据
        }, () =>
         {
+            TreeNode<TreeViewItem> node = Tree.SelectedNode;
             foreach (var person in PersonList)
             {
                 if (personDic.ContainsKey(person.Id))//若该人员存在树里面
@@ -436,7 +437,8 @@ public class AreaDivideTree : MonoBehaviour
     /// <param name="node"></param>
     public void NodeSelected(TreeNode<TreeViewItem> node)
     {
-        Debug.Log(node.Item.Name + " selected");
+        //Debug.Log(node.Item.Name + " selected");
+        Debug.LogError(node.Item.Name + " selected");
         if (node.Item == null || node.Item.Tag == null) return;
         if (node.Item.Tag is PersonNode)
         {
@@ -445,6 +447,7 @@ public class AreaDivideTree : MonoBehaviour
             LocationObject currentLocationFocusObj = LocationManager.Instance.currentLocationFocusObj;
             if (currentLocationFocusObj == null || currentLocationFocusObj.Tag.Id != tagP.Id)
             {
+                Debug.LogError(node.Item.Name + " selected_FocusPersonAndShowInfo");
                 LocationManager.Instance.FocusPersonAndShowInfo(tagP.Id);
             }
         }
@@ -551,7 +554,9 @@ public class AreaDivideTree : MonoBehaviour
     }
     public void StartRefreshAreaPersonnel()
     {
-        InvokeRepeating("RefreshPersonnel", 1, 1);//todo:定时获取
+        //注释：用于崩溃测试；
+        InvokeRepeating("RefreshPersonnel", 1, 1F);//todo:定时获取
+        //Invoke("RefreshPersonnel", 1);
     }
     public void CloseeRefreshAreaPersonnel()
     {

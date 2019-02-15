@@ -5,6 +5,7 @@ using RTEditor;
 using Location.WCFServiceReferences.LocationServices;
 using System.Linq;
 using Unity.Common.Utils;
+using Assets.M_Plugins.Helpers.Utils;
 
 public class ObjectEditEventListener : MonoBehaviour {
 
@@ -51,7 +52,8 @@ public class ObjectEditEventListener : MonoBehaviour {
     /// </summary>
     /// <param name="selectionChangedEventArgs"></param>
     public void OnEditObjectSelectionChange(ObjectSelectionChangedEventArgs selectionChangedEventArgs)
-    {                     
+    {
+        if (!ObjectAddListManage.IsEditMode) return;
         HideDevInfo();
         EditorObjectSelection selection = EditorObjectSelection.Instance;
         if (selection.SelectedGameObjects == null || selection.SelectedGameObjects.Count == 0)
@@ -60,12 +62,23 @@ public class ObjectEditEventListener : MonoBehaviour {
             SurroundEditMenu_BatchCopy.Instacne.CloseUI();
         }
         else
-        {           
+        {
+            ClearDevHighlight();
             selectedObjs = selection.SelectedGameObjects.ToList();
             List<DevNode> devs = GetDevNode(selectedObjs);
             ShowDevInfo(devs);
-            SetBatchCopyState(devs);
+            //SetBatchCopyState(devs);
         }        
+    }
+    /// <summary>
+    /// 清除静态设备高亮
+    /// </summary>
+    private void ClearDevHighlight()
+    {
+        if(HighlightManage.Instance)
+        {
+            HighlightManage.Instance.HighLightDevOff();
+        }
     }
     /// <summary>
     /// 设置批量复制按钮
@@ -80,7 +93,7 @@ public class ObjectEditEventListener : MonoBehaviour {
             else if (devList.Count == 1)
             {
                 DevNode dev = devList[0];
-                if (dev is RoomDevController || dev is DepDevController)
+                if (dev is RoomDevController || dev is DepDevController||!TypeCodeHelper.IsLocationDev(dev.Info.TypeCode.ToString()))
                 {
                     if (ObjectAddListManage.IsEditMode) copyPart.Open(dev);
                 }
@@ -91,6 +104,7 @@ public class ObjectEditEventListener : MonoBehaviour {
             }
         }
     }
+  
     /// <summary>
     /// 获取设备
     /// </summary>

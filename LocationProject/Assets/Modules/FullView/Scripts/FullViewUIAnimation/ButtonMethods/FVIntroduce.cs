@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using Location.WCFServiceReferences.LocationServices;
+
 public class FVIntroduce : MonoBehaviour {
     /// <summary>
     /// 标题文本
@@ -24,6 +26,16 @@ public class FVIntroduce : MonoBehaviour {
     /// 程序退出按钮
     /// </summary>
     public Button ButtonExit;
+    /// <summary>
+    /// 区域信息
+    /// </summary>
+    public GameObject AreaInfoContent;
+    /// <summary>
+    /// 区域统计信息
+    /// </summary>
+    private AreaStatistics AreaInfo;
+
+    private bool isRefresh;//是否刷新
 
     [HideInInspector]
     public string posTitle="地理位置";
@@ -38,7 +50,57 @@ public class FVIntroduce : MonoBehaviour {
         PosButton.onClick.AddListener(showPos);
         ProjectScaleButton.onClick.AddListener(showProjectScale);
         ButtonExit.onClick.AddListener(ExitApplication);
+        StartRefresh(true);//第一次进入程序，手动刷新一次
+        SceneEvents.FullViewStateChange += StartRefresh;
     }
+
+    public void StartRefresh(bool isOn)
+    {
+        //Debug.LogError("StartRefresh"+isOn);
+        if(isOn)
+        {
+            if (!IsInvoking("TryGetAreaInfo"))
+            {
+                InvokeRepeating("TryGetAreaInfo", 0, 5);
+            }
+        }
+        else
+        {
+            CancelInvoke("TryGetAreaInfo");
+        }
+     
+    }
+    /// <summary>
+    /// 获取区域统计信息
+    /// </summary>
+    private void TryGetAreaInfo()
+    {
+        FactoryDepManager dep = FactoryDepManager.Instance;
+        if (dep == null ||isRefresh) return;
+        isRefresh = true;
+        ThreadManager.Run(() =>
+        {
+            AreaInfo = CommunicationObject.Instance.GetAreaStatistics(dep.NodeID);
+        }, () =>
+        {
+
+            SetInfo(AreaInfoContent.transform.GetChild(1),AreaInfo.PersonNum.ToString());
+            SetInfo(AreaInfoContent.transform.GetChild(2), AreaInfo.DevNum.ToString());
+            SetInfo(AreaInfoContent.transform.GetChild(3), AreaInfo.LocationAlarmNum.ToString());
+            SetInfo(AreaInfoContent.transform.GetChild(4), AreaInfo.DevAlarmNum.ToString());
+            isRefresh = false;
+        }, "");
+    }
+
+    private void SetInfo(Transform obj,string value)
+    {
+        Text t = obj.GetComponent<Text>();
+        if(t)
+        {
+            t.text = value;
+        }
+    }
+
     /// <summary>
     /// 立刻完成动画
     /// </summary>
@@ -80,7 +142,14 @@ public class FVIntroduce : MonoBehaviour {
     /// </summary>
     private void ExitApplication()
     {
-        Application.Quit();
+        UGUIMessageBox.Show("是否确定退出软件？", () =>
+        {
+            Application.Quit();
+        }, () =>
+        {
+
+        });
+        //Application.Quit();
     }
     /// <summary>
     /// 改变按钮高亮的颜色

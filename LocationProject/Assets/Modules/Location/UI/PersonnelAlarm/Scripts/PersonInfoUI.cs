@@ -102,7 +102,7 @@ public class PersonInfoUI : MonoBehaviour
     /// <summary>
     /// 初始化
     /// </summary>
-    public void Init(Personnel personnelT,LocationObject objT)
+    public void Init(Personnel personnelT, LocationObject objT)
     {
         //Log.Info("PersonInfoUI.Init", "name:" + personnelT.Name);
         personnel = personnelT;
@@ -166,7 +166,11 @@ public class PersonInfoUI : MonoBehaviour
     /// </summary>
     public void SetContentGridActive(bool b)
     {
-        if (contentGrid.activeInHierarchy == b) return;
+        if (contentGrid.activeInHierarchy == b)
+        {
+            //LocationManager.Instance.RecoverBeforeFocusAlign();
+            return;
+        }
         //contentGrid.SetActive(b);
 
         if (b)
@@ -177,6 +181,10 @@ public class PersonInfoUI : MonoBehaviour
         else
         {
             HideDisplayUI();
+            if (PersonSubsystemManage.Instance.IsHistorical == false)
+            {
+                ParkInformationManage.Instance.ShowParkInfoUI(true);
+            }
             LocationManager.Instance.RecoverBeforeFocusAlign();
 
         }
@@ -359,22 +367,53 @@ public class PersonInfoUI : MonoBehaviour
         AfterEntranceGuardManage.Instance.ShowWindow();
         AfterEntranceGuardManage.Instance.GetEntranceGuardData(personnel.Id);
     }
-  
+
     /// <summary>
     /// 显示附近监控
     /// </summary>
     public void VideoMonitorBtn_OnClick()
     {
-        Vector3 PerRotion = new Vector3(locationObj.transform.eulerAngles.x, locationObj.transform.eulerAngles.z, locationObj.transform.eulerAngles.y);
-        //  if (VideoMonitoringManage.Instance)
-        //  VideoMonitoringManage.Instance.Show();
+      
+        
         NearPersonnelCameraManage.Instance.Personnel.text = personnel.Name.ToString();
-        NearPersonnelCameraManage.Instance.CurrentArea.text = personnel.AreaName.ToString();
-        NearPersonnelCameraManage.Instance.ShowNearPersonnelCameraWindow();
-        NearPersonnelCameraManage.Instance.PersonnelRotation.GetComponent<RectTransform>().localEulerAngles = PerRotion;
-        float dis = 250;
-        NearPersonnelCameraManage.Instance.GetNearPerCamData(personnel.Id, dis, 1);
+        if (personnel.AreaName == null)
+        {
+            NearPersonnelCameraManage.Instance.CurrentArea.text = "厂区内";
+        }
+        else
+        {
+            NearPersonnelCameraManage.Instance.CurrentArea.text = personnel.AreaName.ToString();
+        }
 
+        NearPersonnelCameraManage.Instance.ShowNearPersonnelCameraWindow();
+        
+        NearPersonnelCameraManage.Instance. isRefresh = false;
+        StartRefershNearPersonnelCameraData();
+
+    }
+    public void StartRefershNearPersonnelCameraData()
+    {
+        if (!IsInvoking("RefershNearPersonnelCameraData"))
+        {
+            InvokeRepeating("RefershNearPersonnelCameraData",0, 8);
+        }
+    }
+    public void RefershNearPersonnelCameraData()
+    {
+        NearPersonnelCameraManage.Instance.SaveSelection();
+        float dis = 250;
+       // Debug.LogError("蔡露露");
+        Vector3 PerRotion = new Vector3(locationObj.transform.eulerAngles.x, locationObj.transform.eulerAngles.z, locationObj.transform.eulerAngles.y);
+        NearPersonnelCameraManage.Instance.PersonnelRotation.GetComponent<RectTransform>().localEulerAngles = PerRotion;
+        NearPersonnelCameraManage.Instance.GetNearPerCamData(personnel.Id, dis, 1);
+       // Debug.LogError("caixulu");
+    }
+    public void CloseRefershNearPersonnelCameraData()
+    {
+        if (IsInvoking("RefershNearPersonnelCameraData"))
+        {
+            CancelInvoke("RefershNearPersonnelCameraData");
+        }
     }
     /// <summary>
     /// 关闭定位相关功能
@@ -453,7 +492,7 @@ public class PersonInfoUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 设置信息界面的展开或关闭
+    /// 设置信息界面的展开或关闭,
     /// </summary>
     /// <param name="b"></param>
     public void SetOpenOrClose(bool b)

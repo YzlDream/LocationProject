@@ -42,6 +42,8 @@ namespace Mogoson.CameraExtension
         /// </summary>
         public Range distanceRange = new Range(1, 10);
 
+        //正交摄像机范围
+        public Range OrthographicRange = new Range(10,155);
         /// <summary>
         /// Damper for move and rotate.
         /// </summary>
@@ -72,6 +74,13 @@ namespace Mogoson.CameraExtension
         /// 是否关闭鼠标旋转
         /// </summary>
         private bool IsDisableMouseInput;
+
+        /// <summary>
+        /// 鼠标原始位置（Input.GetAxis("Mouse X")在远程桌面和TeamViewer中都是0，不能移动）
+        /// </summary>
+        private Vector3 mousePositionOri;
+
+        private Camera mainCamera;
         #endregion
 
         #region Protected Method
@@ -79,6 +88,7 @@ namespace Mogoson.CameraExtension
         {
             CurrentAngles = targetAngles = transform.eulerAngles;
             CurrentDistance = targetDistance = Vector3.Distance(transform.position, target.position);
+            mainCamera = transform.GetComponent<Camera>();
         }
 
         protected virtual void LateUpdate()
@@ -103,18 +113,38 @@ namespace Mogoson.CameraExtension
             {
                 if (IsClickUGUIorNGUI.Instance.isClickedUI) return;
             }
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+            {
+                mousePositionOri = Input.mousePosition;
+            }
             if (Input.GetMouseButton(mouseSettings.mouseButtonID))
             {
+                Vector2 mouseOffset = GetMouseOffset();
+                targetAngles.y += mouseOffset.x * mouseSettings.pointerSensitivity;
+                targetAngles.x -= mouseOffset.y * mouseSettings.pointerSensitivity;
+
                 //Mouse pointer.
-                targetAngles.y += Input.GetAxis("Mouse X") * mouseSettings.pointerSensitivity;
-                targetAngles.x -= Input.GetAxis("Mouse Y") * mouseSettings.pointerSensitivity;
+                //targetAngles.y += Input.GetAxis("Mouse X") * mouseSettings.pointerSensitivity;
+                //targetAngles.x -= Input.GetAxis("Mouse Y") * mouseSettings.pointerSensitivity;
 
                 //Range.
                 targetAngles.x = Mathf.Clamp(targetAngles.x, angleRange.min, angleRange.max);
             }
 
             //Mouse scrollwheel.
-            targetDistance -= Input.GetAxis("Mouse ScrollWheel") * mouseSettings.wheelSensitivity;
+            if (mainCamera == null) mainCamera = transform.GetComponent<Camera>();
+            if(mainCamera.orthographic)
+            {
+                if(!Input.GetMouseButton(2))
+                {
+                    mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * mouseSettings.wheelSensitivity;
+                    mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, OrthographicRange.min, OrthographicRange.max);
+                }               
+            }
+            if (!Input.GetMouseButton(2))
+            {
+                targetDistance -= Input.GetAxis("Mouse ScrollWheel") * mouseSettings.wheelSensitivity;
+            }               
             targetDistance = Mathf.Clamp(targetDistance, distanceRange.min, distanceRange.max);
 
             //Lerp.
@@ -124,6 +154,27 @@ namespace Mogoson.CameraExtension
             //Update transform position and rotation.
             transform.rotation = Quaternion.Euler(CurrentAngles);
             transform.position = target.position - transform.forward * CurrentDistance;
+        }
+
+        /// <summary>
+        /// 获取鼠标移动的距离，Input.GetAxis("Mouse X")在远程桌面和TeamViewer中都是0，不能移动
+        /// </summary>
+        /// <returns></returns>
+        private Vector2 GetMouseOffset()
+        {
+            //float x = Input.GetAxis("Mouse X");
+            //float y = Input.GetAxis("Mouse Y");
+            //Vector2 lastPos = new Vector2(x,y);
+            Vector3 mouseOffset = Input.mousePosition - mousePositionOri;
+            //Debug.Log("MouseOffset:(" + mouseOffset.x + "," + mouseOffset.y + ")");
+            mousePositionOri = Input.mousePosition;
+            float x = mouseOffset.x / 30f;
+            float y = mouseOffset.y / 30f;   //12
+            //if (x != 0 && y != 0)
+            //{
+            //    Debug.Log(string.Format("Around GetAxis,system:({0},{1}) caculate:({2},{3})", lastPos.x, lastPos.y, x, y));
+            //}
+            return new Vector2(x, y);
         }
         #endregion
     }

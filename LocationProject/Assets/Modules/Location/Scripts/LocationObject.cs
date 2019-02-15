@@ -6,6 +6,7 @@ using StardardShader;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UIWidgets;
 using UnityEngine;
@@ -120,6 +121,10 @@ public class LocationObject : MonoBehaviour
     /// 是否处于告警中
     /// </summary>
     public bool isAlarming;
+    /// <summary>
+    /// CharacterController：控制人物移动，
+    /// </summary>
+    PersonMove personmove;
 
     private void Awake()
     {
@@ -183,6 +188,7 @@ public class LocationObject : MonoBehaviour
         }
         ////transform.localPosition = targetPos;
         agent = gameObject.GetComponent<NavMeshAgent>();
+        personmove = gameObject.GetComponent<PersonMove>();
         ////agent.radius = 0.2f;
         //agent.height = 1.7f;
         //agent.speed = 3.5f;
@@ -206,7 +212,12 @@ public class LocationObject : MonoBehaviour
         {
             Log.Error("LocationObject.OnDisable", ex.ToString());
         }
-        FlashingOffArchors();
+
+        if (SystemSettingHelper.systemSetting.IsDebug)
+        {
+            SetPosSphereActive(false);
+            FlashingOffArchors();
+        }
     }
 
     public void On_DoubleClick()
@@ -271,21 +282,23 @@ public class LocationObject : MonoBehaviour
             if (locationAreas.Count == 0)
             {
                 if (isRenderEnable == false) return;
-                if (!LocationManager.Instance.isShowLeavePerson)
-                {
-                    SetRendererEnable(false);
-                }
-                else
-                {
-                    bool b = LocationManager.IsBelongtoCurrentDep(this);
-                    if (!b)
-                    {
-                        SetRendererEnable(false);
-                    }
-                }
+                SetRendererEnableFalse();
+                //if (!LocationManager.Instance.isShowLeavePerson)
+                //{
+                //    //SetRendererEnable(false);
+                //    SetRendererEnableFalse();
+                //}
+                //else
+                //{
+                //    //bool b = LocationManager.IsBelongtoCurrentDep(this);
+                //    //SetRendererEnable(false);
+                //    SetRendererEnableFalse();
+                //}
             }
         }
     }
+
+
 
     /// <summary>
     /// 初始化
@@ -341,22 +354,18 @@ public class LocationObject : MonoBehaviour
         //if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
         //tagPosInfo = tagPos;
         SetisInRange(true);
+        Vector3 targetPosVT;
         Vector3 offset = LocationManager.Instance.GetPosOffset();
-        targetPos = new Vector3((float)tagPosInfo.X, (float)tagPosInfo.Y, (float)tagPosInfo.Z);
+        targetPosVT = new Vector3((float)tagPosInfo.X, (float)tagPosInfo.Y, (float)tagPosInfo.Z);
 
-        targetPos = LocationManager.GetRealVector(targetPos);
+        targetPosVT = LocationManager.GetRealVector(targetPosVT);
+        Vector3 targetPosTemp = targetPosVT;
 
         if (tagPos.Tag == "097F" || tagPos.Tag == "0986")
         {
             //Debug.Log(tagPos.Tag + ":" + tagPos.TopoNodes);
             int i = 0;
         }
-        //SetState(tagPosInfo);
-
-        //if (gameObject.name == "标签30004陈先生")
-        //{
-        //    int i = 0;
-        //}
 
         if (gameObject.name.Contains("0007"))
         {
@@ -369,16 +378,39 @@ public class LocationObject : MonoBehaviour
         {
             //Debug.LogErrorFormat("标签：{0},AreaId:{1}", tagPos.Tag, tagPos.AreaId);
         }
+        GameObject floorCubeTt;
         if (tagPos.AreaId != null)
         {
 
             DepNode depnode = RoomFactory.Instance.GetDepNodeById((int)tagPos.AreaId);
-            Transform floorCubeT = GetFloorCube(depnode);
+            //Transform floorCubeT = GetFloorCube(depnode);
             if (currentDepNode != depnode)
             {
                 isOnTriggerStayOnce = false;
             }
             currentDepNode = depnode;
+
+            if (tagPos.Tag == "097F" && currentDepNode.NodeName == "主厂房0m层" && targetPosTemp.y > 2)
+            {
+                int i = 0;
+            }
+
+            DepNode depnodeT = MonitorRangeManager.Instance.GetDoZhuchangfang(depnode, targetPosTemp.y);
+            if (depnodeT != null)
+            {
+                currentDepNode = depnodeT;
+            }
+
+            Transform floorCubeT = GetFloorCube(currentDepNode);
+            if (floorCubeT != null)
+            {
+                floorCubeTt = floorCubeT.gameObject;
+            }
+            //if (tagPos.Tag == "097F" && currentDepNode != null && currentDepNode.ParentNode != null)
+            //{
+            //    Debug.LogError(tagPos.Tag + ":" + currentDepNode.NodeName + "，父区域" + currentDepNode.ParentNode.NodeName + "，" + "高度:" + targetPosTemp.y);
+            //}
+
             if (currentDepNode == null)
             {
                 currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
@@ -391,7 +423,7 @@ public class LocationObject : MonoBehaviour
             {
                 if (floorCubeT != null)
                 {
-                    Vector3 targetPosT = new Vector3(targetPos.x, halfHeight + floorCubeT.position.y, targetPos.z);
+                    Vector3 targetPosT = new Vector3(targetPosVT.x, halfHeight + floorCubeT.position.y, targetPosVT.z);
                     if (currentDepNode.monitorRangeObject)
                     {
                         if (Tag.Code == "0995" || Tag.Code == "097F")
@@ -407,7 +439,7 @@ public class LocationObject : MonoBehaviour
                         SetisInRange(isInRangeT);
 
                     }
-                    targetPos = targetPosT;
+                    targetPosVT = targetPosT;
                 }
                 else
                 {
@@ -417,7 +449,7 @@ public class LocationObject : MonoBehaviour
             else
             {
                 //int i = 0;
-                targetPos = new Vector3(targetPos.x, LocationManager.Instance.axisZero.y + halfHeight, targetPos.z);
+                targetPosVT = new Vector3(targetPosVT.x, LocationManager.Instance.axisZero.y + halfHeight, targetPosVT.z);
             }
 
 
@@ -429,17 +461,17 @@ public class LocationObject : MonoBehaviour
         }
         else
         {
-            if (currentDepNode != null)
-            {
-                currentDepNode = null;
-                //isOnTriggerStayOnce = false;//大数据测试修改
-            }
-            else
-            {
-                currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
-            }
+            //if (currentDepNode != null)
+            //{
+            //    currentDepNode = null;
+            //    //isOnTriggerStayOnce = false;//大数据测试修改
+            //}
+            //else
+            //{
+            currentDepNode = FactoryDepManager.Instance;//如果人员的区域节点为空，就默认把他设为园区节点
+            //}
 
-            targetPos = new Vector3(targetPos.x, LocationManager.Instance.axisZero.y + halfHeight, targetPos.z);
+            targetPosVT = new Vector3(targetPosVT.x, LocationManager.Instance.axisZero.y + halfHeight, targetPosVT.z);
         }
         isStartOnTrigger = true;
         //targetPos = new Vector3(-targetPos.z, targetPos.y, targetPos.x);
@@ -448,6 +480,11 @@ public class LocationObject : MonoBehaviour
         //targetPos = targetPos;
         //print(string.Format("name:{0}||位置:x({1}),y({2}),z({3})", name, targetPos.x, targetPos.y, targetPos.z));
 
+        if (LocationManager.Instance.isShowRealLocationHeight)
+        {
+            targetPosVT = new Vector3(targetPosVT.x, targetPosTemp.y + halfHeight, targetPosVT.z);
+        }
+
         if (LocationManager.Instance.currentLocationFocusObj == this)
         {
             ShowArchors();
@@ -455,6 +492,33 @@ public class LocationObject : MonoBehaviour
         else
         {
             FlashingOffArchors();
+        }
+
+
+        if (isInCurrentRange == false)//如果位置点不在当前所在区域范围内部
+        {
+            if (currentDepNode.monitorRangeObject && currentDepNode.monitorRangeObject.IsOnLocationArea)
+            {
+                if (!LocationManager.Instance.isShowLeavePerson)
+                {
+                    Vector2 v = currentDepNode.monitorRangeObject.PointForPointToPolygon(new Vector2(targetPosVT.x, targetPosVT.z));
+                    targetPosVT = new Vector3(v.x, targetPosVT.y, v.y);
+                }
+            }
+        }
+        targetPos = targetPosVT;
+        //if (Tag.Code == "0988")
+        //{
+        //    Debug.LogError("111Code0988:" + targetPos);
+        //}
+        if (targetPos.y < 1f && tagPos.Tag == "097F")
+        {
+            int i = 0;
+        }
+
+        if (currentDepNode.NodeName == "#1汽机房区域4" && targetPos.y > 10f)
+        {
+            int i = 0;
         }
     }
 
@@ -468,17 +532,20 @@ public class LocationObject : MonoBehaviour
             DepNode depnodeT = currentDepNode;
             if (depnodeT.TopoNode.Type == AreaTypes.机房 || depnodeT.TopoNode.Type == AreaTypes.范围)
             {
-                depnodeT = depnodeT.ParentNode;
+                //depnodeT = depnodeT.ParentNode;
+                depnodeT = GetRoomInFloor(depnodeT);
             }
             DepNode currentDepT = FactoryDepManager.currentDep;
             if (currentDepT.TopoNode.Type == AreaTypes.机房 || currentDepT.TopoNode.Type == AreaTypes.范围)
             {
-                currentDepT = depnodeT.ParentNode;
+                //currentDepT = depnodeT.ParentNode;
+                currentDepT = GetRoomInFloor(currentDepT);
             }
             if (depnodeT == currentDepT) return;
 
-            RoomFactory.Instance.FocusNodeForFocusPerson(currentDepNode, () =>
+            RoomFactory.Instance.FocusNodeForFocusPerson(depnodeT, () =>
             {
+                //LocationManager.Instance.FocusPersonAndShowInfo(Tag.Id);
                 //FocusPerson(locationObjectT.alignTarget);
 
                 //if (locationObjectT.personInfoUI != null)
@@ -486,6 +553,22 @@ public class LocationObject : MonoBehaviour
                 //    locationObjectT.personInfoUI.SetOpenOrClose(true);
                 //}
             }, false);
+        }
+    }
+
+    /// <summary>
+    /// 获取房间所在的楼层
+    /// </summary>
+    public DepNode GetRoomInFloor(DepNode depNodeT)
+    {
+        if (depNodeT == null) return null;
+        if (depNodeT.TopoNode.Type == AreaTypes.楼层)
+        {
+            return depNodeT;
+        }
+        else
+        {
+            return GetRoomInFloor(depNodeT.ParentNode);
         }
     }
 
@@ -531,6 +614,11 @@ public class LocationObject : MonoBehaviour
             ShowPositionSphereTest(targetPos);
         }
 
+        if (LocationManager.Instance.isSetPersonHeightByRay)
+        {
+            SetPersonHeightByRay();
+        }
+
         if (!LocationManager.Instance.isShowLeavePerson)
         {
             if (personInfoUI != null && personInfoUI.state == PersonInfoUIState.Leave) return; //人员处于离开状态，就不移动了
@@ -540,11 +628,11 @@ public class LocationObject : MonoBehaviour
         {
             if (currentDepNode.monitorRangeObject && currentDepNode.monitorRangeObject.IsOnLocationArea)
             {
-                if (!LocationManager.Instance.isShowLeavePerson)
-                {
-                    Vector2 v = currentDepNode.monitorRangeObject.PointForPointToPolygon(new Vector2(targetPos.x, targetPos.z));
-                    targetPos = new Vector3(v.x, targetPos.y, v.y);
-                }
+                //if (!LocationManager.Instance.isShowLeavePerson)
+                //{
+                //    Vector2 v = currentDepNode.monitorRangeObject.PointForPointToPolygon(new Vector2(targetPos.x, targetPos.z));
+                //    targetPos = new Vector3(v.x, targetPos.y, v.y);
+                //}
             }
             else
             {
@@ -590,10 +678,36 @@ public class LocationObject : MonoBehaviour
         {
             if (ThroughWallsManage.Instance && ThroughWallsManage.Instance.isColliderThroughWallsTest)
             {
-                PersonMove move = gameObject.GetComponent<PersonMove>();
-                if (move != null)
+                Vector3 posT = Vector3.Lerp(transform.position, targetPos, LocationManager.Instance.damper * Time.deltaTime);
+                //bool b = LocationManager.IsBelongtoCurrentDep(this);
+                float disT = Vector3.Distance(targetPos, transform.position);
+                if (disT < 1)//如果当前位置与目标位置超过三维里的一个单位(不考虑y轴方向)，就可以进行穿墙移动,小于一个单位会被阻挡
                 {
-                    move.SetPosition(targetPos);
+                    bool b = CheckDep();
+                    if (b)
+                    {
+                        //PersonMove personmove = gameObject.GetComponent<PersonMove>();
+                        float yt = Mathf.Abs(targetPos.y - transform.position.y);
+                        if (yt <= 0.2f)//在用角色控制器移动人员时，应该尽量让y轴方向位置，没什么阻挡，不然从1层切换到2层时，可能出现卡在2层下面
+                        {
+                            if (personmove != null)
+                            {
+                                personmove.SetPosition(posT);
+                            }
+                        }
+                        else
+                        {
+                            transform.position = posT;
+                        }
+                    }
+                    else//如果三维人员当前位置区域与定位信息里的区域不一致，就可以进行穿墙移动
+                    {
+                        transform.position = posT;
+                    }
+                }
+                else
+                {
+                    transform.position = posT;
                 }
             }
             else if (ThroughWallsManage.Instance && ThroughWallsManage.Instance.isNavMeshThroughWallsTest)
@@ -618,6 +732,94 @@ public class LocationObject : MonoBehaviour
         //    agent.SetDestination(targetPos);
         //}
 
+
+
+    }
+
+    /// <summary>
+    /// 设置人员高度，通过打射线。来判断最近的楼层地板来设置位置
+    /// </summary>
+    public void SetPersonHeightByRay()
+    {
+        //Debug.LogError("Raycast:");
+        float yHeight = targetPos.y;
+
+        float downFloorHeight = targetPos.y;
+        RaycastHit downhit;
+        if (Physics.Raycast(targetPos, Vector3.down, out downhit, 200f, LayerMask.GetMask("Floor")))
+        {
+            downFloorHeight = downhit.point.y;
+        }
+
+        float upFloorHeight = targetPos.y;
+        RaycastHit uphit;
+        if (Physics.Raycast(targetPos, Vector3.up, out uphit, 200f, LayerMask.GetMask("Floor")))
+        {
+            upFloorHeight = uphit.point.y;
+        }
+
+        //Debug.DrawLine(transform.position, transform.position + Vector3.up * 50, Color.green, 1f);
+
+        float yTemp = (upFloorHeight - yHeight) <= (yHeight - downFloorHeight) ? upFloorHeight : downFloorHeight;
+
+        if ((upFloorHeight - yHeight) > (yHeight - downFloorHeight) && Tag.Code == "097F")
+        {
+            DepNode nodeT = uphit.transform.GetComponentInParent<DepNode>();
+            if (currentDepNode.NodeName == "主厂房4.5m层")
+            {
+                int i = 0;
+            }
+        }
+
+        //此部分代码用于测试
+        //if (Tag.Code == "097F")
+        //{
+        //    if ((upFloorHeight - yHeight) < (yHeight - downFloorHeight))
+        //    {
+        //        try
+        //        {
+        //            DepNode nodeT = uphit.transform.GetComponentInParent<DepNode>();
+        //            if (nodeT != null)
+        //            {
+        //                if (targetPos.y < 1f && nodeT.NodeName == "主厂房4.5m层")
+        //                {
+        //                    int i = 0;
+        //                }
+        //                Debug.LogError(Tag.Code + ",up" + "区域:" + nodeT.NodeName + "，" + "Raycast:" + uphit.transform.name + ",targetPos.y:" + targetPos.y);
+        //            }
+        //            else
+        //            {
+        //                Debug.LogError(Tag.Code + ",down" + "区域:null" + "，" + "Raycast:" + uphit.transform.name);
+        //            }
+        //        }
+        //        catch
+        //        { }
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            DepNode nodeT = downhit.transform.GetComponentInParent<DepNode>();
+        //            if (nodeT != null)
+        //            {
+        //                Debug.LogError(Tag.Code + ",down" + "区域:" + nodeT.NodeName + "，" + "Raycast:" + downhit.transform.name + ",targetPos.y:" + targetPos.y);
+        //            }
+        //            else
+        //            {
+        //                Debug.LogError(Tag.Code + ",down" + "区域:null" + "，" + "Raycast:" + downhit.transform.name);
+        //            }
+        //        }
+        //        catch
+        //        {
+
+        //        }
+        //    }
+        //}
+
+        //float yLerp = Mathf.Lerp(transform.position.y, yTemp, LocationManager.Instance.damper * Time.deltaTime);
+        //transform.position = new Vector3(transform.position.x, yLerp, transform.position.z);
+        targetPos = new Vector3(targetPos.x, yTemp, targetPos.z);
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -691,18 +893,21 @@ public class LocationObject : MonoBehaviour
 
     }
 
-    //大数据测试修改
-    private void OnTriggerStay(Collider other)
-    {
-        if (!isStartOnTrigger) return;
-        if (!isOnTriggerStayOnce)
-        {
-            OnTriggerEnter(other);
-            isOnTriggerStayOnce = true;
-        }
-        //OnTriggerEnter(other);//大数据测试修改
-        //Debug.LogFormat("code:{0},区域名称:{1},OnTriggerStay", Tag.Code, other.name);
-    }
+    ////20190118大量卡数据测试时，这里会导致卡顿
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (!isStartOnTrigger) return;
+
+    //    if (!isOnTriggerStayOnce)
+    //    {
+    //        OnTriggerEnter(other);
+    //        isOnTriggerStayOnce = true;
+    //    }
+
+    //    //OnTriggerEnter(other);//大数据测试修改
+    //    //Debug.LogFormat("code:{0},区域名称:{1},OnTriggerStay", Tag.Code, other.name);
+    //    //Debug.Log("区域名称OnTriggerStay");
+    //}
 
     private void OnTriggerExit(Collider other)
     {
@@ -731,7 +936,8 @@ public class LocationObject : MonoBehaviour
                 {
                     if (!LocationManager.Instance.isShowLeavePerson)
                     {
-                        SetRendererEnable(false);
+                        //SetRendererEnable(false);
+                        SetRendererEnableFalse();
                     }
                 }
             }
@@ -767,6 +973,30 @@ public class LocationObject : MonoBehaviour
             //}
 
         }
+    }
+
+    /// <summary>
+    /// 检测当前定位信息所在的区域，是否与三维显示的区域位置一致
+    /// </summary>
+    public bool CheckDep()
+    {
+        //MonitorRangeObject monitorRangeObject = normalAreas.Find((i) => i.depNode.NodeID == currentDepNode.NodeID);
+        MonitorRangeObject monitorRangeObject = normalAreas.Find((i) =>
+        {
+            if (i.depNode != null && i.depNode.NodeID == currentDepNode.NodeID)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        });
+        if (monitorRangeObject == null)
+        {
+            return false;
+        }
+        return true;
     }
 
     /// <summary>
@@ -881,7 +1111,17 @@ public class LocationObject : MonoBehaviour
         return renders;
     }
 
-
+    /// <summary>
+    /// 设置渲染器是否启用
+    /// </summary>
+    public void SetRendererEnableFalse()
+    {
+        bool b = IsBelongtoCurrentDep();
+        if (!b)
+        {
+            SetRendererEnable(false);
+        }
+    }
 
     /// <summary>
     /// 设置渲染器是否启用
@@ -912,10 +1152,45 @@ public class LocationObject : MonoBehaviour
         {
             if (LocationManager.Instance.currentLocationFocusObj == this)
             {
-                LocationManager.Instance.HideCurrentPersonInfoUI();
+                //LocationManager.Instance.HideCurrentPersonInfoUI();
+                bool b = IsBelongtoCurrentDep();
+                if (!b)
+                {
+                    LocationManager.Instance.HideCurrentPersonInfoUI();
+                }
             }
             FollowUIOff();
         }
+    }
+
+    /// <summary>
+    /// 判断当前人员是否在当前区域下，并执行相关操作
+    /// </summary>
+    /// <param name="locationObjectT"></param>
+    /// <returns></returns>
+    public bool IsBelongtoCurrentDep()
+    {
+        DepNode currentDepT = FactoryDepManager.currentDep;
+        if (currentDepT.TopoNode.Type == AreaTypes.机房 || currentDepT.TopoNode.Type == AreaTypes.范围)
+        {
+            //currentDepT = depnodeT.ParentNode;
+            currentDepT = GetRoomInFloor(currentDepT);
+        }
+        if (currentDepT == null)
+        {
+            currentDepT = FactoryDepManager.currentDep;
+        }
+
+        List<DepNode> depNodeListT = currentDepT.GetComponentsInChildren<DepNode>().ToList();
+        if (!depNodeListT.Contains(currentDepNode))
+        {
+            //RoomFactory.Instance.ChangeDepNodeNoTween();
+            ////RoomFactory.Instance.FocusNode(FactoryDepManager.Instance);
+
+            //LocationManager.Instance.RecoverBeforeFocusAlignToOrigin();
+            return false;
+        }
+        return true;
     }
 
     [ContextMenu("SetTTHide")]
@@ -1075,7 +1350,7 @@ public class LocationObject : MonoBehaviour
             }
             else
             {
-                personInfoUI.SetTxtAreaName("该区域无法识别");
+                personInfoUI.SetTxtAreaName("厂区内");
             }
         }
     }
@@ -1144,7 +1419,8 @@ public class LocationObject : MonoBehaviour
     public void FlashingOff()
     {
         Highlighter h = gameObject.AddMissingComponent<Highlighter>();
-        h.ConstantOff();
+        //h.ConstantOff();
+        h.FlashingOff();
     }
 
     /// <summary>
@@ -1187,7 +1463,10 @@ public class LocationObject : MonoBehaviour
         //    }
         //    alarmAreas.Add(mapAreaObject);
         //}
-        if (!alarmList.Contains(locationAlarm))
+
+        LocationAlarm locationAlarmT = alarmList.Find((i) => i.Id == locationAlarm.Id);
+
+        if (locationAlarmT == null)
         {
             if (alarmList.Count == 0)//如果人员未处于告警状态
             {
@@ -1225,9 +1504,11 @@ public class LocationObject : MonoBehaviour
         //    }
         //}
 
-        if (alarmList.Contains(locationAlarm))
+        LocationAlarm locationAlarmT = alarmList.Find((i) => i.Id == locationAlarm.Id);
+
+        if (locationAlarmT != null)
         {
-            alarmList.Remove(locationAlarm);
+            alarmList.Remove(locationAlarmT);
             if (alarmList.Count == 0)
             {
                 if (isAlarming == false) return;
@@ -1480,6 +1761,7 @@ public class LocationObject : MonoBehaviour
     }
 
     public GameObject posSphere;
+    public Highlighter posSphereHighlighter;
     public static Transform PositionSphereParent;
     /// <summary>
     /// 创建高亮测试小球显示人员的真实位置
@@ -1501,9 +1783,16 @@ public class LocationObject : MonoBehaviour
             posSphere.transform.SetParent(PositionSphereParent);
         }
 
-        Highlighter h = posSphere.AddMissingComponent<Highlighter>();
-        h.ConstantOn(Color.blue);
+        if (posSphereHighlighter == null)
+        {
+            posSphereHighlighter = posSphere.AddMissingComponent<Highlighter>();
+        }
+        posSphereHighlighter.ConstantOn(Color.blue);
         posSphere.transform.position = p;
+        //if (Tag.Code == "0988")
+        //{
+        //    Debug.LogError("Code0988:" + p);
+        //}
     }
 
     /// <summary>

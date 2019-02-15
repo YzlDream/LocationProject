@@ -51,6 +51,7 @@ public class PersonnelNormalNode : MonoBehaviour
     {
         if (PersonnelToggle.isOn == true)
         {
+            if (PersonInfoUI == null) return;
             if (PersonInfoUI.personnel != null)
             {
                 //PersonnelTreeManage.Instance.departmentDivideTree.Tree.SelectNodeByData(PersonInfoUI.personnel.Id);

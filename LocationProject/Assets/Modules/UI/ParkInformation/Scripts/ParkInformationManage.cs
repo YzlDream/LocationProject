@@ -90,9 +90,11 @@ public class ParkInformationManage : MonoBehaviour
         CurrentNode = dep;
         if (!IsInvoking("StartRefreshData"))
         {
+            //注释：用于崩溃测试；
             InvokeRepeating("StartRefreshData", 0, 1f);//todo:定时获取
+            //Invoke("StartRefreshData", 0);
         }
-    //    GetParkDataInfo(CurrentNode);
+        //    GetParkDataInfo(CurrentNode);
     }
     public void StartRefreshData()
     {
@@ -198,6 +200,12 @@ public class ParkInformationManage : MonoBehaviour
             else
             {
                 ParkInfoUI.SetActive(true);
+                if (!IsInvoking("StartRefreshData"))
+                {
+                    //注释：用于崩溃测试；
+                    InvokeRepeating("StartRefreshData", 0, 1f);//todo:定时获取
+                    //Invoke("StartRefreshData", 0);
+                }
             }
 
         }

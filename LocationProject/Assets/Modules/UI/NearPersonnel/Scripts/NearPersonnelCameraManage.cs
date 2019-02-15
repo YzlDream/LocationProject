@@ -25,7 +25,12 @@ public class NearPersonnelCameraManage : MonoBehaviour
     public Text Personnel;//监控人员
     public Text CurrentArea;//当前所在区域
     public Text CamNum;
-   
+
+
+    public Scrollbar vertical;
+    public PersonInfoUI personInfoUI;
+
+    public bool isRefresh = false;
     void Start()
     {
         Instance = this;
@@ -34,20 +39,26 @@ public class NearPersonnelCameraManage : MonoBehaviour
 
     }
 
+
+
     public void GetNearPerCamData(int id, float distance, int nFlag)
     {
-    
+        if (isRefresh) return;
+        isRefresh = true;
         var nearPersonnelData = CommunicationObject.Instance.GetNearbyDev_Currency(id, distance, nFlag);
+        if (nearPersonnelData == null)
+        {
+            CamNum.text = "0";
+            isRefresh = false;
+            return;
+        }
         if (nearPersonnelData != null)
         {
             NearPerCamList = new List<NearbyDev>(nearPersonnelData);
         }
-          else
-        {
-            return;
-        }
+
         SetNearPersonnelCamData(NearPerCamList);
-        if (NearPerCamList==null)
+        if (NearPerCamList == null)
         {
             CamNum.text = "";
         }
@@ -55,23 +66,27 @@ public class NearPersonnelCameraManage : MonoBehaviour
         {
             CamNum.text = NearPerCamList.Count.ToString();
         }
+
+        isRefresh = false;
     }
     public void SetNearPersonnelCamData(List<NearbyDev> devList)
     {
         for (int i = 0; i < devList.Count; i++)
         {
-            GameObject Obj = InstantiateLine();   
+
+            GameObject Obj = InstantiateLine();
             NearPersonnelCameraInfo item = Obj.GetComponent<NearPersonnelCameraInfo>();
-            item.showNearPersonnelCamInfo(devList[i]);
+            item.showNearPersonnelCamInfo(devList[i], devList.Count, i);
 
 
             GameObject camObj = CreateCameraPrefabs();
             NearPerCameraRotation camItem = camObj.GetComponent<NearPerCameraRotation>();
-            camItem.GetNearPersonnelCamInfo(devList[i]);
+            camItem.GetNearPersonnelCamInfo(devList[i], devList.Count, i);
 
             item.nearPerCameraRotation = camItem;
             camItem.nearPersonnelCameraInfo = item;
         }
+
     }
     /// <summary>
     /// 每一行的预设
@@ -98,6 +113,7 @@ public class NearPersonnelCameraManage : MonoBehaviour
         camObj.transform.parent = CameraGrid.transform;
         return camObj;
     }
+
     void Update()
     {
 
@@ -108,6 +124,7 @@ public class NearPersonnelCameraManage : MonoBehaviour
     }
     public void CloseNearPersonnelCameraWindow()
     {
+        personInfoUI.CloseRefershNearPersonnelCameraData();
         NearPersonnelCameraWindow.SetActive(false);
         SaveSelection();
     }
@@ -116,11 +133,11 @@ public class NearPersonnelCameraManage : MonoBehaviour
     /// </summary>
     public void SaveSelection()
     {
-        for (int j = grid.transform.childCount - 1; j >=0; j--)
+        for (int j = grid.transform.childCount - 1; j >= 0; j--)
         {
             DestroyImmediate(grid.transform.GetChild(j).gameObject);
         }
-        for (int j = CameraGrid.transform.childCount - 1; j >=0; j--)
+        for (int j = CameraGrid.transform.childCount - 1; j >= 0; j--)
         {
             DestroyImmediate(CameraGrid.transform.GetChild(j).gameObject);
         }

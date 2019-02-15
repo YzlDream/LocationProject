@@ -12,6 +12,8 @@ public class OperationTicketItem_N : MonoBehaviour {
 
     public OperationTicket info;//操作票信息
 
+    public Text personnelNumText;
+    public ChangeTextColor changeTextColor;
     // Use this for initialization
     void Start()
     {
@@ -36,6 +38,7 @@ public class OperationTicketItem_N : MonoBehaviour {
     /// <param name="personStr"></param>
     public void Init(OperationTicket infoT)
     {
+        personnelNumText.text = TwoTicketSystemUI_N.Instance.OperationNum.ToString();
         info = infoT;
         UpdateData(info.No, info.Guardian);
     }
@@ -63,9 +66,11 @@ public class OperationTicketItem_N : MonoBehaviour {
             TwoTicketSystemManage.Instance.ShowOperationTicketPath(info);
             ToggleGroup toggleGroup = TwoTicketSystemUI_N.Instance.toggleGroup;
             FunctionSwitchBarManage.Instance.SetTransparentToggle(true);
+            changeTextColor.ClickTextColor();
         }
         else
         {
+            changeTextColor.NormalTextColor();
             TwoTicketSystemManage.Instance.Hide();
             FunctionSwitchBarManage.Instance.SetTransparentToggle(false);
             OperationTicketDetailsUI_N.Instance.SetWindowActive(false);

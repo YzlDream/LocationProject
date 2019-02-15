@@ -11,10 +11,7 @@ using RTEditor;
 public class SurroundEditMenu_BatchCopy : MonoBehaviour
 {
     public static SurroundEditMenu_BatchCopy Instacne;
-    /// <summary>
-    /// 需要监听的批量复制按钮
-    /// </summary>
-    public Button CopyButton;
+
     /// <summary>
     /// 要批量复制的设备
     /// </summary>
@@ -89,7 +86,7 @@ public class SurroundEditMenu_BatchCopy : MonoBehaviour
         Instacne = this;
         maskValue = LayerMask.GetMask(Layers.Floor);
         //UIEventListener.Get(CopyButton).onPress = OnPress_Copy;
-        CopyButton.onClick.AddListener(OnPress_Copy);
+        //CopyButton.onClick.AddListener(OnPress_Copy);
         InitAngleLine();
     }
 
@@ -105,13 +102,15 @@ public class SurroundEditMenu_BatchCopy : MonoBehaviour
     public void Open(DevNode dev)
     {
         CopyObj = dev.gameObject;
-        CopyButton.gameObject.SetActive(true);
+        //CopyButton.gameObject.SetActive(true);
+        OnPress_Copy();
     }
     /// <summary>
     /// 关闭界面
     /// </summary>
     public void CloseEdit()
     {
+        SetCopyCubeState(false);
         CopyObj.transform.eulerAngles = objOriginEulerAngles;
         IsEndCanCopy = true;
         Invoke("SetIsCanCopyFalse", 0.1f);
@@ -225,7 +224,7 @@ public class SurroundEditMenu_BatchCopy : MonoBehaviour
     /// </summary>
     public void CloseUI()
     {
-        CopyButton.gameObject.SetActive(false);
+        //CopyButton.gameObject.SetActive(false);
         //CommonUIHelperScene.Instance.SetEditToolBarRight(false);
         //if (RoomDevInfoPanel.Instance) RoomDevInfoPanel.Instance.Hide();
     }
@@ -424,7 +423,7 @@ public class SurroundEditMenu_BatchCopy : MonoBehaviour
     //        //ModelResource.GetRoomDev(modelName);
     //    }
     //}
-
+    public GameObject CopyCube;
     /// <summary>
     /// 沿某一方向，一定间距，批量复制设备
     /// </summary>
@@ -445,6 +444,8 @@ public class SurroundEditMenu_BatchCopy : MonoBehaviour
             }
             if (IsCanCopy)//
             {
+                InitCopyCube();
+                SetCopyCubeState(true);
                 Vector3 point = GetFloorColliderPoint();
                 //print("RealtimeCreateDevice>>>>>point:" + point);
                 float length = GetObjToMouseLength(point);
@@ -461,7 +462,36 @@ public class SurroundEditMenu_BatchCopy : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// 设置复制用的平面，和设备在同一水平线
+    /// </summary>
+    private void InitCopyCube()
+    {
+        if(CopyCube==null)
+        {
+            CopyCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            CopyCube.transform.localScale = new Vector3(100,0.5f,100);            
+            CopyCube.AddCollider();
+            MeshRenderer render = CopyCube.GetComponent<MeshRenderer>();
+            if (render) render.enabled = false;
+            CopyCube.layer = LayerMask.NameToLayer("Floor");
+            CopyCube.transform.parent = transform;
+            CopyCube.transform.name = "BactchCopyRayPlane";
+        }
+    }
+    /// <summary>
+    /// 设置复制用参考平面的状态
+    /// </summary>
+    /// <param name="isOn"></param>
+    private void SetCopyCubeState(bool isOn)
+    {
+        if(CopyCube!=null)
+        {
+            if (CopyCube.activeSelf == isOn) return;
+            CopyCube.SetActive(isOn);
+            if (isOn&& CopyCube != null) CopyCube.transform.position = CopyObj.transform.position;
+        }
+    }
     /// <summary>
     /// 设置角度线
     /// </summary>

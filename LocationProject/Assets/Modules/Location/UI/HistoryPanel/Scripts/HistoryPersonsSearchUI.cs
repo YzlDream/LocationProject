@@ -175,7 +175,7 @@ public class HistoryPersonsSearchUI : MonoBehaviour
     public void RemoveSelectItem(Personnel personnelT)
     {
         //isEdited = true;
-        HistoryPersonsSearchUISelectedItem item = selectItems.Find((i) => i.personnel == personnelT);
+        HistoryPersonsSearchUISelectedItem item = selectItems.Find((i) => i.personnel.Id == personnelT.Id);
         selectItems.Remove(item);
         DestroyImmediate(item.gameObject);
         SetPersonsLimitRelevant();
@@ -291,7 +291,8 @@ public class HistoryPersonsSearchUI : MonoBehaviour
             //    continue;
             //}
             HistoryPersonsSearchUIItem item = CreatePersonItem(p);
-            if (currentSelectPersonnels.Contains(p))
+            Personnel pt = currentSelectPersonnels.Find((it) => it.Id == p.Id);
+            if (pt != null)
             {
                 item.SetToggle(true);
             }
@@ -459,7 +460,11 @@ public class HistoryPersonsSearchUI : MonoBehaviour
     {
         //HistoryPersonsSearchUIItem item = selectPersonnelList.Find((i) => i.personnel == personnelT);
         //selectPersonnelList.Remove(item);
-        currentSelectPersonnels.Remove(personnelT);
+        Personnel p = currentSelectPersonnels.Find((i) => i.Id == personnelT.Id);
+        if (p != null)
+        {
+            currentSelectPersonnels.Remove(p);
+        }
         RemoveSelectItem(personnelT);
     }
 

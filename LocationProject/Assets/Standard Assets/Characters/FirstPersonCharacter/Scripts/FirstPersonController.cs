@@ -56,7 +56,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
-           
+            m_MouseLook.onlyLockCursor = true;//远程，只隐藏鼠标，不锁定
         }
         
         /// <summary>
@@ -112,6 +112,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+            if (IsMouseOutRange()) return;
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
@@ -250,14 +251,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
         }
-
+        /// <summary>
+        /// 设置第一次进入漫游时，鼠标的默认位置
+        /// </summary>
+        public void SetFirstMousePos()
+        {
+            m_MouseLook.SetMouseOrginalPos(Input.mousePosition);
+        }
 
         private void RotateView()
         {
+            if (IsMouseOutRange()) return;
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 
-
+        private bool IsMouseOutRange()
+        {
+            return false;
+            //Vector2 mousePos = Input.mousePosition;
+            //if (mousePos.x < 0 || mousePos.y < 0 || mousePos.x > Screen.width || mousePos.y > Screen.height) return true;
+            //else return false;
+        }
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             Rigidbody body = hit.collider.attachedRigidbody;

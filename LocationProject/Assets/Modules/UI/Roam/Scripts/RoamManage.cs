@@ -208,6 +208,7 @@ public class RoamManage : MonoBehaviour
     /// </summary>
     public void EntranceRoam()
     {
+       
         PromptWindow.transform.GetChild(0).gameObject.SetActive(true);
         PromptWindow.transform.GetChild(1).gameObject.SetActive(true);
         PromptWindow.transform.GetChild(2).gameObject.SetActive(true);
@@ -216,6 +217,7 @@ public class RoamManage : MonoBehaviour
         PromptWindow.transform.GetChild(5).gameObject.SetActive(true );
         PromptWindow.transform.GetChild(6).gameObject.SetActive(false);
         PromptWindow.transform.GetChild(7).gameObject.SetActive(false);
+        PromptWindow.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = "进入飞行模式";
     }
     /// <summary>
     /// 退出漫游时操作栏的改变
@@ -230,6 +232,7 @@ public class RoamManage : MonoBehaviour
         PromptWindow.transform.GetChild(4).gameObject.SetActive(false);
         PromptWindow.transform.GetChild(6).gameObject.SetActive(false);
         PromptWindow.transform.GetChild(7).gameObject.SetActive(false);
+
     }
     /// <summary>
     /// 进入室内操作栏改变
@@ -288,7 +291,11 @@ public class RoamManage : MonoBehaviour
         }
         else
         {
-            //SetLight(false );
+            if(DevSubsystemManage.Instance.IsFPSInBuilding())
+            {
+                Debug.LogError("FPS still in building...");
+                return;
+            }
             EntranceRoam();
         }
     }

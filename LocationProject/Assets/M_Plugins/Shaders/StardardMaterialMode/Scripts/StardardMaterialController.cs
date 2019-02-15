@@ -76,9 +76,9 @@ namespace StardardShader
         //    SetRenderingMode(RenderingMode.Transparent, colorT, true);
         //}
 
-        public void SetMatsTransparent(Color colorT)
+        public void SetMatsTransparent(Color colorT, bool isClearMainTexture = true)
         {
-            SetRenderingMode(RenderingMode.Transparent, colorT, true);
+            SetRenderingMode(RenderingMode.Transparent, colorT, isClearMainTexture);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace StardardShader
                     StardardMaterialEntity entity = matEntitys.Find((item) => item.mat == m);
                     if (entity == null)
                     {
-                        if (m == null)
+                        if (m == null||m.name=="Default-Material")
                         {
                             continue;
                         }

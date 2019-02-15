@@ -12,5 +12,9 @@ public class MouseTranslatePro : MouseTranslate
     {
         targetOffset= pos - areaSettings.center.position;
     }
+    public void ResetTranslateOffset()
+    {
+        targetOffset = Vector3.zero;
+    }
 
 }

@@ -17,7 +17,7 @@ public class DeviceFollowUI : MonoBehaviour {
     /// <summary>
     /// 打开界面按钮
     /// </summary>
-    public Button BgButton;
+    public Toggle BgToggle;
 
     /// <summary>
     /// 弹窗
@@ -33,10 +33,7 @@ public class DeviceFollowUI : MonoBehaviour {
     public Text InfoText;
 
     private DevNode devNode;
-    /// <summary>
-    /// 是否显示
-    /// </summary>
-    private bool isShow;
+
 
     /// <summary>
     /// 温度信息模块
@@ -46,26 +43,25 @@ public class DeviceFollowUI : MonoBehaviour {
     void Start()
     {
         DevInfoButton.onClick.AddListener(ShowMonitor);
-        BgButton.onClick.AddListener(ShowBg);
+        BgToggle.onValueChanged.AddListener(ShowBg);
 
     }
     /// <summary>
     /// 显示/关闭 窗体
     /// </summary>
-    private void ShowBg()
+    private void ShowBg(bool isOn)
     {
-        if (isShow) Hide();
-        else Show();
+        if (isOn) Show();
+        else Hide();
     }
     /// <summary>
     /// 显示背景
     /// </summary>
     public void Show()
     {
-        if (CurrentMonitor != null && CurrentMonitor != this) CurrentMonitor.Hide();
+        if (CurrentMonitor != null && CurrentMonitor != this) CurrentMonitor.BgToggle.isOn=false;
         CurrentMonitor = this;
         devNode.HighlightOn();
-        isShow = true;
         InfoBg.SetActive(true);
         if (TitleText.text != devNode.Info.Name) TitleText.text = devNode.Info.Name;
     }
@@ -74,7 +70,6 @@ public class DeviceFollowUI : MonoBehaviour {
     /// </summary>
     public void Hide()
     {
-        isShow = false;
         CurrentMonitor = null;
         InfoBg.SetActive(false);
     }
@@ -104,10 +99,15 @@ public class DeviceFollowUI : MonoBehaviour {
     /// </summary>
     private void ShowMonitor()
     {
-        FacilityInfoManage manager = FacilityInfoManage.Instance;
-        if (manager)
+        FacilityDevManage manager = FacilityDevManage.Instance;
+        if(manager)
         {
             manager.Show(devNode.Info);
         }
+        //FacilityInfoManage manager = FacilityInfoManage.Instance;
+        //if (manager)
+        //{
+        //    manager.Show(devNode.Info);
+        //}
     }
 }

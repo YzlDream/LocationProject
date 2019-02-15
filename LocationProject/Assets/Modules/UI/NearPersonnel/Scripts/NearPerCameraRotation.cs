@@ -14,9 +14,11 @@ public class NearPerCameraRotation : MonoBehaviour {
 
     public Toggle  CaneraPoint;
      public GameObject selectCam;
+
     string camName;
     Color  EnterColor =new  Color(0, 0, 0, 0);
     Color ExitColor= new Color(255 / 255, 255 / 255, 255 / 255, 255 / 255);
+    
     void Start () {
         ClickChangeImage(CameraExample);
         CaneraPoint.onValueChanged.AddListener(CamClick_Toggle);
@@ -43,10 +45,11 @@ public class NearPerCameraRotation : MonoBehaviour {
 
         
     }
-    public void GetNearPersonnelCamInfo(NearbyDev devList)
+    public void GetNearPersonnelCamInfo(NearbyDev devList, int total, int i)
     {
-        camName = devList.Name.ToString();
-
+       
+        camName = devList.TypeName .ToString();
+        
         this.transform.GetComponent<RectTransform >().anchoredPosition3D  = new Vector3(devList.X, devList.Z , devList.Y );
         devId = devList.id;
         RoomFactory.Instance.GetDevByid(devId, (devNodeT) =>
@@ -84,14 +87,23 @@ public class NearPerCameraRotation : MonoBehaviour {
         if (ison)
         {
             nearPersonnelCameraInfo.camTog.isOn = true;
+         //   ChangeScrollbarValue();
         }
         else
         {
             nearPersonnelCameraInfo.camTog.isOn = false ;
         }
     }
-        // Update is called once per frame
-        void Update () {
+    /// <summary>
+    /// 改便滑动条的数值
+    /// </summary>
+    public void ChangeScrollbarValue()
+    {
+    
+
+    }
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

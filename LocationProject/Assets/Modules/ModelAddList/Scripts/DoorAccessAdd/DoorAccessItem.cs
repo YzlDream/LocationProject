@@ -499,6 +499,7 @@ public class DoorAccessItem : MonoBehaviour {
             else return false;
         }
     }
+
     /// <summary>
     /// 漫游人物进入
     /// </summary>
@@ -560,12 +561,12 @@ public class DoorAccessItem : MonoBehaviour {
         DevSubsystemManage manager = DevSubsystemManage.Instance;
         if (isEnterBuilding)
         {
-            if(!manager.IsBuildingExist(doorBuilding))
+            doorBuilding.ShowBuildingDev(true);
+            RoamManage.Instance.SetLight(true);
+            if (!manager.IsBuildingExist(doorBuilding))
             {
                 //Debug.LogError(string.Format("{0} enter", doorBuilding.NodeName));
-                DevSubsystemManage.Instance.SetTriggerBuilding(doorBuilding, true);
-                doorBuilding.ShowBuildingDev(true);
-                RoamManage.Instance.SetLight(true);
+                DevSubsystemManage.Instance.SetTriggerBuilding(doorBuilding, true);                                
                 if (!doorBuilding.IsDevCreate)
                 {
                     doorBuilding.IsDevCreate = true;
@@ -575,11 +576,10 @@ public class DoorAccessItem : MonoBehaviour {
         }
         else
         {
-            //Debug.LogError(string.Format("{0} leave",doorBuilding.NodeName));
-            if(!doorBuilding.IsFPSEnter)
+            if (!manager.IsBuildingExist(doorBuilding))
             {
                 DevSubsystemManage.Instance.SetTriggerBuilding(doorBuilding, false);
-                doorBuilding.ShowBuildingDev(false);
+                //doorBuilding.ShowBuildingDev(false);
                 RoamManage.Instance.SetLight(false);
             }           
         }

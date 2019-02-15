@@ -139,7 +139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1503607446806034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.29, y: 0, z: -49.22}
+  m_LocalPosition: {x: 5.724, y: 0, z: -49.094}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4740505072009542}
@@ -152,7 +152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225912828632404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 898.4211, y: 0, z: 1112.381}
+  m_LocalPosition: {x: 1369.6029, y: 0, z: 1012.7637}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4639330768248972}
@@ -180,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730465006642502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67, y: 0, z: -53.67}
+  m_LocalPosition: {x: 67.253, y: 0, z: -53.647}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4740505072009542}
@@ -210,7 +210,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1927794890109834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40.9, y: 0, z: 36.43}
+  m_LocalPosition: {x: 41.206, y: 0, z: 36.287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4740505072009542}
@@ -223,7 +223,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1302725326298788}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 37.64, y: 0, z: -35.59}
+  m_LocalPosition: {x: 37.861, y: 0, z: -35.535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4740505072009542}
@@ -445,9 +445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547fd6d061f16bb4f85068bbe14f4b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: {x: 1.685735, y: 0, z: 1.6869613}
-  axisZero: {x: 1372.066, y: 0, z: 1013.3524}
+  scale: {x: 1.6892543, y: 0, z: 1.6879051}
+  axisZero: {x: 1369.6029, y: 0, z: 1012.7637}
   direction: {x: -1, y: 1, z: -1}
+  axisZeroObj: {fileID: 4350942434162552}
   locationManager: {fileID: 0}
   list:
   - Name: "\u4E3B\u5382\u623F1"
@@ -466,24 +467,6 @@ MonoBehaviour:
     C: 0
     _A: -1648.2
     _B: -2244
-    _C: 0
-    iSSuccess: 1
-  - Name: "\u96C6\u63A7\u697C1"
-    targetObj: {fileID: 1302725326298788}
-    A: 1769.4
-    B: 2249.5
-    C: 0
-    _A: -1769.4
-    _B: -2249.5
-    _C: 0
-    iSSuccess: 1
-  - Name: "\u96C6\u63A7\u697C2"
-    targetObj: {fileID: 1503607446806034}
-    A: 1792.5
-    B: 2304
-    C: 0
-    _A: -1792.5
-    _B: -2304
     _C: 0
     iSSuccess: 1
 --- !u!135 &135408492952680002
